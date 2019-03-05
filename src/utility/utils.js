@@ -28,5 +28,14 @@ export default {
       neutral: data.neutral != null ? data.neutral : 0,
       timeAgo: moment(data.createdDate.toDate()).fromNow()
     };
+  },
+
+  extractCategoryData: documentSnap => {
+    const data = documentSnap.data();
+    return {
+      id: data.id != null ? data.id : "",
+      image: data.image != null ? data.image : "",
+      name: data.name != null ? data.name : ""
+    };
   }
 };

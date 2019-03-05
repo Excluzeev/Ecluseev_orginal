@@ -5,40 +5,52 @@ import utils from "../../utility/utils";
 export default {
   namespaced: true,
   state: {
-    categoriesTrailers: []
+    // categoriesTrailers: []
   },
   getters: {
     categoriesTrailers: state => {
       return state.categoriesTrailers;
     }
   },
-  mutations: {
-    addNewCategoryTrailers(state, data) {
-      state.categoriesTrailers.push(data);
-    }
-  },
+  mutations: {},
   actions: {
-    fetchCategoryTrailers({ state, commit }, categoryId, categoryName) {
+    fetchCategoryTrailers: (
+      { state, commit },
+      { categoryId, categoryName }
+    ) => {
       return new Promise((resolve, reject) => {
         let catTrailers = {
           catId: categoryId,
           catName: categoryName
         };
-        console.log(fireStore);
-        console.log(collections.trailerCollection);
         fireStore
           .collection(collections.trailerCollection)
           .where("categoryId", "==", categoryId)
+          .orderBy("createdDate", "desc")
           .get()
           .then(querySnapshot => {
-            this.trailers = [];
+            let trailers = [];
             querySnapshot.forEach(doc => {
-              console.log(utils.extractTrailerData(doc));
-              this.trailers.push(utils.extractTrailerData(doc));
+              trailers.push(utils.extractTrailerData(doc));
             });
-            catTrailers["trailers"] = this.trailers;
-            commit("addNewCategoryTrailers", catTrailers);
-            resolve(state.categoriesTrailers);
+            if (trailers.length > 0) {
+              catTrailers["trailers"] = trailers;
+              resolve(catTrailers);
+            } else {
+              reject();
+            }
+          });
+      });
+    },
+    fetchTrailer: ({ state, commit }, { trailerId }) => {
+      console.log(trailerId);
+      return new Promise((resolve, reject) => {
+        fireStore
+          .collection(collections.trailerCollection)
+          .doc(trailerId)
+          .get()
+          .then(documentSnapshot => {
+            resolve(utils.extractTrailerData(documentSnapshot));
           });
       });
     }

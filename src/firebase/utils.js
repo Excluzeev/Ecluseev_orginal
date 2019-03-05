@@ -1,3 +1,4 @@
 export default {
-  trailerCollection: "trailers"
+  trailerCollection: "trailers",
+  categoryCollection: "categories"
 };
