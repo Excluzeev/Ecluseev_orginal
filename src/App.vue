@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 import FeaturedItem from "./components/FeaturedItem";
 import EToolBar from "./components/EToolBar";
 import HomeMenu from "./components/HomeMenu";
