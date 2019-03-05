@@ -1,5 +1,3 @@
 export default {
-  collections: {
-    trailerCollection: "trailers"
-  }
+  trailerCollection: "trailers"
 };
