@@ -5,9 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "cbuild": "vvue-cli-service build --mode production --dest public --target app --modern --dashboard",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "css-loader": "^2.1.0",
     "firebase": "^5.8.5",
     "moment": "^2.24.0",
     "register-service-worker": "^1.5.2",
@@ -27,6 +29,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "material-design-icons-iconfont": "^4.0.5",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
     "stylus": "^0.54.5",

@@ -44,7 +44,7 @@ export default {
     },
     fetchTrailer: ({ state, commit }, { trailerId }) => {
       console.log(trailerId);
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         fireStore
           .collection(collections.trailerCollection)
           .doc(trailerId)
