@@ -10,6 +10,7 @@ import "video.js/dist/video-js.css";
 import "vue-video-player/src/custom-theme.css";
 import "videojs-flash";
 import "videojs-contrib-hls";
+import "material-design-icons-iconfont/dist/material-design-icons.css";
 // import "videojs-contrib-hls/dist/videojs-contrib-hls";
 
 Vue.config.productionTip = false;

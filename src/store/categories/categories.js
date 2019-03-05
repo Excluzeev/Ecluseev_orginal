@@ -8,7 +8,7 @@ export default {
   getters: {},
   mutations: {},
   actions: {
-    fetchCategories: ({ state, commit }) => {
+    fetchCategories: () => {
       return new Promise(resolve => {
         fireStore
           .collection(collections.categoryCollection)
