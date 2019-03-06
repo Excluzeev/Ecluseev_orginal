@@ -2,7 +2,7 @@
   <div style="height:100%" class="blue lighten-1">
     <v-content>
       <v-container fluid fill-height>
-        <v-layout style="padding-top:10%" align-center justify-center>
+        <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <img
               style="padding-bottom:3%;padding-left:13%"
@@ -48,7 +48,7 @@
             </v-card>
           </v-flex>
         </v-layout>
-        <v-snackbar v-model="snackbar" bottom >
+        <v-snackbar v-model="snackbar" bottom>
           {{ toastText }}
         </v-snackbar>
       </v-container>

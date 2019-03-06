@@ -1,6 +1,6 @@
 <template>
   <v-app>
-     <EToolBar v-if="isNavBar"/>
+    <EToolBar v-if="isNavBar" />
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -16,7 +16,10 @@ export default {
   },
   computed: {
     isNavBar() {
-      return this.$route.meta.showNav == undefined ? true : false;
+      return this.$route.meta.showNav == undefined ||
+        this.$route.meta.showNav == true
+        ? true
+        : false;
     }
   }
 };

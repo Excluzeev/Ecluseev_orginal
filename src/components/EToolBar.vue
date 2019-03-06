@@ -4,15 +4,13 @@
       <img alt="Excluzeev logo" src="../assets/excluzeev.png" height="50px" />
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <NotificationsMenu />
-    <AccountMenu />
-    <!-- <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn> -->
+    <NotificationsMenu v-if="isNavBar" />
+    <AccountMenu v-if="isNavBar" />
+    <router-link to="/login" v-if="!isNavBar">
+      <v-btn flat>
+        <span class="mr-2">Login</span>
+      </v-btn>
+    </router-link>
   </v-toolbar>
 </template>
 
@@ -24,6 +22,14 @@ export default {
   components: {
     AccountMenu,
     NotificationsMenu
+  },
+  computed: {
+    isNavBar() {
+      return this.$route.meta.showNav == undefined ||
+        this.$route.meta.showNav == false
+        ? true
+        : false;
+    }
   }
 };
 </script>

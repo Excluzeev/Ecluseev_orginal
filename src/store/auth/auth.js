@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { fireStore, auth } from "../../firebase/init";
 import collections from "../../firebase/utils";
 import utils from "../../utility/utils";

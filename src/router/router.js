@@ -6,8 +6,6 @@ import Login from "../views/auth/Login";
 import Registration from "../views/auth/Registration";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
-
-import store from "../store/index";
 import { auth } from "../firebase/init";
 
 Vue.use(VueRouter);
@@ -17,12 +15,14 @@ const router = new VueRouter({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      meta: { noAuth: true, showNav: true }
     },
     {
       path: "/trailer/:trailerId",
       name: "trailer-single",
-      component: TrailerDetail
+      component: TrailerDetail,
+      meta: { noAuth: true, showNav: true }
     },
     {
       path: "/login",
