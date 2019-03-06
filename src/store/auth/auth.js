@@ -31,8 +31,6 @@ export default {
       });
     },
     loginUser: ({ state }, { email, password }) => {
-      console.log(email);
-      console.log(password);
       return new Promise(resolve => {
         let errorData = { error: false, message: "Login Successful" };
         auth
@@ -81,6 +79,14 @@ export default {
                 await transaction.set(userRef, userDoc);
               });
             }
+            this.dispatch('checkUser').then(userRecord => {
+              if(userRecord.exist) {
+                resolve(errorData);
+              } else {
+                errorData = { error: true, message: "User not found. Please register." };
+                resolve(errorData);
+              }
+            });
             resolve(errorData);
           })
           .catch(error => {
@@ -109,6 +115,9 @@ export default {
             resolve(data);
           });
       });
+    },
+    signOut: () => {
+      auth.signOut();
     }
   }
 };

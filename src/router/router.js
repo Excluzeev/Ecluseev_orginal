@@ -7,6 +7,7 @@ import Registration from "../views/auth/Registration";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
 import { auth } from "../firebase/init";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -16,19 +17,28 @@ const router = new VueRouter({
       path: "/",
       name: "home",
       component: Home,
-      meta: { noAuth: true, showNav: true }
+      meta: { showNav: true }
     },
     {
       path: "/trailer/:trailerId",
       name: "trailer-single",
       component: TrailerDetail,
-      meta: { noAuth: true, showNav: true }
+      meta: { showNav: true }
     },
     {
       path: "/login",
       name: "login",
       component: Login,
       meta: { noAuth: true, showNav: false }
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      beforeEnter(to, from, next) {
+        store.dispatch("signOut").then(() => {
+          next({ name: "home" });
+        });
+      }
     },
     {
       path: "/registration",
@@ -69,7 +79,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.noAuth) {
     auth.onAuthStateChanged(user => {
       if (user) {
-        next({ name: "home", redirect: from.fullPath });
+        next({ name: "home" });
       } else {
         next();
       }

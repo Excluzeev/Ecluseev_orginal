@@ -90,18 +90,12 @@ export default {
             password: this.password
           })
           .then(data => {
+            console.log(data);
             if (data.error) {
               this.toastText = data.message;
               this.snackbar = true;
             } else {
-              this.$store.dispatch("auth/checkUser").then(userRecord => {
-                if (userRecord.exists) {
-                  this.$router.push("/");
-                } else {
-                  this.toastText = "User not found. Please register.";
-                  this.snackbar = true;
-                }
-              });
+              this.$router.push("/");
             }
           });
       } else {

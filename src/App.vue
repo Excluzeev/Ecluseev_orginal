@@ -16,10 +16,7 @@ export default {
   },
   computed: {
     isNavBar() {
-      return this.$route.meta.showNav == undefined ||
-        this.$route.meta.showNav == true
-        ? true
-        : false;
+      return this.$route.meta.showNav != false;
     }
   }
 };

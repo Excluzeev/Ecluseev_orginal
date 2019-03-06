@@ -12,6 +12,11 @@ import "videojs-flash";
 import "videojs-contrib-hls";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
 // import "videojs-contrib-hls/dist/videojs-contrib-hls";
+import { auth } from "./firebase/init";
+
+auth.onAuthStateChanged(user => {
+  store.commit("setUser");
+});
 
 Vue.config.productionTip = false;
 

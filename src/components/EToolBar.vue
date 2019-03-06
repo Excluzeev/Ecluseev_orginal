@@ -4,9 +4,9 @@
       <img alt="Excluzeev logo" src="../assets/excluzeev.png" height="50px" />
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <NotificationsMenu v-if="isNavBar" />
-    <AccountMenu v-if="isNavBar" />
-    <router-link to="/login" v-if="!isNavBar">
+    <NotificationsMenu v-if="!showLogin" />
+    <AccountMenu v-if="!showLogin" />
+    <router-link to="/login" v-if="showLogin">
       <v-btn flat>
         <span class="mr-2">Login</span>
       </v-btn>
@@ -17,6 +17,7 @@
 <script>
 import AccountMenu from "./AccountMenu.vue";
 import NotificationsMenu from "./NotificationsMenu.vue";
+import store from "../store/index";
 
 export default {
   components: {
@@ -24,12 +25,12 @@ export default {
     NotificationsMenu
   },
   computed: {
-    isNavBar() {
-      return this.$route.meta.showNav == undefined ||
-        this.$route.meta.showNav == false
-        ? true
-        : false;
+    showLogin() {
+      return store.getters.getUser == null;
     }
+  },
+  data: () => {
+    return {};
   }
 };
 </script>

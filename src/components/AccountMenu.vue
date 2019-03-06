@@ -9,8 +9,10 @@
     >
     <v-card>
       <v-list dense>
-        <v-list-tile v-for="notification in notifications" :key="notification">
-          <v-list-tile-title v-text="notification" />
+        <v-list-tile >
+          <router-link to="/logout">
+            <v-list-tile-title >LogOut</v-list-tile-title>
+          </router-link>
         </v-list-tile>
       </v-list>
     </v-card>
