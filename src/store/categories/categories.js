@@ -19,7 +19,6 @@ export default {
               categories.push(utils.extractCategoryData(doc));
             });
             // commit("addNewCategoryTrailers", catTrailers);
-            console.log(categories);
             resolve(categories);
           });
       });

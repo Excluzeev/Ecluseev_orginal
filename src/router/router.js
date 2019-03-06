@@ -1,15 +1,18 @@
 import Vue from "vue";
-import Router from "vue-router";
+import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import TrailerDetail from "../views/TrailerDetail";
-import Login from "../views/auth/login";
-import Registration from "../views/auth/registration";
-import ForgotPassword from "../views/auth/forgotPassword";
-import ResetPassword from "../views/auth/resetPassword";
+import Login from "../views/auth/Login";
+import Registration from "../views/auth/Registration";
+import ForgotPassword from "../views/auth/ForgotPassword";
+import ResetPassword from "../views/auth/ResetPassword";
 
-Vue.use(Router);
+import store from "../store/index";
+import { auth } from "../firebase/init";
 
-export default new Router({
+Vue.use(VueRouter);
+
+const router = new VueRouter({
   routes: [
     {
       path: "/",
@@ -24,22 +27,26 @@ export default new Router({
     {
       path: "/login",
       name: "login",
-      component: Login
+      component: Login,
+      meta: { noAuth: true, showNav: false }
     },
     {
       path: "/registration",
       name: "registration",
-      component: Registration
+      component: Registration,
+      meta: { noAuth: true, showNav: false }
     },
     {
       path: "/forgotPassword",
       name: "ForgotPassword",
-      component: ForgotPassword
+      component: ForgotPassword,
+      meta: { noAuth: true, showNav: false }
     },
     {
       path: "/resetPassword",
       name: "ResetPassword",
-      component: ResetPassword
+      component: ResetPassword,
+      meta: { noAuth: true, showNav: false }
     }
     // {
     //   path: "/",
@@ -57,3 +64,18 @@ export default new Router({
     // }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.noAuth) {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        next({ name: "home", redirect: from.fullPath });
+      } else {
+        next();
+      }
+    });
+  } else {
+    next();
+  }
+});
+export default router;

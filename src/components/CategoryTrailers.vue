@@ -49,7 +49,6 @@ export default {
       categoryId: this.$props.catId,
       categoryName: this.$props.catName
     };
-    console.log(cat);
     this.$store.dispatch("trailers/fetchCategoryTrailers", cat).then(data => {
       this.categoryTrailers.push(data);
     });

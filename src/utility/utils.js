@@ -37,5 +37,17 @@ export default {
       image: data.image != null ? data.image : "",
       name: data.name != null ? data.name : ""
     };
+  },
+
+  extractUserData: documentSnap => {
+    let data = documentSnap.data();
+    localStorage.setItem("user", JSON.stringify(data));
+    return data;
+  },
+
+  getUser: () => {
+    return JSON.parse(
+      localStorage.getItem("user") != null ? localStorage.getItem("user") : ""
+    );
   }
 };

@@ -1,4 +1,5 @@
 export default {
   trailerCollection: "trailers",
-  categoryCollection: "categories"
+  categoryCollection: "categories",
+  usersCollections: "users"
 };
