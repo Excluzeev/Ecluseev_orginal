@@ -14,7 +14,7 @@ import HomeMenu from "../components/HomeMenu";
 import CategoriesTrailerVideos from "../components/CategoriesTrailerVideos";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
     FeaturedItem,
     HomeMenu,

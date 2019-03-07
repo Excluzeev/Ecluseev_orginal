@@ -78,6 +78,18 @@
                     </v-btn>
                   </div>
                 </v-form>
+                <div class="padding"></div>
+                <div class="text-xs-center">
+                  <p  style="color: gray;">OR</p>
+                  <v-btn
+                          flat
+                          class="white--text v-btn--round"
+                          color="blue lighten-1"
+                          @click="goLogin"
+                  >
+                    Login
+                  </v-btn>
+                </div>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -121,7 +133,6 @@ export default {
     this.registerStoreModule("auth", authModule);
   },
   beforeDestroy: function() {
-    this.showToast("Registration successfull");
   },
   methods: {
     showToast(msg) {
@@ -167,6 +178,7 @@ export default {
           } else {
             this.$store.dispatch("auth/checkUser").then(userRecord => {
               if (userRecord.exists) {
+                this.showToast("Registration successfull");
                 this.$router.push("/");
               } else {
                 this.showToast("Unknow error please try again.");
@@ -175,7 +187,16 @@ export default {
             });
           }
         });
+    },
+    goLogin () {
+      this.$router.replace({ name: "Login" });
     }
   }
 };
 </script>
+
+<style scoped>
+  .padding {
+    padding: 10px;
+  }
+  </style>

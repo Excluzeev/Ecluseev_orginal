@@ -113,7 +113,7 @@ export default {
           if (data.error) {
             this.processing = false;
             this.showToast("Invalid Login. Please Login again");
-            this.$router.push("/login");
+            this.$router.push({ name: "Login" });
           } else {
             this.processing = false;
             this.showToast("Success");

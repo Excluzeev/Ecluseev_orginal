@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div style="height:100%" class="blue lighten-1">
     <v-content>
       <v-container fluid fill-height>
@@ -47,6 +47,15 @@
                     </v-btn>
                   </div>
                 </v-form>
+                <div class="text-xs-center">
+                <v-btn
+                  flat
+                  class="white--text v-btn--round"
+                  color="blue lighten-1"
+                  @click="goLogin"
+                  >Login</v-btn
+                >
+                </div>
               </v-card-text>
             </v-card>
             <v-snackbar v-model="snackbar" bottom>
@@ -108,6 +117,9 @@ export default {
         this.snackbar = true;
         this.processing = false;
       }
+    },
+    goLogin() {
+      this.$router.back();
     }
   }
 };

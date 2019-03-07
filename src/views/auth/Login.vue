@@ -35,6 +35,16 @@
                     v-model="password"
                     :rules="[rules.required]"
                   ></v-text-field>
+                  <div class="text-xs-right">
+                    <v-btn
+                            flat
+                            class="white--text v-btn--round"
+                            color="blue lighten-1"
+                            @click="goForgotPassword"
+                    >
+                      Forgot Password?
+                    </v-btn>
+                  </div>
                   <div class="text-xs-center">
                     <v-btn
                       class="white--text v-btn--round"
@@ -53,6 +63,18 @@
                     </v-btn>
                   </div>
                 </v-form>
+                <div class="padding"></div>
+                <div class="text-xs-center">
+                  <p  style="color: gray;">OR</p>
+                <v-btn
+                  flat
+                  class="white--text v-btn--round"
+                  color="blue lighten-1"
+                  @click="goRegistration"
+                >
+                  Create an account
+                </v-btn>
+                </div>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -91,7 +113,6 @@ export default {
     this.registerStoreModule("auth", authModule);
   },
   beforeDestroy: function() {
-    this.showToast("Logged in successfully");
   },
   methods: {
     showToast(msg) {
@@ -114,14 +135,31 @@ export default {
               this.processing = false;
               this.showToast(data.message);
             } else {
-              this.$router.push("/");
+              // TODO: Fix it
+              this.processing = false;
+              // this.showToast("Logged in successfully");
+              setTimeout(() => {
+                this.$router.push("/");
+              }, 1000);
             }
           });
       } else {
         this.showToast("Invalid Email");
         this.processing = true;
       }
+    },
+    goRegistration() {
+      this.$router.replace({ name: "Registration" });
+    },
+    goForgotPassword() {
+      this.$router.push({ name: "ForgotPassword" });
     }
   }
 };
 </script>
+
+<style scoped>
+  .padding {
+    padding: 10px;
+  }
+</style>
