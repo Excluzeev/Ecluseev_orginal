@@ -36,7 +36,7 @@
                   :rules="[rules.required]"
                 ></v-text-field>
                 <v-textarea
-                  outline
+                  class="blue--text"
                   name="Description"
                   label="Description"
                   v-model="description"
@@ -193,7 +193,7 @@ export default {
       this.cover = URL.createObjectURL(this.coverFile);
     },
     onCategorySelected(selected) {
-      if (selected.name == "Causes") {
+      if (selected.name == "Call-to-Action") {
         this.showChannelType = true;
       } else {
         this.showChannelType = false;
