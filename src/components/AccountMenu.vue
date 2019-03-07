@@ -9,9 +9,9 @@
     >
     <v-card>
       <v-list dense>
-        <v-list-tile >
+        <v-list-tile>
           <router-link to="/logout">
-            <v-list-tile-title >LogOut</v-list-tile-title>
+            <v-list-tile-title>LogOut</v-list-tile-title>
           </router-link>
         </v-list-tile>
       </v-list>

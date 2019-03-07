@@ -33,7 +33,9 @@
                     type="password"
                   ></v-text-field>
                   <div class="text-xs-center">
-                    <v-btn class="white--text" color="blue lighten-1"
+                    <v-btn
+                      class="white--text v-btn--round"
+                      color="blue lighten-1"
                       >Reset Password</v-btn
                     >
                   </div>
