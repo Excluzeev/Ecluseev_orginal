@@ -41,13 +41,13 @@ export default {
 
   extractUserData: documentSnap => {
     let data = documentSnap.data();
-    localStorage.setItem("user", JSON.stringify(data));
+    localStorage.setItem("fUser", JSON.stringify(data));
     return data;
   },
 
   getUser: () => {
     return JSON.parse(
-      localStorage.getItem("user") != null ? localStorage.getItem("user") : ""
+      localStorage.getItem("fUser") != null ? localStorage.getItem("fUser") : ""
     );
   }
 };

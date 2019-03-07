@@ -90,7 +90,6 @@ export default {
             password: this.password
           })
           .then(data => {
-            console.log(data);
             if (data.error) {
               this.toastText = data.message;
               this.snackbar = true;

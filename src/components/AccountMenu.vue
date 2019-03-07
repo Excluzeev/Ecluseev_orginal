@@ -8,7 +8,12 @@
       >account_circle</v-icon
     >
     <v-card>
-      <v-list dense>
+      <v-list>
+        <v-list-tile v-if="!hideSignUpContentCreator">
+          <router-link to="/SignUpCC">
+            <v-list-tile-title>SignUp as Content Creator</v-list-tile-title>
+          </router-link>
+        </v-list-tile>
         <v-list-tile>
           <router-link to="/logout">
             <v-list-tile-title>LogOut</v-list-tile-title>
@@ -20,17 +25,18 @@
 </template>
 
 <script>
+import store from "../store/index";
+
 export default {
   data() {
-    return {
-      notifications: [
-        "Mike, John responded to your email",
-        "You have 5 new tasks",
-        "You're now a friend with Andrew",
-        "Another Notification",
-        "Another One"
-      ]
-    };
+    return {};
+  },
+  computed: {
+    hideSignUpContentCreator() {
+      return store.getters.getFUser != null
+        ? store.getters.getFUser.isContentCreator
+        : false;
+    }
   }
 };
 </script>
