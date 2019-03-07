@@ -14,13 +14,17 @@ import "material-design-icons-iconfont/dist/material-design-icons.css";
 // import "videojs-contrib-hls/dist/videojs-contrib-hls";
 import { auth } from "./firebase/init";
 
+import Toasted from "vue-toasted";
+
 auth.onAuthStateChanged(user => {
   store.commit("setUser");
+  store.commit("fetchUser", { user });
 });
 
 Vue.config.productionTip = false;
 
 Vue.use(VueVideoPlayer);
+Vue.use(Toasted);
 
 new Vue({
   router,

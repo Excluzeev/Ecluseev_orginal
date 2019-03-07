@@ -15,6 +15,7 @@ export default {
   actions: {
     checkUser: ({ state }) => {
       let userId = auth.currentUser.uid;
+      console.log("Check User");
       return new Promise(async resolve => {
         let userRef = fireStore
           .collection(collections.usersCollections)
@@ -37,7 +38,14 @@ export default {
           .signInWithEmailAndPassword(email, password)
           .then(() => {
             errorData = { error: false, message: "Login Successful" };
-            resolve(errorData);
+            this.dispatch('checkUser').then(userRecord => {
+              if(userRecord.exist) {
+                resolve(errorData);
+              } else {
+                errorData = { error: true, message: "User not found. Please register." };
+                resolve(errorData);
+              }
+            });
           })
           .catch(error => {
             errorData = {
