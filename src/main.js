@@ -4,7 +4,7 @@ import App from "./App.vue";
 import store from "./store/index";
 import router from "./router/router";
 import "./registerServiceWorker";
-
+import titleMixin from "./mixins/titleMixin";
 import VueVideoPlayer from "vue-video-player";
 import "video.js/dist/video-js.css";
 import "vue-video-player/src/custom-theme.css";
@@ -25,6 +25,7 @@ Vue.config.productionTip = false;
 
 Vue.use(VueVideoPlayer);
 Vue.use(Toasted);
+Vue.mixin(titleMixin);
 
 new Vue({
   router,

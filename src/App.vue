@@ -11,6 +11,7 @@
 import EToolBar from "./components/EToolBar";
 export default {
   name: "App",
+  title: "Excluzeev - Stream. Crowdfunding. Social Network",
   components: {
     EToolBar
   },
