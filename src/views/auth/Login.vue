@@ -37,10 +37,10 @@
                   ></v-text-field>
                   <div class="text-xs-right">
                     <v-btn
-                            flat
-                            class="white--text v-btn--round"
-                            color="blue lighten-1"
-                            @click="goForgotPassword"
+                      flat
+                      class="white--text v-btn--round"
+                      color="blue lighten-1"
+                      @click="goForgotPassword"
                     >
                       Forgot Password?
                     </v-btn>
@@ -65,15 +65,15 @@
                 </v-form>
                 <div class="padding"></div>
                 <div class="text-xs-center">
-                  <p  style="color: gray;">OR</p>
-                <v-btn
-                  flat
-                  class="white--text v-btn--round"
-                  color="blue lighten-1"
-                  @click="goRegistration"
-                >
-                  Create an account
-                </v-btn>
+                  <p style="color: gray;">OR</p>
+                  <v-btn
+                    flat
+                    class="white--text v-btn--round"
+                    color="blue lighten-1"
+                    @click="goRegistration"
+                  >
+                    Create an account
+                  </v-btn>
                 </div>
               </v-card-text>
             </v-card>
@@ -112,8 +112,7 @@ export default {
   created() {
     this.registerStoreModule("auth", authModule);
   },
-  beforeDestroy: function() {
-  },
+  beforeDestroy: function() {},
   methods: {
     showToast(msg) {
       this.$toasted.show(msg, {
@@ -139,7 +138,7 @@ export default {
               this.processing = false;
               // this.showToast("Logged in successfully");
               setTimeout(() => {
-                this.$router.push("/");
+                this.$router.push({ name: "Home" });
               }, 1000);
             }
           });
@@ -159,7 +158,7 @@ export default {
 </script>
 
 <style scoped>
-  .padding {
-    padding: 10px;
-  }
+.padding {
+  padding: 10px;
+}
 </style>

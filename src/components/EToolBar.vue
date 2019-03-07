@@ -36,6 +36,7 @@ export default {
       return store.getters.getUser == null;
     },
     hideSignUpContentCreator() {
+      // console.log(store.getters.getFUser.isContentCreator);
       return store.getters.getFUser != null
         ? store.getters.getFUser.isContentCreator
         : false;
