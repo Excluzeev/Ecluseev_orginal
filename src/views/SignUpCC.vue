@@ -3,7 +3,7 @@
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
-          <v-card class="elevation-12">
+          <v-card class="elevation-9">
             <v-toolbar dark color="blue lighten-1">
               <v-toolbar-title>Sign up as Content Creator</v-toolbar-title>
             </v-toolbar>
