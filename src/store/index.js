@@ -102,6 +102,22 @@ export default new Vuex.Store({
         commit("setUser");
         resolve("Done");
       });
+    },
+    fetchCategories: async () => {
+      return new Promise(async resolve => {
+        let cats = [];
+        let categoriesRef = fireStore
+            .collection(collections.categoriesCollection)
+        try {
+          let categoriesQuerySnapshot = await categoriesRef.get();
+          categoriesQuerySnapshot.forEach(snapShot =>  {
+            cats.push(snapShot.data());
+          });
+          resolve(cats);
+        } catch (error) {
+          resolve(cats);
+        }
+      });
     }
   }
 });

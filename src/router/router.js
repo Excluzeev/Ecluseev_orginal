@@ -88,7 +88,10 @@ const router = new VueRouter({
       path: "/AddTrailer",
       name: "AddTrailer",
       component: AddTrailer,
-      meta: { noAuth: false, showNav: true, title: "Add a trailer" }
+      meta: { noAuth: false, showNav: true, title: "Add a trailer" },
+      props: (route) => ({
+        ...route.params
+      })
     }
     // {
     //   path: "/",
