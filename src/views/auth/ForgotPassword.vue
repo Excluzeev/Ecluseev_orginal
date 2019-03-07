@@ -34,12 +34,24 @@
                       class="white--text v-btn--round"
                       color="blue lighten-1"
                       type="submit"
-                      >Reset Password</v-btn
+                      :loading="processing"
+                      :disabled="processing"
+                      @click="loader = 'loading4'"
                     >
+                      Reset Password
+                      <template v-slot:loader>
+                        <span class="custom-loader">
+                          <v-icon light>cached</v-icon>
+                        </span>
+                      </template>
+                    </v-btn>
                   </div>
                 </v-form>
               </v-card-text>
             </v-card>
+            <v-snackbar v-model="snackbar" bottom>
+              {{ toastText }}
+            </v-snackbar>
           </v-flex>
         </v-layout>
       </v-container>
@@ -55,6 +67,7 @@ export default {
   data: () => {
     return {
       email: "",
+      processing: false,
       rules: {
         required: value => !!value || "Required.",
         email: value => {
@@ -63,6 +76,7 @@ export default {
         }
       },
       snackbar: false,
+
       toastText: "Login Success"
     };
   },
@@ -74,21 +88,25 @@ export default {
   methods: {
     doSendEmail() {
       if (this.rules.email(this.email)) {
+        this.processing = true;
         this.$store
           .dispatch("auth/resetPassword", { email: this.email })
           .then(data => {
             if (data.error) {
               this.toastText = data.message;
               this.snackbar = true;
+              this.processing = false;
             } else {
               this.toastText = data.message;
               this.snackbar = true;
+              this.processing = true;
               this.$router.push("/login");
             }
           });
       } else {
         this.toastText = "Invalid Email";
         this.snackbar = true;
+        this.processing = false;
       }
     }
   }

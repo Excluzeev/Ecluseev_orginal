@@ -40,17 +40,26 @@
                       class="white--text v-btn--round"
                       color="blue lighten-1"
                       type="submit"
-                      >Login</v-btn
+                      :loading="processing"
+                      :disabled="processing"
+                      @click="loader = 'loading4'"
                     >
+                      Login
+                      <template v-slot:loader>
+                        <span class="custom-loader">
+                          <v-icon light>cached</v-icon>
+                        </span>
+                      </template>
+                    </v-btn>
                   </div>
                 </v-form>
               </v-card-text>
             </v-card>
           </v-flex>
         </v-layout>
-        <v-snackbar v-model="snackbar" bottom>
+        <!-- <v-snackbar v-model="snackbar" bottom>
           {{ toastText }}
-        </v-snackbar>
+        </v-snackbar> -->
       </v-container>
     </v-content>
   </div>
@@ -72,7 +81,7 @@ export default {
           return pattern.test(value) || "Invalid e-mail.";
         }
       },
-      snackbar: false,
+      processing: false,
       toastText: "Login Success"
     };
   },
@@ -81,9 +90,20 @@ export default {
   created() {
     this.registerStoreModule("auth", authModule);
   },
+  beforeDestroy: function() {
+    this.showToast("Logged in successfully");
+  },
   methods: {
+    showToast(msg) {
+      this.$toasted.show(msg, {
+        theme: "toasted-primary",
+        position: "top-right",
+        duration: 2500
+      });
+    },
     doLogin() {
       if (this.rules.email(this.email)) {
+        this.processing = true;
         this.$store
           .dispatch("auth/loginUser", {
             email: this.email,
@@ -91,15 +111,15 @@ export default {
           })
           .then(data => {
             if (data.error) {
-              this.toastText = data.message;
-              this.snackbar = true;
+              this.processing = false;
+              this.showToast(data.message);
             } else {
               this.$router.push("/");
             }
           });
       } else {
-        this.toastText = "Invalid Email";
-        this.snackbar = true;
+        this.showToast("Invalid Email");
+        this.processing = true;
       }
     }
   }

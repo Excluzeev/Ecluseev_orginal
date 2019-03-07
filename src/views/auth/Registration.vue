@@ -65,17 +65,26 @@
                       class="white--text v-btn--round"
                       color="blue lighten-1"
                       type="submit"
-                      >Sign up</v-btn
+                      :loading="processing"
+                      :disabled="processing"
+                      @click="loader = 'loading4'"
                     >
+                      Sign Up
+                      <template v-slot:loader>
+                        <span class="custom-loader">
+                          <v-icon light>cached</v-icon>
+                        </span>
+                      </template>
+                    </v-btn>
                   </div>
                 </v-form>
               </v-card-text>
             </v-card>
           </v-flex>
         </v-layout>
-        <v-snackbar v-model="snackbar" bottom>
+        <!-- <v-snackbar v-model="snackbar" bottom>
           {{ toastText }}
-        </v-snackbar>
+        </v-snackbar> -->
       </v-container>
     </v-content>
   </div>
@@ -102,7 +111,7 @@ export default {
           return pattern.test(value) || "Invalid e-mail.";
         }
       },
-      snackbar: false,
+      processing: false,
       toastText: "Registration Success"
     };
   },
@@ -111,26 +120,36 @@ export default {
   created() {
     this.registerStoreModule("auth", authModule);
   },
+  beforeDestroy: function() {
+    this.showToast("Registration successfull");
+  },
   methods: {
+    showToast(msg) {
+      this.$toasted.show(msg, {
+        theme: "toasted-primary",
+        position: "top-right",
+        duration: 2500
+      });
+    },
     doSignUp() {
       if (!this.rules.email(this.email)) {
-        this.toastText = "Invalid Email";
-        this.snackbar = true;
+        this.showToast("Invalid Email");
+        this.processing = false;
         return;
       }
       if (this.firstName.isEmpty || this.lastName.isEmpty) {
-        this.toastText = "Invalid First/Last Name";
-        this.snackbar = true;
+        this.showToast("Invalid First/Last Name");
+        this.processing = false;
         return;
       }
       if (this.password.isEmpty || this.password.length < 8) {
-        this.toastText = "Password must be greater than 8 digits";
-        this.snackbar = true;
+        this.showToast("Password must be greater than 8 digits");
+        this.processing = false;
         return;
       }
       if (this.password != this.cPassword) {
-        this.toastText = "Passwords doesn't match.";
-        this.snackbar = true;
+        this.showToast("Passwords doesn't match.");
+        this.processing = false;
         return;
       }
 
@@ -143,15 +162,15 @@ export default {
         })
         .then(data => {
           if (data.error) {
-            this.toastText = data.message;
-            this.snackbar = true;
+            this.showToast(data.message);
+            this.processing = false;
           } else {
             this.$store.dispatch("auth/checkUser").then(userRecord => {
               if (userRecord.exists) {
                 this.$router.push("/");
               } else {
-                this.toastText = "UnKnow error please try again.";
-                this.snackbar = true;
+                this.showToast("Unknow error please try again.");
+                this.processing = false;
               }
             });
           }

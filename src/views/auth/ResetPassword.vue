@@ -36,7 +36,15 @@
                     <v-btn
                       class="white--text v-btn--round"
                       color="blue lighten-1"
-                      >Reset Password</v-btn
+                      :loading="processing"
+                      :disabled="processing"
+                      @click="loader = 'loading4'"
+                      >Reset Password
+                      <template v-slot:loader>
+                        <span class="custom-loader">
+                          <v-icon light>cached</v-icon>
+                        </span>
+                      </template></v-btn
                     >
                   </div>
                 </v-form>
