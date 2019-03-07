@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import SignUpCC from "../views/SignUpCC.vue";
+import CreateChannel from "../views/CreateChannel.vue";
+import AddTrailer from "../views/AddTrailer.vue";
 import TrailerDetail from "../views/TrailerDetail";
 import Login from "../views/auth/Login";
 import Registration from "../views/auth/Registration";
@@ -63,6 +65,18 @@ const router = new VueRouter({
       path: "/SignUpCC",
       name: "SignUpCC",
       component: SignUpCC,
+      meta: { noAuth: false, showNav: true }
+    },
+    {
+      path: "/CreateChannel",
+      name: "CreateChannel",
+      component: CreateChannel,
+      meta: { noAuth: false, showNav: true }
+    },
+    {
+      path: "/AddTrailer",
+      name: "AddTrailer",
+      component: AddTrailer,
       meta: { noAuth: false, showNav: true }
     }
     // {

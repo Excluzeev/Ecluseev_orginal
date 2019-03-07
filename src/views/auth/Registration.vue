@@ -62,7 +62,7 @@
                   ></v-text-field>
                   <div class="text-xs-center">
                     <v-btn
-                      class="white--text"
+                      class="white--text v-btn--round"
                       color="blue lighten-1"
                       type="submit"
                       >Sign up</v-btn
