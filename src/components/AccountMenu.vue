@@ -11,7 +11,7 @@
       <v-list>
         <v-list-tile v-if="!hideSignUpContentCreator">
           <router-link to="/SignUpCC">
-            <v-list-tile-title>SignUp as Content Creator</v-list-tile-title>
+            <v-list-tile-title>Sign up as Content Creator</v-list-tile-title>
           </router-link>
         </v-list-tile>
         <v-list-tile v-if="hideSignUpContentCreator">
@@ -21,7 +21,7 @@
         </v-list-tile>
         <v-list-tile>
           <router-link to="/logout">
-            <v-list-tile-title>LogOut</v-list-tile-title>
+            <v-list-tile-title>Logout</v-list-tile-title>
           </router-link>
         </v-list-tile>
       </v-list>

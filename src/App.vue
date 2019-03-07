@@ -11,6 +11,7 @@
 import EToolBar from "./components/EToolBar";
 export default {
   name: "App",
+  title: "Excluzeev - Stream. Crowdfunding. Social Network",
   components: {
     EToolBar
   },
@@ -24,5 +25,41 @@ export default {
 <style>
 a {
   text-decoration: none;
+}
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
