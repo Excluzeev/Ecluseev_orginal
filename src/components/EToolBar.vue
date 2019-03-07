@@ -1,8 +1,10 @@
 <template>
   <v-toolbar app class="white">
-    <v-toolbar-title class="headline text-uppercase">
-      <img alt="Excluzeev logo" src="../assets/excluzeev.png" height="50px" />
-    </v-toolbar-title>
+    <router-link to="/">
+      <v-toolbar-title class="headline text-uppercase">
+        <img alt="Excluzeev logo" src="../assets/excluzeev.png" height="50px" />
+      </v-toolbar-title>
+    </router-link>
     <v-spacer></v-spacer>
     <NotificationsMenu v-if="!showLogin" />
     <AccountMenu v-if="!showLogin" />
