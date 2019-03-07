@@ -10,17 +10,17 @@
     <v-card>
       <v-list>
         <v-list-tile v-if="!hideSignUpContentCreator">
-          <router-link to="/SignUpCC">
+          <router-link :to="{ name: 'SignUpCC' }">
             <v-list-tile-title>Sign up as Content Creator</v-list-tile-title>
           </router-link>
         </v-list-tile>
         <v-list-tile v-if="hideSignUpContentCreator">
-          <router-link to="/CreateChannel">
+          <router-link :to="{ name: 'CreateChannel' }">
             <v-list-tile-title>Create Channel</v-list-tile-title>
           </router-link>
         </v-list-tile>
         <v-list-tile>
-          <router-link to="/logout">
+          <router-link :to="{ name: 'Logout' }">
             <v-list-tile-title>Logout</v-list-tile-title>
           </router-link>
         </v-list-tile>

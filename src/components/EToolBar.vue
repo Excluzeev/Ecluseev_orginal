@@ -6,9 +6,14 @@
       </v-toolbar-title>
     </router-link>
     <v-spacer></v-spacer>
+    <router-link :to="{ name: 'MyChannels' }" v-if="hideSignUpContentCreator">
+      <v-btn flat>
+        <span class="mr-2">My Channels</span>
+      </v-btn>
+    </router-link>
     <NotificationsMenu v-if="!showLogin" />
     <AccountMenu v-if="!showLogin" />
-    <router-link to="/login" v-if="showLogin">
+    <router-link :to="{ name: 'Login' }" v-if="showLogin">
       <v-btn flat>
         <span class="mr-2">Login</span>
       </v-btn>
@@ -29,6 +34,11 @@ export default {
   computed: {
     showLogin() {
       return store.getters.getUser == null;
+    },
+    hideSignUpContentCreator() {
+      return store.getters.getFUser != null
+        ? store.getters.getFUser.isContentCreator
+        : false;
     }
   },
   data: () => {

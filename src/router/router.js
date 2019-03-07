@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import SignUpCC from "../views/SignUpCC.vue";
 import CreateChannel from "../views/CreateChannel.vue";
+import MyChannels from "../views/MyChannels.vue";
+import MyChannelDetails from "../views/MyChannelDetails.vue";
 import AddTrailer from "../views/AddTrailer.vue";
 import TrailerDetail from "../views/TrailerDetail";
 import Login from "../views/auth/Login";
@@ -19,7 +21,7 @@ const router = new VueRouter({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Home",
       component: Home,
       meta: {
         showNav: true
@@ -27,45 +29,45 @@ const router = new VueRouter({
     },
     {
       path: "/trailer/:trailerId",
-      name: "trailer-single",
+      name: "TrailerSingle",
       component: TrailerDetail,
       meta: { showNav: true, title: "Excluzeev Trailers" }
     },
     {
       path: "/login",
-      name: "login",
+      name: "Login",
       component: Login,
       meta: { noAuth: true, showNav: false, title: "Excluzeev Login" }
     },
     {
       path: "/logout",
-      name: "logout",
+      name: "Logout",
       beforeEnter(to, from, next) {
         store.dispatch("signOut").then(() => {
-          next({ name: "home" });
+          next({ name: "Home" });
         });
       }
     },
     {
       path: "/registration",
-      name: "registration",
+      name: "Registration",
       component: Registration,
       meta: { title: "Excluzeev Registration", noAuth: true, showNav: false }
     },
     {
-      path: "/forgotPassword",
+      path: "/forgot-password",
       name: "ForgotPassword",
       component: ForgotPassword,
       meta: { noAuth: true, showNav: false, title: "Excluzeev Forgot Password" }
     },
     {
-      path: "/resetPassword",
+      path: "/reset-password",
       name: "ResetPassword",
       component: ResetPassword,
       meta: { noAuth: true, showNav: false, title: "Excluzeev Reset Password" }
     },
     {
-      path: "/SignUpCC",
+      path: "/sign-up-cc",
       name: "SignUpCC",
       component: SignUpCC,
       meta: {
@@ -75,7 +77,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/CreateChannel",
+      path: "/create-channel",
       name: "CreateChannel",
       component: CreateChannel,
       meta: {
@@ -85,7 +87,30 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/AddTrailer",
+      path: "/my-channels",
+      name: "MyChannels",
+      component: MyChannels,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "My Channels"
+      }
+    },
+    {
+      path: "/my-channel-cetails",
+      name: "MyChannelDetails",
+      component: MyChannelDetails,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "My Channels Details"
+      },
+      props: route => ({
+        ...route.params
+      })
+    },
+    {
+      path: "/add-trailer",
       name: "AddTrailer",
       component: AddTrailer,
       meta: { noAuth: false, showNav: true, title: "Add a trailer" },

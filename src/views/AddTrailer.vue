@@ -163,8 +163,7 @@ export default {
       try {
         await trailerRef.set(trailerData);
         this.showToast("Trailer Uploaded Successfully");
-        // TODO: @Karthik Push it to My Channels Page Later
-        this.$router.push("/");
+        this.$router.push({ name: "MyChannels" });
       } catch (error) {
         console.log(error);
         this.showToast("Trailer Upload failed.");
