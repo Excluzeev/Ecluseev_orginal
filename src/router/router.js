@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import SignUpCC from "../views/SignUpCC.vue";
 import TrailerDetail from "../views/TrailerDetail";
 import Login from "../views/auth/Login";
 import Registration from "../views/auth/Registration";
@@ -57,6 +58,12 @@ const router = new VueRouter({
       name: "ResetPassword",
       component: ResetPassword,
       meta: { noAuth: true, showNav: false }
+    },
+    {
+      path: "/SignUpCC",
+      name: "SignUpCC",
+      component: SignUpCC,
+      meta: { noAuth: false, showNav: true }
     }
     // {
     //   path: "/",
