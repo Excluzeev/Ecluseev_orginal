@@ -8,69 +8,67 @@
               <v-toolbar-title>Create Channel</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form class="blue--text lighten-1">
-                <v-overflow-btn
-                  :items="dropdown_edit"
-                  label="Select Category "
-                  editable
-                  item-value="text"
-                ></v-overflow-btn>
-                <v-overflow-btn
-                  :items="dropdown_font"
+              <v-form
+                class="blue--text lighten-1"
+                @submit.prevent="doCreateChannel"
+              >
+                <v-select
+                  v-model="categorySelected"
+                  v-on:change="onCategorySelected"
+                  :items="categories"
+                  label="Select Category"
+                  item-text="name"
+                  item-value="id"
+                  return-object
+                ></v-select>
+                <v-select
+                  v-if="showChannelType"
+                  v-model="selectedChannelType"
+                  v-on:change="onChannelTypeSelected"
+                  :items="channelTypes"
                   label="Channel Type"
-                  target="#dropdown-example"
-                ></v-overflow-btn>
+                ></v-select>
                 <v-text-field
                   name="Channel Name"
-                  label="Channel Name   "
+                  label="Channel Name"
                   type="text"
-                  v-model="email"
+                  v-model="channelName"
+                  :rules="[rules.required]"
                 ></v-text-field>
-                <v-text-field
+                <v-textarea
+                  outline
                   name="Description"
                   label="Description"
-                  type="text"
-                  v-model="email"
-                ></v-text-field>
+                  v-model="description"
+                  :rules="[rules.required]"
+                ></v-textarea>
                 <v-text-field
+                  v-if="this.selectedChannelType == 'VOD'"
+                  v-model="price"
                   label="Price"
-                  value="0.99"
+                  :value="price"
+                  type="number"
+                  :min="minPrice"
+                  :max="maxPrice"
                   prefix="$"
+                  :rules="[rules.required, rules.priceCheck]"
                 ></v-text-field>
-                <!-- https://jsfiddle.net/meyubaraj/fLbe7r72/ -->
-                <img :src="imageUrl" height="150" v-if="imageUrl" />
-                <!-- <v-text-field
-                  label="Thumbnail"
-                  @click="pickFile"
-                  v-model="imageName"
-                  prepend-icon="attach_file"
-                ></v-text-field>
-                <input
-                  type="file"
-                  style="display: none"
-                  ref="image"
-                  accept="image/*"
-                  @change="onFilePicked"
-                />
-                <img :src="imageUrl" height="150" v-if="imageUrl" />
                 <v-text-field
-                  label="Cover Image"
-                  @click="pickFile"
-                  v-model="imageName"
-                  prepend-icon="attach_file"
+                  v-if="this.selectedChannelType != 'VOD'"
+                  v-model="targetFund"
+                  label="Target Fund"
+                  prefix="$"
+                  type="number"
+                  :rules="[rules.required]"
                 ></v-text-field>
-                <input
-                  type="file"
-                  style="display: none"
-                  ref="image"
-                  accept="image/*"
-                  @change="onFilePicked"
-                /> -->
                 <upload-btn
                   color="blue--text lighten-1"
                   style="background-color: #fff !important;"
                   class="white--text"
-                  title="Add Thumnail"
+                  title="Add Thumbnail"
+                  :fileChangedCallback="thumbnailChanged"
+                  accept="image/*"
+                  :uniqueId="unique"
                   round
                 >
                   <template slot="icon">
@@ -79,11 +77,19 @@
                     </div>
                   </template>
                 </upload-btn>
+
+                <v-layout padding justify-center>
+                  <img :src="thumbnail" height="150" v-if="thumbnail" />
+                </v-layout>
+
                 <upload-btn
                   color="blue--text lighten-1"
                   style="background-color: #fff !important;"
                   class="white--text"
                   title="Add Cover Image"
+                  :fileChangedCallback="coverChanged"
+                  accept="image/*"
+                  :uniqueId="unique"
                   round
                 >
                   <template slot="icon">
@@ -92,10 +98,27 @@
                     </div>
                   </template>
                 </upload-btn>
+
+                <v-layout padding justify-center>
+                  <img :src="cover" height="150" v-if="cover" />
+                </v-layout>
+
                 <div class="text-xs-center">
-                  <v-btn class="white--text v-btn--round" color="blue lighten-1"
-                    >Add Channel</v-btn
+                  <v-btn
+                    class="white--text"
+                    color="blue lighten-1"
+                    type="submit"
+                    :loading="processing"
+                    :disabled="processing"
+                    @click="loader = 'loading4'"
                   >
+                    Add Channel
+                    <template v-slot:loader>
+                      <span class="custom-loader">
+                        <v-icon light>cached</v-icon>
+                      </span>
+                    </template>
+                  </v-btn>
                 </div>
               </v-form>
             </v-card-text>
@@ -108,14 +131,196 @@
 
 <script>
 import UploadButton from "vuetify-upload-button";
+import {
+  publicStorage,
+  auth,
+  firebaseTimestamp,
+  fireStore
+} from "../firebase/init";
+import utils from "../firebase/utils";
+
 export default {
   components: {
     "upload-btn": UploadButton
   },
   data: () => {
-    return {};
+    return {
+      categorySelected: null,
+      channelName: "",
+      description: "",
+      thumbnail: null,
+      thumbnailFile: null,
+      cover: null,
+      coverFile: null,
+      categories: [],
+      showChannelType: false,
+      channelTypes: ["VOD", "CrowdFunding"],
+      selectedChannelType: "VOD",
+      price: 0.99,
+      targetFund: 0,
+      minPrice: 0.99,
+      maxPrice: 10.0,
+      unique: true,
+      processing: false,
+      rules: {
+        required: value => !!value || "Required.",
+        priceCheck: value => {
+          let number = Number(value);
+          return (
+            (number >= 0.99 && number <= 10) ||
+            "Price must be between 0.99 and 10.0"
+          );
+        },
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Invalid e-mail.";
+        }
+      }
+    };
+  },
+  created() {
+    this.$store.dispatch("fetchCategories").then(cats => {
+      this.categories = cats;
+    });
+  },
+  methods: {
+    thumbnailChanged(file) {
+      this.thumbnailFile = file;
+      this.thumbnail = URL.createObjectURL(this.thumbnailFile);
+    },
+    coverChanged(file) {
+      this.coverFile = file;
+      this.cover = URL.createObjectURL(this.coverFile);
+    },
+    onCategorySelected(selected) {
+      if (selected.name == "Causes") {
+        this.showChannelType = true;
+      } else {
+        this.showChannelType = false;
+        this.selectedChannelType = "VOD";
+      }
+    },
+    onChannelTypeSelected() {
+      // perform target fund and price
+    },
+    async doCreateChannel() {
+      if (this.categorySelected == null || this.categorySelected.isEmpty) {
+        this.showToast("Please select Channel Category");
+        return;
+      }
+      if (this.channelName == "") {
+        this.showToast("Channel Title cannot be empty");
+        return;
+      }
+      if (this.description == "") {
+        this.showToast("Channel Description cannot be empty");
+        return;
+      }
+
+      if (this.selectedChannelType == "VOD") {
+        if (!(this.price > 0.0 && this.price <= 10.0)) {
+          this.showToast("Price cannot be less than 0 or greater than 10");
+          return;
+        }
+      } else {
+        if (this.targetFund <= 0) {
+          this.showToast("TargetFund  cannot be less than 0");
+          return;
+        }
+      }
+
+      if (this.thumbnailFile == null) {
+        this.showToast("Please select Thumbnail");
+        return;
+      }
+
+      if (this.coverFile == null) {
+        this.showToast("Please select Cover");
+        return;
+      }
+
+      this.processing = true;
+
+      const metadata = {
+        contentType: "image/*"
+      };
+
+      let channelId = utils.generateId();
+      let thumbnailRef = publicStorage
+        .ref()
+        .child("channels")
+        .child(channelId)
+        .child("thumbnail.jpg");
+      let coverRef = publicStorage
+        .ref()
+        .child("channels")
+        .child(channelId)
+        .child("cover.jpg");
+      let thumbnailUrl = "";
+      let coverUrl = "";
+      try {
+        await thumbnailRef.put(this.thumbnailFile, metadata);
+        thumbnailUrl = await thumbnailRef.getDownloadURL();
+      } catch (e) {
+        console.log(this.thumbnailFile);
+        console.log(e);
+      }
+      try {
+        await coverRef.put(this.coverFile, metadata);
+        coverUrl = await coverRef.getDownloadURL();
+      } catch (e) {
+        console.log(e);
+      }
+
+      let channelData = {
+        channelId: channelId,
+        categoryName: this.categorySelected.name,
+        categoryId: this.categorySelected.id,
+        userId: auth.currentUser.uid,
+        createdBy: auth.currentUser.displayName,
+        channelType: this.selectedChannelType,
+        title: this.channelName,
+        image: thumbnailUrl,
+        coverImage: coverUrl,
+        createdDate: firebaseTimestamp.fromDate(new Date()),
+        subscriberCount: 0,
+        price: this.price,
+        targetFund: this.targetFund,
+        currentFund: 0,
+        percentage: 0.0
+      };
+
+      let channelRef = fireStore
+        .collection(utils.channelsCollection)
+        .doc(channelId);
+      try {
+        await channelRef.set(channelData);
+        this.showToast("Channel Created Successfully");
+        this.$router.push({
+          name: "AddTrailer",
+          params: {
+            channelData: channelData
+          }
+        });
+      } catch (error) {
+        console.log(error);
+        this.showToast("Channel Creation failed.");
+      }
+      this.processing = false;
+    },
+    showToast(msg) {
+      this.$toasted.show(msg, {
+        theme: "outline",
+        position: "top-right",
+        duration: 2000
+      });
+    }
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+.padding {
+  padding: 10px;
+}
+</style>
