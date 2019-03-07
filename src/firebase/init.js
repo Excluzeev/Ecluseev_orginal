@@ -19,4 +19,6 @@ if (!firebase.apps.length) {
 export const auth = firebase.auth();
 export const fireStore = firebase.firestore();
 export const storage = firebase.storage();
+export const publicStorage = firebase.app().storage("gs://trenstop-public");
+export const firebaseTimestamp = firebase.firestore.Timestamp;
 export default firebase.app();
