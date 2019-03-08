@@ -1,6 +1,6 @@
 <template>
-  <router-link :to="'/video/' + video.videoId">
-    <v-card>
+  <v-card>
+    <router-link :to="'/video/' + video.videoId">
       <v-img :src="video.image" height="200px"> </v-img>
 
       <v-card-title primary-title>
@@ -10,14 +10,33 @@
           <div class="grey--text">{{ video.timeAgo }}</div>
         </div>
       </v-card-title>
-    </v-card>
-  </router-link>
+    </router-link>
+    <v-card-actions v-if="showDelete">
+      <v-btn flat color="red" @click="deleteVideo"
+        ><v-icon left>delete</v-icon>Delete</v-btn
+      >
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
+import { auth } from "../firebase/init";
+
 export default {
   name: "VideosVideoItem",
-  props: ["video"]
+  props: ["video"],
+  computed: {
+    showDelete() {
+      return this.video.userId == auth.currentUser.uid;
+    }
+  },
+  methods: {
+    deleteVideo() {
+      this.$store.dispatch("deleteVideo", { video: this.video }).then(() => {
+        this.$emit("videoDelete");
+      });
+    }
+  }
 };
 </script>
 

@@ -108,17 +108,28 @@ export default new Vuex.Store({
     fetchCategories: async () => {
       return new Promise(async resolve => {
         let cats = [];
-        let categoriesRef = fireStore
-            .collection(collections.categoriesCollection)
+        let categoriesRef = fireStore.collection(
+          collections.categoriesCollection
+        );
         try {
           let categoriesQuerySnapshot = await categoriesRef.get();
-          categoriesQuerySnapshot.forEach(snapShot =>  {
+          categoriesQuerySnapshot.forEach(snapShot => {
             cats.push(snapShot.data());
           });
           resolve(cats);
         } catch (error) {
           resolve(cats);
         }
+      });
+    },
+    deleteVideo: async ({ state, commit }, { video }) => {
+      return new Promise(async resolve => {
+        let videosRef = fireStore
+          .collection(collections.videosCollection)
+          .doc(video.videoId);
+        await videosRef.delete();
+
+        resolve("Done");
       });
     }
   }

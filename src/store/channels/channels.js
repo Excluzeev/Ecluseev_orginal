@@ -43,13 +43,14 @@ export default {
                 resolve(trailersList);
             });
         },
-        getUserChannelVideos: ({ state }) => {
+        getUserChannelVideos: ({ state }, { channelId }) => {
             let userId = auth.currentUser.uid;
             return new Promise(async resolve => {
                 let videosList = [];
                 let videosRef = fireStore
                     .collection(collections.videosCollection)
-                    .where("userId", "==", userId);
+                    .where("userId", "==", userId)
+                    .where("channelId", "==", channelId);
 
                 let videosQuerySnapshot = await videosRef.get();
                 videosQuerySnapshot.forEach(snapshot => {

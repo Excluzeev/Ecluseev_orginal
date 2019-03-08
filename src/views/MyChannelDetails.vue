@@ -10,8 +10,14 @@
           {{ channel.subscriberCount }} Subscribers
         </p>
       </div>
+      <v-spacer></v-spacer>
+      <router-link :to="{ name: 'AddVideo', params: { channelData: channel } }">
+        <v-btn color="primary" class="white--text" round>
+          <v-icon left>add</v-icon>Add Video</v-btn
+        >
+      </router-link>
     </v-layout>
-    <div v-if="trailersList != null && !trailersList.isEmpty">
+    <div v-if="!(trailersList.length == 0)">
       <h1>Trailer</h1>
       <br />
       <v-layout xs12 row wrap>
@@ -29,7 +35,7 @@
       </v-layout>
     </div>
     <div class="padding"></div>
-    <div v-if="videosList != null && !videosList.isEmpty">
+    <div v-if="!(videosList.length == 0)">
       <h1>Videos</h1>
       <br />
       <v-layout xs12 row wrap>
@@ -42,7 +48,7 @@
           v-for="video in videosList"
           v-bind:key="video.videoId"
         >
-          <VideosVideoItem :video="video" />
+          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted" />
         </v-flex>
       </v-layout>
     </div>
@@ -72,24 +78,35 @@ export default {
   created() {
     this.registerStoreModule("channels", channelsModule);
   },
+  methods: {
+    onVideoDeleted() {
+      this.loadVideosData();
+    },
+    loadTrailersData() {
+      this.$store
+        .dispatch("channels/getUserChannelTrailers", {
+          channelId: this.channel.channelId
+        })
+        .then(data => {
+          this.trailersList = data;
+          console.log(data);
+        });
+    },
+    loadVideosData() {
+      this.$store
+        .dispatch("channels/getUserChannelVideos", {
+          channelId: this.channel.channelId
+        })
+        .then(data => {
+          this.videosList = data;
+          console.log(data);
+        });
+    }
+  },
   mounted() {
-    this.$store
-      .dispatch("channels/getUserChannelTrailers", {
-        channelId: this.channel.channelId
-      })
-      .then(data => {
-        this.trailersList = data;
-        console.log(data);
-      });
+    this.loadTrailersData();
 
-    this.$store
-      .dispatch("channels/getUserChannelVideos", {
-        channelId: this.channel.channelId
-      })
-      .then(data => {
-        this.videosList = data;
-        console.log(data);
-      });
+    this.loadVideosData();
   },
   props: ["channel"]
 };
