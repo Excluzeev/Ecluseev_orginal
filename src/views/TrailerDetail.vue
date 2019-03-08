@@ -25,10 +25,14 @@
         <v-icon x-large v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
       </div>
       <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-        <v-icon x-large v-bind:class="{ active: isNeutral }">sentiment_dissatisfied</v-icon>
+        <v-icon x-large v-bind:class="{ active: isNeutral }"
+          >sentiment_dissatisfied</v-icon
+        >
       </div>
       <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-        <v-icon x-large v-bind:class="{ active: isUserDisLiked }">thumb_down</v-icon>
+        <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
+          >thumb_down</v-icon
+        >
       </div>
     </v-layout>
   </div>
@@ -131,8 +135,8 @@ export default {
       let whatDoc = await fireStore
         .collection(utils.likesCollection)
         .doc(userId + ":" + this.$route.params.trailerId + ":t")
-              .get();
-      if(whatDoc.exists) {
+        .get();
+      if (whatDoc.exists) {
         await whatDoc.ref.update({
           what: what
         });
@@ -182,7 +186,7 @@ export default {
 .like-holder {
   padding: 10px;
 }
-  .active {
-    color: #42a5f5;
-  }
+.active {
+  color: #42a5f5;
+}
 </style>
