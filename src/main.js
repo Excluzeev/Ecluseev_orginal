@@ -16,6 +16,9 @@ import { auth } from "./firebase/init";
 
 import Toasted from "vue-toasted";
 
+import VueStar from "vue-star";
+Vue.component("VueStar", VueStar);
+
 auth.onAuthStateChanged(user => {
   store.commit("setUser");
   store.commit("fetchUser", { user });
