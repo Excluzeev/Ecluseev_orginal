@@ -13,6 +13,7 @@ import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
 import { auth } from "../firebase/init";
 import store from "../store/index";
+import AddVideo from "../views/AddVideo";
 
 Vue.use(VueRouter);
 
@@ -114,6 +115,15 @@ const router = new VueRouter({
       name: "AddTrailer",
       component: AddTrailer,
       meta: { noAuth: false, showNav: true, title: "Add a trailer" },
+      props: route => ({
+        ...route.params
+      })
+    },
+    {
+      path: "/add-video",
+      name: "AddVideo",
+      component: AddVideo,
+      meta: { noAuth: false, showNav: true, title: "Add a Video" },
       props: route => ({
         ...route.params
       })
