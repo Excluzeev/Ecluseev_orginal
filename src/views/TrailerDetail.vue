@@ -10,13 +10,26 @@
     </div>
     <v-layout class="padding" align-center justify-left row fill-height>
       <div class="square">
-        <img class="channel-image square" :src="trailer.channelImage" />
+        <img
+          class="channel-image square"
+          :src="trailer != null ? trailer.channelImage : ''"
+        />
       </div>
       <v-layout class="padding" align-left justify-left column fill-height>
-        <h2>{{trailer.title}}</h2>
+        <h2>{{ trailer.title }}</h2>
         <span class="black--text">{{ trailer.description }}</span>
         <div class="grey--text">{{ trailer.timeAgo }}</div>
       </v-layout>
+      <v-spacer></v-spacer>
+      <div v-ripple class="like-holder" @click="updateWhat('like')">
+        <v-icon x-large v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
+      </div>
+      <div v-ripple class="like-holder" @click="updateWhat('neutral')">
+        <v-icon x-large v-bind:class="{ active: isNeutral }">sentiment_dissatisfied</v-icon>
+      </div>
+      <div v-ripple class="like-holder" @click="updateWhat('dislike')">
+        <v-icon x-large v-bind:class="{ active: isUserDisLiked }">thumb_down</v-icon>
+      </div>
     </v-layout>
   </div>
 </template>
@@ -24,6 +37,8 @@
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import trailerModule from "../store/trailers/trailer";
+import { fireStore, auth } from "../firebase/init";
+import utils from "../firebase/utils";
 
 export default {
   name: "CategoryTrailers",
@@ -46,7 +61,11 @@ export default {
           }
         ],
         poster: ""
-      }
+      },
+      isUserLiked: false,
+      isUserDisLiked: false,
+      isNeutral: false,
+      prevWhat: -2
     };
   },
   components: {},
@@ -69,13 +88,86 @@ export default {
         this.trailer = data;
         this.playerOptions.sources[0].src = this.trailer.videoUrl;
         this.playerOptions.poster = this.trailer.image;
+        this.getLikes();
       });
   },
-  methods: {}
+  methods: {
+    async getLikes() {
+      if (auth.currentUser == null) {
+        return;
+      }
+      let userId = auth.currentUser.uid;
+      let snap = await fireStore
+        .collection(utils.likesCollection)
+        .doc(userId + ":" + this.$route.params.trailerId + ":t")
+        .get();
+      if (snap.exists) {
+        let data = snap.data();
+        this.prevWhat = data.what;
+        if (data.what == 0) {
+          this.isNeutral = true;
+        } else if (data.what == 1) {
+          this.isUserLiked = true;
+        } else if (data.what == 1) {
+          this.isUserDisLiked = true;
+        }
+      }
+    },
+    async updateWhat(newWhat) {
+      let what = 0;
+      if (newWhat == "like") {
+        what = 1;
+      }
+      if (newWhat == "dislike") {
+        what = -1;
+      }
+      if (newWhat == "neutral") {
+        what = 0;
+      }
+      if (auth.currentUser == null) {
+        return;
+      }
+      let userId = auth.currentUser.uid;
+      let whatDoc = await fireStore
+        .collection(utils.likesCollection)
+        .doc(userId + ":" + this.$route.params.trailerId + ":t")
+              .get();
+      if(whatDoc.exists) {
+        await whatDoc.ref.update({
+          what: what
+        });
+      } else {
+        await whatDoc.ref.set({
+          what: what
+        });
+      }
+
+      if (what == 0) {
+        this.isNeutral = true;
+        this.isUserDisLiked = false;
+        this.isUserLiked = false;
+      }
+
+      if (what == 1) {
+        this.isNeutral = false;
+        this.isUserDisLiked = false;
+        this.isUserLiked = true;
+      }
+
+      if (what == -1) {
+        this.isNeutral = false;
+        this.isUserDisLiked = true;
+        this.isUserLiked = false;
+      }
+    }
+  }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.home {
+  background-color: #ffffff;
+}
 .channel-image {
   border-radius: 50%;
   object-fit: cover;
@@ -84,7 +176,13 @@ export default {
   width: 64px;
   height: 64px;
 }
-  .padding {
-    padding: 10px;
+.padding {
+  padding: 10px;
+}
+.like-holder {
+  padding: 10px;
+}
+  .active {
+    color: #42a5f5;
   }
 </style>
