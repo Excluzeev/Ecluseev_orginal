@@ -139,7 +139,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.noAuth) {
     auth.onAuthStateChanged(user => {
       if (user) {
-        next({ name: "home" });
+        next({ name: "Home" });
       } else {
         next();
       }
