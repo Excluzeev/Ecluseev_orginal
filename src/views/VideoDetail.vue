@@ -12,13 +12,13 @@
       <div class="square">
         <img
           class="channel-image square"
-          :src="trailer != null ? trailer.channelImage : ''"
+          :src="video != null ? video.channelImage : ''"
         />
       </div>
       <v-layout class="padding" align-left justify-left column fill-height>
-        <h2>{{ trailer.title }}</h2>
-        <span class="black--text">{{ trailer.description }}</span>
-        <div class="grey--text">{{ trailer.timeAgo }}</div>
+        <h2>{{ video.title }}</h2>
+        <span class="black--text">{{ video.description }}</span>
+        <div class="grey--text">{{ video.timeAgo }}</div>
       </v-layout>
       <v-spacer></v-spacer>
       <div v-ripple class="like-holder" @click="updateWhat('like')">
@@ -35,38 +35,21 @@
         >
       </div>
     </v-layout>
-    <div>
-      <v-layout row wrap align-end>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
-          class="white--text"
-          round
-          @click="prepareSubscribe"
-          v-if="showSubscribeButton"
-        >
-          <v-icon left>add_to_queue</v-icon
-          >{{ showDonateText ? "Donate" : "Subscribe" }}</v-btn
-        >
-      </v-layout>
-    </div>
   </div>
 </template>
 
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
-import trailerModule from "../store/trailers/trailer";
+import videoModule from "../store/videos/video";
 import { fireStore, auth } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 
 export default {
-  name: "CategoryTrailers",
+  name: "VideoSingle",
   data: () => {
     return {
-      trailer: null,
-      showSubscribeButton: false,
-      showDonateText: false,
+      video: null,
       playerOptions: {
         overNative: true,
         autoplay: false,
@@ -101,37 +84,31 @@ export default {
     console.log("this is current player instance object", this.player);
   },
   created() {
-    this.registerStoreModule("trailers", trailerModule);
+    console.log(this.$route.params.videoId);
+    this.registerStoreModule("videos", videoModule);
     this.$store
-      .dispatch("trailers/fetchTrailer", {
-        trailerId: this.$route.params.trailerId
+      .dispatch("videos/fetchVideo", {
+        videoId: this.$route.params.videoId
       })
-      .then(data => {
-        this.trailer = data;
-
-        this.$store
-          .dispatch("trailers/fetchChannel", {
-            channelId: this.trailer.channelId
+      .then(vData => {
+        axios
+          .post(
+            "https://us-central1-trenstop-2033f.cloudfunctions.net/videoWebHook",
+            {
+              videoId: vData.videoId,
+              playbackId: vData.playbackId
+            }
+          )
+          .then(response => {
+            this.playerOptions.sources[0].src = response.data;
+            this.video = vData;
+            this.playerOptions.poster = this.video.image;
           })
-          .then(data => {
-            console.log(data);
-            this.showDonateText = data.channelType != "VOD";
+          .catch(error => {
+            console.log(error);
           });
 
-        this.playerOptions.sources[0].src = this.trailer.videoUrl;
-        this.playerOptions.poster = this.trailer.image;
-        let fUser = localStorage.getItem("fUser");
-        let user = null;
-        if (data != null) {
-          user = JSON.parse(fUser);
-        }
-        if(user != null && user.subscribedChannels != undefined) {
-          this.showSubscribeButton = !user.subscribedChannels.includes(
-                  this.trailer.channelId
-          );
-        } else {
-          this.showSubscribeButton = true;
-        }
+
         this.getLikes();
       });
   },
@@ -143,7 +120,7 @@ export default {
       let userId = auth.currentUser.uid;
       let snap = await fireStore
         .collection(utils.likesCollection)
-        .doc(userId + ":" + this.$route.params.trailerId + ":t")
+        .doc(userId + ":" + this.$route.params.videoId + ":v")
         .get();
       if (snap.exists) {
         let data = snap.data();
@@ -174,7 +151,7 @@ export default {
       let userId = auth.currentUser.uid;
       let whatDoc = await fireStore
         .collection(utils.likesCollection)
-        .doc(userId + ":" + this.$route.params.trailerId + ":t")
+        .doc(userId + ":" + this.$route.params.videoId + ":t")
         .get();
       if (whatDoc.exists) {
         await whatDoc.ref.update({
@@ -203,33 +180,6 @@ export default {
         this.isUserDisLiked = true;
         this.isUserLiked = false;
       }
-    },
-    async prepareSubscribe() {
-      console.log(this.trailer);
-      axios
-        .post(
-          "https://us-central1-trenstop-2033f.cloudfunctions.net/generatePayKey",
-          {
-            channelId: this.trailer.channelId,
-            channelName: this.trailer.channelName,
-            userId: auth.currentUser.uid,
-            isDesktop: true,
-            redirectTo: "https://excluzeev.com/my-channels"
-          }
-        )
-        .then(function(response) {
-          console.log(response.data);
-          if (response.data.responseEnvelope.ack != "Success") {
-            this.showToast("Payment Failed Please try later.");
-          } else {
-            window.location =
-              "https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=" +
-              response.data.payKey;
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
     },
     showToast(msg) {
       this.$toasted.show(msg, {

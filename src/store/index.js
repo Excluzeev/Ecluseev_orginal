@@ -4,6 +4,7 @@ import trailers from "./trailers/trailer";
 import categories from "./categories/categories";
 import authModule from "./auth/auth";
 import channelsModule from "./channels/channels";
+import videosModule from "./videos/video";
 
 import { auth, fireStore } from "../firebase/init";
 import collections from "../firebase/utils";
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     trailers,
     categories,
     authModule,
-    channelsModule
+    channelsModule,
+    videosModule
   },
   getters: {
     getUser: state => {

@@ -14,6 +14,18 @@ export default {
   },
   mutations: {},
   actions: {
+    fetchChannel: ({ state, commit }, { channelId }) => {
+      return new Promise((resolve, reject) => {
+        fireStore
+          .collection(collections.channelsCollection)
+          .doc(channelId)
+          .get()
+          .then(querySnapshot => {
+            let trailers = [];
+            resolve(querySnapshot.data());
+          });
+      });
+    },
     fetchCategoryTrailers: (
       { state, commit },
       { categoryId, categoryName }
