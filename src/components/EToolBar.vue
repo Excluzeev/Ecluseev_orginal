@@ -6,6 +6,11 @@
       </v-toolbar-title>
     </router-link>
     <v-spacer></v-spacer>
+    <router-link :to="{ name: 'MySubscriptions' }" v-if="!showLogin">
+      <v-btn flat>
+        <span class="mr-2">My Subscriptions</span>
+      </v-btn>
+    </router-link>
     <router-link :to="{ name: 'MyChannels' }" v-if="hideSignUpContentCreator">
       <v-btn flat>
         <span class="mr-2">My Channels</span>
