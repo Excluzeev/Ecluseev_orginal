@@ -9,9 +9,7 @@ export default {
     getters: {},
     mutations: {},
     actions: {
-        getChannels: ({ state }) => {
-            let fUser = localStorage.getItem("fUser") != null ? JSON.parse(localStorage.getItem("fUser")) : null;
-            let userId = fUser.uid;
+        getChannels: ({ state }, { userId }) => {
             return new Promise(async resolve => {
                 let channelsList = [];
                 let channelsRef = fireStore
@@ -26,12 +24,13 @@ export default {
                 resolve(channelsList);
             });
         },
-        getUserChannelTrailers: ({ state }, { channelId }) => {
+        getUserChannelTrailers: ({ state }, { channelId, userId }) => {
             let userId = auth.currentUser.uid;
             return new Promise(async resolve => {
                 let trailersList = [];
                 let trailersRef = fireStore
                     .collection(collections.trailerCollection)
+                    .where("userId", "==", userId)
                     .where("channelId", "==", channelId);
 
                 let trailersQuerySnapshot = await trailersRef.get();
@@ -48,6 +47,7 @@ export default {
                 let videosList = [];
                 let videosRef = fireStore
                     .collection(collections.videosCollection)
+                    .where("userId", "==", userId)
                     .where("channelId", "==", channelId);
 
                 let videosQuerySnapshot = await videosRef.get();

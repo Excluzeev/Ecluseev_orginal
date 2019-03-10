@@ -4,6 +4,7 @@ import trailers from "./trailers/trailer";
 import categories from "./categories/categories";
 import authModule from "./auth/auth";
 import channelsModule from "./channels/channels";
+import videosModule from "./videos/video";
 
 import { auth, fireStore } from "../firebase/init";
 import collections from "../firebase/utils";
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     trailers,
     categories,
     authModule,
-    channelsModule
+    channelsModule,
+    videosModule
   },
   getters: {
     getUser: state => {
@@ -108,17 +110,28 @@ export default new Vuex.Store({
     fetchCategories: async () => {
       return new Promise(async resolve => {
         let cats = [];
-        let categoriesRef = fireStore
-            .collection(collections.categoriesCollection)
+        let categoriesRef = fireStore.collection(
+          collections.categoriesCollection
+        );
         try {
           let categoriesQuerySnapshot = await categoriesRef.get();
-          categoriesQuerySnapshot.forEach(snapShot =>  {
+          categoriesQuerySnapshot.forEach(snapShot => {
             cats.push(snapShot.data());
           });
           resolve(cats);
         } catch (error) {
           resolve(cats);
         }
+      });
+    },
+    deleteVideo: async ({ state, commit }, { video }) => {
+      return new Promise(async resolve => {
+        let videosRef = fireStore
+          .collection(collections.videosCollection)
+          .doc(video.videoId);
+        await videosRef.delete();
+
+        resolve("Done");
       });
     }
   }

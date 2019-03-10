@@ -13,6 +13,10 @@ import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
 import { auth } from "../firebase/init";
 import store from "../store/index";
+import AddVideo from "../views/AddVideo";
+import MySubscriptions from "../views/MySubscriptions";
+import SubscribedChannelDetails from "../views/SubscribedChannelDetails";
+import VideoDetail from "../views/VideoDetail";
 
 Vue.use(VueRouter);
 
@@ -97,7 +101,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/my-channel-cetails",
+      path: "/my-channel-details",
       name: "MyChannelDetails",
       component: MyChannelDetails,
       meta: {
@@ -117,7 +121,45 @@ const router = new VueRouter({
       props: route => ({
         ...route.params
       })
-    }
+    },
+    {
+      path: "/add-video",
+      name: "AddVideo",
+      component: AddVideo,
+      meta: { noAuth: false, showNav: true, title: "Add a Video" },
+      props: route => ({
+        ...route.params
+      })
+    },
+    {
+      path: "/video/:videoId",
+      name: "VideoSingle",
+      component: VideoDetail,
+      meta: { showNav: true, title: "Excluzeev Videos" }
+    },
+    {
+      path: "/my-subscriptions",
+      name: "MySubscriptions",
+      component: MySubscriptions,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "My Subscriptions"
+      }
+    },
+    {
+      path: "/my-sub-details",
+      name: "SubscribedChannelDetails",
+      component: SubscribedChannelDetails,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "Channels Details"
+      },
+      props: route => ({
+        ...route.params
+      })
+    },
     // {
     //   path: "/",
     //   name: "home",
