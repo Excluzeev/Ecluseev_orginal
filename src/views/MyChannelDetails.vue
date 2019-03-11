@@ -23,6 +23,11 @@
           <v-icon left>add</v-icon>Add Video</v-btn
         >
       </router-link>
+      <router-link :to="{ name: 'AddExcluzeev', params: { channelData: channel } }">
+        <v-btn color="primary" class="white--text" round>
+          <v-icon left>add</v-icon>Add Excluzeev</v-btn
+        >
+      </router-link>
       <v-btn color="primary" class="white--text" round @click="getSubscribers">
         Subscribers</v-btn
       >

@@ -1,0 +1,244 @@
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+  <v-content>
+    <v-container fluid fill-height>
+      <v-layout align-center justify-center>
+        <v-flex xs12 sm8 md4>
+          <v-card class="elevation-9">
+            <v-toolbar dark color="blue lighten-1">
+              <v-toolbar-title>Add a video</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+              <v-form
+                class="blue--text lighten-1"
+                @submit.prevent="doUploadVideo"
+              >
+                <v-text-field
+                  v-model="title"
+                  name="Title"
+                  label="Title"
+                  type="text"
+                  :rules="[rules.required]"
+                ></v-text-field>
+                <v-text-field
+                  v-model="description"
+                  name="Description"
+                  label="Description"
+                  type="text"
+                  :rules="[rules.required]"
+                ></v-text-field>
+                <v-radio-group
+                  v-model="timePublish"
+                  :mandatory="true"
+                  row
+                  v-on:change="timeUpdate"
+                >
+                  <v-radio label="Now" value="now"></v-radio>
+                  <v-radio label="Schedule" value="later"></v-radio>
+                </v-radio-group>
+                <v-layout class="date-time-holder" v-if="showDateTime">
+                  <v-flex>
+                    <v-dialog
+                      ref="datedialog"
+                      v-model="dateModal"
+                      :return-value.sync="date"
+                      persistent
+                      lazy
+                      full-width
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="date"
+                          label="Select Date"
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="dateModal = false"
+                          >Cancel</v-btn
+                        >
+                        <v-btn
+                          flat
+                          color="primary"
+                          @click="$refs.datedialog.save(date)"
+                          >OK</v-btn
+                        >
+                      </v-date-picker>
+                    </v-dialog>
+                  </v-flex>
+                  <v-flex>
+                    <v-dialog
+                      ref="timedialog"
+                      v-model="timeModal"
+                      :return-value.sync="time"
+                      persistent
+                      lazy
+                      full-width
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="time"
+                          label="Select Time"
+                          prepend-icon="access_time"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-time-picker v-if="timeModal" v-model="time" full-width>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="timeModal = false"
+                          >Cancel</v-btn
+                        >
+                        <v-btn
+                          flat
+                          color="primary"
+                          @click="$refs.timedialog.save(time)"
+                          >OK</v-btn
+                        >
+                      </v-time-picker>
+                    </v-dialog>
+                  </v-flex>
+                </v-layout>
+                <div class="text-xs-center">
+                  <v-btn
+                    class="white--text"
+                    color="blue lighten-1"
+                    type="submit"
+                    :loading="processing"
+                    :disabled="processing"
+                    @click="loader = 'loading4'"
+                  >
+                    Proceed
+                    <template v-slot:loader>
+                      <span class="custom-loader">
+                        <v-icon light>cached</v-icon>
+                      </span>
+                    </template>
+                  </v-btn>
+                </div>
+              </v-form>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-content>
+</template>
+
+<script>
+import { auth, firebaseTimestamp, fireStore } from "../firebase/init";
+import utils from "../firebase/utils";
+import axios from "axios";
+import moment from "moment";
+
+export default {
+  data: () => {
+    return {
+      title: "",
+      description: "",
+      videoFile: null,
+      date: null,
+      dateModal: false,
+      timeModal: false,
+      time: null,
+      processing: false,
+      timePublish: "now",
+      showDateTime: false,
+      unique: true,
+      rules: {
+        required: value => !!value || "Required."
+      }
+    };
+  },
+  props: ["channelData"],
+  methods: {
+    timeUpdate(pub) {
+      if (pub == "later") {
+        this.showDateTime = true;
+      } else {
+        this.showDateTime = false;
+      }
+    },
+    async doUploadVideo() {
+      if (this.title == "") {
+        this.showToast("Title cannot be empty.");
+        return;
+      }
+      if (this.description == "") {
+        this.showToast("Description cannot be empty");
+        return;
+      }
+
+      this.processing = true;
+
+      let videoId = utils.generateId();
+
+      let videoData = {
+        videoId: videoId,
+        categoryName: this.channelData.categoryName,
+        categoryId: this.channelData.categoryId,
+        userId: auth.currentUser.uid,
+        channelId: this.channelData.channelId,
+        channelName: this.channelData.title,
+        title: this.title,
+        description: this.description,
+        type: "Live",
+        videoUrl: "",
+        later: this.timePublish,
+        createdDate: firebaseTimestamp.fromDate(new Date()),
+        createdBy: auth.currentUser.displayName
+      };
+
+      if (this.timePublish == "later") {
+        let dateString = this.date + "T" + this.time + ":00";
+        videoData.sDate = dateString;
+      } else {
+        videoData.sDate = "";
+      }
+
+      // https://us-central1-trenstop-2033f.cloudfunctions.net/processLiveVideo
+
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/processLiveVideo",
+          videoData
+        )
+        .then(response => {
+          let d = response.data;
+          if (d.error) {
+            this.showToast(d.message);
+          } else {
+            this.showToast("Live Created Successfully");
+            this.$router.replace("/live/" + videoId);
+            this.processing = false;
+          }
+          // this.shouldShowStreamDetails = moment(this.video.)
+        })
+        .catch(error => {
+          this.processing = false;
+          console.log(error);
+        });
+    },
+    showToast(msg) {
+      this.$toasted.show(msg, {
+        theme: "outline",
+        position: "top-right",
+        duration: 2000
+      });
+    }
+  }
+};
+</script>
+
+<style scoped>
+video {
+  width: 100%;
+}
+.video-holder {
+  padding: 10px;
+}
+</style>

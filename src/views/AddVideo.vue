@@ -83,6 +83,7 @@ import {
   fireStore
 } from "../firebase/init";
 import utils from "../firebase/utils";
+import axios from "axios";
 
 export default {
   components: {
@@ -142,7 +143,6 @@ export default {
         this.show("VideoUpload failed.");
       }
 
-      // TODO:(karthik) Handle type, videoUrl for Live
       let videoData = {
         videoId: videoId,
         categoryName: this.channelData.categoryName,
@@ -155,19 +155,32 @@ export default {
         type: "VOD",
         videoUrl: videoUrl,
         createdDate: firebaseTimestamp.fromDate(new Date()),
-        createdBy: auth.currentUser.displayName
+        createdBy: auth.currentUser.displayName,
+        sDate: ""
       };
 
-      let videoRef = fireStore.collection(utils.videosCollection).doc(videoId);
-      try {
-        await videoRef.set(videoData);
-        this.showToast("Video Uploaded Successfully");
-        this.$router.push({ name: 'MyChannelDetails', params: { channel: this.channelData}});
-      } catch (error) {
-        console.log(error);
-        this.showToast("Video Upload failed.");
-      }
-      this.processing = false;
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/processLiveVideo",
+          videoData
+        )
+        .then(response => {
+          let d = response.data;
+          if (d.error) {
+            this.showToast(d.message);
+          } else {
+            this.showToast("Live Created Successfully");
+            this.$router.replace({
+              name: "LiveSingle"
+            });
+            this.processing = false;
+          }
+          // this.shouldShowStreamDetails = moment(this.video.)
+        })
+        .catch(error => {
+          this.processing = false;
+          console.log(error);
+        });
     },
     showToast(msg) {
       this.$toasted.show(msg, {
@@ -176,7 +189,7 @@ export default {
         duration: 2000
       });
     }
-  },
+  }
 };
 </script>
 

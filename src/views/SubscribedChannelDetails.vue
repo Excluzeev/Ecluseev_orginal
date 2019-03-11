@@ -18,11 +18,6 @@
         </p>
       </div>
       <v-spacer></v-spacer>
-      <router-link :to="{ name: 'AddVideo', params: { channelData: channel } }">
-        <v-btn color="primary" class="white--text" round>
-          <v-icon left>add</v-icon>Add Video</v-btn
-        >
-      </router-link>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
       <h1>Trailer</h1>
