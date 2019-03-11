@@ -262,7 +262,6 @@ export default {
         await thumbnailRef.put(this.thumbnailFile, metadata);
         thumbnailUrl = await thumbnailRef.getDownloadURL();
       } catch (e) {
-        console.log(this.thumbnailFile);
         console.log(e);
       }
       try {
@@ -284,7 +283,7 @@ export default {
         coverImage: coverUrl,
         createdDate: firebaseTimestamp.fromDate(new Date()),
         subscriberCount: 0,
-        price: this.price,
+        price: this.selectedChannelType == "CrowdFunding" ? 0 : this.price,
         targetFund: this.targetFund,
         currentFund: 0,
         percentage: 0.0

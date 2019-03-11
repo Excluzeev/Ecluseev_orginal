@@ -86,7 +86,7 @@ export default new Vuex.Store({
       return new Promise(async resolve => {
         let userDoc = {
           isContentCreator: true,
-          email: email
+          paypalEmail: email
         };
 
         let userRef = fireStore
@@ -94,9 +94,7 @@ export default new Vuex.Store({
           .doc(auth.currentUser.uid);
         let userSnap = await userRef.get();
         if (userSnap.exists) {
-          await fireStore.runTransaction(async transaction => {
-            await transaction.update(userRef, userDoc);
-          });
+          await userRef.update(userDoc);
           commit("fetchUser", { user: auth.currentUser, force: true });
           resolve({ error: false });
         } else {

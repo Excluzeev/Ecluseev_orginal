@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <router-link :to="'/video/' + video.videoId">
+    <router-link :to="'/' + getLinkTag + '/' + video.videoId">
       <v-img :src="video.image" height="200px"> </v-img>
 
       <v-card-title primary-title>
@@ -28,6 +28,9 @@ export default {
   computed: {
     showDelete() {
       return this.video.userId == auth.currentUser.uid;
+    },
+    getLinkTag() {
+      return this.video.type == 'Live' ? 'live' : 'video';
     }
   },
   methods: {

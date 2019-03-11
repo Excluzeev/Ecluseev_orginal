@@ -10,7 +10,7 @@ module.exports = {
   },
   parserOptions: {
     parser: "babel-eslint",
-    eqeqeq: 0,
+    "eqeqeq": 0,
     "no-eq-null": 0
   }
 };
