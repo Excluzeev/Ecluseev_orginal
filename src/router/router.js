@@ -17,6 +17,8 @@ import AddVideo from "../views/AddVideo";
 import MySubscriptions from "../views/MySubscriptions";
 import SubscribedChannelDetails from "../views/SubscribedChannelDetails";
 import VideoDetail from "../views/VideoDetail";
+import AddLive from "../views/AddLive";
+import LiveDetail from "../views/LiveDetail";
 
 Vue.use(VueRouter);
 
@@ -132,9 +134,24 @@ const router = new VueRouter({
       })
     },
     {
+      path: "/add-excluzeev",
+      name: "AddExcluzeev",
+      component: AddLive,
+      meta: { noAuth: false, showNav: true, title: "Add Excluzeev" },
+      props: route => ({
+        ...route.params
+      })
+    },
+    {
       path: "/video/:videoId",
       name: "VideoSingle",
       component: VideoDetail,
+      meta: { showNav: true, title: "Excluzeev Videos" }
+    },
+    {
+      path: "/live/:videoId",
+      name: "LiveSingle",
+      component: LiveDetail,
       meta: { showNav: true, title: "Excluzeev Videos" }
     },
     {

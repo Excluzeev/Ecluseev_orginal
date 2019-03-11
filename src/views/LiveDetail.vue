@@ -12,13 +12,13 @@
       <div class="square">
         <img
           class="channel-image square"
-          :src="trailer != null ? trailer.channelImage : ''"
+          :src="video != null ? video.channelImage : ''"
         />
       </div>
       <v-layout class="padding" align-left justify-left column fill-height>
-        <h2>{{ trailer.title }}</h2>
-        <span class="black--text">{{ trailer.description }}</span>
-        <div class="grey--text">{{ trailer.timeAgo }}</div>
+        <h2>{{ video.title }}</h2>
+        <span class="black--text">{{ video.description }}</span>
+        <div class="grey--text">{{ video.timeAgo }}</div>
       </v-layout>
       <v-spacer></v-spacer>
       <div v-ripple class="like-holder" @click="updateWhat('like')">
@@ -35,64 +35,70 @@
         >
       </div>
     </v-layout>
-    <div v-if="showSubscribeButton && showDonateText">
-      <v-progress-linear
-        color="error"
-        height="20"
-        :value="(channel.targetFund * channel.currentFund) / 100"
-      ></v-progress-linear>
+    <div class="padding" v-if="shouldShowStartStream">
+      <v-flex xs6>
+        <div class="text-xs-center">
+          <v-btn
+            class="white--text"
+            color="blue lighten-1"
+            :loading="processing"
+            :disabled="processing"
+            @click="
+              loader = 'loading4';
+              createStreamNow();
+            "
+          >
+            Start Stream
+            <template v-slot:loader>
+              <span class="custom-loader">
+                <v-icon light>cached</v-icon>
+              </span>
+            </template>
+          </v-btn>
+        </div>
+      </v-flex>
     </div>
-    <div>
-      <v-layout row wrap align-end>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
-          class="white--text"
-          round
-          @click="prepareSubscribe"
-          v-if="showSubscribeButton && !showDonateText"
-        >
-          <v-icon left>add_to_queue</v-icon
-          >{{ showDonateText ? "Donate" : "Subscribe" }}</v-btn
-        >
-        <v-btn
-          color="primary"
-          class="white--text"
-          round
-          @click="prepareSubscribe(5)"
-          v-if="showSubscribeButton && showDonateText"
-        >
-          <v-icon left>add_to_queue</v-icon>Donate 5$</v-btn
-        >
-        <v-btn
-          color="primary"
-          class="white--text"
-          round
-          @click="prepareSubscribe(10)"
-          v-if="showSubscribeButton && showDonateText"
-        >
-          <v-icon left>add_to_queue</v-icon>Donate 10$</v-btn
-        >
-      </v-layout>
+    <div class="padding" v-if="shouldShowStreamDetails">
+      <v-flex xs12>
+        <v-text-field
+          disabled
+          label="Stream Url"
+          placeholder="Placeholder"
+          value="rtmp://live.mux.com/app/"
+          outline
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs12>
+        <v-text-field
+          :value="video.streamKey"
+          :append-icon="showKey ? 'visibility' : 'visibility_off'"
+          :type="showKey ? 'text' : 'password'"
+          name="input-10-1"
+          label="Stream Key"
+          @click:append="showKey = !showKey"
+          outline
+        ></v-text-field>
+      </v-flex>
     </div>
   </div>
 </template>
 
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
-import trailerModule from "../store/trailers/trailer";
+import videoModule from "../store/videos/video";
 import { fireStore, auth } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 
 export default {
-  name: "CategoryTrailers",
+  name: "LiveSingle",
   data: () => {
     return {
-      trailer: null,
-      channel: null,
-      showSubscribeButton: false,
-      showDonateText: false,
+      video: null,
+      processing: false,
+      showKey: false,
+      shouldShowStreamDetails: false,
+      shouldShowStartStream: false,
       playerOptions: {
         overNative: true,
         autoplay: false,
@@ -108,6 +114,10 @@ export default {
             src: ""
           }
         ],
+        controlBar: {
+          timeDivider: false,
+          durationDisplay: false
+        },
         poster: ""
       },
       isUserLiked: false,
@@ -127,41 +137,78 @@ export default {
     console.log("this is current player instance object", this.player);
   },
   created() {
-    this.registerStoreModule("trailers", trailerModule);
+    console.log(this.$route.params.videoId);
+    this.registerStoreModule("videos", videoModule);
     this.$store
-      .dispatch("trailers/fetchTrailer", {
-        trailerId: this.$route.params.trailerId
+      .dispatch("videos/fetchVideo", {
+        videoId: this.$route.params.videoId
       })
-      .then(data => {
-        this.trailer = data;
+      .then(vData => {
+        axios
+          .post(
+            "https://us-central1-trenstop-2033f.cloudfunctions.net/videoWebHook",
+            {
+              videoId: vData.videoId,
+              playbackId: vData.playbackId
+            }
+          )
+          .then(response => {
+            this.video = vData;
+            let fUser = JSON.parse(localStorage.getItem("fUser"));
+            if (
+              this.video.userId != auth.currentUser.uid){
+              this.$router.replace({ name: "Home" });
+              return;
+            }
+            if(fUser.subscribedChannels != undefined && fUser.subscribedChannels.includes(this.video.channelId)) {
+              this.$router.replace({ name: "Home" });
+              return;
+            }
+            this.playerOptions.sources[0].src = response.data;
+            this.playerOptions.poster = this.video.image;
 
-        this.$store
-          .dispatch("trailers/fetchChannel", {
-            channelId: this.trailer.channelId
+            if (this.video.userId == auth.currentUser.uid) {
+              this.shouldShowStartStream = this.video.later == "later";
+              this.shouldShowStreamDetails = this.video.later != "later";
+            }
+
+            // this.shouldShowStreamDetails = moment(this.video.)
           })
-          .then(data => {
-            this.channel = data;
-            this.showDonateText = data.channelType != "VOD";
+          .catch(error => {
+            console.log(error);
           });
 
-        this.playerOptions.sources[0].src = this.trailer.videoUrl;
-        this.playerOptions.poster = this.trailer.image;
-        let fUser = localStorage.getItem("fUser");
-        let user = null;
-        if (data != null) {
-          user = JSON.parse(fUser);
-        }
-        if (user != null && user.subscribedChannels != undefined) {
-          this.showSubscribeButton = !user.subscribedChannels.includes(
-            this.trailer.channelId
-          );
-        } else {
-          this.showSubscribeButton = true;
-        }
         this.getLikes();
       });
   },
   methods: {
+    async createStreamNow() {
+      let videoData = {
+        videoId: this.video.videoId
+      };
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/createMuxLive",
+          videoData
+        )
+        .then(response => {
+          let d = response.data;
+          if (d.error) {
+            this.showToast(d.message);
+          } else {
+            this.showToast("Live Created Successfully");
+            this.video.streamKey = d.message;
+            this.shouldShowStartStream = false;
+            this.shouldShowStreamDetails = true;
+          }
+          this.processing = false;
+          // this.shouldShowStreamDetails = moment(this.video.)
+        })
+        .catch(error => {
+          this.processing = false;
+          console.log(error);
+        });
+    },
     async getLikes() {
       if (auth.currentUser == null) {
         return;
@@ -169,7 +216,7 @@ export default {
       let userId = auth.currentUser.uid;
       let snap = await fireStore
         .collection(utils.likesCollection)
-        .doc(userId + ":" + this.$route.params.trailerId + ":t")
+        .doc(userId + ":" + this.$route.params.videoId + ":v")
         .get();
       if (snap.exists) {
         let data = snap.data();
@@ -200,7 +247,7 @@ export default {
       let userId = auth.currentUser.uid;
       let whatDoc = await fireStore
         .collection(utils.likesCollection)
-        .doc(userId + ":" + this.$route.params.trailerId + ":t")
+        .doc(userId + ":" + this.$route.params.videoId + ":t")
         .get();
       if (whatDoc.exists) {
         await whatDoc.ref.update({
@@ -229,38 +276,6 @@ export default {
         this.isUserDisLiked = true;
         this.isUserLiked = false;
       }
-    },
-    async prepareSubscribe(donate) {
-      let prepareOptions = {
-        channelId: this.trailer.channelId,
-        channelName: this.trailer.channelName,
-        userId: auth.currentUser.uid,
-        isDesktop: true,
-        redirectTo: "https://excluzeev.com/my-channels"
-      };
-
-      if (this.showDonateText) {
-        prepareOptions.donate = donate;
-      }
-
-      axios
-        .post(
-          "https://us-central1-trenstop-2033f.cloudfunctions.net/generatePayKey",
-          prepareOptions
-        )
-        .then(response => {
-          console.log(response.date);
-          if (response.data.responseEnvelope.ack != "Success") {
-            this.showToast("Payment Failed Please try later.");
-          } else {
-            window.location =
-              "https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=" +
-              response.data.payKey;
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
     },
     showToast(msg) {
       this.$toasted.show(msg, {
