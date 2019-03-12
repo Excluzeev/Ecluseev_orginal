@@ -6,6 +6,7 @@
           class="vjs-custom-skin"
           ref="videoPlayer"
           :options="playerOptions"
+          @timeupdate="onPlayerTimeupdate($event)"
         >
         </video-player>
       </v-flex>
@@ -94,7 +95,7 @@ import videoModule from "../store/videos/video";
 import { fireStore, auth } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
-import LiveChat from '../components/LiveChat'
+import LiveChat from "../components/LiveChat";
 
 export default {
   name: "LiveSingle",
@@ -107,7 +108,10 @@ export default {
       shouldShowStartStream: false,
       playerOptions: {
         overNative: true,
-        autoplay: false,
+        autoplay: true,
+        preload: "auto",
+        errorDisplay: false,
+        liveui: true,
         controls: true,
         techOrder: ["html5"],
         sourceOrder: true,
@@ -163,12 +167,14 @@ export default {
           .then(response => {
             this.video = vData;
             let fUser = JSON.parse(localStorage.getItem("fUser"));
-            if (
-              this.video.userId != auth.currentUser.uid){
+            if (this.video.userId != auth.currentUser.uid) {
               this.$router.replace({ name: "Home" });
               return;
             }
-            if(fUser.subscribedChannels != undefined && fUser.subscribedChannels.includes(this.video.channelId)) {
+            if (
+              fUser.subscribedChannels != undefined &&
+              fUser.subscribedChannels.includes(this.video.channelId)
+            ) {
               this.$router.replace({ name: "Home" });
               return;
             }
@@ -291,6 +297,43 @@ export default {
         position: "top-right",
         duration: 2000
       });
+    },
+    async triggerVideoView() {
+      let videoRef = fireStore
+        .collection(utils.videosCollection)
+        .doc(this.video.videoId);
+      fireStore
+        .runTransaction(transaction => {
+          // This code may get re-run multiple times if there are conflicts.
+          return transaction.get(videoRef).then(vData => {
+            if (!vData.exists) {
+              // throw "Document does not exist!";
+              return;
+            }
+            let views = vData.data().views;
+            if (views == undefined || views == null) {
+              views = 0;
+            }
+            views = views + 1;
+
+            transaction.update(videoRef, { views: views });
+          });
+        })
+        .then(() => {
+          // console.log("Transaction successfully committed!");
+        })
+        .catch(error => {
+          // console.log("Transaction failed: ", error);
+        });
+    },
+    onPlayerTimeupdate(event) {
+      if (
+        this.$refs.videoPlayer.player.currentTime() > 5 &&
+        !this.isViewTriggered
+      ) {
+        this.triggerVideoView();
+        this.isViewTriggered = true;
+      }
     }
   }
 };
