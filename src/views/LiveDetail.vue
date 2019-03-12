@@ -1,13 +1,18 @@
 <template>
   <div class="home">
-    <div v-show="!playerOptions.sources[0].src.isEmpty">
-      <video-player
-        class="vjs-custom-skin"
-        ref="videoPlayer"
-        :options="playerOptions"
-      >
-      </video-player>
-    </div>
+    <v-layout class="padding" align-center justify-left row fill-height>
+      <v-flex xs12 sm12 md8 lg8 v-show="!playerOptions.sources[0].src.isEmpty">
+        <video-player
+          class="vjs-custom-skin"
+          ref="videoPlayer"
+          :options="playerOptions"
+        >
+        </video-player>
+      </v-flex>
+      <v-flex xs12 sm12 md4 lg4 v-show="!playerOptions.sources[0].src.isEmpty">
+        <LiveChat :videoId="this.video.videoId" />
+      </v-flex>
+    </v-layout>
     <v-layout class="padding" align-center justify-left row fill-height>
       <div class="square">
         <img
@@ -89,6 +94,7 @@ import videoModule from "../store/videos/video";
 import { fireStore, auth } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
+import LiveChat from '../components/LiveChat'
 
 export default {
   name: "LiveSingle",
@@ -126,7 +132,9 @@ export default {
       prevWhat: -2
     };
   },
-  components: {},
+  components: {
+    LiveChat
+  },
   mixins: [RegisterStoreModule],
   computed: {
     player() {
