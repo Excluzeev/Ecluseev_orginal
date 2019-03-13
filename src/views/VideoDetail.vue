@@ -5,6 +5,7 @@
         class="vjs-custom-skin"
         ref="videoPlayer"
         :options="playerOptions"
+        @timeupdate="onPlayerTimeupdate($event)"
       >
       </video-player>
     </div>
@@ -18,7 +19,9 @@
       <v-layout class="padding" align-left justify-left column fill-height>
         <h2>{{ video.title }}</h2>
         <span class="black--text">{{ video.description }}</span>
-        <div class="grey--text">{{ video.timeAgo }}</div>
+        <div class="grey--text">
+          {{ video.views }} views • {{ video.timeAgo }}
+        </div>
       </v-layout>
       <v-spacer></v-spacer>
       <div v-ripple class="like-holder" @click="updateWhat('like')">
@@ -52,7 +55,9 @@ export default {
       video: null,
       playerOptions: {
         overNative: true,
-        autoplay: false,
+        autoplay: true,
+        errorDisplay: false,
+        preload: "auto",
         controls: true,
         techOrder: ["html5"],
         sourceOrder: true,
@@ -107,7 +112,6 @@ export default {
           .catch(error => {
             console.log(error);
           });
-
 
         this.getLikes();
       });
@@ -187,6 +191,43 @@ export default {
         position: "top-right",
         duration: 2000
       });
+    },
+
+    async triggerVideoView() {
+      let videoRef = fireStore
+        .collection(utils.videosCollection)
+        .doc(this.video.videoId);
+      fireStore
+        .runTransaction(transaction => {
+          // This code may get re-run multiple times if there are conflicts.
+          return transaction.get(videoRef).then(vData => {
+            if (!vData.exists) {
+              return
+            }
+            let views = vData.data().views;
+            if (views == undefined || views == null) {
+              views = 0;
+            }
+            views = views + 1;
+
+            transaction.update(videoRef, { views: views });
+          });
+        })
+        .then(() => {
+          // console.log("Transaction successfully committed!");
+        })
+        .catch(error => {
+          // console.log("Transaction failed: ", error);
+        });
+    },
+    onPlayerTimeupdate(event) {
+      if (
+        this.$refs.videoPlayer.player.currentTime() > 5 &&
+        !this.isViewTriggered
+      ) {
+        this.triggerVideoView();
+        this.isViewTriggered = true;
+      }
     }
   }
 };

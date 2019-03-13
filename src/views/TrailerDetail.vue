@@ -5,6 +5,7 @@
         class="vjs-custom-skin"
         ref="videoPlayer"
         :options="playerOptions"
+        @timeupdate="onPlayerTimeupdate($event)"
       >
       </video-player>
     </div>
@@ -18,7 +19,7 @@
       <v-layout class="padding" align-left justify-left column fill-height>
         <h2>{{ trailer.title }}</h2>
         <span class="black--text">{{ trailer.description }}</span>
-        <div class="grey--text">{{ trailer.timeAgo }}</div>
+        <div class="grey--text">{{ trailer.views }} views • {{ trailer.timeAgo }}</div>
       </v-layout>
       <v-spacer></v-spacer>
       <div v-ripple class="like-holder" @click="updateWhat('like')">
@@ -93,10 +94,13 @@ export default {
       channel: null,
       showSubscribeButton: false,
       showDonateText: false,
+      isViewTriggered: false,
       playerOptions: {
         overNative: true,
-        autoplay: false,
         controls: true,
+        autoplay: true,
+        errorDisplay: false,
+        preload: "auto",
         techOrder: ["html5"],
         sourceOrder: true,
         playbackRates: [0.7, 1.0, 1.5, 2.0],
@@ -268,6 +272,43 @@ export default {
         position: "top-right",
         duration: 2000
       });
+    },
+    async triggerVideoView() {
+      let videoRef = fireStore
+        .collection(utils.trailerCollection)
+        .doc(this.trailer.trailerId);
+      fireStore
+        .runTransaction(transaction => {
+          // This code may get re-run multiple times if there are conflicts.
+          return transaction.get(videoRef).then(vData => {
+            if (!vData.exists) {
+              // throw "Document does not exist!";
+              return;
+            }
+            let views = vData.data().views;
+            if (views == undefined || views == null) {
+              views = 0;
+            }
+            views = views + 1;
+
+            transaction.update(videoRef, { views: views });
+          });
+        })
+        .then(() => {
+          // console.log("Transaction successfully committed!");
+        })
+        .catch(error => {
+          // console.log("Transaction failed: ", error);
+        });
+    },
+    onPlayerTimeupdate(event) {
+      if (
+        this.$refs.videoPlayer.player.currentTime() > 5 &&
+        !this.isViewTriggered
+      ) {
+        this.triggerVideoView();
+        this.isViewTriggered = true;
+      }
     }
   }
 };
