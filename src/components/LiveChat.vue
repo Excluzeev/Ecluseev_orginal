@@ -9,27 +9,29 @@
         <div class="chat-message clearfix" v-if="liveChat.length == 0">
           <h5>No Messages yet.</h5>
         </div>
-        <div v-for="chat in liveChat" v-else>
-          <div class="chat-message clearfix">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-              alt=""
-              width="32"
-              height="32"
-            />
+        <div v-if="liveChat.length != 0">
+          <div v-for="chat in liveChat" v-bind:key="chat.chatId">
+            <div class="chat-message clearfix">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                alt=""
+                width="32"
+                height="32"
+              />
 
-            <div class="chat-message-content clearfix">
-              <span class="chat-time">{{ chat.time }}</span>
+              <div class="chat-message-content clearfix">
+                <span class="chat-time">{{ chat.time }}</span>
 
-              <h5>{{ chat.userName }}</h5>
+                <h5>{{ chat.userName }}</h5>
 
-              <p>{{ chat.message }}</p>
+                <p>{{ chat.message }}</p>
+              </div>
+              <!-- end chat-message-content -->
             </div>
-            <!-- end chat-message-content -->
-          </div>
-          <!-- end chat-message -->
+            <!-- end chat-message -->
 
-          <hr />
+            <hr />
+          </div>
         </div>
         <!-- end chat-history -->
       </div>
@@ -78,7 +80,8 @@ export default {
           chats.push({
             message: d.message,
             time: moment(d.createdAt.toDate()).fromNow(),
-            userName: d.userName
+            userName: d.userName,
+            chatId: d.chatId
           });
         });
         this.liveChat = chats;
