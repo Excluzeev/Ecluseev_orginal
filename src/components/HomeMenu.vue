@@ -48,7 +48,7 @@ export default {
     return {
       select: { Category: "Select a Catergory" },
       items: [
-        { Category: "Causes" },
+        { Category: "Call to action" },
         { Category: "Comic" },
         { Category: "Drama" },
         { Category: "Entertiment" }
