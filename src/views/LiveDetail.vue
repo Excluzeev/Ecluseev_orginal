@@ -327,6 +327,7 @@ export default {
         });
     },
     onPlayerTimeupdate(event) {
+      console.log(this.$refs.videoPlayer.player.errors);
       if (
         this.$refs.videoPlayer.player.currentTime() > 5 &&
         !this.isViewTriggered
