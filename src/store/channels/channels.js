@@ -18,10 +18,15 @@ export default {
                     .collection(collections.channelsCollection)
                     .where("userId", "==", userId);
 
-                let channelsQuerySnapshot = await channelsRef.get();
-                channelsQuerySnapshot.forEach(snapshot => {
-                    channelsList.push(snapshot.data());
-                });
+                try {
+                    let channelsQuerySnapshot = await channelsRef.get();
+                    channelsQuerySnapshot.forEach(snapshot => {
+                        channelsList.push(snapshot.data());
+                    });
+                } catch (e) {
+                    console.error(e)
+                }
+
 
                 resolve(channelsList);
             });

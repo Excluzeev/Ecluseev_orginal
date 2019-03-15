@@ -1,11 +1,11 @@
 <template>
-  <v-container>
+  <v-container v-if="channel != null">
     <v-layout row wrap xs12 text-xs-center class="padding">
       <v-avatar :tile="tile" size="100px" color="grey lighten-4">
         <img
           :src="
             'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-              channel.channelId +
+              subscription.channelId +
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"
@@ -14,10 +14,27 @@
       <div class="channel-details padding">
         <h2>{{ channel.channelName }}</h2>
         <p class="subscribers-count">
-          {{ channel.subscriberCount == undefined ? 0 : channel.subscriberCount }} Subscribers
+          {{
+            channel.subscriberCount == undefined ? 0 : channel.subscriberCount
+          }}
+          Subscribers
         </p>
       </div>
       <v-spacer></v-spacer>
+      <v-btn
+        class="white--text v-btn--round"
+        color="blue lighten-1"
+        :loading="processing"
+        :disabled="processing"
+        @click="cancelSubscription"
+      >
+        <v-icon light>close</v-icon> Cancel Subscription
+        <template v-slot:loader>
+          <span class="custom-loader">
+            <v-icon light>cached</v-icon>
+          </span>
+        </template>
+      </v-btn>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
       <h1>Trailer</h1>
@@ -54,6 +71,29 @@
         </v-flex>
       </v-layout>
     </div>
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-card>
+          <v-card-title class="headline"
+            >Do you want to cancel the subscription?</v-card-title
+          >
+          <v-card-text
+            >Hello, <br />
+            Do you really want to cancel the subscription, You still have
+            <strong>{{ getExpiryToNow }}</strong></v-card-text
+          >
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" flat @click="dialog = false"
+              >Dont Cancel</v-btn
+            >
+            <v-btn color="green darken-1" flat @click="cancelSubscriptionAgree"
+              >Cancel</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
   </v-container>
 </template>
 
@@ -62,6 +102,9 @@ import TrailerVideoItem from "../components/TrailerVideoItem";
 import VideosVideoItem from "../components/VideosVideoItem";
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import channelsModule from "../store/channels/channels";
+import { fireStore, firebaseTimestamp, auth } from "../firebase/init";
+import utils from "../firebase/utils";
+import moment from "moment";
 
 export default {
   name: "SubscribedChannelDetails",
@@ -72,13 +115,26 @@ export default {
   data: () => {
     return {
       tile: false,
+      processing: false,
+      subscriptionId: null,
+      dialog: false,
       trailersList: [],
-      videosList: []
+      videosList: [],
+      channel: null,
+      subscription: null
     };
   },
   mixins: [RegisterStoreModule],
   created() {
     this.registerStoreModule("channels", channelsModule);
+  },
+  computed: {
+    getExpiryToNow() {
+      return (
+              moment(this.subscription.expiryDate.toDate()).diff(new Date(), "days") +
+              " Days Left"
+      );
+    }
   },
   methods: {
     onVideoDeleted() {
@@ -103,14 +159,82 @@ export default {
           this.videosList = data;
           console.log(data);
         });
+    },
+    async cancelSubscription() {
+      this.dialog = true;
+    },
+    async cancelSubscriptionAgree() {
+      this.processing = true;
+      this.dialog = false;
+      let subRef = fireStore
+        .collection(utils.subscribersCollection)
+        .doc(this.subscriptionId);
+
+      let channelRef = fireStore
+        .collection(utils.channelsCollection)
+        .doc(this.channel.channelId);
+
+      let updateData = {
+        isCanceled: true,
+        isActive: false,
+        expiryDate: firebaseTimestamp.fromDate(new Date())
+      };
+
+      let subDoc = await subRef.get();
+      if (subDoc.exists) {
+        await subRef.update(updateData);
+        let channelDoc = await channelRef.get();
+
+        let userRef = fireStore.collection("users").doc(auth.currentUser.uid);
+        let userDoc = await userRef.get();
+        if (userDoc.exists) {
+          let subscribedChannels = userDoc.data().subscribedChannels;
+          let filteredSubscribedChannels = subscribedChannels.filter(
+            (value, index, arr) => {
+              return value != this.channel.channelId;
+            }
+          );
+
+          await channelRef.update({
+            subscriberCount: channelDoc.data().subscriberCount - 1
+          });
+          await userRef.update({
+            subscribedChannels: filteredSubscribedChannels
+          });
+        }
+        this.$router.push("/");
+      } else {
+        this.$router.push("/");
+      }
+      let user = auth.currentUser;
+      this.$store.dispatch("fetchUser", { user: user, force: true });
+      this.processing = false;
+    },
+    async loadChannel() {
+      this.subscriptionId = this.$route.params.subscriptionId;
+      let channelDoc = await fireStore
+        .collection(utils.channelsCollection)
+        .doc(this.$route.params.channelId)
+        .get();
+      this.channel = channelDoc.data();
+
+      let subDoc = await fireStore
+        .collection(utils.subscribersCollection)
+        .doc(this.subscriptionId)
+        .get();
+
+      this.subscription = subDoc.data();
+
+      console.log(this.channel);
+      this.loadTrailersData();
+
+      this.loadVideosData();
     }
   },
   mounted() {
-    this.loadTrailersData();
-
-    this.loadVideosData();
+    this.loadChannel();
   },
-  props: ["channel"]
+  props: []
 };
 </script>
 

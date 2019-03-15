@@ -18,19 +18,39 @@
         </p>
       </div>
       <v-spacer></v-spacer>
-      <router-link :to="{ name: 'AddVideo', params: { channelData: channel } }">
-        <v-btn color="primary" class="white--text" round>
-          <v-icon left>add</v-icon>Add Video</v-btn
+      <div v-if="!channel.isDeleted">
+        <router-link
+          :to="{ name: 'AddVideo', params: { channelData: channel } }"
         >
-      </router-link>
-      <router-link :to="{ name: 'AddExcluzeev', params: { channelData: channel } }">
-        <v-btn color="primary" class="white--text" round>
-          <v-icon left>add</v-icon>Add Excluzeev</v-btn
+          <v-btn color="primary" class="white--text" round>
+            <v-icon left>add</v-icon>Add Video</v-btn
+          >
+        </router-link>
+        <v-btn
+          color="red"
+          class="white--text"
+          center
+          round
+          @click="deleteDialog = true"
         >
-      </router-link>
-      <v-btn color="primary" class="white--text" round @click="getSubscribers">
-        Subscribers</v-btn
-      >
+          <v-icon left>delete</v-icon>Delete</v-btn
+        >
+        <router-link
+          :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
+        >
+          <v-btn color="primary" class="white--text" round>
+            <v-icon left>add</v-icon>Add Excluzeev</v-btn
+          >
+        </router-link>
+        <v-btn
+          color="primary"
+          class="white--text"
+          round
+          @click="getSubscribers"
+        >
+          Subscribers</v-btn
+        >
+      </div>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
       <h1>Trailer</h1>
@@ -113,6 +133,29 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-layout row justify-center>
+      <v-dialog v-model="deleteDialog" persistent max-width="290">
+        <v-card>
+          <v-card-title class="headline"
+            >Do you want to delete the channel?</v-card-title
+          >
+          <v-card-text
+            >Hello, <br />
+            Do you really want to delete the channel, Users will have a 30 days
+            notice period.</v-card-text
+          >
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" flat @click="deleteDialog = false"
+              >Dont Delete</v-btn
+            >
+            <v-btn color="green darken-1" flat @click="deleteChannel"
+              >Delete</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
   </v-container>
 </template>
 
@@ -121,7 +164,7 @@ import TrailerVideoItem from "../components/TrailerVideoItem";
 import VideosVideoItem from "../components/VideosVideoItem";
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import channelsModule from "../store/channels/channels";
-import { fireStore } from "../firebase/init";
+import { fireStore, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
 import moment from "moment";
 
@@ -139,7 +182,8 @@ export default {
       dialog: false,
       subscribersList: [],
       subscriberLoading: true,
-      subscriberEmpty: false
+      subscriberEmpty: false,
+      deleteDialog: false
     };
   },
   mixins: [RegisterStoreModule],
@@ -196,6 +240,22 @@ export default {
           this.videosList = data;
           console.log(data);
         });
+    },
+    async deleteChannel() {
+      let channelRef = fireStore
+        .collection(utils.channelsCollection)
+        .doc(this.channel.channelId);
+      // let channelDoc = await channelRef.get();
+      let delDate = new Date();
+      delDate.setMonth(delDate.getMonth() + 1);
+      let updateData = {
+        isDeleted: true,
+        delete: 0,
+        deleteOn: firebaseTimestamp.fromDate(delDate)
+      };
+      await channelRef.update(updateData);
+
+      this.$router.push("/");
     }
   },
   mounted() {
