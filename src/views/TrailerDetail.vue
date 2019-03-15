@@ -3,8 +3,10 @@
     <div v-show="!playerOptions.sources[0].src.isEmpty">
       <video-player
         class="vjs-custom-skin"
+        id="player_id"
         ref="videoPlayer"
         :options="playerOptions"
+        @ready="playerIsReady"
         @timeupdate="onPlayerTimeupdate($event)"
       >
       </video-player>
@@ -19,7 +21,9 @@
       <v-layout class="padding" align-left justify-left column fill-height>
         <h2>{{ trailer.title }}</h2>
         <span class="black--text">{{ trailer.description }}</span>
-        <div class="grey--text">{{ trailer.views }} views • {{ trailer.timeAgo }}</div>
+        <div class="grey--text">
+          {{ trailer.views }} views • {{ trailer.timeAgo }}
+        </div>
       </v-layout>
       <v-spacer></v-spacer>
       <div v-ripple class="like-holder" @click="updateWhat('like')">
@@ -86,6 +90,9 @@ import { fireStore, auth } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 
+import "videojs-ima/dist/videojs.ima";
+import "videojs-ima/dist/videojs.ima.css";
+
 export default {
   name: "CategoryTrailers",
   data: () => {
@@ -128,7 +135,9 @@ export default {
     }
   },
   mounted() {
-    console.log("this is current player instance object", this.player);
+    console.log(
+      "this is current player instance object " + this.$refs.videoPlayer.player
+    );
   },
   created() {
     this.registerStoreModule("trailers", trailerModule);
@@ -166,6 +175,16 @@ export default {
       });
   },
   methods: {
+    playerIsReady(player) {
+      // TODO(Karthik): Modify the adTagUrl
+      let options = {
+        id: player.id_,
+        adTagUrl:
+          "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&cust_params=sample_ar%3Dpremidpostpod%26deployment%3Dgmf-js&cmsid=496&vid=short_onecue&correlator="
+      };
+
+      player.ima(options);
+    },
     async getLikes() {
       if (auth.currentUser == null) {
         return;
