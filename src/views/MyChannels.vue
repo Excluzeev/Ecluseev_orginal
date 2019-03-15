@@ -1,5 +1,15 @@
 <template>
   <v-container>
+    <v-flex right>
+      <v-spacer></v-spacer>
+      <router-link right
+                   :to="{ name: 'CreateChannel' }"
+      >
+        <v-btn color="primary" class="white--text" round>
+          <v-icon left>add</v-icon>Create Channel</v-btn
+        >
+      </router-link>
+    </v-flex>
     <v-layout xs12 row wrap>
       <v-flex
         class="channel-item"
