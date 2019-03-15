@@ -51,15 +51,21 @@
       <v-layout row wrap align-end>
         <v-spacer></v-spacer>
         <v-btn
-          color="primary"
-          class="white--text"
-          round
-          @click="prepareSubscribe"
-          v-if="showSubscribeButton && !showDonateText"
+                class="white--text v-btn--round"
+                color="blue lighten-1"
+                :loading="subscribeProcessing"
+                :disabled="subscribeProcessing"
+                @click="prepareSubscribe"
+                v-if="showSubscribeButton && !showDonateText"
         >
-          <v-icon left>add_to_queue</v-icon
-          >{{ showDonateText ? "Donate" : "Subscribe" }}</v-btn
-        >
+          <v-icon left light>add_to_queue</v-icon> Subscribe
+          <template v-slot:loader>
+          <span class="custom-loader">
+            <v-icon light>cached</v-icon>
+          </span>
+          </template>
+        </v-btn>
+
         <v-btn
           color="primary"
           class="white--text"
@@ -102,6 +108,7 @@ export default {
       showSubscribeButton: false,
       showDonateText: false,
       isViewTriggered: false,
+      subscribeProcessing: false,
       playerOptions: {
         overNative: true,
         controls: true,
@@ -162,7 +169,11 @@ export default {
         let fUser = localStorage.getItem("fUser");
         let user = null;
         if (data != null) {
-          user = JSON.parse(fUser);
+          try {
+            user = JSON.parse(fUser);
+          } catch (e) {
+            user = null;
+          }
         }
         if (user != null && user.subscribedChannels != undefined) {
           this.showSubscribeButton = !user.subscribedChannels.includes(
@@ -261,7 +272,7 @@ export default {
         isDesktop: true,
         redirectTo: "https://excluzeev.com/my-channels"
       };
-
+      this.subscribeProcessing = true;
       if (this.showDonateText) {
         prepareOptions.donate = donate;
       }
@@ -272,8 +283,9 @@ export default {
           prepareOptions
         )
         .then(response => {
-          console.log(response.date);
+          console.log(response.data);
           if (response.data.responseEnvelope.ack != "Success") {
+            this.subscribeProcessing = false;
             this.showToast("Payment Failed Please try later.");
           } else {
             window.location =
@@ -282,6 +294,7 @@ export default {
           }
         })
         .catch(error => {
+          this.subscribeProcessing = false;
           console.log(error);
         });
     },

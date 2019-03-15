@@ -169,9 +169,10 @@ export default {
           if (d.error) {
             this.showToast(d.message);
           } else {
-            this.showToast("Live Created Successfully");
+            this.showToast("Video Created Successfully");
             this.$router.replace({
-              name: "LiveSingle"
+              name: "VideoSingle",
+              params: { videoId: videoId }
             });
             this.processing = false;
           }

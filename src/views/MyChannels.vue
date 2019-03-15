@@ -13,7 +13,8 @@
         <router-link :to="{ name: 'MyChannelDetails', params: { channel: channel }}">
           <div class="padding text-xs-center" justify-center>
             <v-avatar :tile="tile" size="150px" color="grey lighten-4">
-              <img :src="channel.image" alt="avatar" />
+              <img :src="channel.image" alt="avatar" v-if="!channel.isDeleted" />
+              <v-icon alt="avatar" v-if="channel.isDeleted" class="red">delete</v-icon>
             </v-avatar>
             <h3 class="padding">
               {{ channel.title }}

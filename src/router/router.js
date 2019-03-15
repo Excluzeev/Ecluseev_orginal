@@ -165,7 +165,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/my-sub-details",
+      path: "/:channelId/:subscriptionId",
       name: "SubscribedChannelDetails",
       component: SubscribedChannelDetails,
       meta: {

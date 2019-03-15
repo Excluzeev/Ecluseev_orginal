@@ -7,13 +7,13 @@
         sm4
         md3
         lg2
-        v-for="channel in subscriptionsList"
-        v-bind:key="channel.channelId"
+        v-for="subscription in subscriptionsList"
+        v-bind:key="subscription.channelId"
       >
         <router-link
           :to="{
             name: 'SubscribedChannelDetails',
-            params: { channel: channel }
+            params: { channelId: subscription.channelId, subscriptionId: subscription.subscriptionId }
           }"
         >
           <div class="padding text-xs-center" justify-center>
@@ -21,18 +21,15 @@
               <img
                 :src="
                   'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-                    channel.channelId +
+                    subscription.channelId +
                     '%2Fthumbnail.jpg?alt=media'
                 "
                 alt="avatar"
               />
             </v-avatar>
             <h3 class="padding">
-              {{ channel.channelName }}
+              {{ subscription.channelName }}
             </h3>
-            <p class="small-padding subscribers-count">
-              {{ channel.subscriberCount }} Subscribers
-            </p>
           </div>
         </router-link>
       </v-flex>

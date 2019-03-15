@@ -11,7 +11,8 @@ export default {
     actions: {
         getUserSubscriptions: ({ state }) => {
             let fUser = localStorage.getItem("fUser") != null ? JSON.parse(localStorage.getItem("fUser")) : null;
-            let userId = fUser.uid;
+            // let userId = fUser.uid;
+            let userId = auth.currentUser.uid;
             return new Promise(async resolve => {
                 let channelsList = [];
                 let channelsRef = fireStore
