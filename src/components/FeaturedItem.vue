@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     randomNumber: function() {
-      return Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+      return Math.floor(Math.random() * 50);
     }
   },
   data() {

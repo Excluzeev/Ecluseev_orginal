@@ -23,25 +23,60 @@
                 <div style="padding-left:40px;padding-bottom:10px;">
                   <v-checkbox
                     v-model="privacyPolicy"
-                    label="Agree to privacy policy"
                     color="blue lighten-1"
                     value="info"
-                    hide-details
-                  ></v-checkbox>
+                  >
+                    <template v-slot:label>
+                      <div>
+                        I agree
+                        <v-tooltip >
+                          <template v-slot:activator="{ on }">
+                            <a @click="showPrivacyPolicy" v-on="on">
+                              Privacy Policy
+                            </a>
+                          </template>
+                        </v-tooltip>
+                      </div>
+                    </template>
+                  </v-checkbox>
+
                   <v-checkbox
                     v-model="termsCreator"
-                    label="Agree to Content Creator Terms"
                     color="blue lighten-1"
                     value="info"
-                    hide-details
-                  ></v-checkbox>
+                  >
+                    <template v-slot:label>
+                      <div>
+                        I agree
+                        <v-tooltip >
+                          <template v-slot:activator="{ on }">
+                            <a @click="showCreatorTerms" v-on="on">
+                              Content Creator Terms
+                            </a>
+                          </template>
+                        </v-tooltip>
+                      </div>
+                    </template>
+                  </v-checkbox>
+
                   <v-checkbox
                     v-model="terms"
-                    label="Agree to Terms"
                     color="blue lighten-1"
                     value="info"
-                    hide-details
-                  ></v-checkbox>
+                  >
+                    <template v-slot:label>
+                      <div>
+                        I agree
+                        <v-tooltip >
+                          <template v-slot:activator="{ on }">
+                            <a @click="showExcluzeevTerms" v-on="on">
+                              Excluzeev Terms
+                            </a>
+                          </template>
+                        </v-tooltip>
+                      </div>
+                    </template>
+                  </v-checkbox>
                 </div>
                 <div class="text-xs-center">
                   <v-btn
@@ -66,11 +101,32 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <v-layout row justify-center>
+      <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <v-card>
+          <v-toolbar dark color="primary">
+            <v-btn icon dark @click="dialog = false">
+              <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>{{titleDialog}}</v-toolbar-title>
+          </v-toolbar>
+          <component v-bind:is="componentDialog"></component>
+        </v-card>
+      </v-dialog>
+    </v-layout>
   </v-content>
 </template>
 
 <script>
 // import store from "../store/index";
+import PrivacyPolicy from "../components/PrivacyPolicy";
+import ContentCreator from "../components/ContentCreator";
+import LicenseAgreement from "../components/LicenseAgreement";
 
 export default {
   data: () => {
@@ -79,6 +135,9 @@ export default {
       privacyPolicy: false,
       termsCreator: false,
       terms: false,
+      dialog: false,
+      titleDialog: "",
+      componentDialog: null,
       rules: {
         required: value => !!value || "Required.",
         email: value => {
@@ -88,6 +147,9 @@ export default {
       },
       processing: false
     };
+  },
+  components: {
+    PrivacyPolicy
   },
   methods: {
     doSignUpContentCreator() {
@@ -121,6 +183,21 @@ export default {
           }
         });
     },
+    showPrivacyPolicy() {
+      this.titleDialog = "Privacy Policy";
+      this.componentDialog = PrivacyPolicy;
+      this.dialog = true;
+    },
+    showCreatorTerms() {
+      this.titleDialog = "Content Creator Terms";
+      this.componentDialog = ContentCreator;
+      this.dialog = true;
+    },
+    showExcluzeevTerms() {
+      this.titleDialog = "Excluzeev Terms";
+      this.componentDialog = LicenseAgreement;
+      this.dialog = true;
+      },
     showToast(msg) {
       this.$toasted.show(msg, {
         theme: "outline",

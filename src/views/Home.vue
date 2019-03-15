@@ -2,7 +2,7 @@
   <div class="home">
     <div style="padding-top:25px"></div>
     <FeaturedItem />
-    <HomeMenu />
+    <!--<HomeMenu />-->
     <CategoriesTrailerVideos />
   </div>
 </template>

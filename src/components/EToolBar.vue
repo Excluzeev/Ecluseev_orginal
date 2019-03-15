@@ -23,6 +23,11 @@
         <span class="mr-2">Login</span>
       </v-btn>
     </router-link>
+    <router-link :to="{ name: 'Registration' }" v-if="showLogin">
+      <v-btn flat>
+        <span class="mr-2">SignUp</span>
+      </v-btn>
+    </router-link>
   </v-toolbar>
 </template>
 
