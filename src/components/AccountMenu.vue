@@ -20,9 +20,9 @@
           </router-link>
         </v-list-tile>
         <v-list-tile>
-          <router-link :to="{ name: 'Logout' }">
+          <a @click="logout">
             <v-list-tile-title>Logout</v-list-tile-title>
-          </router-link>
+          </a>
         </v-list-tile>
       </v-list>
     </v-card>
@@ -41,6 +41,17 @@ export default {
       return store.getters.getFUser != null
         ? store.getters.getFUser.isContentCreator
         : false;
+    }
+  },
+  methods: {
+    logout() {
+
+      this.$router.push("/logout");
+      this.$toasted.show("Successfully LoggedOut", {
+        theme: "outline",
+        position: "top-right",
+        duration: 2000
+      });
     }
   }
 };

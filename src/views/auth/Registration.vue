@@ -137,7 +137,7 @@ export default {
   methods: {
     showToast(msg) {
       this.$toasted.show(msg, {
-        theme: "toasted-primary",
+        theme: "outline",
         position: "top-right",
         duration: 2500
       });
@@ -148,7 +148,7 @@ export default {
         this.processing = false;
         return;
       }
-      if (this.firstName.isEmpty || this.lastName.isEmpty) {
+      if (this.firstName.isEmpty || this.lastName.isEmpty || this.firstName == "" || this.lastName == "") {
         this.showToast("Invalid First/Last Name");
         this.processing = false;
         return;

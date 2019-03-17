@@ -27,19 +27,25 @@
         <div class="grey--text">{{ video.timeAgo }}</div>
       </v-layout>
       <v-spacer></v-spacer>
-      <div v-ripple class="like-holder" @click="updateWhat('like')">
-        <v-icon x-large v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
-      </div>
-      <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-        <v-icon x-large v-bind:class="{ active: isNeutral }"
+      <a>
+        <div v-ripple class="like-holder" @click="updateWhat('like')">
+          <v-icon x-large v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
+        </div>
+      </a>
+      <a>
+        <div v-ripple class="like-holder" @click="updateWhat('neutral')">
+          <v-icon x-large v-bind:class="{ active: isNeutral }"
           >sentiment_dissatisfied</v-icon
-        >
-      </div>
-      <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-        <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
+          >
+        </div>
+      </a>
+      <a>
+        <div v-ripple class="like-holder" @click="updateWhat('dislike')">
+          <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
           >thumb_down</v-icon
-        >
-      </div>
+          >
+        </div>
+      </a>
     </v-layout>
     <div class="padding" v-if="shouldShowStartStream">
       <v-flex xs6>

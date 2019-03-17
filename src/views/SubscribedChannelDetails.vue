@@ -12,7 +12,7 @@
         />
       </v-avatar>
       <div class="channel-details padding">
-        <h2>{{ channel.channelName }}</h2>
+        <h2>{{ channel.title }}</h2>
         <p class="subscribers-count">
           {{
             channel.subscriberCount == undefined ? 0 : channel.subscriberCount
@@ -85,10 +85,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="green darken-1" flat @click="dialog = false"
-              >Dont Cancel</v-btn
+              >Cancel</v-btn
             >
             <v-btn color="green darken-1" flat @click="cancelSubscriptionAgree"
-              >Cancel</v-btn
+              >Accept</v-btn
             >
           </v-card-actions>
         </v-card>

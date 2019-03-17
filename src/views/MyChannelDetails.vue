@@ -134,7 +134,7 @@
       </v-card>
     </v-dialog>
     <v-layout row justify-center>
-      <v-dialog v-model="deleteDialog" persistent max-width="290">
+      <v-dialog v-model="deleteDialog" persistent max-width="320">
         <v-card>
           <v-card-title class="headline"
             >Do you want to delete the channel?</v-card-title
@@ -179,6 +179,7 @@ export default {
       tile: false,
       trailersList: [],
       videosList: [],
+      channel: null,
       dialog: false,
       subscribersList: [],
       subscriberLoading: true,
@@ -258,12 +259,16 @@ export default {
       this.$router.push("/");
     }
   },
-  mounted() {
+  async mounted() {
+    let channelDoc = await fireStore
+      .collection(utils.channelsCollection)
+      .doc(this.$route.params.channelId)
+      .get();
+    this.channel = channelDoc.data();
     this.loadTrailersData();
 
     this.loadVideosData();
-  },
-  props: ["channel"]
+  }
 };
 </script>
 

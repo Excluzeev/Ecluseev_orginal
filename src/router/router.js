@@ -50,7 +50,7 @@ const router = new VueRouter({
       name: "Logout",
       beforeEnter(to, from, next) {
         store.dispatch("signOut").then(() => {
-          next({ name: "Home" });
+          // next({ name: "Home" });
         });
       }
     },
@@ -103,17 +103,14 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/my-channel-details",
+      path: "/my-channel-details/:channelId",
       name: "MyChannelDetails",
       component: MyChannelDetails,
       meta: {
         noAuth: false,
         showNav: true,
         title: "My Channels Details"
-      },
-      props: route => ({
-        ...route.params
-      })
+      }
     },
     {
       path: "/add-trailer",

@@ -44,7 +44,9 @@ auth.onAuthStateChanged(user => {
 Vue.config.productionTip = false;
 
 Vue.use(VueVideoPlayer);
-Vue.use(Toasted);
+Vue.use(Toasted, {
+  router
+});
 Vue.mixin(titleMixin);
 
 new Vue({
