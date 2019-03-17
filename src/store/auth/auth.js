@@ -22,6 +22,8 @@ export default {
           .doc(userId);
         let userSnap = await userRef.get();
         let userData = null;
+        console.log(userSnap.data());
+        console.log(userSnap.exists);
         if (userSnap.exists) {
           userData = utils.extractUserData(userSnap);
         }
@@ -31,15 +33,15 @@ export default {
         });
       });
     },
-    loginUser: ({ state }, { email, password }) => {
+    loginUser: ({ state, dispatch }, { email, password }) => {
       return new Promise(resolve => {
         let errorData = { error: false, message: "Login Successful" };
         auth
           .signInWithEmailAndPassword(email, password)
           .then(() => {
             errorData = { error: false, message: "Login Successful" };
-            this.dispatch('checkUser').then(userRecord => {
-              if(userRecord.exist) {
+            dispatch('checkUser').then(userRecord => {
+              if(userRecord.exists) {
                 resolve(errorData);
               } else {
                 errorData = { error: true, message: "User not found. Please register." };
@@ -57,7 +59,7 @@ export default {
           });
       });
     },
-    signUpUser: ({ state }, { email, password, firstName, lastName }) => {
+    signUpUser: ({ state, dispatch }, { email, password, firstName, lastName }) => {
       return new Promise(resolve => {
         let errorData = { error: false, message: "User SignUp Successful" };
         auth
@@ -87,8 +89,8 @@ export default {
                 await transaction.set(userRef, userDoc);
               });
             }
-            this.dispatch('checkUser').then(userRecord => {
-              if(userRecord.exist) {
+            dispatch('checkUser').then(userRecord => {
+              if(userRecord.exists) {
                 resolve(errorData);
               } else {
                 errorData = { error: true, message: "User not found. Please register." };

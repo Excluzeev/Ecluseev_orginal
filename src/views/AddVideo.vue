@@ -65,6 +65,15 @@
                     </template>
                   </v-btn>
                 </div>
+                <div class="text-xs-center">
+                  <v-btn
+                    class="white--text"
+                    color="grey lighten-1"
+                    @click="$router.back()"
+                  >
+                    Cancel
+                  </v-btn>
+                </div>
               </v-form>
             </v-card-text>
           </v-card>
@@ -118,7 +127,7 @@ export default {
         return;
       }
       if (this.videoFile == null) {
-        this.showToast("Please select Video Video");
+        this.showToast("Please select Video");
         return;
       }
 
