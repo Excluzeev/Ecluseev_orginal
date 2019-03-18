@@ -178,10 +178,10 @@ export default {
           } else {
             this.$store.dispatch("auth/checkUser").then(userRecord => {
               if (userRecord.exists) {
-                this.showToast("Registration successfull");
+                this.showToast("Registration successful");
                 this.$router.push("/");
               } else {
-                this.showToast("Unknow error please try again.");
+                this.showToast("Unknown error please try again.");
                 this.processing = false;
               }
             });
