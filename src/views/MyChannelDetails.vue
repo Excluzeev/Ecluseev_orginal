@@ -39,7 +39,7 @@
           :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
         >
           <v-btn color="primary" class="white--text" round>
-            <v-icon left>add</v-icon>Add Excluzeev</v-btn
+            <v-icon left>add</v-icon>Excluzeev Live</v-btn
           >
         </router-link>
         <v-btn
@@ -87,75 +87,69 @@
         </v-flex>
       </v-layout>
     </div>
-    <v-dialog v-model="dialog">
-      <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>
-          Subscribers List
-        </v-card-title>
-        <v-list two-line v-if="!subscriberLoading && !subscriberEmpty">
-          <template v-for="(subscriber, index) in subscribersList">
-            <v-divider
-              v-if="index != 0"
-              :key="index"
-              :inset="item.inset"
-            ></v-divider>
+    <!--<v-layout>-->
+      <!--<v-dialog v-model="dialog">-->
+        <!--<v-card>-->
+          <!--<v-card-title class="headline grey lighten-2" primary-title>-->
+            <!--Subscribers List {{ subscribersList }}-->
+          <!--</v-card-title>-->
+          <!--<v-list two-line v-if="!subscriberLoading && !subscriberEmpty">-->
+            <!--<v-list-tile-->
+              <!--v-for="(subscriber, index) in subscribersList"-->
+              <!--v-bind:key="subscriber.subscriptionId"-->
+            <!--&gt;-->
+              <!--<v-divider v-if="index != 0" :key="index"></v-divider>-->
+              <!--<v-list-tile-content>-->
+                <!--<v-list-tile-title>{{ subscriber.userName }}</v-list-tile-title>-->
+                <!--<v-list-tile-sub-title>-->
+                  <!--{{ subscriber.daysLeft }}-->
+                <!--</v-list-tile-sub-title>-->
+              <!--</v-list-tile-content>-->
+            <!--</v-list-tile>-->
+          <!--</v-list>-->
 
-            <v-list-tile v-bind:key="subscriber.subscriptionId">
-              <v-list-tile-content>
-                <v-list-tile-title
-                  v-html="subscriber.userName"
-                ></v-list-tile-title>
-                <v-list-tile-sub-title
-                  v-html="subscriber.daysLeft"
-                ></v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-        </v-list>
+          <!--<v-card-text v-if="subscriberEmpty">-->
+            <!--No Subscribers yet.-->
+          <!--</v-card-text>-->
 
-        <v-card-text v-if="subscriberEmpty">
-          No Subscribers yet.
-        </v-card-text>
+          <!--<v-progress-circular-->
+            <!--v-if="subscriberLoading"-->
+            <!--indeterminate-->
+            <!--color="primary"-->
+          <!--&gt;</v-progress-circular>-->
 
-        <v-progress-circular
-          v-if="subscriberLoading"
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="dialog = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-layout row justify-center>
-      <v-dialog v-model="deleteDialog" persistent max-width="320">
-        <v-card>
-          <v-card-title class="headline"
-            >Do you want to delete the channel?</v-card-title
-          >
-          <v-card-text
-            >Hello, <br />
-            Do you really want to delete the channel, Users will have a 30 days
-            notice period.</v-card-text
-          >
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="green darken-1" flat @click="deleteDialog = false"
-              >Dont Delete</v-btn
-            >
-            <v-btn color="green darken-1" flat @click="deleteChannel"
-              >Delete</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-layout>
+          <!--<v-card-actions>-->
+            <!--<v-spacer></v-spacer>-->
+            <!--<v-btn color="primary" flat @click="dialog = false">-->
+              <!--Close-->
+            <!--</v-btn>-->
+          <!--</v-card-actions>-->
+        <!--</v-card>-->
+      <!--</v-dialog>-->
+    <!--</v-layout>-->
+    <!--<v-layout row justify-center>-->
+      <!--<v-dialog v-model="deleteDialog" persistent max-width="320">-->
+        <!--<v-card>-->
+          <!--<v-card-title class="headline"-->
+            <!--&gt;Do you want to delete the channel?</v-card-title-->
+          <!--&gt;-->
+          <!--<v-card-text-->
+            <!--&gt;Hello, <br />-->
+            <!--Do you really want to delete the channel, Users will have a 30 days-->
+            <!--notice period.</v-card-text-->
+          <!--&gt;-->
+          <!--<v-card-actions>-->
+            <!--<v-spacer></v-spacer>-->
+            <!--<v-btn color="green darken-1" flat @click="deleteDialog = false"-->
+              <!--&gt;Dont Delete</v-btn-->
+            <!--&gt;-->
+            <!--<v-btn color="green darken-1" flat @click="deleteChannel"-->
+              <!--&gt;Delete</v-btn-->
+            <!--&gt;-->
+          <!--</v-card-actions>-->
+        <!--</v-card>-->
+      <!--</v-dialog>-->
+    <!--</v-layout>-->
   </v-container>
 </template>
 

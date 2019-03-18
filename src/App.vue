@@ -4,15 +4,18 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+    <FooterComponent />
   </v-app>
 </template>
 
 <script>
 import EToolBar from "./components/EToolBar";
+import FooterComponent from "./components/FooterComponent";
 export default {
   name: "App",
   title: "Excluzeev - Stream. Crowdfunding. Social Network",
   components: {
+    FooterComponent,
     EToolBar
   },
   computed: {

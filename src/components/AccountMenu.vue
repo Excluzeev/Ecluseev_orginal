@@ -47,7 +47,7 @@ export default {
     logout() {
 
       this.$router.push("/logout");
-      this.$toasted.show("Successfully LoggedOut", {
+      this.$toasted.show("Successfully Logged out", {
         theme: "outline",
         position: "top-right",
         duration: 2000
