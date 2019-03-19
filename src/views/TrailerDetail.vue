@@ -2,7 +2,7 @@
   <div class="home">
     <div v-show="!playerOptions.sources[0].src.isEmpty">
       <video-player
-        class="vjs-custom-skin"
+        class="vjs-custom-skin video-holder vjs-16-9"
         id="player_id"
         ref="videoPlayer"
         :options="playerOptions"
@@ -376,5 +376,13 @@ export default {
 }
 .active {
   color: #42a5f5;
+}
+@media only screen and (min-width: 768px) {
+  .video-holder {
+    min-height: 50%;
+  }
+  .video-js {
+    min-height: 50%;
+  }
 }
 </style>

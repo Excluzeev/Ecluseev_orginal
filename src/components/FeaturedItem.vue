@@ -1,29 +1,43 @@
 <template>
   <!-- swiper -->
-  <swiper :options="swiperOption">
-    <swiper-slide v-for="(tex, x) in taglines" :key="x">
-      <v-img :src="'https://picsum.photos/480/260?image=' + randomNumber()">
-        <div class="fill-height bottom-gradient">
-          <v-layout align-end fill-height pa-3 white--text>
-            <div class="title font-weight-medium featured-text">
-              {{ tex }}
-            </div>
-          </v-layout>
-        </div>
-      </v-img>
-    </swiper-slide>
-  </swiper>
+  <div style="max-height: 320px;">
+    <swiper :options="swiperOption" v-if="featuredTrailers.length > 0">
+      <swiper-slide v-for="(trailer, x) in featuredTrailers" :key="x">
+        <router-link  :to="'/trailer/' + trailer.trailerId">
+          <div class="image">
+
+            <img :src="trailer.image" alt="" />
+
+            <h2>{{ trailer.title }}</h2>
+
+          </div>
+        </router-link>
+      </swiper-slide>
+    </swiper>
+  </div>
 </template>
 
 <script>
 import "swiper/dist/css/swiper.css";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+import trailerModule from "../store/trailers/trailer";
+import RegisterStoreModule from "../mixins/RegisterStoreModule";
+
 export default {
   components: {
     swiper,
     swiperSlide
   },
+  created() {
+    this.registerStoreModule("trailers", trailerModule);
+
+    this.$store.dispatch("trailers/fetchTop10Trailer").then(data => {
+      console.log(data);
+      this.featuredTrailers = data;
+    });
+  },
+  mixins: [RegisterStoreModule],
   methods: {
     randomNumber: function() {
       return Math.floor(Math.random() * 50);
@@ -31,14 +45,17 @@ export default {
   },
   data() {
     return {
+      featuredTrailers: [],
       swiperOption: {
         slidesPerView: 3,
         centeredSlides: true,
         spaceBetween: 30,
         loop: true,
+        height: 320,
+        noSwiping: false,
         autoplay: {
           delay: 1500,
-          disableOnInteraction: false
+          disableOnInteraction: true
         }
       },
       taglines: [
@@ -63,5 +80,30 @@ export default {
 .featured-text {
   position: absolute;
   bottom: 10px;
+}
+/*.v-responsive__sizer {*/
+  /*padding-bottom: 56.25% !important;*/
+/*}*/
+  /*.v-image__image--cover {*/
+    /*background-size: cover;*/
+  /*}*/
+.image {
+  width: 320px;
+  height: auto;
+  position: relative;
+}
+.image img {
+  width: 320px;
+  height: 180px;
+}
+
+h2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: #0f0f0fb3;
+  color: white;
 }
 </style>

@@ -45,7 +45,7 @@ export default new Vuex.Store({
           ? parseInt(localStorage.getItem("last")) + 600000
           : 0;
       if (user == null) {
-        localStorage.removeItem("fUser");
+        // localStorage.removeItem("fUser");
         localStorage.removeItem("last");
         state.fUser = null;
         return;
