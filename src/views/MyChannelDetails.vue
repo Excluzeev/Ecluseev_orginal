@@ -250,7 +250,7 @@ export default {
       };
       await channelRef.update(updateData);
 
-      this.$router.push("/");
+      this.$router.push({ name: "MyChannels" });
     }
   },
   async mounted() {

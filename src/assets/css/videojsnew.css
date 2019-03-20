@@ -283,3 +283,9 @@
     color: #2aaae1;
     text-shadow: none
 }
+
+
+/* Custom CSS */
+#vjs_video_3 {
+    width: 100% !important;
+}

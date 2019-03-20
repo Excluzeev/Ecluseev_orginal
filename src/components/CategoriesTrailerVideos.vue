@@ -32,4 +32,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .padding {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+</style>
