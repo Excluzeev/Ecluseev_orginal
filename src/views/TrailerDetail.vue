@@ -1,134 +1,149 @@
 <template>
   <div class="home">
-    <div v-show="!playerOptions.sources[0].src.isEmpty">
-      <video-player
-        class="vjs-custom-skin video-holder vjs-16-9"
-        id="player_id"
-        ref="videoPlayer"
-        :options="playerOptions"
-        @ready="playerIsReady"
-        @timeupdate="onPlayerTimeupdate($event)"
-      >
-      </video-player>
-    </div>
-    <v-layout class="padding" align-center justify-left row fill-height>
-      <v-layout class="padding" align-left justify-left column fill-height>
-        <div class="title-details--text">{{ trailer.title }}</div>
-        <div class="desc-details--text">
-          {{ trailer.views }} views • {{ trailer.timeAgo }}
-        </div>
-      </v-layout>
-      <v-spacer></v-spacer>
-      <a>
-        <div v-ripple class="like-holder" @click="updateWhat('like')">
-          <v-icon x-large v-bind:class="{ active: isUserLiked }"
-            >thumb_up</v-icon
+    <v-layout class="main-holder" xs12>
+      <v-flex xs12 sm12 md8 lg8 class="video-holder">
+        <div v-show="!playerOptions.sources[0].src.isEmpty">
+          <video-player
+            class="video-holder vjs-big-play-centered"
+            width="100%"
+            height="auto"
+            id="player_id"
+            ref="videoPlayer"
+            :options="playerOptions"
+            @ready="playerIsReady"
+            @timeupdate="onPlayerTimeupdate($event)"
           >
+          </video-player>
         </div>
-      </a>
-      <a>
-        <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-          <v-icon x-large v-bind:class="{ active: isNeutral }"
-            >sentiment_dissatisfied</v-icon
-          >
-        </div>
-      </a>
-      <a>
-        <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-          <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
-            >thumb_down</v-icon
-          >
-        </div>
-      </a>
-    </v-layout>
-    <v-divider></v-divider>
-
-    <div v-if="showSubscribeButton && showDonateText">
-      <v-progress-linear
-              color="error"
-              height="20"
-              :value="(channel.targetFund * channel.currentFund) / 100"
-      ></v-progress-linear>
-    </div>
-
-    <v-layout class="padding" align-center justify-left fill-height>
-      <div class="square">
-        <img
-          class="channel-image square"
-          :src="trailer != null ? trailer.channelImage : ''"
-        />
-      </div>
-      <v-flex>
         <v-layout class="padding" align-center justify-left row fill-height>
           <v-layout class="padding" align-left justify-left column fill-height>
-            <h2>{{ trailer.channelName }}</h2>
-            <span class="published--text">Published on {{ trailer.timeAgo }}</span>
-
+            <div class="title-details--text">{{ trailer.title }}</div>
+            <div class="desc-details--text">
+              {{ trailer.views }} views • {{ trailer.timeAgo }}
+            </div>
           </v-layout>
           <v-spacer></v-spacer>
-
-          <!--Subscribe and Donate Buttons-->
-          <div>
-            <v-layout row wrap align-end>
-              <v-spacer></v-spacer>
-              <v-btn
-                      class="white--text"
-                      color="blue lighten-1"
-                      :loading="subscribeProcessing"
-                      :disabled="subscribeProcessing"
-                      @click="prepareSubscribe"
-                      v-if="showSubscribeButton && !showDonateText"
+          <a>
+            <div v-ripple class="like-holder" @click="updateWhat('like')">
+              <v-icon x-large v-bind:class="{ active: isUserLiked }"
+                >thumb_up</v-icon
               >
-                <v-icon left light>attach_money</v-icon> Subscribe
-                <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>cached</v-icon>
-                </span>
-                </template>
-              </v-btn>
-
-              <v-btn
-                      class="white--text"
-                      color="blue lighten-1"
-                      :loading="donate5Processing"
-                      :disabled="donate5Processing"
-                      @click="prepareSubscribe(5)"
-                      v-if="showSubscribeButton && showDonateText"
+            </div>
+          </a>
+          <a>
+            <div v-ripple class="like-holder" @click="updateWhat('neutral')">
+              <v-icon x-large v-bind:class="{ active: isNeutral }"
+                >sentiment_dissatisfied</v-icon
               >
-                <v-icon left light>attach_money</v-icon> Donate 5$
-                <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>cached</v-icon>
-                </span>
-                </template>
-              </v-btn>
-
-              <v-btn
-                      class="white--text"
-                      color="blue lighten-1"
-                      :loading="donate10Processing"
-                      :disabled="donate10Processing"
-                      @click="prepareSubscribe(10)"
-                      v-if="showSubscribeButton && showDonateText"
+            </div>
+          </a>
+          <a>
+            <div v-ripple class="like-holder" @click="updateWhat('dislike')">
+              <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
+                >thumb_down</v-icon
               >
-                <v-icon left light>attach_money</v-icon> Donate 10$
-                <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>cached</v-icon>
-                </span>
-                </template>
-              </v-btn>
-            </v-layout>
-          </div>
+            </div>
+          </a>
         </v-layout>
+        <v-divider></v-divider>
 
-        <!--Description-->
-        <div class="detail-description">
-          <div>{{ trailer.description }}</div>
+        <div v-if="showSubscribeButton && showDonateText">
+          <v-progress-linear
+            color="error"
+            height="20"
+            :value="(channel.targetFund * channel.currentFund) / 100"
+          ></v-progress-linear>
+        </div>
+
+        <v-layout class="padding" justify-left fill-height>
+          <div class="padding">
+            <img
+              class="channel-image square"
+              :src="trailer != null ? trailer.channelImage : ''"
+            />
+          </div>
+          <v-flex class="padding">
+            <v-layout align-center justify-left row>
+              <v-layout align-left justify-left column fill-height>
+                <h2>{{ trailer.channelName }}</h2>
+                <span class="published--text"
+                  >Published on {{ trailer.timeAgo }}</span
+                >
+              </v-layout>
+              <v-spacer></v-spacer>
+
+              <!--Subscribe and Donate Buttons-->
+              <div>
+                <v-layout row wrap align-end>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    class="white--text"
+                    color="blue lighten-1"
+                    :loading="subscribeProcessing"
+                    :disabled="subscribeProcessing"
+                    @click="prepareSubscribe"
+                    v-if="showSubscribeButton && !showDonateText"
+                  >
+                    <v-icon left light>attach_money</v-icon> Subscribe
+                    <template v-slot:loader>
+                      <span class="custom-loader">
+                        <v-icon light>cached</v-icon>
+                      </span>
+                    </template>
+                  </v-btn>
+
+                  <v-btn
+                    class="white--text"
+                    color="blue lighten-1"
+                    :loading="donate5Processing"
+                    :disabled="donate5Processing"
+                    @click="prepareSubscribe(5)"
+                    v-if="showSubscribeButton && showDonateText"
+                  >
+                    <v-icon left light>attach_money</v-icon> Donate 5$
+                    <template v-slot:loader>
+                      <span class="custom-loader">
+                        <v-icon light>cached</v-icon>
+                      </span>
+                    </template>
+                  </v-btn>
+
+                  <v-btn
+                    class="white--text"
+                    color="blue lighten-1"
+                    :loading="donate10Processing"
+                    :disabled="donate10Processing"
+                    @click="prepareSubscribe(10)"
+                    v-if="showSubscribeButton && showDonateText"
+                  >
+                    <v-icon left light>attach_money</v-icon> Donate 10$
+                    <template v-slot:loader>
+                      <span class="custom-loader">
+                        <v-icon light>cached</v-icon>
+                      </span>
+                    </template>
+                  </v-btn>
+                </v-layout>
+              </div>
+            </v-layout>
+
+            <!--Description-->
+            <div class="detail-description">
+              <div>{{ trailer.description }}</div>
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
+        <div style="width: 100%;">
+          <TrailerDetailVideoItem
+            v-for="trailer in catTrailersList"
+            v-bind:key="trailer.trailerId"
+            :trailer="trailer"
+          />
         </div>
       </v-flex>
     </v-layout>
-
   </div>
 </template>
 
@@ -138,6 +153,7 @@ import trailerModule from "../store/trailers/trailer";
 import { fireStore, auth } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
+import TrailerDetailVideoItem from "../components/TrailerDetailVideoItem";
 
 import "videojs-ima/dist/videojs.ima";
 import "videojs-ima/dist/videojs.ima.css";
@@ -148,6 +164,7 @@ export default {
     return {
       trailer: null,
       channel: null,
+      catTrailersList: null,
       showSubscribeButton: false,
       showDonateText: false,
       isViewTriggered: false,
@@ -163,6 +180,7 @@ export default {
         techOrder: ["html5"],
         sourceOrder: true,
         playbackRates: [0.7, 1.0, 1.5, 2.0],
+        aspectRatio: "16:9",
         html5: { hls: { withCredentials: false } },
         sources: [
           {
@@ -179,7 +197,9 @@ export default {
       prevWhat: -2
     };
   },
-  components: {},
+  components: {
+    TrailerDetailVideoItem
+  },
   mixins: [RegisterStoreModule],
   computed: {
     player() {
@@ -207,6 +227,14 @@ export default {
           .then(data => {
             this.channel = data;
             this.showDonateText = data.channelType != "VOD";
+          });
+
+        this.$store
+          .dispatch("trailers/fetchCategoryTrailersTop10", {
+            categoryId: this.trailer.categoryId
+          })
+          .then(catTrailersList => {
+            this.catTrailersList = catTrailersList;
           });
 
         this.playerOptions.sources[0].src = this.trailer.videoUrl;
@@ -396,8 +424,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
-  background-color: #ffffff;
+.main-holder {
+  align-items: flex-start;
 }
 .channel-image {
   border-radius: 50%;
@@ -420,14 +448,17 @@ export default {
   color: rgba(17, 17, 17, 0.6);
 }
 .detail-description {
-  padding: 10px;
 }
-@media only screen and (min-width: 768px) {
-  .video-holder {
-    min-height: 50%;
-  }
-  .video-js {
-    min-height: 50%;
-  }
+.linked-trailers {
+  padding-left: 10px;
+  padding-right: 10px;
 }
+/*@media only screen and (min-width: 768px) {*/
+  /*.video-holder {*/
+    /*min-height: 50%;*/
+  /*}*/
+  /*.video-js {*/
+    /*min-height: 50%;*/
+  /*}*/
+/*}*/
 </style>
