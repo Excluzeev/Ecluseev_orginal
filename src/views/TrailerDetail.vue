@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <v-layout class="main-holder" xs12>
-      <v-flex xs12 sm12 md8 lg8 class="video-holder">
+      <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
         <div v-show="!playerOptions.sources[0].src.isEmpty">
           <video-player
             class="video-holder vjs-big-play-centered"
@@ -17,7 +17,7 @@
         </div>
         <v-layout class="padding" align-center justify-left row fill-height>
           <v-layout class="padding" align-left justify-left column fill-height>
-            <div class="title-details--text">{{ trailer.title }}</div>
+            <div class="title-details--text max-1-lines ">{{ trailer.title }}</div>
             <div class="desc-details--text">
               {{ trailer.views }} views
             </div>

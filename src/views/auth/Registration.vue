@@ -1,110 +1,153 @@
 <template>
-  <div style="height:100%" class="blue lighten-1">
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
+  <div style="height:100%" class="">
+    <v-container text-xs-center fill-height>
+      <v-layout align-center row wrap justify-center>
+        <v-flex xs12 sm8 md6>
+          <v-card class="elevation-5 signup-holder text-xs-center">
             <img
-              style="padding-bottom:3%;padding-left:13%"
+              style="width: 30%;"
               alt="Excluzeev
             logo"
-              src="../../assets/excluzeev_white.png"
+              src="../../assets/excluzeev_bottom_text.png"
             />
-            <v-card class="elevation-12">
-              <v-toolbar dark color="white">
-                <v-toolbar-title class="blue--text lighten-1"
-                  >Excluzev Registration</v-toolbar-title
-                >
-              </v-toolbar>
-              <v-card-text>
-                <v-form class="blue--text lighten-1" @submit.prevent="doSignUp">
+            <div class="signup-text quick-sand-font">Sign up</div>
+            <div class="signup-continue-text">
+              Continue to Excluzeev
+            </div>
+            <v-card-text>
+              <v-form class="lighten-1" @submit.prevent="doSignUp">
+                <v-layout row>
                   <v-text-field
-                    prepend-icon="person"
+                    style="margin-right: 5px;"
                     name="firstname"
                     label="FirstName"
                     type="text"
                     v-model="firstName"
-                    :rules="[rules.required]"
+                    :rules="[rules.required, rules.name]"
                   ></v-text-field>
                   <v-text-field
-                    prepend-icon="person"
+                    style="margin-left: 5px;"
                     name="lastname"
                     label="LastName"
                     type="text"
                     v-model="lastName"
-                    :rules="[rules.required]"
+                    :rules="[rules.required, rules.name]"
                   ></v-text-field>
+                </v-layout>
+                <v-text-field
+                  name="login"
+                  label="Email"
+                  type="text"
+                  v-model="email"
+                  :rules="[rules.required, rules.email]"
+                ></v-text-field>
+                <v-layout row>
                   <v-text-field
-                    prepend-icon="person"
-                    name="login"
-                    label="Email"
-                    type="text"
-                    v-model="email"
-                    :rules="[rules.required, rules.email]"
-                  ></v-text-field>
-                  <v-text-field
+                    style="margin-right: 5px;"
                     id="password"
-                    prepend-icon="lock"
                     name="password"
                     label="Password"
                     type="password"
                     v-model="password"
-                    :rules="[rules.required, rules.counter]"
+                    :rules="[rules.required, rules.password]"
                   ></v-text-field>
                   <v-text-field
-                    id="password"
-                    prepend-icon="lock"
-                    name="password"
+                    style="margin-left: 5px;"
+                    id="cpassword"
+                    name="cpassword"
                     label="Confrim Password"
                     type="password"
                     v-model="cPassword"
-                    :rules="[rules.required]"
+                    :rules="[rules.required, rules.password]"
                   ></v-text-field>
-                  <div class="text-xs-center">
-                    <v-btn
-                      class="white--text v-btn--round"
-                      color="blue lighten-1"
-                      type="submit"
-                      :loading="processing"
-                      :disabled="processing"
-                      @click="loader = 'loading4'"
-                    >
-                      Sign Up
-                      <template v-slot:loader>
-                        <span class="custom-loader">
-                          <v-icon light>cached</v-icon>
-                        </span>
-                      </template>
-                    </v-btn>
-                  </div>
-                </v-form>
-                <div class="padding"></div>
-                <div class="text-xs-center">
-                  <p  style="color: gray;">OR</p>
+                </v-layout>
+
+                <div class="text-xs-left grey--text" style="font-size: 12px">
+                  <p>
+                    Minimum eight characters, at least one uppercase letter, one
+                    lowercase letter, one number and one special character
+                  </p>
+                </div>
+
+                <div
+                  class="text-xs-right quick-sand-font-b"
+                  style="padding: 0px;"
+                >
                   <v-btn
-                          flat
-                          class="white--text v-btn--round"
-                          color="blue lighten-1"
-                          @click="goLogin"
+                    class="white--text quick-sand-font-b"
+                    color="blue lighten-1"
+                    type="submit"
+                    :loading="processing"
+                    :disabled="processing"
+                    @click="loader = 'loading4'"
                   >
-                    Login
+                    Sign up
+                    <template v-slot:loader>
+                      <span class="custom-loader">
+                        <v-icon light>cached</v-icon>
+                      </span>
+                    </template>
                   </v-btn>
                 </div>
-              </v-card-text>
-            </v-card>
-          </v-flex>
-        </v-layout>
-        <!-- <v-snackbar v-model="snackbar" bottom>
-          {{ toastText }}
-        </v-snackbar> -->
-      </v-container>
-    </v-content>
+              </v-form>
+              <div class="padding"></div>
+              <div class="text-xs-left quick-sand-font">
+                Have an account? &nbsp;
+                <a>
+                  <span class="" color="blue lighten-1" @click="goLogin">
+                    Log in
+                  </span>
+                </a>
+              </div>
+            </v-card-text>
+          </v-card>
+          <div
+            class="text-xs-right"
+            style="padding-right: 20px;padding-top: 10px;"
+          >
+            <a @click="showExcluzeevTerms">Terms</a>
+
+            <a @click="showPrivacyPolicy" style="padding-left: 20px;"
+              >Privacy</a
+            >
+
+            <a
+              href="mailto:support@excluzeev.com?subject=Need%20Help"
+              style="padding-left: 20px;"
+              >Help</a
+            >
+          </div>
+        </v-flex>
+      </v-layout>
+      <!-- <v-snackbar v-model="snackbar" bottom>
+        {{ toastText }}
+      </v-snackbar> -->
+    </v-container>
+    <v-dialog
+      v-model="termsDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="termsDialog = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ titleDialog }}</v-toolbar-title>
+        </v-toolbar>
+        <component v-bind:is="componentDialog"></component>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import RegisterStoreModule from "../../mixins/RegisterStoreModule";
 import authModule from "../../store/auth/auth";
+
+import LicenseAgreement from "../../components/LicenseAgreement";
+import PrivacyPolicy from "../../components/PrivacyPolicy";
 
 export default {
   data: () => {
@@ -114,13 +157,27 @@ export default {
       email: "",
       password: "",
       cPassword: "",
+      termsDialog: false,
+      titleDialog: "Terms and Conditions",
+      componentDialog: LicenseAgreement,
       rules: {
+        name: value => {
+          const pattern = /^[a-zA-Z ]*$/;
+          return pattern.test(value) || "Name cannot contain number";
+        },
         required: value => !!value || "Required.",
         counter: value =>
           value.length >= 8 || "Password should be greater than 8 characters",
         email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
+        },
+        password: value => {
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+          return (
+            pattern.test(value) ||
+            "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+          );
         }
       },
       processing: false,
@@ -132,8 +189,7 @@ export default {
   created() {
     this.registerStoreModule("auth", authModule);
   },
-  beforeDestroy: function() {
-  },
+  beforeDestroy: function() {},
   methods: {
     showToast(msg) {
       this.$toasted.show(msg, {
@@ -148,7 +204,12 @@ export default {
         this.processing = false;
         return;
       }
-      if (this.firstName.isEmpty || this.lastName.isEmpty || this.firstName == "" || this.lastName == "") {
+      if (
+        this.firstName.isEmpty ||
+        this.lastName.isEmpty ||
+        this.firstName == "" ||
+        this.lastName == ""
+      ) {
         this.showToast("Invalid First/Last Name");
         this.processing = false;
         return;
@@ -188,15 +249,53 @@ export default {
           }
         });
     },
-    goLogin () {
+    goLogin() {
       this.$router.replace({ name: "Login" });
+    },
+    showPrivacyPolicy() {
+      this.titleDialog = "Privacy Policy";
+      this.componentDialog = PrivacyPolicy;
+      this.termsDialog = true;
+    },
+    showExcluzeevTerms() {
+      this.titleDialog = "Excluzeev Terms";
+      this.componentDialog = LicenseAgreement;
+      this.termsDialog = true;
     }
   }
 };
 </script>
 
 <style scoped>
-  .padding {
-    padding: 10px;
-  }
-  </style>
+.padding {
+  padding: 10px;
+}
+.signup-holder {
+  padding: 20px;
+}
+.signup-continue-text {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  line-height: 1.5;
+}
+.signup-text {
+  color: #202124;
+  padding-bottom: 0;
+  font-family: "Google Sans", "Noto Sans Myanmar UI", arial, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.3333;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.quick-sand-font-b {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+}
+.quick-sand-font {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+}
+</style>

@@ -4,7 +4,7 @@
     <v-content>
       <router-view></router-view>
     </v-content>
-    <FooterComponent />
+    <!--<FooterComponent />-->
   </v-app>
 </template>
 
@@ -27,6 +27,8 @@ export default {
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700");
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+
 a {
   text-decoration: none;
 }
@@ -98,8 +100,18 @@ main {
   text-overflow: ellipsis;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 3.2em;
-  line-height: 1.8em;
+  max-height: 2.4em;
+  line-height: 1.2em;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+}
+.max-1-lines {
+  display: block; /* or inline-block */
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 1.2em;
+  line-height: 1.2em;
   white-space: normal;
   -webkit-line-clamp: 2;
 }
