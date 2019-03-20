@@ -4,7 +4,7 @@
     <v-layout class="all-bg padding-top" justify-left row>
       <img :src="trailer.image" height="94" width="168" />
       <div class="padding">
-        <div class="title--text">{{ trailer.title }}</div>
+        <div class="title--text max-2-lines">{{ trailer.title }}</div>
         <span class="desc--text">{{ trailer.channelName }}</span>
         <div class="desc--text">
           {{ trailer.views }} views • {{ trailer.timeAgo }}
