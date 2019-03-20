@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <v-container>
     <div v-for="category in categories" v-bind:key="category.id">
       <category-trailers :catId="category.id" :catName="category.name" />
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
