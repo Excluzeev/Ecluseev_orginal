@@ -17,17 +17,15 @@
         </div>
         <v-layout class="padding" align-center justify-left row fill-height>
           <v-layout class="padding" align-left justify-left column fill-height>
-            <div class="title-details--text max-1-lines ">{{ trailer.title }}</div>
-            <div class="desc-details--text">
-              {{ trailer.views }} views
+            <div class="title-details--text max-1-lines ">
+              {{ trailer.title }}
             </div>
+            <div class="desc-details--text">{{ trailer.views }} views</div>
           </v-layout>
           <v-spacer></v-spacer>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('like')">
-              <v-icon v-bind:class="{ active: isUserLiked }"
-                >thumb_up</v-icon
-              >
+              <v-icon v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
             </div>
           </a>
           <a>
@@ -137,29 +135,38 @@
         <v-divider></v-divider>
 
         <!--Comments Section-->
-        <div class="comment-holder padding" v-if="showComments">
-          <div>
+        <div class="comment-holder padding">
+          <div v-if="showComments">
             <v-textarea
-                    solo
-                    label="Add a comment"
-                    rows="1"
-                    auto-grow
-                    v-model="commentText"
+              solo
+              label="Add a comment"
+              rows="1"
+              auto-grow
+              v-model="commentText"
             ></v-textarea>
             <v-layout>
               <v-spacer></v-spacer>
               <v-btn
-                      class="white--text"
-                      color="blue lighten-1"
-                      :disabled="disabelComment"
-                      @click="doComment"
+                class="white--text"
+                color="blue lighten-1"
+                :disabled="disabelComment"
+                @click="doComment"
               >
                 Comment
               </v-btn>
             </v-layout>
           </div>
+          <div v-if="!showComments">
+            <div class="logincomment text-xs-center">
+              <p>Please <router-link :to="{ name: 'Login'}" class="quick-sand-font-b">login</router-link> to comment</p>
+            </div>
+          </div>
           <v-flex class="padding" v-if="commentsList.length > 0">
-            <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
+            <div
+              class="comment"
+              v-for="comment in commentsList"
+              v-bind:key="comment.commentId"
+            >
               <h4>{{ comment.userName }}</h4>
               <div>{{ comment.comment }}</div>
               <p class="grey--text">{{ comment.timeAgo }}</p>
@@ -167,7 +174,7 @@
           </v-flex>
           <v-flex v-else text-xs-center>
             <div class="nocomment">
-              <p> No comments Yet be the first to comment</p>
+              <p>No comments Yet be the first to comment</p>
             </div>
           </v-flex>
         </div>
@@ -249,6 +256,7 @@ export default {
       return this.commentText == "";
     },
     showComments() {
+      auth.onAuthStateChanged(user => {});
       return auth.currentUser != null;
     }
   },
@@ -518,7 +526,6 @@ export default {
         });
         this.commentsList = commentsList;
       });
-
     }
   }
 };

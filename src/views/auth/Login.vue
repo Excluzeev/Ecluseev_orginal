@@ -242,12 +242,5 @@ export default {
   margin-bottom: 0;
   margin-top: 0;
 }
-.quick-sand-font-b {
-  font-family: "Quicksand", sans-serif;
-  font-weight: 700;
-}
-.quick-sand-font {
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-}
+
 </style>
