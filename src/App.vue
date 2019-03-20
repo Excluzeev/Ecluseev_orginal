@@ -26,6 +26,7 @@ export default {
 };
 </script>
 <style>
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700');
 a {
   text-decoration: none;
 }
@@ -65,4 +66,31 @@ a {
     transform: rotate(360deg);
   }
 }
+body {
+  background-color: #fafafa;
+  font-family: 'Source Sans Pro', sans-serif !important;
+}
+.application {
+  font-family: 'Source Sans Pro',  sans-serif !important;
+}
+.all-bg {
+  background-color: #fafafa;
+}
+main {
+  background-color: #fafafa;
+}
+  .desc--text {
+    color: #606060;
+    font-size: .9rem;
+  }
+
+  .desc-details--text {
+    color: #606060;
+    font-size: 1.2rem;
+  }
+  .title-details--text {
+    color: #0a0a0a;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
 </style>

@@ -173,23 +173,23 @@ export default {
           .then(response => {
             this.video = vData;
             let fUser = JSON.parse(localStorage.getItem("fUser"));
-            if (this.video.userId != auth.currentUser.uid) {
-              this.$router.replace({ name: "Home" });
-              return;
-            }
-            if (
-              fUser.subscribedChannels != undefined &&
-              fUser.subscribedChannels.includes(this.video.channelId)
-            ) {
-              this.$router.replace({ name: "Home" });
-              return;
-            }
+            // if (this.video.userId != auth.currentUser.uid) {
+            //   this.$router.replace({ name: "Home" });
+            //   return;
+            // }
+
             this.playerOptions.sources[0].src = response.data;
             this.playerOptions.poster = this.video.image;
 
             if (this.video.userId == auth.currentUser.uid) {
               this.shouldShowStartStream = this.video.later == "later";
               this.shouldShowStreamDetails = this.video.later != "later";
+            } else {
+              this.shouldShowStreamDetails = false;
+              this.shouldShowStartStream = false;
+              if (!fUser.subscribedChannels.includes(this.video.channelId)) {
+                this.$router.replace({ name: "Home" });
+              }
             }
 
             // this.shouldShowStreamDetails = moment(this.video.)

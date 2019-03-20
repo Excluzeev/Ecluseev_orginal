@@ -65,6 +65,22 @@ export default {
             resolve(utils.extractTrailerData(documentSnapshot));
           });
       });
+    },
+    fetchTop10Trailer: ({ state, commit }) => {
+      return new Promise(resolve => {
+        fireStore
+          .collection(collections.trailerCollection)
+          .orderBy("createdDate", "desc")
+          .limit(5)
+          .get()
+          .then(querySnapshot => {
+            let trailers = [];
+            querySnapshot.forEach(doc => {
+              trailers.push(utils.extractTrailerData(doc));
+            });
+            resolve(trailers);
+          });
+      });
     }
   }
 };

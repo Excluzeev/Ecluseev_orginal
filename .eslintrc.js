@@ -11,6 +11,7 @@ module.exports = {
   parserOptions: {
     parser: "babel-eslint",
     "eqeqeq": 0,
-    "no-eq-null": 0
+    "no-eq-null": 0,
+    "indent": ["error", "tab"]
   }
 };

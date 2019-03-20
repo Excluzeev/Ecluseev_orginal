@@ -40,6 +40,7 @@
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import subscriptionsModule from "../store/subscriptions/subscriptions";
+import { auth } from "../firebase/init";
 
 export default {
   name: "MySubscriptions",
@@ -51,10 +52,16 @@ export default {
   },
   mixins: [RegisterStoreModule],
   props: {},
-  created() {
+  async created() {
+    console.log(this.$route.query.done);
+    console.log(auth.currentUser);
+
     this.registerStoreModule("subscriptions", subscriptionsModule);
   },
-  mounted() {
+  async mounted() {
+    if (this.$route.query.done) {
+      await this.$store.commit("fetchUser", { user: auth.currentUser, force: true});
+    }
     this.$store.dispatch("subscriptions/getUserSubscriptions").then(data => {
       console.log(data);
       this.subscriptionsList = data;

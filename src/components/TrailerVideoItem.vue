@@ -1,15 +1,12 @@
 <template>
   <router-link :to="'/trailer/' + trailer.trailerId">
-    <v-card>
-      <v-img :src="trailer.image" height="200px"> </v-img>
-
-      <v-card-title primary-title>
-        <div>
-          <div class="headline">{{ trailer.title }}</div>
-          <span class="grey--text">{{ trailer.description }}</span>
-          <div class="grey--text">{{ trailer.timeAgo }}</div>
-        </div>
-      </v-card-title>
+    <v-card elevation="0" class="all-bg">
+      <v-img :src="trailer.image" height="118px"> </v-img>
+      <div class="padding">
+        <div class="title--text">{{ trailer.title }}</div>
+        <span class="desc--text">{{ trailer.channelName }}</span>
+        <div class="desc--text"> {{ trailer.views }} views • {{ trailer.timeAgo }}</div>
+      </div>
     </v-card>
   </router-link>
 </template>
@@ -25,4 +22,13 @@ export default {
 a {
   text-decoration: none;
 }
+  .padding {
+    padding: 10px;
+  }
+  .title--text {
+    color: #0a0a0a;
+    font-size: .9rem;
+    font-weight: 600;
+  }
+
 </style>

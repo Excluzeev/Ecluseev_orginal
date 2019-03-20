@@ -1,17 +1,16 @@
 <template>
-  <v-container v-show="categoryTrailers.length > 0">
+  <div class="top-padding" v-show="categoryTrailers.length > 0">
     <v-layout text-xs wrap>
       <v-flex xs12>
         <div v-for="item in categoryTrailers" v-bind:key="item.catId">
-          <h1>{{ item.catName }}</h1>
-          <br />
+          <h2>{{ item.catName }}</h2>
           <v-layout xs12 row wrap>
             <v-flex
               class="trailer-item"
               xs12
-              sm6
-              md6
-              lg4
+              sm4
+              md3
+              lg2
               v-for="trailer in item.trailers"
               v-bind:key="trailer.trailerId"
             >
@@ -21,7 +20,8 @@
         </div>
       </v-flex>
     </v-layout>
-  </v-container>
+    <v-divider></v-divider>
+  </div>
 </template>
 
 <script>
@@ -63,4 +63,7 @@ export default {
   padding-bottom: 10px;
   padding-right: 10px;
 }
+  .top-padding {
+    padding-top: 10px;
+  }
 </style>
