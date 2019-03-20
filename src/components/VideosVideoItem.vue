@@ -1,16 +1,13 @@
 <template>
   <v-flex xs12>
-    <v-card>
+    <v-card elevation="0" class="all-bg" style="margin-left: 5px;">
       <router-link :to="'/' + getLinkTag + '/' + video.videoId">
-        <v-img :src="video.image" height="200px"> </v-img>
-
-        <v-card-title primary-title>
-          <div>
-            <div class="headline">{{ video.title }}</div>
-            <span class="grey--text">{{ video.description }}</span>
-            <div class="grey--text">{{ video.timeAgo }}</div>
-          </div>
-        </v-card-title>
+      <v-img :src="video.image" height="118px"> </v-img>
+      <div class="padding">
+        <div class="title--text max-2-lines">{{ video.title }}</div>
+        <span class="desc--text">{{ video.channelName }}</span>
+        <div class="desc--text"> {{ video.views }} views • {{ video.timeAgo }}</div>
+      </div>
       </router-link>
       <v-card-actions v-if="showDelete">
         <v-btn flat color="red" @click="deleteVideoDialog = true"
@@ -71,5 +68,13 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+.padding {
+  padding: 10px;
+}
+.title--text {
+  color: #0a0a0a;
+  font-size: .9rem;
+  font-weight: 600;
 }
 </style>

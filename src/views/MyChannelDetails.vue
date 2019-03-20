@@ -1,5 +1,13 @@
 <template>
   <v-container>
+    <img
+      :src="
+        'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
+          channelId +
+          '%2Fcover.jpg?alt=media'
+      "
+      style="width: 100%; height: 150px; object-fit: cover;"
+    />
     <v-layout row wrap xs12 text-xs-center class="padding">
       <v-avatar :tile="tile" size="100px" color="grey lighten-4">
         <img
@@ -12,7 +20,7 @@
         />
       </v-avatar>
       <div class="channel-details padding">
-        <h2>{{ channel.title }}</h2>
+        <h2 class="quick-sand-font-b">{{ channel.title }}</h2>
         <p class="subscribers-count">
           {{ channel.subscriberCount }} Subscribers
         </p>
@@ -22,15 +30,14 @@
         <router-link
           :to="{ name: 'AddVideo', params: { channelData: channel } }"
         >
-          <v-btn color="primary" class="white--text" round>
+          <v-btn color="primary" class="white--text quick-sand-font-b">
             <v-icon left>add</v-icon>Add Video</v-btn
           >
         </router-link>
         <v-btn
           color="red"
-          class="white--text"
+          class="white--text quick-sand-font-b"
           center
-          round
           @click="deleteDialog = true"
         >
           <v-icon left>delete</v-icon>Delete</v-btn
@@ -38,14 +45,13 @@
         <router-link
           :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
         >
-          <v-btn color="primary" class="white--text" round>
+          <v-btn color="primary" class="white--text  quick-sand-font-b">
             <v-icon left>add</v-icon>Excluzeev Live</v-btn
           >
         </router-link>
         <v-btn
           color="primary"
-          class="white--text"
-          round
+          class="white--text quick-sand-font-b"
           @click="getSubscribers"
         >
           Subscribers</v-btn
@@ -53,15 +59,15 @@
       </div>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
-      <h1>Trailer</h1>
+      <h1 class="quick-sand-font-b">Trailer</h1>
       <br />
       <v-layout xs12 row wrap>
         <v-flex
           class="trailer-item"
           xs12
-          sm6
-          md6
-          lg4
+          sm4
+          md3
+          lg2
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
@@ -71,15 +77,15 @@
     </div>
     <div class="padding"></div>
     <div v-if="!(videosList.length == 0)">
-      <h1>Videos</h1>
+      <h1 class="quick-sand-font-b">Videos</h1>
       <br />
       <v-layout xs12 row wrap>
         <v-flex
           class="video-item"
           xs12
-          sm6
-          md6
-          lg4
+          sm4
+          md3
+          lg2
           v-for="video in videosList"
           v-bind:key="video.videoId"
         >
@@ -174,6 +180,7 @@ export default {
       trailersList: [],
       videosList: [],
       channel: null,
+      channelId: "",
       dialog: false,
       subscribersList: [],
       subscriberLoading: true,
@@ -254,6 +261,7 @@ export default {
     }
   },
   async mounted() {
+    this.channelId = this.$route.params.channelId;
     let channelDoc = await fireStore
       .collection(utils.channelsCollection)
       .doc(this.$route.params.channelId)
