@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%" class="">
+  <div style="height:100%" class>
     <v-container text-xs-center fill-height>
       <v-layout align-center row wrap justify-center>
         <v-flex xs12 sm8 md6>
@@ -9,11 +9,9 @@
               alt="Excluzeev
             logo"
               src="../../assets/excluzeev_bottom_text.png"
-            />
+            >
             <div class="signup-text quick-sand-font">Sign up</div>
-            <div class="signup-continue-text">
-              Continue to Excluzeev
-            </div>
+            <div class="signup-continue-text">Continue to Excluzeev</div>
             <v-card-text>
               <v-form class="lighten-1" @submit.prevent="doSignUp">
                 <v-layout row>
@@ -62,17 +60,9 @@
                   ></v-text-field>
                 </v-layout>
 
-                <div class="text-xs-left grey--text" style="font-size: 12px">
-                  <p>
-                    Minimum eight characters, at least one uppercase letter, one
-                    lowercase letter, one number and one special character
-                  </p>
-                </div>
+                <div class="text-xs-left grey--text" style="font-size: 12px"></div>
 
-                <div
-                  class="text-xs-right quick-sand-font-b"
-                  style="padding: 0px;"
-                >
+                <div class="text-xs-right quick-sand-font-b" style="padding: 0px;">
                   <v-btn
                     class="white--text quick-sand-font-b"
                     color="blue lighten-1"
@@ -80,8 +70,7 @@
                     :loading="processing"
                     :disabled="processing"
                     @click="loader = 'loading4'"
-                  >
-                    Sign up
+                  >Sign up
                     <template v-slot:loader>
                       <span class="custom-loader">
                         <v-icon light>cached</v-icon>
@@ -94,41 +83,28 @@
               <div class="text-xs-left quick-sand-font">
                 Have an account? &nbsp;
                 <a>
-                  <span class="" color="blue lighten-1" @click="goLogin">
-                    Log in
-                  </span>
+                  <span class color="blue lighten-1" @click="goLogin">Log in</span>
                 </a>
               </div>
             </v-card-text>
           </v-card>
-          <div
-            class="text-xs-right"
-            style="padding-right: 20px;padding-top: 10px;"
-          >
+          <div class="text-xs-right" style="padding-right: 20px;padding-top: 10px;">
             <a @click="showExcluzeevTerms">Terms</a>
-
-            <a @click="showPrivacyPolicy" style="padding-left: 20px;"
-              >Privacy</a
-            >
-
+            
+            <a @click="showPrivacyPolicy" style="padding-left: 20px;">Privacy</a>
+            
             <a
               href="mailto:support@excluzeev.com?subject=Need%20Help"
               style="padding-left: 20px;"
-              >Help</a
-            >
+            >Help</a>
           </div>
         </v-flex>
       </v-layout>
       <!-- <v-snackbar v-model="snackbar" bottom>
         {{ toastText }}
-      </v-snackbar> -->
+      </v-snackbar>-->
     </v-container>
-    <v-dialog
-      v-model="termsDialog"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-    >
+    <v-dialog v-model="termsDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="termsDialog = false">
