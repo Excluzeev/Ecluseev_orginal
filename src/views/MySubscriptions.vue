@@ -1,6 +1,8 @@
 <template>
   <v-container>
+    <h1 class="quick-sand-font-n">My Subscriptions</h1>
     <v-layout xs12 row wrap>
+
       <v-flex
         class="channel-item"
         xs6
@@ -10,28 +12,7 @@
         v-for="subscription in subscriptionsList"
         v-bind:key="subscription.channelId"
       >
-        <router-link
-          :to="{
-            name: 'SubscribedChannelDetails',
-            params: { channelId: subscription.channelId, subscriptionId: subscription.subscriptionId }
-          }"
-        >
-          <div class="padding text-xs-center" justify-center>
-            <v-avatar :tile="tile" size="150px" color="grey lighten-4">
-              <img
-                :src="
-                  'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-                    subscription.channelId +
-                    '%2Fthumbnail.jpg?alt=media'
-                "
-                alt="avatar"
-              />
-            </v-avatar>
-            <h3 class="padding">
-              {{ subscription.channelName }}
-            </h3>
-          </div>
-        </router-link>
+        <SubscribedChannelItem style="margin-left: 5px;margin-right: 5px;margin-top: 5px" :subscription="subscription" />
       </v-flex>
     </v-layout>
   </v-container>
@@ -41,9 +22,11 @@
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import subscriptionsModule from "../store/subscriptions/subscriptions";
 import { auth } from "../firebase/init";
+import SubscribedChannelItem from "../components/SubscribedChannelItem";
 
 export default {
   name: "MySubscriptions",
+  components: {SubscribedChannelItem},
   data: () => {
     return {
       subscriptionsList: [],
