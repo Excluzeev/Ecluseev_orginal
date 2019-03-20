@@ -3,7 +3,7 @@
     <v-card elevation="0" class="all-bg">
       <v-img :src="trailer.image" height="118px"> </v-img>
       <div class="padding">
-        <div class="title--text">{{ trailer.title }}</div>
+        <div class="title--text max-2-lines">{{ trailer.title }}</div>
         <span class="desc--text">{{ trailer.channelName }}</span>
         <div class="desc--text"> {{ trailer.views }} views • {{ trailer.timeAgo }}</div>
       </div>

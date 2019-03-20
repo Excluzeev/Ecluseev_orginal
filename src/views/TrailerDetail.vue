@@ -19,27 +19,27 @@
           <v-layout class="padding" align-left justify-left column fill-height>
             <div class="title-details--text">{{ trailer.title }}</div>
             <div class="desc-details--text">
-              {{ trailer.views }} views • {{ trailer.timeAgo }}
+              {{ trailer.views }} views
             </div>
           </v-layout>
           <v-spacer></v-spacer>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('like')">
-              <v-icon x-large v-bind:class="{ active: isUserLiked }"
+              <v-icon v-bind:class="{ active: isUserLiked }"
                 >thumb_up</v-icon
               >
             </div>
           </a>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-              <v-icon x-large v-bind:class="{ active: isNeutral }"
+              <v-icon v-bind:class="{ active: isNeutral }"
                 >sentiment_dissatisfied</v-icon
               >
             </div>
           </a>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-              <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
+              <v-icon v-bind:class="{ active: isUserDisLiked }"
                 >thumb_down</v-icon
               >
             </div>
@@ -67,7 +67,7 @@
               <v-layout align-left justify-left column fill-height>
                 <h2>{{ trailer.channelName }}</h2>
                 <span class="published--text"
-                  >Published on {{ trailer.timeAgo }}</span
+                  >Published {{ trailer.timeAgo }}</span
                 >
               </v-layout>
               <v-spacer></v-spacer>
@@ -84,7 +84,7 @@
                     @click="prepareSubscribe"
                     v-if="showSubscribeButton && !showDonateText"
                   >
-                    <v-icon left light>attach_money</v-icon> Subscribe
+                    Subscribe &nbsp;<strong> ${{ channel.price }}</strong>
                     <template v-slot:loader>
                       <span class="custom-loader">
                         <v-icon light>cached</v-icon>
@@ -133,6 +133,44 @@
             </div>
           </v-flex>
         </v-layout>
+
+        <v-divider></v-divider>
+
+        <!--Comments Section-->
+        <div class="comment-holder padding" v-if="showComments">
+          <div>
+            <v-textarea
+                    solo
+                    label="Add a comment"
+                    rows="1"
+                    auto-grow
+                    v-model="commentText"
+            ></v-textarea>
+            <v-layout>
+              <v-spacer></v-spacer>
+              <v-btn
+                      class="white--text"
+                      color="blue lighten-1"
+                      :disabled="disabelComment"
+                      @click="doComment"
+              >
+                Comment
+              </v-btn>
+            </v-layout>
+          </div>
+          <v-flex class="padding" v-if="commentsList.length > 0">
+            <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
+              <h4>{{ comment.userName }}</h4>
+              <div>{{ comment.comment }}</div>
+              <p class="grey--text">{{ comment.timeAgo }}</p>
+            </div>
+          </v-flex>
+          <v-flex v-else text-xs-center>
+            <div class="nocomment">
+              <p> No comments Yet be the first to comment</p>
+            </div>
+          </v-flex>
+        </div>
       </v-flex>
       <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
         <div style="width: 100%;">
@@ -150,11 +188,11 @@
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import trailerModule from "../store/trailers/trailer";
-import { fireStore, auth } from "../firebase/init";
+import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 import TrailerDetailVideoItem from "../components/TrailerDetailVideoItem";
-
+import moment from "moment";
 import "videojs-ima/dist/videojs.ima";
 import "videojs-ima/dist/videojs.ima.css";
 
@@ -171,6 +209,8 @@ export default {
       subscribeProcessing: false,
       donate5Processing: false,
       donate10Processing: false,
+      commentsList: [],
+      commentText: "",
       playerOptions: {
         overNative: true,
         controls: true,
@@ -204,6 +244,12 @@ export default {
   computed: {
     player() {
       return this.$refs.videoPlayer.player;
+    },
+    disabelComment() {
+      return this.commentText == "";
+    },
+    showComments() {
+      return auth.currentUser != null;
     }
   },
   mounted() {
@@ -260,6 +306,7 @@ export default {
           this.showSubscribeButton = false;
         }
         this.getLikes();
+        this.getComments();
       });
   },
   methods: {
@@ -418,6 +465,60 @@ export default {
         this.triggerVideoView();
         this.isViewTriggered = true;
       }
+    },
+    async doComment() {
+      console.log(this.commentText);
+
+      let fUser = JSON.parse(
+        localStorage.getItem("fUser") != null
+          ? localStorage.getItem("fUser")
+          : {}
+      );
+
+      let commentId = utils.generateId();
+
+      let data = {
+        comment: this.commentText,
+        userPhoto: fUser.userPhoto,
+        createdDate: firebaseTimestamp.fromDate(new Date()),
+        channelName: this.channel.title,
+        channelId: this.channel.channelId,
+        userId: fUser.uid,
+        userName: fUser.firstName + " " + fUser.lastName,
+        vtId: this.trailer.trailerId,
+        commentId: commentId
+      };
+
+      let commentRef = fireStore
+        .collection(utils.videosCollection)
+        .doc(this.trailer.trailerId)
+        .collection(utils.commentsCollections)
+        .doc(commentId);
+
+      await commentRef.set(data);
+
+      this.commentText = "";
+    },
+    async getComments() {
+      let commentRef = fireStore
+        .collection(utils.videosCollection)
+        .doc(this.trailer.trailerId)
+        .collection(utils.commentsCollections)
+        .orderBy("createdDate", "desc")
+        .limit(50);
+
+      // let commentData = await commentRef.get();
+
+      commentRef.onSnapshot(querySnapshot => {
+        let commentsList = [];
+        querySnapshot.forEach(function(doc) {
+          let d = doc.data();
+          d.timeAgo = moment(d.createdDate.toDate()).fromNow();
+          commentsList.push(d);
+        });
+        this.commentsList = commentsList;
+      });
+
     }
   }
 };
@@ -453,12 +554,15 @@ export default {
   padding-left: 10px;
   padding-right: 10px;
 }
+.v-text-field__details {
+  display: none;
+}
 /*@media only screen and (min-width: 768px) {*/
-  /*.video-holder {*/
-    /*min-height: 50%;*/
-  /*}*/
-  /*.video-js {*/
-    /*min-height: 50%;*/
-  /*}*/
+/*.video-holder {*/
+/*min-height: 50%;*/
+/*}*/
+/*.video-js {*/
+/*min-height: 50%;*/
+/*}*/
 /*}*/
 </style>
