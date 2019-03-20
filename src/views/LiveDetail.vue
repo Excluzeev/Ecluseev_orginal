@@ -27,19 +27,25 @@
         <div class="grey--text">{{ video.timeAgo }}</div>
       </v-layout>
       <v-spacer></v-spacer>
-      <div v-ripple class="like-holder" @click="updateWhat('like')">
-        <v-icon x-large v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
-      </div>
-      <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-        <v-icon x-large v-bind:class="{ active: isNeutral }"
+      <a>
+        <div v-ripple class="like-holder" @click="updateWhat('like')">
+          <v-icon x-large v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
+        </div>
+      </a>
+      <a>
+        <div v-ripple class="like-holder" @click="updateWhat('neutral')">
+          <v-icon x-large v-bind:class="{ active: isNeutral }"
           >sentiment_dissatisfied</v-icon
-        >
-      </div>
-      <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-        <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
+          >
+        </div>
+      </a>
+      <a>
+        <div v-ripple class="like-holder" @click="updateWhat('dislike')">
+          <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
           >thumb_down</v-icon
-        >
-      </div>
+          >
+        </div>
+      </a>
     </v-layout>
     <div class="padding" v-if="shouldShowStartStream">
       <v-flex xs6>
@@ -167,23 +173,23 @@ export default {
           .then(response => {
             this.video = vData;
             let fUser = JSON.parse(localStorage.getItem("fUser"));
-            if (this.video.userId != auth.currentUser.uid) {
-              this.$router.replace({ name: "Home" });
-              return;
-            }
-            if (
-              fUser.subscribedChannels != undefined &&
-              fUser.subscribedChannels.includes(this.video.channelId)
-            ) {
-              this.$router.replace({ name: "Home" });
-              return;
-            }
+            // if (this.video.userId != auth.currentUser.uid) {
+            //   this.$router.replace({ name: "Home" });
+            //   return;
+            // }
+
             this.playerOptions.sources[0].src = response.data;
             this.playerOptions.poster = this.video.image;
 
             if (this.video.userId == auth.currentUser.uid) {
               this.shouldShowStartStream = this.video.later == "later";
               this.shouldShowStreamDetails = this.video.later != "later";
+            } else {
+              this.shouldShowStreamDetails = false;
+              this.shouldShowStartStream = false;
+              if (!fUser.subscribedChannels.includes(this.video.channelId)) {
+                this.$router.replace({ name: "Home" });
+              }
             }
 
             // this.shouldShowStreamDetails = moment(this.video.)

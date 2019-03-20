@@ -54,6 +54,26 @@ export default {
           });
       });
     },
+    fetchCategoryTrailersTop10: (
+      { state, commit },
+      { categoryId }
+    ) => {
+      return new Promise((resolve, reject) => {
+        fireStore
+          .collection(collections.trailerCollection)
+          .where("categoryId", "==", categoryId)
+          .orderBy("createdDate", "desc")
+          .limit(10)
+          .get()
+          .then(querySnapshot => {
+            let trailers = [];
+            querySnapshot.forEach(doc => {
+              trailers.push(utils.extractTrailerData(doc));
+            });
+            resolve(trailers);
+          });
+      });
+    },
     fetchTrailer: ({ state, commit }, { trailerId }) => {
       console.log(trailerId);
       return new Promise(resolve => {
@@ -63,6 +83,22 @@ export default {
           .get()
           .then(documentSnapshot => {
             resolve(utils.extractTrailerData(documentSnapshot));
+          });
+      });
+    },
+    fetchTop10Trailer: ({ state, commit }) => {
+      return new Promise(resolve => {
+        fireStore
+          .collection(collections.trailerCollection)
+          .orderBy("createdDate", "desc")
+          .limit(5)
+          .get()
+          .then(querySnapshot => {
+            let trailers = [];
+            querySnapshot.forEach(doc => {
+              trailers.push(utils.extractTrailerData(doc));
+            });
+            resolve(trailers);
           });
       });
     }

@@ -7,7 +7,8 @@ import "./registerServiceWorker";
 import titleMixin from "./mixins/titleMixin";
 import VueVideoPlayer from "vue-video-player";
 import "video.js/dist/video-js.css";
-import "vue-video-player/src/custom-theme.css";
+// import "vue-video-player/src/custom-theme.css";
+import "./assets/css/videojsnew.css";
 import "videojs-flash";
 import "videojs-contrib-hls";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
@@ -44,7 +45,9 @@ auth.onAuthStateChanged(user => {
 Vue.config.productionTip = false;
 
 Vue.use(VueVideoPlayer);
-Vue.use(Toasted);
+Vue.use(Toasted, {
+  router
+});
 Vue.mixin(titleMixin);
 
 new Vue({

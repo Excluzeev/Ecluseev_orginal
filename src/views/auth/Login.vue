@@ -116,7 +116,7 @@ export default {
   methods: {
     showToast(msg) {
       this.$toasted.show(msg, {
-        theme: "toasted-primary",
+        theme: "outline",
         position: "top-right",
         duration: 2500
       });
@@ -129,16 +129,18 @@ export default {
             email: this.email,
             password: this.password
           })
-          .then(data => {
-            if (data.error) {
+          .then(newData => {
+            console.log(newData);
+            if (newData.error) {
               this.processing = false;
-              this.showToast(data.message);
+              console.log(newData.message);
+              this.showToast(newData.message);
             } else {
               // TODO: Fix it
               this.processing = false;
-              // this.showToast("Logged in successfully");
+              this.showToast("Logged in successfully");
               setTimeout(() => {
-                this.$router.push({ name: "Home" });
+                // this.$router.push({ name: "Home" });
               }, 1000);
             }
           });

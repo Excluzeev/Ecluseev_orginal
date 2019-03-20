@@ -137,7 +137,7 @@ export default {
   methods: {
     showToast(msg) {
       this.$toasted.show(msg, {
-        theme: "toasted-primary",
+        theme: "outline",
         position: "top-right",
         duration: 2500
       });
@@ -148,7 +148,7 @@ export default {
         this.processing = false;
         return;
       }
-      if (this.firstName.isEmpty || this.lastName.isEmpty) {
+      if (this.firstName.isEmpty || this.lastName.isEmpty || this.firstName == "" || this.lastName == "") {
         this.showToast("Invalid First/Last Name");
         this.processing = false;
         return;
@@ -178,10 +178,10 @@ export default {
           } else {
             this.$store.dispatch("auth/checkUser").then(userRecord => {
               if (userRecord.exists) {
-                this.showToast("Registration successfull");
+                this.showToast("Registration successful");
                 this.$router.push("/");
               } else {
-                this.showToast("Unknow error please try again.");
+                this.showToast("Unknown error please try again.");
                 this.processing = false;
               }
             });

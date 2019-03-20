@@ -39,7 +39,7 @@
           :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
         >
           <v-btn color="primary" class="white--text" round>
-            <v-icon left>add</v-icon>Add Excluzeev</v-btn
+            <v-icon left>add</v-icon>Excluzeev Live</v-btn
           >
         </router-link>
         <v-btn
@@ -87,30 +87,25 @@
         </v-flex>
       </v-layout>
     </div>
+    <!--<v-layout>-->
     <v-dialog v-model="dialog">
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>
           Subscribers List
         </v-card-title>
         <v-list two-line v-if="!subscriberLoading && !subscriberEmpty">
-          <template v-for="(subscriber, index) in subscribersList">
-            <v-divider
-              v-if="index != 0"
-              :key="index"
-              :inset="item.inset"
-            ></v-divider>
-
-            <v-list-tile v-bind:key="subscriber.subscriptionId">
-              <v-list-tile-content>
-                <v-list-tile-title
-                  v-html="subscriber.userName"
-                ></v-list-tile-title>
-                <v-list-tile-sub-title
-                  v-html="subscriber.daysLeft"
-                ></v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
+          <v-list-tile
+            v-for="(subscriber, index) in subscribersList"
+            v-bind:key="subscriber.subscriptionId"
+          >
+            <!--<v-divider v-if="index != 0" :key="index"></v-divider>-->
+            <v-list-tile-content>
+              <v-list-tile-title>{{ subscriber.userName }}</v-list-tile-title>
+              <v-list-tile-sub-title>
+                {{ subscriber.daysLeft }}
+              </v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
         </v-list>
 
         <v-card-text v-if="subscriberEmpty">
@@ -123,8 +118,6 @@
           color="primary"
         ></v-progress-circular>
 
-        <v-divider></v-divider>
-
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" flat @click="dialog = false">
@@ -133,8 +126,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <!--</v-layout>-->
     <v-layout row justify-center>
-      <v-dialog v-model="deleteDialog" persistent max-width="290">
+      <v-dialog v-model="deleteDialog" persistent max-width="320">
         <v-card>
           <v-card-title class="headline"
             >Do you want to delete the channel?</v-card-title
@@ -179,6 +173,7 @@ export default {
       tile: false,
       trailersList: [],
       videosList: [],
+      channel: null,
       dialog: false,
       subscribersList: [],
       subscriberLoading: true,
@@ -255,15 +250,19 @@ export default {
       };
       await channelRef.update(updateData);
 
-      this.$router.push("/");
+      this.$router.push({ name: "MyChannels" });
     }
   },
-  mounted() {
+  async mounted() {
+    let channelDoc = await fireStore
+      .collection(utils.channelsCollection)
+      .doc(this.$route.params.channelId)
+      .get();
+    this.channel = channelDoc.data();
     this.loadTrailersData();
 
     this.loadVideosData();
-  },
-  props: ["channel"]
+  }
 };
 </script>
 
