@@ -2,7 +2,7 @@
   <v-toolbar app class="white">
     <router-link to="/">
       <v-toolbar-title class="headline text-uppercase">
-        <img class="padding-logo" alt="Excluzeev logo" src="../assets/excluzeev.png" height="50px" />
+        <img class="padding-logo" alt="Excluzeev logo" src="../assets/excluzeev_trailer.png" height="50px" />
       </v-toolbar-title>
     </router-link>
     <v-spacer></v-spacer>

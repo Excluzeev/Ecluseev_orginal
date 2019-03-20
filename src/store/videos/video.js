@@ -1,4 +1,4 @@
-import { fireStore } from "../../firebase/init";
+import {auth, fireStore} from "../../firebase/init";
 import collections from "../../firebase/utils";
 import utils from "../../utility/utils";
 
@@ -23,6 +23,25 @@ export default {
           .then(documentSnapshot => {
             resolve(utils.extractVideoData(documentSnapshot));
           });
+      });
+    },
+    getUserChannelVideos: ({ state }, { channelId }) => {
+      let userId = auth.currentUser.uid;
+      return new Promise(async resolve => {
+        let videosList = [];
+        let videosRef = fireStore
+            .collection(collections.videosCollection)
+            .where("userId", "==", userId)
+            .where("channelId", "==", channelId)
+            .limit(10);
+
+        let videosQuerySnapshot = await videosRef.get();
+        videosQuerySnapshot.forEach(snapshot => {
+          videosList.push(utils.extractVideoData(snapshot));
+        });
+
+        console.log(videosList);
+        resolve(videosList);
       });
     }
   }
