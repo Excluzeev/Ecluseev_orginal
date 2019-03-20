@@ -1,5 +1,13 @@
 <template>
   <v-container v-if="channel != null">
+    <img
+            :src="
+        'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
+          channel.channelId +
+          '%2Fcover.jpg?alt=media'
+      "
+            style="width: 100%; height: 150px; object-fit: cover;"
+    />
     <v-layout row wrap xs12 text-xs-center class="padding">
       <v-avatar :tile="tile" size="100px" color="grey lighten-4">
         <img
@@ -12,7 +20,7 @@
         />
       </v-avatar>
       <div class="channel-details padding">
-        <h2>{{ channel.title }}</h2>
+        <h2 class="quick-sand-font-b">{{ channel.title }}</h2>
         <p class="subscribers-count">
           {{
             channel.subscriberCount == undefined ? 0 : channel.subscriberCount
@@ -22,7 +30,7 @@
       </div>
       <v-spacer></v-spacer>
       <v-btn
-        class="white--text v-btn--round"
+        class="white--text quick-sand-font-b"
         color="blue lighten-1"
         :loading="processing"
         :disabled="processing"
@@ -37,15 +45,15 @@
       </v-btn>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
-      <h1>Trailer</h1>
+      <h1 class=" quick-sand-font-b">Trailer</h1>
       <br />
       <v-layout xs12 row wrap>
         <v-flex
           class="trailer-item"
           xs12
-          sm6
-          md6
-          lg4
+          sm4
+          md3
+          lg2
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
@@ -55,15 +63,15 @@
     </div>
     <div class="padding"></div>
     <div v-if="!(videosList.length == 0)">
-      <h1>Videos</h1>
+      <h1 class=" quick-sand-font-b">Videos</h1>
       <br />
       <v-layout xs12 row wrap>
         <v-flex
           class="video-item"
           xs12
-          sm6
-          md6
-          lg4
+          sm4
+          md3
+          lg2
           v-for="video in videosList"
           v-bind:key="video.videoId"
         >
