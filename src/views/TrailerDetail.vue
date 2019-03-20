@@ -181,6 +181,7 @@
       </v-flex>
       <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
         <div style="width: 100%;">
+          <h3 class="quick-sand-font-b" style="padding-top: 5px;">Related Trailers</h3>
           <TrailerDetailVideoItem
             v-for="trailer in catTrailersList"
             v-bind:key="trailer.trailerId"

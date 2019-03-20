@@ -115,6 +115,10 @@ main {
   white-space: normal;
   -webkit-line-clamp: 2;
 }
+.quick-sand-font-n {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+}
 .quick-sand-font-b {
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
