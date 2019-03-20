@@ -5,7 +5,7 @@ import { Ripple } from "vuetify/lib/directives";
 
 Vue.use(Vuetify, {
   theme: {
-    primary: "#42a5f5"
+    primary: "#25ace3"
   },
   iconfont: "md",
   directives: {
