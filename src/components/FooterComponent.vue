@@ -1,28 +1,66 @@
 <template>
-  <v-footer class="margin padding bg text-xs-center" height="auto">
-    <v-card flat tile class="bg white--text text-xs-center full-width">
-      <v-card-text class="white--text pt-0">
-        <a @click="showExcluzeevTerms">
-          Excluzeev Terms
-        </a>
-        —
-        <a @click="showCreatorTerms">
-          Content Creator Terms
-        </a>
-        —
-        <a @click="showPrivacyPolicy">
-          Privacy Policy
-        </a>
-        —
-        <a @click="showCookiePolicy">
-          Cookie Policy
-        </a>
-      </v-card-text>
+  <v-footer class="white" height="auto">
+    <v-flex xs3>
+      <div align="center">
+        <img
+          style="width: 50%;"
+          alt="Excluzeev
+            logo"
+          src="../assets/excluzeev_bottom_text.png"
+        />
+        <!-- <div class="light-blue--text quick-sand-font-b">
+          &copy; 2019 Excluzeev
+        </div> -->
+      </div>
+    </v-flex>
+    <v-flex xs2>
+      <div align="center">
+        <div align="left">
+          <h3 class="nav-c quick-sand-font-b">EXPLORE</h3>
 
-      <v-card-text class="white--text">
-        &copy;2019 — <strong>Excluzeev</strong>
-      </v-card-text>
-    </v-card>
+          <h3 class="light-blue--text quick-sand-font">About</h3>
+          <a href="mailto:support@excluzeev.com?subject=Support%20Query"><h3 class="light-blue--text quick-sand-font">Support</h3></a>
+          <h3 class="light-blue--text quick-sand-font">Contact us</h3>
+        </div>
+      </div>
+    </v-flex>
+    <v-flex xs2>
+      <div align="top center">
+        <div align="left">
+          <h3 class="nav-c quick-sand-font-b">LEGAL</h3>
+
+          <h3 class="light-blue--text quick-sand-font" @click="showExcluzeevTerms">
+            Terms and conditions
+          </h3>
+          <h3 class="light-blue--text quick-sand-font" @click="showPrivacyPolicy">Privacy Policy</h3>
+          <h3 class="light-blue--text quick-sand-font" @click="showCookiePolicy">Cookie Policy</h3>
+        </div>
+      </div>
+    </v-flex>
+    <v-flex xs2>
+      <div align="top center">
+        <div align="left">
+          <h3 class="nav-c quick-sand-font-b">FOLLOW US</h3>
+
+          <h3 class="light-blue--text quick-sand-font">Facebook</h3>
+          <h3 class="light-blue--text quick-sand-font">Instagram</h3>
+          <h3 class="light-blue--text quick-sand-font">Twitter</h3>
+        </div>
+      </div>
+    </v-flex>
+    <v-flex xs3>
+      <h3 class="nav-c quick-sand-font-b">APPS</h3>
+      <img
+        style="width: 120px;height: 40px;"
+        alt="Download_on_the_App_Store"
+        src="../assets/Download_on_the_App_Store.svg"
+      />
+      <img
+        style="width: 120px;height: 40px;"
+        alt="google-play-badge"
+        src="../assets/google-play-badge.png"
+      />
+    </v-flex>
     <v-layout row justify-center>
       <v-dialog
         v-model="dialog"
@@ -88,6 +126,10 @@ a {
 }
 footer {
   width: 100%;
+  padding-bottom: 20px;
+}
+.quick-sand-font {
+  padding-top: 10px;
 }
 .bg {
   background-color: #42a5f5;

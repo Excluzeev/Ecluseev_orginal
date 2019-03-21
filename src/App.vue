@@ -4,7 +4,7 @@
     <v-content>
       <router-view :key="$route.fullPath"></router-view>
     </v-content>
-    <!--<FooterComponent />-->
+    <FooterComponent v-if="isNavBar"/>
   </v-app>
 </template>
 

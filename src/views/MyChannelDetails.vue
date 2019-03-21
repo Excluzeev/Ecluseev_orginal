@@ -26,8 +26,9 @@
         </p>
       </div>
       <v-spacer></v-spacer>
-      <div v-if="!channel.isDeleted">
+      <div>
         <router-link
+          v-if="!channel.isDeleted"
           :to="{ name: 'AddVideo', params: { channelData: channel } }"
         >
           <v-btn color="primary" class="white--text quick-sand-font-b">
@@ -35,6 +36,7 @@
           >
         </router-link>
         <router-link
+          v-if="!channel.isDeleted"
           :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
         >
           <v-btn color="primary" class="white--text  quick-sand-font-b">
@@ -49,10 +51,11 @@
           Subscribers</v-btn
         >
         <v-btn
-                color="red"
-                class="white--text quick-sand-font-b"
-                center
-                @click="deleteDialog = true"
+          v-if="!channel.isDeleted"
+          color="red"
+          class="white--text quick-sand-font-b"
+          center
+          @click="deleteDialog = true"
         >
           <v-icon left>delete</v-icon>Delete Channel</v-btn
         >
@@ -139,17 +142,16 @@
           <v-card-title class="headline"
             >Do you want to delete the channel?</v-card-title
           >
-          <v-card-text
-            >Hello, <br />
-            Do you really want to delete the channel, Users will have a 30 days
-            notice period.</v-card-text
+          <v-card-text>
+            Do you really want to delete the channel? <br />Users will have a 30
+            days notice period.</v-card-text
           >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" flat @click="deleteDialog = false"
+            <v-btn color="primary darken-1" flat @click="deleteDialog = false"
               >Dont Delete</v-btn
             >
-            <v-btn color="green darken-1" flat @click="deleteChannel"
+            <v-btn color="primary darken-1" flat @click="deleteChannel"
               >Delete</v-btn
             >
           </v-card-actions>

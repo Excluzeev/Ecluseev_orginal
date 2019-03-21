@@ -13,7 +13,7 @@
                 @submit.prevent="doUploadVideo"
               >
                 <v-text-field
-                  v-model="title"
+                  v-model="videoTitle"
                   name="Title"
                   label="Title"
                   type="text"
@@ -26,6 +26,19 @@
                   type="text"
                   :rules="[rules.required]"
                 ></v-text-field>
+
+                <v-select
+                  v-if="getChannel && channelsList.length > 0"
+                  v-model="selectedChannel"
+                  hint="Select Channel"
+                  :items="channelsList"
+                  item-text="title"
+                  label="Select Channel"
+                  persistent-hint
+                  return-object
+                  single-line
+                ></v-select>
+
                 <v-radio-group
                   v-model="timePublish"
                   :mandatory="true"
@@ -166,19 +179,18 @@
               </v-flex>
               <v-flex>
                 <v-btn
-                        class="white--text"
-                        color="blue lighten-1"
-                        :loading="processing"
-                        :disabled="processing"
-                        @click="checkStreamStatus();
-                "
+                  class="white--text"
+                  color="blue lighten-1"
+                  :loading="processing"
+                  :disabled="processing"
+                  @click="checkStreamStatus()"
                 >
                   Next
                 </v-btn>
                 <v-progress-circular
-                        v-if="checkingStream"
-                        indeterminate
-                        color="primary"
+                  v-if="checkingStream"
+                  indeterminate
+                  color="primary"
                 ></v-progress-circular>
               </v-flex>
             </v-card-text>
@@ -193,12 +205,17 @@
 import { auth, firebaseTimestamp, fireStore } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
+import RegisterStoreModule from "../mixins/RegisterStoreModule";
+import channelsModule from "../store/channels/channels";
 import moment from "moment";
 
 export default {
   data: () => {
     return {
-      title: "",
+      title: "Excluzeev Live",
+      videoTitle: "",
+      channelsList: [],
+      selectedChannel: null,
       description: "",
       videoFile: null,
       date: null,
@@ -222,7 +239,27 @@ export default {
       }
     };
   },
+  mixins: [RegisterStoreModule],
   props: ["channelData"],
+  created() {
+    this.registerStoreModule("channels", channelsModule);
+  },
+  computed: {
+    getChannel() {
+      return this.channelData == null;
+    }
+  },
+  mounted() {
+    if (this.getChannel) {
+      this.$store.dispatch("channels/getChannels").then(data => {
+        data.forEach(d => {
+          if (d.isDeleted != true) {
+            this.channelsList.push(d);
+          }
+        });
+      });
+    }
+  },
   methods: {
     timeUpdate(pub) {
       if (pub == "later") {
@@ -232,7 +269,7 @@ export default {
       }
     },
     async doUploadVideo() {
-      if (this.title == "") {
+      if (this.videoTitle == "") {
         this.showToast("Title cannot be empty.");
         return;
       }
@@ -245,14 +282,22 @@ export default {
 
       let videoId = utils.generateId();
 
+      console.log(this.selectedChannel);
+      let channelD;
+      if (this.getChannel) {
+        channelD = this.selectedChannel;
+      } else {
+        channelD = this.channelData;
+      }
+
       let videoData = {
         videoId: videoId,
-        categoryName: this.channelData.categoryName,
-        categoryId: this.channelData.categoryId,
+        categoryName: channelD.categoryName,
+        categoryId: channelD.categoryId,
         userId: auth.currentUser.uid,
-        channelId: this.channelData.channelId,
-        channelName: this.channelData.title,
-        title: this.title,
+        channelId: channelD.channelId,
+        channelName: channelD.title,
+        title: this.videoTitle,
         description: this.description,
         type: "Live",
         videoUrl: "",

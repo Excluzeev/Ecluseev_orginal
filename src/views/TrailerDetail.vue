@@ -17,7 +17,7 @@
         </div>
         <v-layout class="padding" align-center justify-left row fill-height>
           <v-layout class="padding" align-left justify-left column fill-height>
-            <div class="title-details--text max-1-lines ">
+            <div class="title-details--text max-1-lines quick-sand-font-b">
               {{ trailer.title }}
             </div>
             <div class="desc-details--text">{{ trailer.views }} views</div>
@@ -63,7 +63,7 @@
           <v-flex class="padding">
             <v-layout align-center justify-left row>
               <v-layout align-left justify-left column fill-height>
-                <h2>{{ trailer.channelName }}</h2>
+                <h2 class="quick-sand-font-b">{{ trailer.channelName }}</h2>
                 <span class="published--text"
                   >Published {{ trailer.timeAgo }}</span
                 >
@@ -147,7 +147,7 @@
             <v-layout>
               <v-spacer></v-spacer>
               <v-btn
-                class="white--text"
+                class="white--text quick-sand-font-b"
                 color="blue lighten-1"
                 :disabled="disabelComment"
                 @click="doComment"
@@ -158,7 +158,13 @@
           </div>
           <div v-if="!showComments">
             <div class="logincomment text-xs-center">
-              <p>Please <router-link :to="{ name: 'Login'}" class="quick-sand-font-b">login</router-link> to comment</p>
+              <p>
+                Please
+                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
+                  >sign in</router-link
+                >
+                to comment
+              </p>
             </div>
           </div>
           <v-flex class="padding" v-if="commentsList.length > 0">
@@ -174,14 +180,16 @@
           </v-flex>
           <v-flex v-else text-xs-center>
             <div class="nocomment">
-              <p>No comments Yet be the first to comment</p>
+              <p>No comments yet, be the first</p>
             </div>
           </v-flex>
         </div>
       </v-flex>
       <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
         <div style="width: 100%;">
-          <h3 class="quick-sand-font-b" style="padding-top: 5px;">Related Trailers</h3>
+          <h2 class="quick-sand-font-n" style="padding-top: 5px;">
+            Related Trailers
+          </h2>
           <TrailerDetailVideoItem
             v-for="trailer in catTrailersList"
             v-bind:key="trailer.trailerId"
@@ -351,6 +359,10 @@ export default {
       }
     },
     async updateWhat(newWhat) {
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
       let what = 0;
       if (newWhat == "like") {
         what = 1;
@@ -398,6 +410,10 @@ export default {
       }
     },
     async prepareSubscribe(donate) {
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
       let prepareOptions = {
         channelId: this.trailer.channelId,
         channelName: this.trailer.channelName,
@@ -484,8 +500,8 @@ export default {
           : {}
       );
 
-      if (fUser == null) {}
-
+      if (fUser == null) {
+      }
 
       let commentId = utils.generateId();
 

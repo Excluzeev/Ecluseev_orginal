@@ -162,7 +162,7 @@ export default {
       });
     },
     doLogin() {
-      if (this.rules.email(this.email)) {
+      if (this.rules.email(this.email) != "Invalid e-mail." && this.rules.required(this.password) != "Required.") {
         this.processing = true;
         this.$store
           .dispatch("auth/loginUser", {
@@ -174,19 +174,22 @@ export default {
             if (newData.error) {
               this.processing = false;
               console.log(newData.message);
-              this.showToast(newData.message);
+              if(newData.code == "auth/user-not-found") {
+                this.showToast("User not found.");
+              } else {
+                this.showToast("Email / Password is Invalid");
+              }
             } else {
-              // TODO: Fix it
               this.processing = false;
-              this.showToast("Logged in successfully");
+              this.showToast("Sign in successfully");
               setTimeout(() => {
                 // this.$router.push({ name: "Home" });
               }, 1000);
             }
           });
       } else {
-        this.showToast("Invalid Email");
-        this.processing = true;
+        this.showToast("Invalid Email / Password");
+        this.processing = false;
       }
     },
     goRegistration() {
@@ -200,20 +203,10 @@ export default {
       this.componentDialog = PrivacyPolicy;
       this.termsDialog = true;
     },
-    showCreatorTerms() {
-      this.titleDialog = "Content Creator Terms";
-      this.componentDialog = ContentCreator;
-      this.dialog = true;
-    },
     showExcluzeevTerms() {
       this.titleDialog = "Excluzeev Terms";
       this.componentDialog = LicenseAgreement;
       this.termsDialog = true;
-    },
-    showCookiePolicy() {
-      this.titleDialog = "Cookie Policy";
-      this.componentDialog = CookiePolicy;
-      this.dialog = true;
     }
   }
 };

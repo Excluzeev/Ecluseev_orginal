@@ -3,7 +3,7 @@
     <v-layout text-xs wrap>
       <v-flex xs12>
         <div v-for="item in categoryTrailers" v-bind:key="item.catId">
-          <h2>{{ item.catName }}</h2>
+          <h2 class="quick-sand-font-b">{{ item.catName }}</h2>
           <v-layout xs12 row wrap>
             <v-flex
               class="trailer-item"

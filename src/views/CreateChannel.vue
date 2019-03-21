@@ -32,8 +32,9 @@
                   name="Channel Name"
                   label="Channel Name"
                   type="text"
+                  counter
                   v-model="channelName"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.counter]"
                 ></v-text-field>
                 <v-textarea
                   class="blue--text"
@@ -180,6 +181,8 @@ export default {
             "Price must be between 0.99 and 10.0"
           );
         },
+        counter: value =>
+                value.length <= 32 || "Maximum 32 characters",
         email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
@@ -218,7 +221,7 @@ export default {
         return;
       }
       if (this.channelName == "") {
-        this.showToast("Channel Title cannot be empty");
+        this.showToast("Channel Name cannot be empty");
         return;
       }
       if (this.description == "") {

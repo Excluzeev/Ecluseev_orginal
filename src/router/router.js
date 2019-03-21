@@ -22,6 +22,7 @@ import LiveDetail from "../views/LiveDetail";
 
 import Meta from "vue-meta";
 import DCrowd from "../views/DCrowd";
+import CrowdFunding from "../views/CrowdFunding";
 Vue.use(Meta);
 
 Vue.use(VueRouter);
@@ -138,7 +139,7 @@ const router = new VueRouter({
       path: "/add-excluzeev",
       name: "AddExcluzeev",
       component: AddLive,
-      meta: { noAuth: false, showNav: true, title: "Add Excluzeev" },
+      meta: { noAuth: false, showNav: true, title: "Excluzeev Live" },
       props: route => ({
         ...route.params
       })
@@ -147,6 +148,12 @@ const router = new VueRouter({
       path: "/video/:videoId",
       name: "VideoSingle",
       component: VideoDetail,
+      meta: { showNav: true, title: "Excluzeev Videos" }
+    },
+    {
+      path: "/crowd/:videoId",
+      name: "CrowdFunding",
+      component: CrowdFunding,
       meta: { showNav: true, title: "Excluzeev Videos" }
     },
     {
