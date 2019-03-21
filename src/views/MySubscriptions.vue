@@ -14,6 +14,9 @@
       >
         <SubscribedChannelItem style="margin-left: 5px;margin-right: 5px;margin-top: 5px" :subscription="subscription" />
       </v-flex>
+      <v-flex v-if="subscriptionsList.length <= 0" class="text-xs-center">
+        <img style="width: 80%" src="../assets/empty-subscribe.png" />
+      </v-flex>
     </v-layout>
   </v-container>
 </template>

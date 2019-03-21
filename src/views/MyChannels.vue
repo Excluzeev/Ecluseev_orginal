@@ -52,6 +52,9 @@
             </router-link>
           </v-card>
         </v-flex>
+        <v-flex v-if="channelsList.length <= 0" class="text-xs-center">
+          <img  style="width: 80%" src="../assets/empty-create-channel.png" />
+        </v-flex>
       </v-layout>
     </div>
   </v-container>
