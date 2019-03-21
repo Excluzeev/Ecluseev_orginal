@@ -54,7 +54,7 @@ const router = new VueRouter({
       name: "Logout",
       beforeEnter(to, from, next) {
         store.dispatch("signOut").then(() => {
-          // next({ name: "Home" });
+          next({ name: "Home" });
         });
       }
     },
