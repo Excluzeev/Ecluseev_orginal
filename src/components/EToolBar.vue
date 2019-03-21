@@ -30,7 +30,7 @@
             >Become content creator</v-list-tile-title
           >
         </v-list-tile>
-        <v-list-tile @click="goLoginLive">
+        <v-list-tile @click="goLoginLive" v-if="hideSignUpContentCreator">
           <v-list-tile-avatar>
             <img src="../assets/e.png" width="20" />
           </v-list-tile-avatar>
@@ -38,7 +38,7 @@
             >Excluzeev live</v-list-tile-title
           >
         </v-list-tile>
-        <v-list-tile @click="goLoginCreate">
+        <v-list-tile @click="goLoginCreate" v-if="hideSignUpContentCreator">
           <v-list-tile-avatar>
             <v-icon>add</v-icon>
           </v-list-tile-avatar>
