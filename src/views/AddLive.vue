@@ -5,7 +5,7 @@
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-9">
             <v-toolbar dark color="blue lighten-1">
-              <v-toolbar-title>Add a video</v-toolbar-title>
+              <v-toolbar-title>Excluzeev Live</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
               <v-form
@@ -103,32 +103,32 @@
                     </v-dialog>
                   </v-flex>
                 </v-layout>
-                <div class="text-xs-center">
-                  <v-btn
-                    class="white--text"
-                    color="blue lighten-1"
-                    type="submit"
-                    :loading="processing"
-                    :disabled="processing"
-                    @click="loader = 'loading4'"
-                  >
-                    Proceed
-                    <template v-slot:loader>
-                      <span class="custom-loader">
-                        <v-icon light>cached</v-icon>
-                      </span>
-                    </template>
-                  </v-btn>
-                </div>
-                <div class="text-xs-center">
-                  <v-btn
-                          class="white--text"
-                          color="grey lighten-1"
-                          @click="$router.back()"
-                  >
-                    Cancel
-                  </v-btn>
-                </div>
+                <v-layout row wrap class="text-xs-center">
+                  <v-flex>
+                    <v-btn
+                      class="white--text"
+                      color="blue lighten-1"
+                      type="submit"
+                      :loading="processing"
+                      :disabled="processing"
+                      @click="loader = 'loading4'"
+                    >
+                      Proceed
+                      <template v-slot:loader>
+                        <span class="custom-loader">
+                          <v-icon light>cached</v-icon>
+                        </span>
+                      </template>
+                    </v-btn>
+                    <v-btn
+                      class="white--text"
+                      color="grey lighten-1"
+                      @click="$router.back()"
+                    >
+                      Cancel
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
               </v-form>
             </v-card-text>
           </v-card>

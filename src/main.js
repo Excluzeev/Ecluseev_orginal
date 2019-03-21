@@ -25,6 +25,8 @@ import Toasted from "vue-toasted";
 
 import LoadScript from "vue-plugin-load-script";
 
+
+
 Vue.use(LoadScript);
 
 Vue.loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js")

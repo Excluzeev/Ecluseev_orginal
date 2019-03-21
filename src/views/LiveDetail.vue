@@ -1,97 +1,142 @@
 <template>
   <div class="home">
-    <v-layout class="padding" align-center justify-left row fill-height>
-      <v-flex xs12 sm12 md8 lg8 v-show="!playerOptions.sources[0].src.isEmpty">
-        <video-player
-          class="vjs-custom-skin"
-          ref="videoPlayer"
-          :options="playerOptions"
-          @timeupdate="onPlayerTimeupdate($event)"
-        >
-        </video-player>
-      </v-flex>
-      <v-flex xs12 sm12 md4 lg4 v-show="!playerOptions.sources[0].src.isEmpty">
-        <LiveChat :videoId="this.video.videoId" />
-      </v-flex>
-    </v-layout>
-    <v-layout class="padding" align-center justify-left row fill-height>
-      <div class="square">
-        <img
-          class="channel-image square"
-          :src="video != null ? video.channelImage : ''"
-        />
-      </div>
-      <v-layout class="padding" align-left justify-left column fill-height>
-        <h2>{{ video.title }}</h2>
-        <span class="black--text">{{ video.description }}</span>
-        <div class="grey--text">{{ video.timeAgo }}</div>
-      </v-layout>
-      <v-spacer></v-spacer>
-      <a>
-        <div v-ripple class="like-holder" @click="updateWhat('like')">
-          <v-icon x-large v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
-        </div>
-      </a>
-      <a>
-        <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-          <v-icon x-large v-bind:class="{ active: isNeutral }"
-          >sentiment_dissatisfied</v-icon
+    <v-layout class="main-holder" xs12>
+      <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
+        <div v-show="!playerOptions.sources[0].src.isEmpty">
+          <video-player
+                  class="video-holder vjs-big-play-centered"
+                  width="100%"
+                  height="auto"
+                  id="player_id"
+                  ref="videoPlayer"
+                  :options="playerOptions"
+                  @ready="playerIsReady"
+                  @timeupdate="onPlayerTimeupdate($event)"
           >
+          </video-player>
         </div>
-      </a>
-      <a>
-        <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-          <v-icon x-large v-bind:class="{ active: isUserDisLiked }"
-          >thumb_down</v-icon
-          >
-        </div>
-      </a>
-    </v-layout>
-    <div class="padding" v-if="shouldShowStartStream">
-      <v-flex xs6>
-        <div class="text-xs-center">
-          <v-btn
-            class="white--text"
-            color="blue lighten-1"
-            :loading="processing"
-            :disabled="processing"
-            @click="
+        <v-layout class="padding" align-center justify-left row fill-height>
+          <v-layout class="padding" align-left justify-left column fill-height>
+            <div class="title-details--text max-1-lines ">
+              {{ video.title }}
+            </div>
+            <div class="desc-details--text">{{ video.views }} views</div>
+          </v-layout>
+          <v-spacer></v-spacer>
+          <a>
+            <div v-ripple class="like-holder" @click="updateWhat('like')">
+              <v-icon v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
+            </div>
+          </a>
+          <a>
+            <div v-ripple class="like-holder" @click="updateWhat('neutral')">
+              <v-icon v-bind:class="{ active: isNeutral }"
+              >sentiment_dissatisfied</v-icon
+              >
+            </div>
+          </a>
+          <a>
+            <div v-ripple class="like-holder" @click="updateWhat('dislike')">
+              <v-icon v-bind:class="{ active: isUserDisLiked }"
+              >thumb_down</v-icon
+              >
+            </div>
+          </a>
+        </v-layout>
+        <v-divider></v-divider>
+
+        <v-layout class="padding" justify-left fill-height>
+          <div class="padding">
+            <img
+                    class="channel-image square"
+                    :src="video != null ? video.channelImage : ''"
+            />
+          </div>
+          <v-flex class="padding">
+            <v-layout align-center justify-left row>
+              <v-layout align-left justify-left column fill-height>
+                <h2>{{ video.channelName }}</h2>
+                <span class="published--text"
+                >Published {{ video.timeAgo }}</span
+                >
+              </v-layout>
+              <v-spacer></v-spacer>
+            </v-layout>
+
+            <!--Description-->
+            <div class="detail-description">
+              <div>{{ video.description }}</div>
+            </div>
+          </v-flex>
+        </v-layout>
+
+        <v-divider></v-divider>
+
+        <!--Stream Details Section-->
+        <div class="padding" v-if="shouldShowStartStream">
+          <v-flex xs6>
+            <div class="text-xs-center">
+              <v-btn
+                      class="white--text"
+                      color="blue lighten-1"
+                      :loading="processing"
+                      :disabled="processing"
+                      @click="
               loader = 'loading4';
               createStreamNow();
             "
-          >
-            Start Stream
-            <template v-slot:loader>
+              >
+                Start Stream
+                <template v-slot:loader>
               <span class="custom-loader">
                 <v-icon light>cached</v-icon>
               </span>
-            </template>
-          </v-btn>
+                </template>
+              </v-btn>
+            </div>
+          </v-flex>
+        </div>
+        <div class="padding" v-if="shouldShowStreamDetails">
+          <v-flex xs12>
+            <v-text-field
+                    disabled
+                    label="Stream Url"
+                    placeholder="Placeholder"
+                    value="rtmp://live.mux.com/app/"
+                    outline
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+                    :value="video.streamKey"
+                    :append-icon="showKey ? 'visibility' : 'visibility_off'"
+                    :type="showKey ? 'text' : 'password'"
+                    name="input-10-1"
+                    label="Stream Key"
+                    @click:append="showKey = !showKey"
+                    outline
+            ></v-text-field>
+          </v-flex>
+        </div>
+
+      </v-flex>
+      <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
+        <div style="width: 100%;">
+          <div v-if="!showComments">
+            <div class="logincomment text-xs-center">
+              <p>
+                Please
+                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
+                >login</router-link
+                >
+                to chat
+              </p>
+            </div>
+          </div>
+          <LiveChat :videoId="this.video.videoId" />
         </div>
       </v-flex>
-    </div>
-    <div class="padding" v-if="shouldShowStreamDetails">
-      <v-flex xs12>
-        <v-text-field
-          disabled
-          label="Stream Url"
-          placeholder="Placeholder"
-          value="rtmp://live.mux.com/app/"
-          outline
-        ></v-text-field>
-      </v-flex>
-      <v-flex xs12>
-        <v-text-field
-          :value="video.streamKey"
-          :append-icon="showKey ? 'visibility' : 'visibility_off'"
-          :type="showKey ? 'text' : 'password'"
-          name="input-10-1"
-          label="Stream Key"
-          @click:append="showKey = !showKey"
-          outline
-        ></v-text-field>
-      </v-flex>
-    </div>
+    </v-layout>
   </div>
 </template>
 
@@ -102,6 +147,7 @@ import { fireStore, auth } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 import LiveChat from "../components/LiveChat";
+import moment from "moment";
 
 export default {
   name: "LiveSingle",
@@ -122,6 +168,7 @@ export default {
         techOrder: ["html5"],
         sourceOrder: true,
         playbackRates: [0.7, 1.0, 1.5, 2.0],
+        aspectRatio: "16:9",
         html5: { hls: { withCredentials: false } },
         sources: [
           {
@@ -149,6 +196,10 @@ export default {
   computed: {
     player() {
       return this.$refs.videoPlayer.player;
+    },
+    showComments() {
+      auth.onAuthStateChanged(user => {});
+      return auth.currentUser != null;
     }
   },
   mounted() {
@@ -190,6 +241,15 @@ export default {
               if (!fUser.subscribedChannels.includes(this.video.channelId)) {
                 this.$router.replace({ name: "Home" });
               }
+            }
+
+            console.log(moment(this.video.streamCreatedDate.toDate()).diff(new Date(), "hours"))
+            try {
+              if (moment(this.video.streamCreatedDate.toDate()).diff(new Date(), "hours") < -13) {
+                this.shouldShowStreamDetails = false;
+              }
+            } catch (e) {
+              console.log(e);
             }
 
             // this.shouldShowStreamDetails = moment(this.video.)
@@ -347,8 +407,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
-  background-color: #ffffff;
+
+.main-holder {
+  align-items: flex-start;
 }
 .channel-image {
   border-radius: 50%;
@@ -366,5 +427,17 @@ export default {
 }
 .active {
   color: #42a5f5;
+}
+.published--text {
+  color: rgba(17, 17, 17, 0.6);
+}
+.detail-description {
+}
+.linked-trailers {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.v-text-field__details {
+  display: none;
 }
 </style>

@@ -1,70 +1,57 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <div style="height:100%" class="blue lighten-1">
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
+  <div style="height:100%">
+    <v-container fluid fill-height>
+      <v-layout align-center justify-center>
+        <v-flex xs12 sm8 md4>
+          <v-card class="elevation-5 forgotpassword-holder text-xs-center">
             <img
-              style="padding-bottom:3%;padding-left:13%"
+              style="width: 30%;"
               alt="Excluzeev
             logo"
-              src="../../assets/excluzeev_white.png"
-            />
-            <v-card class="elevation-12">
-              <v-toolbar dark color="white">
-                <v-toolbar-title class="blue--text lighten-1"
-                  >Reset Password</v-toolbar-title
-                >
-              </v-toolbar>
-              <v-card-text>
-                <v-form
-                  class="blue--text lighten-1"
-                  @submit.prevent="doSendEmail"
-                >
-                  <v-text-field
-                    prepend-icon="person"
-                    name="login"
-                    label="Email"
-                    type="text"
-                    v-model="email"
-                    :rules="[rules.required, rules.email]"
-                  ></v-text-field>
-                  <div class="text-xs-center">
-                    <v-btn
-                      class="white--text v-btn--round"
-                      color="blue lighten-1"
-                      type="submit"
-                      :loading="processing"
-                      :disabled="processing"
-                      @click="loader = 'loading4'"
-                    >
-                      Reset Password
-                      <template v-slot:loader>
-                        <span class="custom-loader">
-                          <v-icon light>cached</v-icon>
-                        </span>
-                      </template>
-                    </v-btn>
-                  </div>
-                </v-form>
+              src="../../assets/excluzeev_bottom_text.png"
+            >
+
+            <v-card-text>
+              <v-form class="lighten-1" @submit.prevent="doSendEmail">
+                <v-text-field
+                  name="login"
+                  label="Email"
+                  type="text"
+                  v-model="email"
+                  :rules="[rules.required, rules.email]"
+                ></v-text-field>
+
                 <div class="text-xs-center">
-                <v-btn
-                  flat
-                  class="white--text v-btn--round"
-                  color="blue lighten-1"
-                  @click="goLogin"
-                  >Login</v-btn
-                >
+                  <v-btn
+                    class="white--text"
+                    color="blue lighten-1"
+                    type="submit"
+                    :loading="processing"
+                    :disabled="processing"
+                    @click="loader = 'loading4'"
+                  >Reset Password
+                    <template v-slot:loader>
+                      <span class="custom-loader">
+                        <v-icon light>cached</v-icon>
+                      </span>
+                    </template>
+                  </v-btn>
                 </div>
-              </v-card-text>
-            </v-card>
-            <v-snackbar v-model="snackbar" bottom>
-              {{ toastText }}
-            </v-snackbar>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
+              </v-form>
+
+              <div class="padding"></div>
+              <div class="text-xs-center quick-sand-font">
+                Got the Password? &nbsp;
+                <a>
+                  <span class color="blue lighten-1" @click="goLogin">Log in</span>
+                </a>
+              </div>
+            </v-card-text>
+          </v-card>
+          <v-snackbar v-model="snackbar" bottom>{{ toastText }}</v-snackbar>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -124,3 +111,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.padding {
+  padding: 10px;
+}
+  .forgotpassword-holder {
+    padding: 20px;
+  }
+</style>
