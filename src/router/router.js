@@ -20,6 +20,10 @@ import VideoDetail from "../views/VideoDetail";
 import AddLive from "../views/AddLive";
 import LiveDetail from "../views/LiveDetail";
 
+import Meta from "vue-meta";
+import DCrowd from "../views/DCrowd";
+Vue.use(Meta);
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -30,7 +34,7 @@ const router = new VueRouter({
       name: "Home",
       component: Home,
       meta: {
-        showNav: true
+        showNav: true, title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
     },
     {
@@ -174,6 +178,16 @@ const router = new VueRouter({
         ...route.params
       })
     },
+    {
+      path: "/crowd",
+      name: "Crowd",
+      component: DCrowd,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "Crowd Funding"
+      }
+    }
     // {
     //   path: "/",
     //   name: "home",

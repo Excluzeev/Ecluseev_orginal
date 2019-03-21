@@ -34,14 +34,6 @@
             <v-icon left>add</v-icon>Add Video</v-btn
           >
         </router-link>
-        <v-btn
-          color="red"
-          class="white--text quick-sand-font-b"
-          center
-          @click="deleteDialog = true"
-        >
-          <v-icon left>delete</v-icon>Delete</v-btn
-        >
         <router-link
           :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
         >
@@ -55,6 +47,14 @@
           @click="getSubscribers"
         >
           Subscribers</v-btn
+        >
+        <v-btn
+                color="red"
+                class="white--text quick-sand-font-b"
+                center
+                @click="deleteDialog = true"
+        >
+          <v-icon left>delete</v-icon>Delete Channel</v-btn
         >
       </div>
     </v-layout>
