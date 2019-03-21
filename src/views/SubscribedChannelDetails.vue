@@ -210,9 +210,9 @@ export default {
             subscribedChannels: filteredSubscribedChannels
           });
         }
-        this.$router.push("/");
+        this.$router.push({ name: "MySubscriptions" });
       } else {
-        this.$router.push("/");
+        this.$router.push({ name: "MySubscriptions" });
       }
       let user = auth.currentUser;
       this.$store.dispatch("fetchUser", { user: user, force: true });

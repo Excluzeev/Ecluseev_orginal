@@ -153,6 +153,9 @@ export default {
   },
   methods: {
     doSignUpContentCreator() {
+      if (this.rules.email(this.email) == "Invalid e-mail.") {
+        this.showToast("Invalid Email");
+      }
       if (!this.privacyPolicy) {
         this.showToast("Please Check Privacy Policy");
         return;
@@ -165,9 +168,7 @@ export default {
         this.showToast("Please Check Terms");
         return;
       }
-      if (!this.rules.email(this.email)) {
-        this.showToast("Invalid Email");
-      }
+
       this.processing = true;
       this.$store
         .dispatch("signUpContentCreator", { email: this.email })
@@ -179,7 +180,7 @@ export default {
           } else {
             this.processing = false;
             this.showToast("Success");
-            this.$router.push("/");
+            this.$router.push({ name: "MyChannels" });
           }
         });
     },

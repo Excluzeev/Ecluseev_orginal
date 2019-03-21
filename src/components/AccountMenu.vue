@@ -7,21 +7,21 @@
     <v-icon x-large slot="activator" color="blue lighten-1"
       >account_circle</v-icon
     >
-    <v-card>
+    <v-card >
       <v-list>
         <v-list-tile v-if="!hideSignUpContentCreator">
           <router-link :to="{ name: 'SignUpCC' }">
             <v-list-tile-title>Sign up as Content Creator</v-list-tile-title>
           </router-link>
         </v-list-tile>
-        <v-list-tile v-if="hideSignUpContentCreator">
-          <router-link :to="{ name: 'CreateChannel' }">
-            <v-list-tile-title>Create Channel</v-list-tile-title>
-          </router-link>
-        </v-list-tile>
+        <!--<v-list-tile v-if="hideSignUpContentCreator">-->
+          <!--<router-link :to="{ name: 'CreateChannel' }">-->
+            <!--<v-list-tile-title>Create Channel</v-list-tile-title>-->
+          <!--</router-link>-->
+        <!--</v-list-tile>-->
         <v-list-tile>
           <a @click="logout">
-            <v-list-tile-title>Logout</v-list-tile-title>
+            <v-list-tile-title class="quick-sand-font-b">Sign out</v-list-tile-title>
           </a>
         </v-list-tile>
       </v-list>
@@ -47,7 +47,7 @@ export default {
     logout() {
 
       this.$router.push("/logout");
-      this.$toasted.show("Successfully Logged out", {
+      this.$toasted.show("Sign out successful", {
         theme: "outline",
         position: "top-right",
         duration: 2000

@@ -1,13 +1,18 @@
 <template>
-  <v-toolbar app class="white">
+  <v-toolbar app class="white quick-sand-font">
     <router-link to="/">
       <v-toolbar-title class="headline text-uppercase">
-        <img class="padding-logo" alt="Excluzeev logo" src="../assets/excluzeev_trailer.png" height="50px" />
+        <img
+          class="padding-logo"
+          alt="Excluzeev logo"
+          src="../assets/excluzeev_trailer.png"
+          height="50px"
+        />
       </v-toolbar-title>
     </router-link>
     <v-spacer></v-spacer>
 
-    <v-menu >
+    <v-menu>
       <template #activator="{ on: menu }">
         <v-tooltip bottom>
           <template #activator="{ on: tooltip }">
@@ -17,20 +22,29 @@
         </v-tooltip>
       </template>
       <v-list>
-        <v-list-tile @click="goLoginContentCreator" v-if="!hideSignUpContentCreator">
-          <v-list-tile-title>Become content creator</v-list-tile-title>
+        <v-list-tile
+          @click="goLoginContentCreator"
+          v-if="!hideSignUpContentCreator"
+        >
+          <v-list-tile-title class="quick-sand-font"
+            >Become content creator</v-list-tile-title
+          >
         </v-list-tile>
         <v-list-tile @click="goLoginLive">
           <v-list-tile-avatar>
             <img src="../assets/e.png" width="20" />
           </v-list-tile-avatar>
-          <v-list-tile-title>Excluseev live</v-list-tile-title>
+          <v-list-tile-title class="quick-sand-font"
+            >Excluzeev live</v-list-tile-title
+          >
         </v-list-tile>
         <v-list-tile @click="goLoginCreate">
           <v-list-tile-avatar>
             <v-icon>add</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title>Create Channel</v-list-tile-title>
+          <v-list-tile-title class="quick-sand-font"
+            >Create Channel</v-list-tile-title
+          >
         </v-list-tile>
       </v-list>
     </v-menu>
@@ -46,7 +60,7 @@
       </v-btn>
     </router-link>
     <!--Notification Component-->
-    <NotificationsMenu v-if="!showLogin" />
+    <!--<NotificationsMenu v-if="!showLogin" />-->
     <!--Account menu-->
     <AccountMenu v-if="!showLogin" />
     <router-link :to="{ name: 'Login' }" v-if="showLogin">
@@ -98,17 +112,17 @@ export default {
       }
     },
     goLoginLive() {
-      if(this.showLogin) {
-        this.$router.push({ name: "Login"})
+      if (this.showLogin) {
+        this.$router.push({ name: "Login" });
       } else {
-        this.$router.push({ name: "MyChannels"})
+        this.$router.push({ name: "AddExcluzeev" });
       }
     },
     goLoginCreate() {
-      if(this.showLogin) {
-        this.$router.push({ name: "Login"})
+      if (this.showLogin) {
+        this.$router.push({ name: "Login" });
       } else {
-        this.$router.push({ name: "MyChannels"})
+        this.$router.push({ name: "CreateChannel" });
       }
     }
   }
@@ -128,7 +142,7 @@ export default {
   width: 24px !important;
   height: 24px !important;
 }
-  .padding-logo {
-    padding: 5px;
-  }
+.padding-logo {
+  padding: 5px;
+}
 </style>

@@ -4,7 +4,7 @@
       <router-link :to="'/' + getLinkTag + '/' + video.videoId">
         <v-img :src="video.image" height="118px"> </v-img>
         <div class="padding">
-          <div class="title--text max-2-lines">{{ video.title }}</div>
+          <div class="title--text max-2-lines quick-sand-font-b">{{ video.title }}</div>
           <span class="desc--text">{{ video.channelName }}</span>
           <div class="desc--text">
             {{ video.views }} views • {{ video.timeAgo }}

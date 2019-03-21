@@ -40,7 +40,6 @@ export default {
           videosList.push(utils.extractVideoData(snapshot));
         });
 
-        console.log(videosList);
         resolve(videosList);
       });
     }

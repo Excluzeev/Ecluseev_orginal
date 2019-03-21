@@ -194,18 +194,24 @@ export default {
       });
     },
     doSignUp() {
-      if (!this.rules.email(this.email)) {
+      if (this.rules.email(this.email) == "Invalid e-mail.") {
         this.showToast("Invalid Email");
         this.processing = false;
         return;
       }
       if (
         this.firstName.isEmpty ||
-        this.lastName.isEmpty ||
-        this.firstName == "" ||
-        this.lastName == ""
+        this.firstName == ""
       ) {
-        this.showToast("Invalid First/Last Name");
+        this.showToast("Invalid First Name");
+        this.processing = false;
+        return;
+      }
+      if (
+              this.lastName.isEmpty ||
+              this.lastName == ""
+      ) {
+        this.showToast("Invalid Last Name");
         this.processing = false;
         return;
       }

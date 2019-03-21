@@ -9,7 +9,7 @@
               alt="Excluzeev
             logo"
               src="../../assets/excluzeev_bottom_text.png"
-            >
+            />
 
             <v-card-text>
               <v-form class="lighten-1" @submit.prevent="doSendEmail">
@@ -29,7 +29,7 @@
                     :loading="processing"
                     :disabled="processing"
                     @click="loader = 'loading4'"
-                  >Reset Password
+                    >Reset Password
                     <template v-slot:loader>
                       <span class="custom-loader">
                         <v-icon light>cached</v-icon>
@@ -43,7 +43,9 @@
               <div class="text-xs-center quick-sand-font">
                 Got the Password? &nbsp;
                 <a>
-                  <span class color="blue lighten-1" @click="goLogin">Log in</span>
+                  <span class color="blue lighten-1" @click="goLogin"
+                    >Log in</span
+                  >
                 </a>
               </div>
             </v-card-text>
@@ -83,13 +85,14 @@ export default {
   },
   methods: {
     doSendEmail() {
-      if (this.rules.email(this.email)) {
+      if (this.rules.email(this.email) != "Invalid e-mail.") {
         this.processing = true;
         this.$store
           .dispatch("auth/resetPassword", { email: this.email })
           .then(data => {
             if (data.error) {
-              this.toastText = data.message;
+              this.toastText =
+                "An password reset email has been sent to your email";
               this.snackbar = true;
               this.processing = false;
             } else {
@@ -116,7 +119,7 @@ export default {
 .padding {
   padding: 10px;
 }
-  .forgotpassword-holder {
-    padding: 20px;
-  }
+.forgotpassword-holder {
+  padding: 20px;
+}
 </style>
