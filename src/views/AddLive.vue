@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-content>
     <v-container fluid fill-height>
-      <v-layout align-center justify-center>
+      <v-layout v-if="showAddLive" align-center justify-center>
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-9">
             <v-toolbar dark color="blue lighten-1">
@@ -134,6 +134,57 @@
           </v-card>
         </v-flex>
       </v-layout>
+
+      <v-layout v-if="showLiveDetails" align-center justify-center>
+        <v-flex xs12 sm8 md4>
+          <v-card class="elevation-9">
+            <v-toolbar dark color="blue lighten-1">
+              <v-toolbar-title>Excluzeev Live</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+              <v-flex xs12>
+                <v-text-field
+                  id="streamUrl"
+                  label="Stream Url"
+                  placeholder="Stream Url"
+                  value="rtmp://live.mux.com/app/"
+                  append-icon="file_copy"
+                  @click:append="copyStreamData('streamUrl')"
+                  outline
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  :value="streamKey"
+                  :append-icon="showKey ? 'visibility' : 'visibility_off'"
+                  :type="showKey ? 'text' : 'password'"
+                  name="input-10-1"
+                  label="Stream Key"
+                  @click:append="showKey = !showKey"
+                  outline
+                ></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-btn
+                        class="white--text"
+                        color="blue lighten-1"
+                        :loading="processing"
+                        :disabled="processing"
+                        @click="checkStreamStatus();
+                "
+                >
+                  Next
+                </v-btn>
+                <v-progress-circular
+                        v-if="checkingStream"
+                        indeterminate
+                        color="primary"
+                ></v-progress-circular>
+              </v-flex>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-container>
   </v-content>
 </template>
@@ -158,6 +209,14 @@ export default {
       timePublish: "now",
       showDateTime: false,
       unique: true,
+      showAddLive: true,
+      showLiveDetails: false,
+      streamKey: "",
+      copyText: "",
+      showKey: false,
+      checkingStream: false,
+      liveId: "",
+      videoId: "",
       rules: {
         required: value => !!value || "Required."
       }
@@ -222,9 +281,62 @@ export default {
             this.showToast(d.message);
           } else {
             this.showToast("Live Created Successfully");
-            this.$router.replace("/live/" + videoId);
+            this.streamKey = d.message;
+            this.liveId = d.liveId;
+            this.videoId = videoId;
+            // this.$router.replace("/live/" + videoId);
             this.processing = false;
+            this.showAddLive = false;
+            this.showLiveDetails = true;
           }
+          // this.shouldShowStreamDetails = moment(this.video.)
+        })
+        .catch(error => {
+          this.processing = false;
+          console.log(error);
+        });
+    },
+    copyStreamData(copyData) {
+      let testingCodeToCopy = document.querySelector("#" + copyData);
+      testingCodeToCopy.select();
+
+      try {
+        let successful = document.execCommand("copy");
+        let msg = successful ? "Successful" : "UnSuccessful";
+        this.showToast("Copied " + msg);
+      } catch (err) {
+        this.showToast("Copied Failed");
+      }
+
+      window.getSelection().removeAllRanges();
+    },
+    checkStreamStatus() {
+      console.log(this.liveId);
+      this.checkingStream = true;
+      console.log("Done");
+      //https://us-central1-trenstop-2033f.cloudfunctions.net/getLiveStatus
+      let data = {
+        liveId: this.liveId
+      };
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/getLiveStatus",
+          data
+        )
+        .then(response => {
+          let d = response.data;
+          console.log(d);
+          if (d.error) {
+            this.showToast(d.message);
+          } else {
+            if (d.message == "active") {
+              this.showToast("Stream is Live");
+              this.$router.replace("/live/" + this.videoId);
+            } else {
+              this.showToast("Please start your stream");
+            }
+          }
+          this.checkingStream = false;
           // this.shouldShowStreamDetails = moment(this.video.)
         })
         .catch(error => {
