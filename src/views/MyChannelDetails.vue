@@ -199,7 +199,6 @@ export default {
         this.subscriberLoading = false;
         return;
       }
-      console.log(this.channel);
       let querySnapshot = await fireStore
         .collection(utils.subscribersCollection)
         .where("isActive", "==", true)
@@ -214,7 +213,6 @@ export default {
         subscribers.push(data);
       });
       this.subscribersList = subscribers;
-      console.log(this.subscribersList);
       this.subscriberLoading = false;
       if (this.subscribersList.length == 0) {
         this.subscriberEmpty = true;
@@ -230,7 +228,6 @@ export default {
         })
         .then(data => {
           this.trailersList = data;
-          console.log(data);
         });
     },
     loadVideosData() {
@@ -240,7 +237,6 @@ export default {
         })
         .then(data => {
           this.videosList = data;
-          console.log(data);
         });
     },
     async deleteChannel() {
