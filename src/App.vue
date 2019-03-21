@@ -13,6 +13,10 @@ import EToolBar from "./components/EToolBar";
 import FooterComponent from "./components/FooterComponent";
 export default {
   name: "App",
+  metaInfo: {
+    title: "Excluzeev - Stream. Crowdfunding. Social Network",
+    titleTemplate: "%s | Excluzeev"
+  },
   title: "Excluzeev - Stream. Crowdfunding. Social Network",
   components: {
     FooterComponent,

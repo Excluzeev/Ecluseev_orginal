@@ -98,10 +98,18 @@ export default {
       }
     },
     goLoginLive() {
-      this.$router.push({ name: "Login"})
+      if(this.showLogin) {
+        this.$router.push({ name: "Login"})
+      } else {
+        this.$router.push({ name: "MyChannels"})
+      }
     },
     goLoginCreate() {
-      this.$router.push({ name: "Login"})
+      if(this.showLogin) {
+        this.$router.push({ name: "Login"})
+      } else {
+        this.$router.push({ name: "MyChannels"})
+      }
     }
   }
 };

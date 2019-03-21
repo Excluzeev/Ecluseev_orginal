@@ -484,6 +484,9 @@ export default {
           : {}
       );
 
+      if (fUser == null) {}
+
+
       let commentId = utils.generateId();
 
       let data = {

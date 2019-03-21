@@ -68,6 +68,7 @@ export default {
       type: data.type != null ? data.type : "",
       later: data.later != null ? data.later : "now",
       scheduleDate: data.scheduleDate != null ? data.scheduleDate : null,
+      streamCreatedDate: data.streamCreatedDate != null ? data.streamCreatedDate : null,
       description: data.description != null ? data.description : "",
       image: "https://image.mux.com/" + data.playbackId + "/thumbnail.png?token=" + data.imageToken,
       channelType: data.channelType != null ? data.channelType : "",

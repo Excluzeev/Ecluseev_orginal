@@ -38,6 +38,22 @@ export default new Vuex.Store({
       state.showLogin = auth.currentUser == null;
       state.user = auth.currentUser;
     },
+    forceFetchUser: async state => {
+      auth.onAuthStateChanged(user => {});
+      let user = auth.currentUser;
+      console.log("Fetch Force forceFetchUser");
+      let userRef = fireStore
+        .collection(collections.usersCollections)
+        .doc(user.uid);
+      let userSnap = await userRef.get();
+      let userData = null;
+      if (userSnap.exists) {
+        userData = utils.extractUserData(userSnap);
+      }
+      localStorage.setItem("fUser", JSON.stringify(userData));
+      localStorage.setItem("last", Date.now());
+      state.fUser = userData;
+    },
     fetchUser: async (state, { user, force = false }) => {
       let now = Date.now();
       let last =

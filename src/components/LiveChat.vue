@@ -1,7 +1,7 @@
 <template>
   <div id="live-chat">
     <header class="clearfix">
-      <h4>Live Chat</h4>
+      <h4 class="quick-sand-font-b">Live Chat</h4>
     </header>
 
     <div class="chat">
@@ -22,7 +22,7 @@
               <div class="chat-message-content clearfix">
                 <span class="chat-time">{{ chat.time }}</span>
 
-                <h5>{{ chat.userName }}</h5>
+                <h5 class="quick-sand-font">{{ chat.userName }}</h5>
 
                 <p>{{ chat.message }}</p>
               </div>
@@ -216,11 +216,11 @@ p {
 }
 
 #live-chat h4 {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 #live-chat h5 {
-  font-size: 10px;
+  font-size: 14px;
 }
 
 #live-chat form {
@@ -232,7 +232,8 @@ p {
   border-radius: 3px;
   padding: 8px;
   outline: none;
-  width: 234px;
+  width: 100%;
+  font-size: 14px;
 }
 
 .chat-message-counter {
@@ -271,7 +272,7 @@ p {
 }
 
 .chat-history {
-  height: 252px;
+  height: 500px;
   padding: 8px 24px;
   overflow-y: scroll;
 }
@@ -287,6 +288,7 @@ p {
 
 .chat-message-content {
   margin-left: 56px;
+  font-size: 14px;
 }
 
 .chat-time {
@@ -297,5 +299,8 @@ p {
 .chat-feedback {
   font-style: italic;
   margin: 0 0 0 80px;
+}
+fieldset > input {
+  width: 100%;
 }
 </style>

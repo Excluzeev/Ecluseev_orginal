@@ -3,7 +3,7 @@
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
-          <v-card class="elevation-5 signin-holder text-xs-center">
+          <v-card class="elevation-5 forgotpassword-holder text-xs-center">
             <img
               style="width: 30%;"
               alt="Excluzeev
@@ -116,4 +116,7 @@ export default {
 .padding {
   padding: 10px;
 }
+  .forgotpassword-holder {
+    padding: 20px;
+  }
 </style>

@@ -43,7 +43,7 @@ export default {
   },
   async mounted() {
     if (this.$route.query.done) {
-      await this.$store.commit("fetchUser", { user: auth.currentUser, force: true});
+      await this.$store.commit("forceFetchUser", { user: auth.currentUser, force: true});
     }
     this.$store.dispatch("subscriptions/getUserSubscriptions").then(data => {
       console.log(data);
