@@ -21,7 +21,6 @@ export default {
           .doc(channelId)
           .get()
           .then(querySnapshot => {
-            let trailers = [];
             resolve(querySnapshot.data());
           });
       });

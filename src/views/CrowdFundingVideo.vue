@@ -3,21 +3,26 @@
     <v-layout row>
       <v-flex xs2>
         <div align="left">
-          <v-icon color="teal darken-2" x-large dark>account_circle</v-icon>
+          <div class="padding">
+            <v-avatar tile="false" size="50px" color="grey lighten-4">
+              <img
+                class="channel-image"
+                :src="video != null ? video.channelImage : ''"
+              />
+            </v-avatar>
+          </div>
           <div style="font-size:1.4rem" class="quick-sand-font-l">
-            VJ Pranay
+            {{ video.channelName }}
           </div>
         </div>
       </v-flex>
       <v-flex xs10>
         <div align="left">
           <div class="flex display-1 font-weight-normal">
-            Free software is vital! Its more then human right!!
+            {{ video.title }}
           </div>
           <div class="nav-c t1824">
-            The free software movement (FSM) or free/open-source software
-            movement (FOSSM) or free/libre open-source software movement
-            (FLOSSM)
+            {{ video.description }}
           </div>
         </div>
       </v-flex>
@@ -26,15 +31,19 @@
     <v-layout row> </v-layout>
     <v-layout row>
       <v-flex xs8>
-        <iframe
-          src="https://player.vimeo.com/video/153239711"
-          width="750"
-          height="480"
-          frameborder="0"
-          webkitallowfullscreen
-          mozallowfullscreen
-          allowfullscreen
-        ></iframe>
+        <div v-show="!playerOptions.sources[0].src.isEmpty">
+          <video-player
+            class="video-holder vjs-big-play-centered"
+            width="100%"
+            height="auto"
+            id="player_id"
+            ref="videoPlayer"
+            :options="playerOptions"
+            @ready="playerIsReady"
+            @timeupdate="onPlayerTimeupdate($event)"
+          >
+          </video-player>
+        </div>
       </v-flex>
       <v-flex>
         <v-spacer></v-spacer>
@@ -43,33 +52,101 @@
         <v-progress-linear
           color="teal"
           height="5"
-          value="30"
+          :value="(channel.currentFund / channel.targetFund ) * 100"
         ></v-progress-linear>
         <div align="left">
           <div
             style="font-size:1.4rem;"
             class="flex display-1 font-weight-normal teal--text darken-2"
           >
-            US$ 278,418
+            US$ {{ channel.currentFund }}
           </div>
-          <p class="nav-c t1824">pledged of US$ 250,000 goal</p>
+          <p class="nav-c t1824">
+            pledged of US$ {{ channel.targetFund }} goal
+          </p>
           <p class="nav-c flex d-flex align-start display-1 font-weight-thin">
-            7,268
+            {{ channel.subscriberCount }}
           </p>
           <p class="nav-c t1824">backers</p>
-          <p class="nav-c flex d-flex align-start display-1 font-weight-thin">
-            13
-          </p>
-          <p class="nav-c t1824">days to go</p>
-          <v-btn block class="quick-sand-font-b white--text" color="teal"
+          <!--<p class="nav-c flex d-flex align-start display-1 font-weight-thin">-->
+          <!--13-->
+          <!--</p>-->
+          <!--<p class="nav-c t1824">days to go</p>-->
+          <v-btn
+            block
+            class="quick-sand-font-b white--text"
+            color="teal"
+            @click="prepareSubscribe(25)"
             >Donate 25$</v-btn
           >
-          <v-btn block class="quick-sand-font-b white--text" color="teal"
+          <v-btn
+            block
+            class="quick-sand-font-b white--text"
+            color="teal"
+            @click="prepareSubscribe(50)"
             >Donate 50$</v-btn
           >
-          <v-btn block class="quick-sand-font-b white--text" color="teal"
+          <v-btn
+            block
+            class="quick-sand-font-b white--text"
+            color="teal"
+            @click="prepareSubscribe(100)"
             >Donate 100$</v-btn
           >
+        </div>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <!--Comments Section-->
+      <v-flex xs12>
+        <div class="comment-holder padding text-xs-left">
+          <div v-if="showComments">
+            <v-textarea
+              solo
+              label="Add a comment"
+              rows="1"
+              auto-grow
+              v-model="commentText"
+            ></v-textarea>
+            <v-layout>
+              <v-spacer></v-spacer>
+              <v-btn
+                class="white--text quick-sand-font-b"
+                color="blue lighten-1"
+                :disabled="disabelComment"
+                @click="doComment"
+              >
+                Comment
+              </v-btn>
+            </v-layout>
+          </div>
+          <div v-if="!showComments">
+            <div class="logincomment text-xs-center">
+              <p>
+                Please
+                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
+                  >sign in</router-link
+                >
+                to comment
+              </p>
+            </div>
+          </div>
+          <v-flex class="padding" v-if="commentsList.length > 0">
+            <div
+              class="comment"
+              v-for="comment in commentsList"
+              v-bind:key="comment.commentId"
+            >
+              <h4>{{ comment.userName }}</h4>
+              <div>{{ comment.comment }}</div>
+              <p class="grey--text">{{ comment.timeAgo }}</p>
+            </div>
+          </v-flex>
+          <v-flex v-else text-xs-center>
+            <div class="nocomment">
+              <p>No comments yet, be the first</p>
+            </div>
+          </v-flex>
         </div>
       </v-flex>
     </v-layout>
@@ -86,10 +163,12 @@ import moment from "moment";
 import VideoDetailVideoItem from "../components/VideoDetailVideoItem";
 
 export default {
-  name: "CrowdFunding",
+  name: "CrowdFundingVideo",
   data: () => {
     return {
       video: null,
+      channel: null,
+      showDonateText: true,
       commentsList: [],
       channelVideosList: [],
       commentText: "",
@@ -157,6 +236,15 @@ export default {
             this.playerOptions.sources[0].src = response.data;
             this.video = vData;
             this.playerOptions.poster = this.video.image;
+
+            this.$store
+              .dispatch("videos/fetchChannel", {
+                channelId: this.video.channelId
+              })
+              .then(data => {
+                this.channel = data;
+                this.showDonateText = data.channelType != "VOD";
+              });
 
             this.$store
               .dispatch("videos/getUserChannelVideos", {
@@ -301,7 +389,7 @@ export default {
 
       let data = {
         comment: this.commentText,
-        userPhoto: fUser.userPhoto,
+        userPhoto: fUser.userPhoto == undefined ? "" : fUser.userPhoto,
         createdDate: firebaseTimestamp.fromDate(new Date()),
         channelName: this.video.channelName,
         channelId: this.video.channelId,

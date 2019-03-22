@@ -507,7 +507,7 @@ export default {
 
       let data = {
         comment: this.commentText,
-        userPhoto: fUser.userPhoto,
+        userPhoto: fUser.userPhoto == undefined ? "" : fUser.userPhoto,
         createdDate: firebaseTimestamp.fromDate(new Date()),
         channelName: this.channel.title,
         channelId: this.channel.channelId,

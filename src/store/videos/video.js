@@ -14,6 +14,17 @@ export default {
   },
   mutations: {},
   actions: {
+    fetchChannel: ({ state, commit }, { channelId }) => {
+      return new Promise((resolve, reject) => {
+        fireStore
+            .collection(collections.channelsCollection)
+            .doc(channelId)
+            .get()
+            .then(querySnapshot => {
+              resolve(querySnapshot.data());
+            });
+      });
+    },
     fetchVideo: ({ state, commit }, { videoId }) => {
       return new Promise(resolve => {
         fireStore
