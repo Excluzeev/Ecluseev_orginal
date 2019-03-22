@@ -37,7 +37,8 @@ export default {
                 let trailersList = [];
                 let trailersRef = fireStore
                     .collection(collections.trailerCollection)
-                    .where("channelId", "==", channelId);
+                    .where("channelId", "==", channelId)
+                    .orderBy("createdDate", "desc");
 
                 let trailersQuerySnapshot = await trailersRef.get();
                 trailersQuerySnapshot.forEach(snapshot => {
@@ -53,7 +54,8 @@ export default {
                 let videosList = [];
                 let videosRef = fireStore
                     .collection(collections.videosCollection)
-                    .where("channelId", "==", channelId);
+                    .where("channelId", "==", channelId)
+                    .orderBy("createdDate", "desc");
 
                 let videosQuerySnapshot = await videosRef.get();
                 videosQuerySnapshot.forEach(snapshot => {

@@ -159,6 +159,7 @@ export default {
         userId: auth.currentUser.uid,
         channelId: this.channelData.channelId,
         channelName: this.channelData.title,
+        channelType: this.channelData.channelType,
         title: this.title,
         description: this.description,
         type: "VOD",

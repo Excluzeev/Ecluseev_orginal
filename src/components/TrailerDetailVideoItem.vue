@@ -1,5 +1,5 @@
 <template>
-  <router-link class="" :to="'/trailer/' + trailer.trailerId">
+  <router-link class="" :to="'/' + getLinkTag + '/' + trailer.trailerId">
     <v-layout class="all-bg padding-top" justify-left row>
       <img :src="trailer.image" height="94" width="168" />
       <div class="padding">
@@ -18,7 +18,12 @@
 <script>
 export default {
   name: "TrailerVideoItem",
-  props: ["trailer"]
+  props: ["trailer"],
+  computed: {
+    getLinkTag() {
+      return this.trailer.channelType == "CrowdFunding" ? "crowd" : "trailer";
+    }
+  }
 };
 </script>
 

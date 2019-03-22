@@ -1,7 +1,40 @@
 <template>
-  <div class="home">
-    <v-layout class="main-holder" xs12>
-      <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
+  <v-container grid-list-md text-xs-center>
+    <v-layout row>
+      <v-flex xs2>
+        <div align="left">
+          <div class="padding">
+            <v-avatar :tile="tile" size="50px" color="grey lighten-4">
+              <img
+
+                      alt="avatar"
+                      class="channel-image"
+                      :src="trailer != null ? trailer.channelImage : ''"
+
+              />
+            </v-avatar>
+
+          </div>
+          <div style="font-size:1.4rem" class="quick-sand-font-l">
+            {{ trailer.channelName }}
+          </div>
+        </div>
+      </v-flex>
+      <v-flex xs10>
+        <div align="left">
+          <div class="flex display-1 font-weight-normal">
+            {{ trailer.title }}
+          </div>
+          <div class="nav-c t1824">
+            {{ trailer.description }}
+          </div>
+        </div>
+      </v-flex>
+      <v-flex xs3> </v-flex>
+    </v-layout>
+    <v-layout row> </v-layout>
+    <v-layout row>
+      <v-flex xs8>
         <div v-show="!playerOptions.sources[0].src.isEmpty">
           <video-player
             class="video-holder vjs-big-play-centered"
@@ -15,65 +48,62 @@
           >
           </video-player>
         </div>
-        <v-layout class="padding" align-center justify-left row fill-height>
-          <v-layout class="padding" align-left justify-left column fill-height>
-            <div class="title-details--text max-1-lines quick-sand-font-b">
-              {{ video.title }}
-            </div>
-            <div class="desc-details--text">{{ video.views }} views</div>
-          </v-layout>
-          <v-spacer></v-spacer>
-          <a>
-            <div v-ripple class="like-holder" @click="updateWhat('like')">
-              <v-icon v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
-            </div>
-          </a>
-          <a>
-            <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-              <v-icon v-bind:class="{ active: isNeutral }"
-                >sentiment_dissatisfied</v-icon
-              >
-            </div>
-          </a>
-          <a>
-            <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-              <v-icon v-bind:class="{ active: isUserDisLiked }"
-                >thumb_down</v-icon
-              >
-            </div>
-          </a>
-        </v-layout>
-        <v-divider></v-divider>
-
-        <v-layout class="padding" justify-left fill-height>
-          <div class="padding">
-            <img
-              class="channel-image square"
-              :src="video != null ? video.channelImage : ''"
-            />
+      </v-flex>
+      <v-flex>
+        <v-spacer></v-spacer>
+      </v-flex>
+      <v-flex xs4>
+        <v-progress-linear
+          color="teal"
+          height="5"
+          :value="(channel.targetFund * channel.currentFund) / 100"
+        ></v-progress-linear>
+        <div align="left">
+          <div
+            style="font-size:1.4rem;"
+            class="flex display-1 font-weight-normal teal--text darken-2"
+          >
+            US$ {{ channel.currentFund }}
           </div>
-          <v-flex class="padding">
-            <v-layout align-center justify-left row>
-              <v-layout align-left justify-left column fill-height>
-                <h2 class="quick-sand-font-b">{{ video.channelName }}</h2>
-                <span class="published--text"
-                  >Published {{ video.timeAgo }}</span
-                >
-              </v-layout>
-              <v-spacer></v-spacer>
-            </v-layout>
-
-            <!--Description-->
-            <div class="detail-description">
-              <div>{{ video.description }}</div>
-            </div>
-          </v-flex>
-        </v-layout>
-
-        <v-divider></v-divider>
-
-        <!--Comments Section-->
-        <div class="comment-holder padding">
+          <p class="nav-c t1824">
+            pledged of US$ {{ channel.targetFund }} goal
+          </p>
+          <p class="nav-c flex d-flex align-start display-1 font-weight-thin">
+            {{ channel.subscriberCount }}
+          </p>
+          <p class="nav-c t1824">backers</p>
+          <!--<p class="nav-c flex d-flex align-start display-1 font-weight-thin">-->
+          <!--13-->
+          <!--</p>-->
+          <!--<p class="nav-c t1824">days to go</p>-->
+          <v-btn
+            block
+            class="quick-sand-font-b white--text"
+            color="teal"
+            @click="prepareSubscribe(25)"
+            >Donate 25$</v-btn
+          >
+          <v-btn
+            block
+            class="quick-sand-font-b white--text"
+            color="teal"
+            @click="prepareSubscribe(50)"
+            >Donate 50$</v-btn
+          >
+          <v-btn
+            block
+            class="quick-sand-font-b white--text"
+            color="teal"
+            @click="prepareSubscribe(100)"
+            >Donate 100$</v-btn
+          >
+        </div>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <!--Comments Section-->
+      <v-flex xs12>
+        <div class="comment-holder padding text-xs-left">
           <div v-if="showComments">
             <v-textarea
               solo
@@ -99,7 +129,7 @@
               <p>
                 Please
                 <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
-                  >login</router-link
+                  >sign in</router-link
                 >
                 to comment
               </p>
@@ -118,50 +148,45 @@
           </v-flex>
           <v-flex v-else text-xs-center>
             <div class="nocomment">
-              <p>No comments Yet be the first to comment</p>
+              <p>No comments yet, be the first</p>
             </div>
           </v-flex>
         </div>
       </v-flex>
-      <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
-        <div style="width: 100%;">
-          <h2 class="quick-sand-font-n" style="padding-top: 5px;">
-            Related Videos
-          </h2>
-          <VideoDetailVideoItem
-            v-for="video in channelVideosList"
-            v-bind:key="video.videoId"
-            :video="video"
-          />
-        </div>
-      </v-flex>
     </v-layout>
-  </div>
+  </v-container>
 </template>
 
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
-import videoModule from "../store/videos/video";
+import trailerModule from "../store/trailers/trailer";
 import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 import moment from "moment";
-import VideoDetailVideoItem from "../components/VideoDetailVideoItem";
+import TrailerDetailVideoItem from "../components/TrailerDetailVideoItem";
 
 export default {
-  name: "VideoSingle",
+  name: "CrowdFundingTrailer",
   data: () => {
     return {
-      video: null,
+      trailer: null,
+      channel: null,
+      catTrailersList: null,
+      showSubscribeButton: false,
+      showDonateText: false,
+      isViewTriggered: false,
+      subscribeProcessing: false,
+      donate5Processing: false,
+      donate10Processing: false,
       commentsList: [],
-      channelVideosList: [],
       commentText: "",
       playerOptions: {
         overNative: true,
+        controls: true,
         autoplay: true,
         errorDisplay: false,
         preload: "auto",
-        controls: true,
         techOrder: ["html5"],
         sourceOrder: true,
         playbackRates: [0.7, 1.0, 1.5, 2.0],
@@ -183,7 +208,7 @@ export default {
     };
   },
   components: {
-    VideoDetailVideoItem
+    TrailerDetailVideoItem
   },
   mixins: [RegisterStoreModule],
   computed: {
@@ -199,46 +224,73 @@ export default {
     }
   },
   mounted() {
-    console.log("this is current player instance object", this.player);
+    console.log(
+      "this is current player instance object " + this.$refs.videoPlayer.player
+    );
   },
   created() {
-    this.registerStoreModule("videos", videoModule);
+    this.registerStoreModule("trailers", trailerModule);
     this.$store
-      .dispatch("videos/fetchVideo", {
-        videoId: this.$route.params.videoId
+      .dispatch("trailers/fetchTrailer", {
+        trailerId: this.$route.params.trailerId
       })
-      .then(vData => {
-        axios
-          .post(
-            "https://us-central1-trenstop-2033f.cloudfunctions.net/videoWebHook",
-            {
-              videoId: vData.videoId,
-              playbackId: vData.playbackId
-            }
-          )
-          .then(response => {
-            this.playerOptions.sources[0].src = response.data;
-            this.video = vData;
-            this.playerOptions.poster = this.video.image;
+      .then(data => {
+        this.trailer = data;
 
-            this.$store
-              .dispatch("videos/getUserChannelVideos", {
-                channelId: this.video.channelId
-              })
-              .then(videosList => {
-                this.channelVideosList = videosList;
-              });
+        this.$store
+          .dispatch("trailers/fetchChannel", {
+            channelId: this.trailer.channelId
           })
-          .catch(error => {
-            console.log(error);
+          .then(data => {
+            this.channel = data;
+            this.showDonateText = data.channelType != "VOD";
           });
 
-        this.getLikes();
+        this.$store
+          .dispatch("trailers/fetchCategoryTrailersTop10", {
+            categoryId: this.trailer.categoryId
+          })
+          .then(catTrailersList => {
+            this.catTrailersList = catTrailersList;
+          });
 
+        this.playerOptions.sources[0].src = this.trailer.videoUrl;
+        this.playerOptions.poster = this.trailer.image;
+        let fUser = localStorage.getItem("fUser");
+        let user = null;
+        if (data != null) {
+          try {
+            user = JSON.parse(fUser);
+          } catch (e) {
+            user = null;
+          }
+        }
+        if (user != null && user.subscribedChannels != undefined) {
+          this.showSubscribeButton = !user.subscribedChannels.includes(
+            this.trailer.channelId
+          );
+        } else {
+          this.showSubscribeButton = true;
+        }
+
+        if (user != null && user.uid == this.trailer.userId) {
+          this.showSubscribeButton = false;
+        }
+        this.getLikes();
         this.getComments();
       });
   },
   methods: {
+    playerIsReady(player) {
+      // TODO(Karthik): Modify the adTagUrl
+      // let options = {
+      //   id: player.id_,
+      //   adTagUrl:
+      //     "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&cust_params=sample_ar%3Dpremidpostpod%26deployment%3Dgmf-js&cmsid=496&vid=short_onecue&correlator="
+      // };
+      //
+      // player.ima(options);
+    },
     async getLikes() {
       if (auth.currentUser == null) {
         return;
@@ -246,7 +298,7 @@ export default {
       let userId = auth.currentUser.uid;
       let snap = await fireStore
         .collection(utils.likesCollection)
-        .doc(userId + ":" + this.$route.params.videoId + ":v")
+        .doc(userId + ":" + this.$route.params.trailerId + ":t")
         .get();
       if (snap.exists) {
         let data = snap.data();
@@ -261,6 +313,10 @@ export default {
       }
     },
     async updateWhat(newWhat) {
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
       let what = 0;
       if (newWhat == "like") {
         what = 1;
@@ -277,7 +333,7 @@ export default {
       let userId = auth.currentUser.uid;
       let whatDoc = await fireStore
         .collection(utils.likesCollection)
-        .doc(userId + ":" + this.$route.params.videoId + ":t")
+        .doc(userId + ":" + this.$route.params.trailerId + ":t")
         .get();
       if (whatDoc.exists) {
         await whatDoc.ref.update({
@@ -307,6 +363,44 @@ export default {
         this.isUserLiked = false;
       }
     },
+    async prepareSubscribe(donate) {
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
+      let prepareOptions = {
+        channelId: this.trailer.channelId,
+        channelName: this.trailer.channelName,
+        userId: auth.currentUser.uid,
+        isDesktop: true,
+        redirectTo: "https://excluzeev.com/my-channels"
+      };
+      this.subscribeProcessing = true;
+      if (this.showDonateText) {
+        prepareOptions.donate = donate;
+      }
+
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/generatePayKey",
+          prepareOptions
+        )
+        .then(response => {
+          console.log(response.data);
+          if (response.data.responseEnvelope.ack != "Success") {
+            this.subscribeProcessing = false;
+            this.showToast("Payment Failed Please try later.");
+          } else {
+            window.location =
+              "https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=" +
+              response.data.payKey;
+          }
+        })
+        .catch(error => {
+          this.subscribeProcessing = false;
+          console.log(error);
+        });
+    },
     showToast(msg) {
       this.$toasted.show(msg, {
         theme: "outline",
@@ -314,16 +408,16 @@ export default {
         duration: 2000
       });
     },
-
     async triggerVideoView() {
       let videoRef = fireStore
-        .collection(utils.videosCollection)
-        .doc(this.video.videoId);
+        .collection(utils.trailerCollection)
+        .doc(this.trailer.trailerId);
       fireStore
         .runTransaction(transaction => {
           // This code may get re-run multiple times if there are conflicts.
           return transaction.get(videoRef).then(vData => {
             if (!vData.exists) {
+              // throw "Document does not exist!";
               return;
             }
             let views = vData.data().views;
@@ -360,23 +454,26 @@ export default {
           : {}
       );
 
+      if (fUser == null) {
+      }
+
       let commentId = utils.generateId();
 
       let data = {
         comment: this.commentText,
         userPhoto: fUser.userPhoto == undefined ? "" : fUser.userPhoto,
         createdDate: firebaseTimestamp.fromDate(new Date()),
-        channelName: this.video.channelName,
-        channelId: this.video.channelId,
+        channelName: this.channel.title,
+        channelId: this.channel.channelId,
         userId: fUser.uid,
         userName: fUser.firstName + " " + fUser.lastName,
-        vtId: this.video.videoId,
+        vtId: this.trailer.trailerId,
         commentId: commentId
       };
 
       let commentRef = fireStore
         .collection(utils.videosCollection)
-        .doc(this.video.videoId)
+        .doc(this.trailer.trailerId)
         .collection(utils.commentsCollections)
         .doc(commentId);
 
@@ -385,10 +482,9 @@ export default {
       this.commentText = "";
     },
     async getComments() {
-
       let commentRef = fireStore
         .collection(utils.videosCollection)
-        .doc(this.$route.params.videoId)
+        .doc(this.trailer.trailerId)
         .collection(utils.commentsCollections)
         .orderBy("createdDate", "desc")
         .limit(50);
@@ -403,44 +499,10 @@ export default {
           commentsList.push(d);
         });
         this.commentsList = commentsList;
-        console.log(this.commentsList);
       });
     }
   }
 };
 </script>
 
-<style scoped lang="scss">
-.main-holder {
-  align-items: flex-start;
-}
-.channel-image {
-  border-radius: 50%;
-  object-fit: cover;
-}
-.square {
-  width: 64px;
-  height: 64px;
-}
-.padding {
-  padding: 10px;
-}
-.like-holder {
-  padding: 10px;
-}
-.active {
-  color: #42a5f5;
-}
-.published--text {
-  color: rgba(17, 17, 17, 0.6);
-}
-.detail-description {
-}
-.linked-trailers {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.v-text-field__details {
-  display: none;
-}
-</style>
+<style scoped></style>
