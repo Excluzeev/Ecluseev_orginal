@@ -22,7 +22,8 @@ import LiveDetail from "../views/LiveDetail";
 
 import Meta from "vue-meta";
 import DCrowd from "../views/DCrowd";
-import CrowdFunding from "../views/CrowdFunding";
+import CrowdFundingTrailer from "../views/CrowdFundingTrailer";
+import CrowdFundingVideo from "../views/CrowdFundingVideo";
 Vue.use(Meta);
 
 Vue.use(VueRouter);
@@ -151,9 +152,15 @@ const router = new VueRouter({
       meta: { showNav: true, title: "Excluzeev Videos" }
     },
     {
-      path: "/crowd/:videoId",
-      name: "CrowdFunding",
-      component: CrowdFunding,
+      path: "/crowd/:trailerId",
+      name: "CrowdFundingTrailer",
+      component: CrowdFundingTrailer,
+      meta: { showNav: true, title: "Excluzeev Videos" }
+    },
+    {
+      path: "/crowd/video/:videoId",
+      name: "CrowdFundingVideo",
+      component: CrowdFundingVideo,
       meta: { showNav: true, title: "Excluzeev Videos" }
     },
     {

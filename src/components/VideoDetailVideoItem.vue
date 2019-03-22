@@ -1,6 +1,6 @@
 <template>
   <router-link
-          class="" :to="'/video/' + video.videoId">
+          class="" :to="'/' + getLinkTag + '/' + video.videoId">
     <v-layout class="all-bg padding-top" justify-left row>
       <img :src="video.image" height="94" width="168" />
       <div class="padding">
@@ -17,7 +17,15 @@
 <script>
 export default {
   name: "VideoDetailVideoItem",
-  props: ["video"]
+  props: ["video"],
+  computed: {
+    getLinkTag() {
+      if (this.video.channelType == "CrowdFunding" && this.video.type != "Live") {
+        return "crowd/video";
+      }
+      return this.video.type == "Live" ? "live" : "video";
+    }
+  }
 };
 </script>
 
