@@ -222,9 +222,11 @@ export default {
         const endpoint = `${RECAPTCHA_VERIFY_URL}?response=${token}&secret=${RECAPTCHA_SECRET}`;
         axios
           .post(endpoint, {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            crossDomain: true
+            crossDomain: true,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST, OPTIONS"
+            }
           })
           .then(({ data }) => {
             console.log(data);
