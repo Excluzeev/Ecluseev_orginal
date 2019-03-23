@@ -12,7 +12,7 @@
             />
 
             <v-card-text>
-              <v-form class="lighten-1" @submit.prevent="doSendEmail">
+              <v-form class="lighten-1" @submit.prevent="isHuman">
                 <v-text-field
                   name="login"
                   label="Email"
@@ -60,6 +60,7 @@
 <script>
 import RegisterStoreModule from "../../mixins/RegisterStoreModule";
 import authModule from "../../store/auth/auth";
+import axios from "axios";
 
 export default {
   data: () => {
@@ -110,6 +111,28 @@ export default {
     },
     goLogin() {
       this.$router.back();
+    },
+    isHuman() {
+      this.$recaptcha("login").then(token => {
+        console.log(token); // Will print the token
+        const RECAPTCHA_SECRET = "6LcwXpkUAAAAAN39Ge4e7R1KmOKJR5RTNEAKIAOC";
+        const RECAPTCHA_VERIFY_URL =
+                "https://www.google.com/recaptcha/api/siteverify";
+        const RECAPTCHA_SCORE_THRESHOLD = 0.5;
+        const endpoint = `${RECAPTCHA_VERIFY_URL}?response=${token}&secret=${RECAPTCHA_SECRET}`;
+        axios
+                .post(endpoint, {
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, OPTIONS",
+                  crossDomain: true
+                })
+                .then(({ data }) => {
+                  console.log(data);
+                  if (data.score > RECAPTCHA_SCORE_THRESHOLD) {
+                    this.doSendEmail();
+                  }
+                });
+      });
     }
   }
 };
