@@ -13,7 +13,7 @@
             <div class="signup-text quick-sand-font">Sign up</div>
             <div class="signup-continue-text">Continue to Excluzeev</div>
             <v-card-text>
-              <v-form class="lighten-1" @submit.prevent="doSignUp">
+              <v-form class="lighten-1" @submit.prevent="isHuman">
                 <v-layout row>
                   <v-text-field
                     style="margin-right: 5px;"
@@ -143,6 +143,7 @@ import authModule from "../../store/auth/auth";
 
 import LicenseAgreement from "../../components/LicenseAgreement";
 import PrivacyPolicy from "../../components/PrivacyPolicy";
+import axios from "axios";
 
 export default {
   data: () => {
@@ -262,6 +263,28 @@ export default {
       this.titleDialog = "Excluzeev Terms";
       this.componentDialog = LicenseAgreement;
       this.termsDialog = true;
+    },
+    isHuman() {
+      this.$recaptcha("login").then(token => {
+        console.log(token); // Will print the token
+        const RECAPTCHA_SECRET = "6LcwXpkUAAAAAN39Ge4e7R1KmOKJR5RTNEAKIAOC";
+        const RECAPTCHA_VERIFY_URL =
+                "https://www.google.com/recaptcha/api/siteverify";
+        const RECAPTCHA_SCORE_THRESHOLD = 0.5;
+        const endpoint = `${RECAPTCHA_VERIFY_URL}?response=${token}&secret=${RECAPTCHA_SECRET}`;
+        axios
+                .post(endpoint, {
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, OPTIONS",
+                  crossDomain: true
+                })
+                .then(({ data }) => {
+                  console.log(data);
+                  if (data.score > RECAPTCHA_SCORE_THRESHOLD) {
+                    this.doSignUp();
+                  }
+                });
+      });
     }
   }
 };

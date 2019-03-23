@@ -25,7 +25,16 @@ import Toasted from "vue-toasted";
 
 import LoadScript from "vue-plugin-load-script";
 
+import { VueReCaptcha } from "vue-recaptcha-v3";
 
+// For more options see below
+Vue.use(VueReCaptcha, {
+  siteKey: "6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC",
+  loaderOptions: {
+    useRecaptchaNet: true,
+    autoHideBadge: true
+  }
+});
 
 Vue.use(LoadScript);
 
