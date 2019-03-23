@@ -15,7 +15,7 @@
               Continue to Excluzeev
             </div>
             <v-card-text>
-              <v-form class="lighten-1" @submit.prevent="doLogin">
+              <v-form class="lighten-1" @submit.prevent="isHuman">
                 <v-text-field
                   name="login"
                   label="Email"
@@ -127,6 +127,7 @@ import RegisterStoreModule from "../../mixins/RegisterStoreModule";
 import authModule from "../../store/auth/auth";
 import LicenseAgreement from "../../components/LicenseAgreement";
 import PrivacyPolicy from "../../components/PrivacyPolicy";
+import axios from "axios";
 
 export default {
   data: () => {
@@ -162,7 +163,10 @@ export default {
       });
     },
     doLogin() {
-      if (this.rules.email(this.email) != "Invalid e-mail." && this.rules.required(this.password) != "Required.") {
+      if (
+        this.rules.email(this.email) != "Invalid e-mail." &&
+        this.rules.required(this.password) != "Required."
+      ) {
         this.processing = true;
         this.$store
           .dispatch("auth/loginUser", {
@@ -174,7 +178,7 @@ export default {
             if (newData.error) {
               this.processing = false;
               console.log(newData.message);
-              if(newData.code == "auth/user-not-found") {
+              if (newData.code == "auth/user-not-found") {
                 this.showToast("User not found.");
               } else {
                 this.showToast("Email / Password is Invalid");
@@ -207,6 +211,28 @@ export default {
       this.titleDialog = "Excluzeev Terms";
       this.componentDialog = LicenseAgreement;
       this.termsDialog = true;
+    },
+    isHuman() {
+      this.$recaptcha("login").then(token => {
+        console.log(token); // Will print the token
+        const RECAPTCHA_SECRET = "6LcwXpkUAAAAAN39Ge4e7R1KmOKJR5RTNEAKIAOC";
+        const RECAPTCHA_VERIFY_URL =
+          "https://www.google.com/recaptcha/api/siteverify";
+        const RECAPTCHA_SCORE_THRESHOLD = 0.5;
+        const endpoint = `${RECAPTCHA_VERIFY_URL}?response=${token}&secret=${RECAPTCHA_SECRET}`;
+        axios
+          .post(endpoint, {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            crossDomain: true
+          })
+          .then(({ data }) => {
+            console.log(data);
+            if (data.score > RECAPTCHA_SCORE_THRESHOLD) {
+              this.doLogin();
+            }
+          });
+      });
     }
   }
 };
@@ -235,5 +261,4 @@ export default {
   margin-bottom: 0;
   margin-top: 0;
 }
-
 </style>
