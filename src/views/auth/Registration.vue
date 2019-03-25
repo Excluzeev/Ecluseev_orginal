@@ -200,18 +200,12 @@ export default {
         this.processing = false;
         return;
       }
-      if (
-        this.firstName.isEmpty ||
-        this.firstName == ""
-      ) {
+      if (this.firstName.isEmpty || this.firstName == "") {
         this.showToast("Invalid First Name");
         this.processing = false;
         return;
       }
-      if (
-              this.lastName.isEmpty ||
-              this.lastName == ""
-      ) {
+      if (this.lastName.isEmpty || this.lastName == "") {
         this.showToast("Invalid Last Name");
         this.processing = false;
         return;
@@ -266,24 +260,20 @@ export default {
     },
     isHuman() {
       this.$recaptcha("login").then(token => {
-        console.log(token); // Will print the token
-        const RECAPTCHA_SECRET = "6LcwXpkUAAAAAN39Ge4e7R1KmOKJR5RTNEAKIAOC";
-        const RECAPTCHA_VERIFY_URL =
-                "https://www.google.com/recaptcha/api/siteverify";
-        const RECAPTCHA_SCORE_THRESHOLD = 0.5;
-        const endpoint = `${RECAPTCHA_VERIFY_URL}?response=${token}&secret=${RECAPTCHA_SECRET}`;
         axios
-                .post(endpoint, {
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Allow-Methods": "POST, OPTIONS",
-                  crossDomain: true
-                })
-                .then(({ data }) => {
-                  console.log(data);
-                  if (data.score > RECAPTCHA_SCORE_THRESHOLD) {
-                    this.doSignUp();
-                  }
-                });
+          .post(
+            "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
+            {
+              token: token
+            }
+          )
+          .then(response => {
+            if (!response.data.error) {
+              this.doSignUp();
+            } else {
+              this.showToast("Login Failed");
+            }
+          });
       });
     }
   }
