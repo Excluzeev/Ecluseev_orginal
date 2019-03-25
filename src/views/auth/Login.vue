@@ -214,24 +214,18 @@ export default {
     },
     isHuman() {
       this.$recaptcha("login").then(token => {
-        console.log(token); // Will print the token
-        const RECAPTCHA_SECRET = "6LcwXpkUAAAAAN39Ge4e7R1KmOKJR5RTNEAKIAOC";
-        const RECAPTCHA_VERIFY_URL =
-          "https://www.google.com/recaptcha/api/siteverify";
-        const RECAPTCHA_SCORE_THRESHOLD = 0.5;
-        const endpoint = `${RECAPTCHA_VERIFY_URL}?response=${token}&secret=${RECAPTCHA_SECRET}`;
         axios
-          .post(endpoint, {
-            crossDomain: true,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "POST, OPTIONS"
+          .post(
+            "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
+            {
+              token: token
             }
-          })
-          .then(({ data }) => {
-            console.log(data);
-            if (data.score > RECAPTCHA_SCORE_THRESHOLD) {
+          )
+          .then(response => {
+            if (!response.data.error) {
               this.doLogin();
+            } else {
+              this.showToast("Login Failed");
             }
           });
       });
