@@ -252,6 +252,9 @@ export default {
             this.showToast("Sign in Failed");
             this.processing = false;
           }
+        })
+        .catch(() => {
+          this.processing = false;
         });
     },
     isHuman() {
