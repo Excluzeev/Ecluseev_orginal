@@ -65,6 +65,16 @@
                   style="font-size: 12px"
                 ></div>
 
+                <vue-programmatic-invisible-google-recaptcha
+                  ref="invisibleRecaptcha1"
+                  sitekey="6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co"
+                  elementId="'invisibleRecaptcha1'"
+                  badgePosition="'left'"
+                  showBadgeMobile="false"
+                  showBadgeDesktop="true"
+                  @recaptcha-callback="recaptchaCallback"
+                ></vue-programmatic-invisible-google-recaptcha>
+
                 <div
                   class="text-xs-right quick-sand-font-b"
                   style="padding: 0px;"
@@ -144,18 +154,6 @@ import authModule from "../../store/auth/auth";
 import LicenseAgreement from "../../components/LicenseAgreement";
 import PrivacyPolicy from "../../components/PrivacyPolicy";
 import axios from "axios";
-
-import Vue from "vue";
-import { VueReCaptcha } from "vue-recaptcha-v3";
-
-// For more options see below
-Vue.use(VueReCaptcha, {
-  siteKey: "6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC",
-  loaderOptions: {
-    useRecaptchaNet: true,
-    autoHideBadge: true
-  }
-});
 
 export default {
   data: () => {
@@ -270,8 +268,23 @@ export default {
       this.componentDialog = LicenseAgreement;
       this.termsDialog = true;
     },
+    recaptchaCallback(token) {
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
+          {
+            token: token
+          }
+        )
+        .then(response => {
+          if (!response.data.error) {
+            this.doSignUp();
+          } else {
+            this.showToast("Sign up Failed");
+          }
+        });
+    },
     isHuman() {
-
       if (this.rules.email(this.email) == "Invalid e-mail.") {
         this.showToast("Invalid Email");
         this.processing = false;
@@ -298,24 +311,7 @@ export default {
         return;
       }
 
-      this.$recaptcha("login").then(token => {
-        axios
-          .post(
-            "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
-            {
-              token: token
-            }
-          )
-          .then(response => {
-            if (!response.data.error) {
-              this.doSignUp();
-            } else {
-              this.showToast("Login Failed");
-            }
-          });
-      });
-
-
+      this.$refs.invisibleRecaptcha1.execute();
     }
   }
 };
