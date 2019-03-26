@@ -145,6 +145,18 @@ import LicenseAgreement from "../../components/LicenseAgreement";
 import PrivacyPolicy from "../../components/PrivacyPolicy";
 import axios from "axios";
 
+import Vue from "vue";
+import { VueReCaptcha } from "vue-recaptcha-v3";
+
+// For more options see below
+Vue.use(VueReCaptcha, {
+  siteKey: "6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC",
+  loaderOptions: {
+    useRecaptchaNet: true,
+    autoHideBadge: true
+  }
+});
+
 export default {
   data: () => {
     return {
@@ -259,6 +271,33 @@ export default {
       this.termsDialog = true;
     },
     isHuman() {
+
+      if (this.rules.email(this.email) == "Invalid e-mail.") {
+        this.showToast("Invalid Email");
+        this.processing = false;
+        return;
+      }
+      if (this.firstName.isEmpty || this.firstName == "") {
+        this.showToast("Invalid First Name");
+        this.processing = false;
+        return;
+      }
+      if (this.lastName.isEmpty || this.lastName == "") {
+        this.showToast("Invalid Last Name");
+        this.processing = false;
+        return;
+      }
+      if (this.password.isEmpty || this.password.length < 8) {
+        this.showToast("Password must be greater than 8 digits");
+        this.processing = false;
+        return;
+      }
+      if (this.password != this.cPassword) {
+        this.showToast("Passwords doesn't match.");
+        this.processing = false;
+        return;
+      }
+
       this.$recaptcha("login").then(token => {
         axios
           .post(
@@ -275,6 +314,8 @@ export default {
             }
           });
       });
+
+
     }
   }
 };

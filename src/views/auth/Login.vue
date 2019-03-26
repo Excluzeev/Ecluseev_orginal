@@ -129,6 +129,18 @@ import LicenseAgreement from "../../components/LicenseAgreement";
 import PrivacyPolicy from "../../components/PrivacyPolicy";
 import axios from "axios";
 
+import Vue from "vue";
+import { VueReCaptcha } from "vue-recaptcha-v3";
+
+// For more options see below
+Vue.use(VueReCaptcha, {
+  siteKey: "6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC",
+  loaderOptions: {
+    useRecaptchaNet: true,
+    autoHideBadge: true
+  }
+});
+
 export default {
   data: () => {
     return {
@@ -213,22 +225,31 @@ export default {
       this.termsDialog = true;
     },
     isHuman() {
-      this.$recaptcha("login").then(token => {
-        axios
-          .post(
-            "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
-            {
-              token: token
-            }
-          )
-          .then(response => {
-            if (!response.data.error) {
-              this.doLogin();
-            } else {
-              this.showToast("Login Failed");
-            }
-          });
-      });
+      if (
+        this.rules.email(this.email) != "Invalid e-mail." &&
+        this.rules.required(this.password) != "Required."
+      ) {
+        this.processing = true;
+        this.$recaptcha("login").then(token => {
+          axios
+            .post(
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
+              {
+                token: token
+              }
+            )
+            .then(response => {
+              if (!response.data.error) {
+                this.doLogin();
+              } else {
+                this.showToast("Login Failed");
+              }
+            });
+        });
+      } else {
+        this.showToast("Invalid Email / Password");
+        this.processing = false;
+      }
     }
   }
 };
