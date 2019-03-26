@@ -63,7 +63,7 @@ export default {
   padding-bottom: 10px;
   padding-right: 10px;
 }
-  .top-padding {
-    padding-top: 10px;
-  }
+.top-padding {
+  padding-top: 10px;
+}
 </style>

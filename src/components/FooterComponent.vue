@@ -18,9 +18,15 @@
         <div align="left">
           <h3 class="nav-c quick-sand-font-b">EXPLORE</h3>
 
-          <h3 class="light-blue--text quick-sand-font">About</h3>
-          <a href="mailto:support@excluzeev.com?subject=Support%20Query"><h3 class="light-blue--text quick-sand-font">Support</h3></a>
-          <h3 class="light-blue--text quick-sand-font">Contact us</h3>
+          <h3 @click="showAbout" class="light-blue--text quick-sand-font">
+            About
+          </h3>
+          <a href="mailto:support@excluzeev.com?subject=Support%20Query"
+            ><h3 class="light-blue--text quick-sand-font">Support</h3></a
+          >
+          <h3 @click="showFAQs" class="light-blue--text quick-sand-font">
+            FAQs
+          </h3>
         </div>
       </div>
     </v-flex>
@@ -28,12 +34,18 @@
       <div align="top center">
         <div align="left">
           <h3 class="nav-c quick-sand-font-b">LEGAL</h3>
-
-          <h3 class="light-blue--text quick-sand-font" @click="showExcluzeevTerms">
-            Terms and conditions
+          <h3
+            class="light-blue--text quick-sand-font"
+            @click="showPrivacyPolicy"
+          >
+            Privacy Policy
           </h3>
-          <h3 class="light-blue--text quick-sand-font" @click="showPrivacyPolicy">Privacy Policy</h3>
-          <h3 class="light-blue--text quick-sand-font" @click="showCookiePolicy">Cookie Policy</h3>
+          <h3
+            class="light-blue--text quick-sand-font"
+            @click="showCookiePolicy"
+          >
+            Cookie Policy
+          </h3>
         </div>
       </div>
     </v-flex>
@@ -42,9 +54,12 @@
         <div align="left">
           <h3 class="nav-c quick-sand-font-b">FOLLOW US</h3>
 
-          <h3 class="light-blue--text quick-sand-font">Facebook</h3>
-          <h3 class="light-blue--text quick-sand-font">Instagram</h3>
-          <h3 class="light-blue--text quick-sand-font">Twitter</h3>
+          <a href="https://www.facebook.com/excluzeev"
+            ><h3 class="light-blue--text quick-sand-font">Facebook</h3></a
+          >
+          <a href="https://www.instagram.com/excluzeev/"
+            ><h3 class="light-blue--text quick-sand-font">Instagram</h3></a
+          >
         </div>
       </div>
     </v-flex>
@@ -55,11 +70,14 @@
         alt="Download_on_the_App_Store"
         src="../assets/Download_on_the_App_Store.svg"
       />
-      <img
-        style="width: 120px;height: 40px;"
-        alt="google-play-badge"
-        src="../assets/google-play-badge.png"
-      />
+      <a
+        href="https://play.google.com/store/apps/details?id=com.trenstop.mobile"
+      >
+        <img
+          style="width: 120px;height: 40px;"
+          alt="google-play-badge"
+          src="../assets/google-play-badge.png"
+      /></a>
     </v-flex>
     <v-layout row justify-center>
       <v-dialog
@@ -87,6 +105,8 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import ContentCreator from "./ContentCreator";
 import LicenseAgreement from "./LicenseAgreement";
 import CookiePolicy from "./CookiePolicy";
+import About from "./About";
+import FAQs from "./FAQs";
 
 export default {
   name: "FooterComponent",
@@ -99,6 +119,16 @@ export default {
     showPrivacyPolicy() {
       this.titleDialog = "Privacy Policy";
       this.componentDialog = PrivacyPolicy;
+      this.dialog = true;
+    },
+    showAbout() {
+      this.titleDialog = "About Us";
+      this.componentDialog = About;
+      this.dialog = true;
+    },
+    showFAQs() {
+      this.titleDialog = "FAQs";
+      this.componentDialog = FAQs;
       this.dialog = true;
     },
     showCreatorTerms() {
