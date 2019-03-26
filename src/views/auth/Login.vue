@@ -32,6 +32,17 @@
                   :rules="[rules.required]"
                 ></v-text-field>
                 <div class="padding"></div>
+
+                <vue-programmatic-invisible-google-recaptcha
+                  ref="invisibleRecaptcha1"
+                  sitekey="6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co"
+                  elementId="'invisibleRecaptcha1'"
+                  badgePosition="'left'"
+                  showBadgeMobile="false"
+                  showBadgeDesktop="true"
+                  @recaptcha-callback="recaptchaCallback"
+                ></vue-programmatic-invisible-google-recaptcha>
+
                 <div class="text-xs-left quick-sand-font">
                   <a>
                     <div
@@ -129,17 +140,16 @@ import LicenseAgreement from "../../components/LicenseAgreement";
 import PrivacyPolicy from "../../components/PrivacyPolicy";
 import axios from "axios";
 
-import Vue from "vue";
-import { VueReCaptcha } from "vue-recaptcha-v3";
-
-// For more options see below
-Vue.use(VueReCaptcha, {
-  siteKey: "6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC",
-  loaderOptions: {
-    useRecaptchaNet: true,
-    autoHideBadge: true
-  }
-});
+// import { VueReCaptcha } from "vue-recaptcha-v3";
+//
+// // For more options see below
+// Vue.use(VueReCaptcha, {
+//   siteKey: "6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co",
+//   loaderOptions: {
+//     useRecaptchaNet: true,
+//     autoHideBadge: true
+//   }
+// });
 
 export default {
   data: () => {
@@ -160,6 +170,7 @@ export default {
       toastText: "Login Success"
     };
   },
+  components: {},
   mixins: [RegisterStoreModule],
   props: {},
   created() {
@@ -224,28 +235,32 @@ export default {
       this.componentDialog = LicenseAgreement;
       this.termsDialog = true;
     },
+    recaptchaCallback(token) {
+      this.processing = true;
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
+          {
+            token: token
+          }
+        )
+        .then(response => {
+          console.log(response.data);
+          if (!response.data.error) {
+            this.doLogin();
+          } else {
+            this.showToast("Sign in Failed");
+            this.processing = false;
+          }
+        });
+    },
     isHuman() {
       if (
         this.rules.email(this.email) != "Invalid e-mail." &&
         this.rules.required(this.password) != "Required."
       ) {
         this.processing = true;
-        this.$recaptcha("login").then(token => {
-          axios
-            .post(
-              "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
-              {
-                token: token
-              }
-            )
-            .then(response => {
-              if (!response.data.error) {
-                this.doLogin();
-              } else {
-                this.showToast("Login Failed");
-              }
-            });
-        });
+        this.$refs.invisibleRecaptcha1.execute();
       } else {
         this.showToast("Invalid Email / Password");
         this.processing = false;

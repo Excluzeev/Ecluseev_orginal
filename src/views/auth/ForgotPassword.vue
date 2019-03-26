@@ -21,6 +21,16 @@
                   :rules="[rules.required, rules.email]"
                 ></v-text-field>
 
+                <vue-programmatic-invisible-google-recaptcha
+                  ref="invisibleRecaptcha1"
+                  sitekey="6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co"
+                  elementId="'invisibleRecaptcha1'"
+                  badgePosition="'left'"
+                  showBadgeMobile="false"
+                  showBadgeDesktop="true"
+                  @recaptcha-callback="recaptchaCallback"
+                ></vue-programmatic-invisible-google-recaptcha>
+
                 <div class="text-xs-center">
                   <v-btn
                     class="white--text"
@@ -67,7 +77,7 @@ import { VueReCaptcha } from "vue-recaptcha-v3";
 
 // For more options see below
 Vue.use(VueReCaptcha, {
-  siteKey: "6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC",
+  siteKey: "6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co",
   loaderOptions: {
     useRecaptchaNet: true,
     autoHideBadge: true
@@ -124,9 +134,10 @@ export default {
     goLogin() {
       this.$router.back();
     },
-    isHuman() {
+    recaptchaCallback(token) {
       if (this.rules.email(this.email) != "Invalid e-mail.") {
         this.$recaptcha("login").then(token => {
+          console.log(token);
           axios
             .post(
               "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
@@ -138,10 +149,20 @@ export default {
               if (!response.data.error) {
                 this.doSendEmail();
               } else {
-                this.showToast("Login Failed");
+                this.showToast("Verification failed");
               }
             });
         });
+      } else {
+        this.toastText = "Invalid Email";
+        this.snackbar = true;
+        this.processing = false;
+      }
+    },
+    isHuman() {
+      if (this.rules.email(this.email) != "Invalid e-mail.") {
+        this.$refs.invisibleRecaptcha1.execute();
+        this.processing = true;
       } else {
         this.toastText = "Invalid Email";
         this.snackbar = true;

@@ -27,6 +27,13 @@ import LoadScript from "vue-plugin-load-script";
 
 Vue.use(LoadScript);
 
+import VueProgrammaticInvisibleGoogleRecaptcha from "vue-programmatic-invisible-google-recaptcha";
+
+Vue.component(
+  "vue-programmatic-invisible-google-recaptcha",
+  VueProgrammaticInvisibleGoogleRecaptcha
+);
+
 Vue.loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js")
   .then(() => {
     // Script is loaded, do something
@@ -35,6 +42,14 @@ Vue.loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js")
   .catch(() => {
     // Failed to fetch script
     console.log("ima3 load failed");
+  });
+
+Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
+  .then(() => {
+    console.log("recaptcha loaded");
+  })
+  .catch(() => {
+    console.log("recaptcha load failed");
   });
 
 auth.onAuthStateChanged(user => {
