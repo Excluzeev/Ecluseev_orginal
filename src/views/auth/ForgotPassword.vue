@@ -135,29 +135,25 @@ export default {
       this.$router.back();
     },
     recaptchaCallback(token) {
-      if (this.rules.email(this.email) != "Invalid e-mail.") {
-        this.$recaptcha("login").then(token => {
-          console.log(token);
-          axios
-            .post(
-              "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
-              {
-                token: token
-              }
-            )
-            .then(response => {
-              if (!response.data.error) {
-                this.doSendEmail();
-              } else {
-                this.showToast("Verification failed");
-              }
-            });
-        });
-      } else {
-        this.toastText = "Invalid Email";
-        this.snackbar = true;
-        this.processing = false;
-      }
+      this.processing = true;
+      axios
+              .post(
+                      "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
+                      {
+                        token: token
+                      }
+              )
+              .then(response => {
+                if (!response.data.error) {
+                  this.doSendEmail();
+                } else {
+                  this.showToast("Verification failed");
+                  this.processing = false;
+                }
+              })
+              .catch(() => {
+                this.processing = false;
+              })
     },
     isHuman() {
       if (this.rules.email(this.email) != "Invalid e-mail.") {

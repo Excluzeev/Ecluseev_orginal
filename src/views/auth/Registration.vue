@@ -269,6 +269,7 @@ export default {
       this.termsDialog = true;
     },
     recaptchaCallback(token) {
+      this.processing = true;
       axios
         .post(
           "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
@@ -281,7 +282,12 @@ export default {
             this.doSignUp();
           } else {
             this.showToast("Sign up Failed");
+
+            this.processing = false;
           }
+        })
+        .catch(() => {
+          this.processing = false;
         });
     },
     isHuman() {
