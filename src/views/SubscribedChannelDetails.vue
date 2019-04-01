@@ -13,7 +13,7 @@
         <img
           :src="
             'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-              subscription.channelId +
+              subscription.channClearedelId +
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"
@@ -191,6 +191,7 @@ export default {
       let subDoc = await subRef.get();
       if (subDoc.exists) {
         await subRef.update(updateData);
+
         let channelDoc = await channelRef.get();
 
         let userRef = fireStore.collection("users").doc(auth.currentUser.uid);
