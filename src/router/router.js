@@ -24,6 +24,11 @@ import Meta from "vue-meta";
 import DCrowd from "../views/DCrowd";
 import CrowdFundingTrailer from "../views/CrowdFundingTrailer";
 import CrowdFundingVideo from "../views/CrowdFundingVideo";
+import PrivacyPolicy from "../components/PrivacyPolicy";
+import ContentCreator from "../components/ContentCreator";
+import LicenseAgreement from "../components/LicenseAgreement";
+import CookiePolicy from "../components/CookiePolicy";
+
 Vue.use(Meta);
 
 Vue.use(VueRouter);
@@ -36,7 +41,8 @@ const router = new VueRouter({
       name: "Home",
       component: Home,
       meta: {
-        showNav: true, title: "Excluzeev - Stream. Crowdfunding. Social Network"
+        showNav: true,
+        title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
     },
     {
@@ -200,6 +206,46 @@ const router = new VueRouter({
         noAuth: false,
         showNav: true,
         title: "Crowd Funding"
+      }
+    },
+    {
+      path: "/privacy-policy",
+      name: "PrivacyPolicy",
+      component: PrivacyPolicy,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: "Privacy Policy"
+      }
+    },
+    {
+      path: "/content-creator-policy",
+      name: "ContentCreator",
+      component: ContentCreator,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: "Content Creator Policy"
+      }
+    },
+    {
+      path: "/license-agreement",
+      name: "LicenseAgreement",
+      component: LicenseAgreement,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: "License Agreement"
+      }
+    },
+    {
+      path: "/cookie-policy",
+      name: "CookiePolicy",
+      component: CookiePolicy,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: "CookiePolicy"
       }
     }
     // {
