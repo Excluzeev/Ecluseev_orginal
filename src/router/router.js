@@ -28,6 +28,7 @@ import PrivacyPolicy from "../components/PrivacyPolicy";
 import ContentCreator from "../components/ContentCreator";
 import LicenseAgreement from "../components/LicenseAgreement";
 import CookiePolicy from "../components/CookiePolicy";
+import FAQs from "../components/FAQs";
 
 Vue.use(Meta);
 
@@ -246,6 +247,16 @@ const router = new VueRouter({
         noAuth: false,
         showNav: false,
         title: "CookiePolicy"
+      }
+    },
+    {
+      path: "/faqs",
+      name: "Faqs",
+      component: FAQs,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: "FAQ's"
       }
     }
     // {
