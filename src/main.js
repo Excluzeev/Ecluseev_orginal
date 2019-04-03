@@ -65,6 +65,14 @@ Vue.use(Toasted, {
 });
 Vue.mixin(titleMixin);
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(faFacebookF, faTwitter);
+
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+
 new Vue({
   router,
   store,
