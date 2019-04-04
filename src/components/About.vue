@@ -1,5 +1,5 @@
 <template>
-  <body>
+  <v-container>
     <div class="license_page">
       <h1 class="main_text">About Us</h1>
       <p>
@@ -9,7 +9,7 @@
         fund, launch , and Interact with there supporters here.
       </p>
     </div>
-  </body>
+  </v-container>
 </template>
 
 <script>
@@ -27,5 +27,8 @@ export default {
 }
 .main_text {
   text-align: center;
+}
+p {
+  font-size: 18px;
 }
 </style>

@@ -1,15 +1,19 @@
 <template>
-  <body class="privacy">
+  <v-container>
     <h2 class="main-text">Privacy Policy</h2>
     <h3>Introduction</h3>
     <p>
       Thank you for your interest in Trentstop Global Inc (“Company”, “We”, “Us”
       or “Our”) owner and operator of the website located at
-      <a target="_blank" href="https://excluzeev.com/">www.excluzeev.com</a>
+      <a
+        target="_blank"
+        href="https://excluzeev.com/"
+      >www.excluzeev.com</a>
       (“Website” or “Site”) and the Excluzeev mobile application (“App”). The
       Website, Site and App are collectively referred to as “Excluzeev” or
-      “Service”. <br /><br />
-      Any reference to “Company”, “We”, “Us”, or “Our” refers to Trentstop
+      “Service”.
+      <br>
+      <br>Any reference to “Company”, “We”, “Us”, or “Our” refers to Trentstop
       Global Inc and any reference to “You”, “Your” or“User” refers to all
       website/app visitors or users, whether registered or unregistered.
     </p>
@@ -63,7 +67,9 @@
       provide us with your: full name, email address and age. You may choose to
       provide us with your income group however it is not mandatory.
     </p>
-    <p><b>Purpose of processing</b></p>
+    <p>
+      <b>Purpose of processing</b>
+    </p>
     <p>
       We process this information to set up your account, enable you to log into
       your account, to contact you when required.
@@ -75,7 +81,9 @@
       When you contact us either through email, contact us page we will collect
       your email address, your name and the content of your message.
     </p>
-    <p><b>Purpose of processing</b></p>
+    <p>
+      <b>Purpose of processing</b>
+    </p>
     <p>
       We process this information for the purpose of responding to your request
       and to offer support where needed.
@@ -84,7 +92,9 @@
       <li>Collection of transaction data</li>
     </ul>
     <p>We keep a record of all payment transactions for your channels.</p>
-    <p><b>Purpose of processing</b></p>
+    <p>
+      <b>Purpose of processing</b>
+    </p>
     <p>
       We use this information to process and forward your subscription payments
       to your account, to charge you service and transaction fees, to issue
@@ -99,7 +109,9 @@
       We also collect certain information from you when you participate in our
       surveys that we send to you via email.
     </p>
-    <p><b>Purpose of processing</b></p>
+    <p>
+      <b>Purpose of processing</b>
+    </p>
     <p>
       We use the information from our surveys to improve our service and serve
       you better.
@@ -112,7 +124,9 @@
         your visit, your IP address, your browser type, your operating system,
         pages you visit and operating system you use to access the Service.
       </p>
-      <p><b>Purpose of processing</b></p>
+      <p>
+        <b>Purpose of processing</b>
+      </p>
       <p>
         We process this information to better understand how you use our
         Services and to improve our User’s experience.
@@ -123,38 +137,40 @@
     <p>
       The legal basis for our collection and use of your personal information
       under the General Data Protection Regulation is performance of our
-      contract with you. <br /><br />
-      We may also process your information where we have a legitimate interest
+      contract with you.
+      <br>
+      <br>We may also process your information where we have a legitimate interest
       in such processing of such data.
-      <br /><br />
-      Where we send you marketing material or surveys, the legal basis of our
+      <br>
+      <br>Where we send you marketing material or surveys, the legal basis of our
       processing of such data is your consent which we will request before we
       collect such data.
-      <br /><br />
-      We may also process personal information to fulfil our legal obligations.
+      <br>
+      <br>We may also process personal information to fulfil our legal obligations.
     </p>
     <h3>Compliance with PIPEDA</h3>
     <p>
       Our Privacy Policy and practices adhere to the ten principles of Privacy
       in accordance with the Personal Information Protection and Electronic
-      Documents Act (PIPEDA). <br /><br />
-      We have a designated Privacy Officer who ensures that we are accountable
+      Documents Act (PIPEDA).
+      <br>
+      <br>We have a designated Privacy Officer who ensures that we are accountable
       for any and all personal information of our Users in our possession and
       control.
-      <br /><br />
-      We will never collect any personal information from our Users without
+      <br>
+      <br>We will never collect any personal information from our Users without
       informing them of the purpose for which we are collecting their personal
       information or do so without their express consent. We will never disclose
       or use any of your personal information in a manner other than that
       indicated at the time when we obtained such information with the exception
       that we reserve the right to disclose any personal information as and when
       required to do so law.
-      <br /><br />
-      We take all reasonable steps to keep all your personal information in our
+      <br>
+      <br>We take all reasonable steps to keep all your personal information in our
       possession accurate, complete, current and relevant based on the
       information you provide us.
-      <br /><br />
-      We also take all reasonable and commercially viable measures to protect
+      <br>
+      <br>We also take all reasonable and commercially viable measures to protect
       your personal information in our possession and you may at any time access
       this information and query how we manage and protect your personal
       information by contacting us.
@@ -162,8 +178,8 @@
     <h3>We may share your information</h3>
     <p>
       We do not sell or rent your personal information to any third-party.
-      <br /><br />
-      We may share your personal information with third-parties in the following
+      <br>
+      <br>We may share your personal information with third-parties in the following
       circumstance:
     </p>
     <ul>
@@ -215,8 +231,7 @@
         <a
           target="_blank"
           href="mailto:privacy@excluzeev.com?subject=Privacy Issue "
-          >privacy@excluzeev.com</a
-        >.
+        >privacy@excluzeev.com</a>.
       </p>
     </ul>
     <ul>
@@ -228,8 +243,7 @@
         <a
           target="_blank"
           href="mailto:privacy@excluzeev.com?subject=Privacy Issue "
-          >privacy@excluzeev.com</a
-        >.
+        >privacy@excluzeev.com</a>.
       </p>
     </ul>
     <ul>
@@ -240,8 +254,7 @@
         <a
           target="_blank"
           href="mailto:privacy@excluzeev.com?subject=Privacy Issue "
-          >privacy@excluzeev.com</a
-        >. We will respond to your request within 30 days from the date of
+        >privacy@excluzeev.com</a>. We will respond to your request within 30 days from the date of
         receipt of your request.
       </p>
     </ul>
@@ -254,8 +267,7 @@
         <a
           target="_blank"
           href="mailto:privacy@excluzeev.com?subject=Privacy Issue "
-          >privacy@excluzeev.com</a
-        >. We will immediately cease processing your personal data for such
+        >privacy@excluzeev.com</a>. We will immediately cease processing your personal data for such
         direct marketing purposes.
       </p>
     </ul>
@@ -271,8 +283,7 @@
         <a
           target="_blank"
           href="https://ec.europa.eu/justice/article-29/structure/data-protection-authorities/index_en.htm"
-          >here</a
-        >.
+        >here</a>.
       </p>
     </ul>
     <ul>
@@ -284,8 +295,7 @@
         <a
           target="_blank"
           href="mailto:privacy@excluzeev.com?subject=Privacy Issue "
-          >privacy@excluzeev.com</a
-        >.
+        >privacy@excluzeev.com</a>.
       </p>
     </ul>
     <h3>Communication</h3>
@@ -321,8 +331,9 @@
       Website that is owned and operated by a third-party. Their own legal
       policies and agreements govern these third-party websites and we encourage
       you to review their Terms and Privacy Policy before you make use of their
-      services. <br /><br />
-      We cannot be held liable for your use and access of such third-party sites
+      services.
+      <br>
+      <br>We cannot be held liable for your use and access of such third-party sites
       or for any information or content made available by such thirdparty sites.
       Any presence of third-party links on our Website does not indicate an
       endorsement or recommendation of such third-party by the Company, and your
@@ -334,15 +345,17 @@
       <a
         target="_blank"
         href="mailto:privacy@excluzeev.com?subject=Privacy Issue "
-        >privacy@excluzeev.com</a
-      >
+      >privacy@excluzeev.com</a>
     </p>
-  </body>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: "PrivacyPolicy"
+  name: "PrivacyPolicy",
+  metaInfo: {
+    title: "Privacy Policy"
+  }
 };
 </script>
 
@@ -355,5 +368,8 @@ export default {
 }
 .main-text {
   text-align: center;
+}
+p {
+  font-size: 16px;
 }
 </style>

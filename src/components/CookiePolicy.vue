@@ -1,10 +1,11 @@
 <template>
-  <body class="cookie">
+  <v-container>
     <h2 class="main_text">COOKIES POLICY</h2>
     <p>
       Excluzeev ("us", "we", or "our") uses cookies on www.Excluzeev.com (the
-      "Website"). By using the Service, you consent to the use of cookies.<br /><br />
-      Our Cookies Policy explains what cookies are, how we use cookies, how
+      "Website"). By using the Service, you consent to the use of cookies.
+      <br>
+      <br>Our Cookies Policy explains what cookies are, how we use cookies, how
       third-parties we may partner with may use cookies on the Service, your
       choices regarding cookies and further information about cookies.
     </p>
@@ -13,18 +14,21 @@
       Cookies are small pieces of text sent by your web browser by a website you
       visit. A cookie file is stored in your web browser and allows the Service
       or a third-party to recognize you and make your next visit easier and the
-      Service more useful to you.<br /><br />
-      Cookies can be "persistent" or "session" cookies.
+      Service more useful to you.
+      <br>
+      <br>Cookies can be "persistent" or "session" cookies.
     </p>
     <h3>HOW Excluzeev USES COOKIES ?</h3>
     <p>
       When you use and access the Service, we may place a number of cookies
-      files in your web browser.<br /><br />
-      We use cookies for the following purposes: to enable certain functions of
+      files in your web browser.
+      <br>
+      <br>We use cookies for the following purposes: to enable certain functions of
       the Service, to provide analytics, to store your preferences, to enable
       advertisements delivery on the video contents made available to you
-      (including behavioural advertising).<br /><br />
-      We use both session and persistent cookies on the Service and we use
+      (including behavioural advertising).
+      <br>
+      <br>We use both session and persistent cookies on the Service and we use
       different types of cookies to run the Service:
     </p>
     <h4>THIRD-PARTY COOKIES</h4>
@@ -45,8 +49,7 @@
       as intended. Also, you will be given the opportunity to opt-in or opt-out
       of different categories of Cookie that we use. Cookie Settings at any time
       to review or change these preferences.
-      <br />
-      In addition to the controls that we provide, you can choose to enable or
+      <br>In addition to the controls that we provide, you can choose to enable or
       disable Cookies in your internet browser. Most internet browsers also
       enable you to choose whether you wish to disable all Cookies or only
       third-party Cookies. By default, most internet browsers accept Cookies but
@@ -55,12 +58,15 @@
       Below are links to most of where to find this information in most popular
       browsers.
     </p>
-  </body>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: "CookiePolicy"
+  name: "CookiePolicy",
+  metaInfo: {
+    title: "Cookie Policy"
+  }
 };
 </script>
 
@@ -73,5 +79,8 @@ export default {
 }
 .main_text {
   text-align: center;
+}
+p {
+  font-size: 16px;
 }
 </style>

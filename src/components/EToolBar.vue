@@ -7,7 +7,7 @@
           alt="Excluzeev logo"
           src="../assets/excluzeev_trailer.png"
           height="50px"
-        />
+        >
       </v-toolbar-title>
     </router-link>
     <v-spacer></v-spacer>
@@ -22,29 +22,20 @@
         </v-tooltip>
       </template>
       <v-list>
-        <v-list-tile
-          @click="goLoginContentCreator"
-          v-if="!hideSignUpContentCreator"
-        >
-          <v-list-tile-title class="quick-sand-font"
-            >Become content creator</v-list-tile-title
-          >
+        <v-list-tile @click="goLoginContentCreator" v-if="!hideSignUpContentCreator">
+          <v-list-tile-title class="quick-sand-font">Become a Content Creator</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="goLoginLive" v-if="hideSignUpContentCreator">
           <v-list-tile-avatar>
-            <img src="../assets/e.png" width="20" />
+            <img src="../assets/e.png" width="20">
           </v-list-tile-avatar>
-          <v-list-tile-title class="quick-sand-font"
-            >Excluzeev live</v-list-tile-title
-          >
+          <v-list-tile-title class="quick-sand-font">Excluzeev live</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="goLoginCreate" v-if="hideSignUpContentCreator">
           <v-list-tile-avatar>
             <v-icon>add</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title class="quick-sand-font"
-            >Create Channel</v-list-tile-title
-          >
+          <v-list-tile-title class="quick-sand-font">Create Channel</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
@@ -62,7 +53,7 @@
     <!--Notification Component-->
     <!--<NotificationsMenu v-if="!showLogin" />-->
     <!--Account menu-->
-    <AccountMenu v-if="!showLogin" />
+    <AccountMenu v-if="!showLogin"/>
     <router-link :to="{ name: 'Login' }" v-if="showLogin">
       <v-btn flat>
         <span class="nav-auth-button">SIGN IN</span>
