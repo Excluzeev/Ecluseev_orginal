@@ -55,7 +55,6 @@
           <div align="center">
             <h3 class="nav-c quick-sand-font-b">FOLLOW US</h3>
 
-<<<<<<< HEAD
             <a href="https://www.facebook.com/excluzeev"
               ><h3 class="light-blue--text quick-sand-font">Facebook</h3></a
             >
@@ -82,38 +81,13 @@
         /></a>
       </v-flex>
     </v-layout>
-=======
-          <a href="https://www.facebook.com/excluzeev">
-            <h3 class="light-blue--text quick-sand-font">
-              <font-awesome-icon icon="facebook-f"></font-awesome-icon>Facebook
-            </h3>
-          </a>
-          <a href="https://www.instagram.com/excluzeev/">
-            <h3 class="light-blue--text quick-sand-font">
-              <font-awesome-icon icon="twitter"></font-awesome-icon>Instagram
-            </h3>
-          </a>
-        </div>
-      </div>
-    </v-flex>
-    <v-flex xs3>
-      <h3 class="nav-c quick-sand-font-b">APPS</h3>
-      <img
-        style="width: 120px;height: 40px;"
-        alt="Download_on_the_App_Store"
-        src="../assets/Download_on_the_App_Store.svg"
-      >
-      <a href="https://play.google.com/store/apps/details?id=com.trenstop.mobile">
-        <img
-          style="width: 120px;height: 40px;"
-          alt="google-play-badge"
-          src="../assets/google-play-badge.png"
-        >
-      </a>
-    </v-flex>
->>>>>>> 051375c43d4d050b1bd3cb16442701a82df6b26a
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
         <v-card>
           <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialog = false">
