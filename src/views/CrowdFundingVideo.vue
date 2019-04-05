@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <v-layout row>
-      <v-flex xs2>
+    <v-layout row wrap>
+      <v-flex xs12 sm3 md2>
         <div align="left">
           <div class="padding">
             <v-avatar tile="false" size="50px" color="grey lighten-4">
@@ -16,7 +16,7 @@
           </div>
         </div>
       </v-flex>
-      <v-flex xs10>
+      <v-flex xs12 sm9 md10>
         <div align="left">
           <div class="flex display-1 font-weight-normal">
             {{ video.title }}
@@ -28,9 +28,9 @@
       </v-flex>
       <v-flex xs3> </v-flex>
     </v-layout>
-    <v-layout row> </v-layout>
-    <v-layout row>
-      <v-flex xs8>
+    <!-- <v-layout row> </v-layout> -->
+    <v-layout row wrap>
+      <v-flex xs12 md8>
         <div v-show="!playerOptions.sources[0].src.isEmpty">
           <video-player
             class="video-holder vjs-big-play-centered"
@@ -48,11 +48,11 @@
       <v-flex>
         <v-spacer></v-spacer>
       </v-flex>
-      <v-flex xs4>
+      <v-flex xs12 md4>
         <v-progress-linear
           color="teal"
           height="5"
-          :value="(channel.currentFund / channel.targetFund ) * 100"
+          :value="(channel.currentFund / channel.targetFund) * 100"
         ></v-progress-linear>
         <div align="left">
           <div

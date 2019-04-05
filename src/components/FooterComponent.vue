@@ -1,75 +1,93 @@
 <template>
   <v-footer class="white" height="auto">
-    <v-flex xs3>
-      <div align="center">
-        <img
-          style="width: 50%;"
-          alt="Excluzeev
+    <v-layout wrap align-center class="text-xs-center">
+      <v-flex xs12 sm3 md3>
+        <div align="center">
+          <img
+            style="width: 50%;"
+            alt="Excluzeev
             logo"
-          src="../assets/excluzeev_bottom_text.png"
-        >
-        <!-- <div class="light-blue--text quick-sand-font-b">
+            src="../assets/excluzeev_bottom_text.png"
+          />
+          <!-- <div class="light-blue--text quick-sand-font-b">
           &copy; 2019 Excluzeev
-        </div>-->
-      </div>
-    </v-flex>
-    <v-flex xs2>
-      <div align="center">
-        <div align="left">
-          <h3 class="nav-c quick-sand-font-b">EXPLORE</h3>
+        </div> -->
+        </div>
+      </v-flex>
+      <v-flex xs12 sm3 md2>
+        <div align="center">
+          <div align="center">
+            <h3 class="nav-c quick-sand-font-b">EXPLORE</h3>
 
-          <h3 @click="showAbout" class="light-blue--text quick-sand-font">About</h3>
-          <a href="mailto:support@excluzeev.com?subject=Support%20Query">
-            <h3 class="light-blue--text quick-sand-font">Support</h3>
-          </a>
-          <h3 @click="showFAQs" class="light-blue--text quick-sand-font">FAQs</h3>
+            <h3 @click="showAbout" class="light-blue--text quick-sand-font">
+              About
+            </h3>
+            <a href="mailto:support@excluzeev.com?subject=Support%20Query"
+              ><h3 class="light-blue--text quick-sand-font">Support</h3></a
+            >
+            <h3 @click="showFAQs" class="light-blue--text quick-sand-font">
+              FAQs
+            </h3>
+          </div>
         </div>
-      </div>
-    </v-flex>
-    <v-flex xs2>
-      <div align="top center">
-        <div align="left">
-          <h3 class="nav-c quick-sand-font-b">LEGAL</h3>
-          <h3 class="light-blue--text quick-sand-font" @click="showPrivacyPolicy">Privacy Policy</h3>
-          <h3 class="light-blue--text quick-sand-font" @click="showCookiePolicy">Cookie Policy</h3>
+      </v-flex>
+      <v-flex xs12 sm3 md2>
+        <div align="top center">
+          <div align="center">
+            <h3 class="nav-c quick-sand-font-b">LEGAL</h3>
+            <h3
+              class="light-blue--text quick-sand-font"
+              @click="showPrivacyPolicy"
+            >
+              Privacy Policy
+            </h3>
+            <h3
+              class="light-blue--text quick-sand-font"
+              @click="showCookiePolicy"
+            >
+              Cookie Policy
+            </h3>
+          </div>
         </div>
-      </div>
-    </v-flex>
-    <v-flex xs2>
-      <div align="top center">
-        <div align="left">
-          <h3 class="nav-c quick-sand-font-b">FOLLOW US</h3>
+      </v-flex>
+      <v-flex xs12 sm3 md2>
+        <div align="top center">
+          <div align="center">
+            <h3 class="nav-c quick-sand-font-b">FOLLOW US</h3>
 
-          <a href="https://www.facebook.com/excluzeev">
-            <h3 class="light-blue--text quick-sand-font">
-              <font-awesome-icon icon="facebook-f"></font-awesome-icon>Facebook
-            </h3>
-          </a>
-          <a href="https://www.instagram.com/excluzeev/">
-            <h3 class="light-blue--text quick-sand-font">
-              <font-awesome-icon icon="twitter"></font-awesome-icon>Instagram
-            </h3>
-          </a>
+            <a href="https://www.facebook.com/excluzeev"
+              ><h3 class="light-blue--text quick-sand-font">Facebook</h3></a
+            >
+            <a href="https://www.instagram.com/excluzeev/"
+              ><h3 class="light-blue--text quick-sand-font">Instagram</h3></a
+            >
+          </div>
         </div>
-      </div>
-    </v-flex>
-    <v-flex xs3>
-      <h3 class="nav-c quick-sand-font-b">APPS</h3>
-      <img
-        style="width: 120px;height: 40px;"
-        alt="Download_on_the_App_Store"
-        src="../assets/Download_on_the_App_Store.svg"
-      >
-      <a href="https://play.google.com/store/apps/details?id=com.trenstop.mobile">
+      </v-flex>
+      <v-flex xs12 md3>
+        <h3 class="nav-c quick-sand-font-b">APPS</h3>
         <img
           style="width: 120px;height: 40px;"
-          alt="google-play-badge"
-          src="../assets/google-play-badge.png"
+          alt="Download_on_the_App_Store"
+          src="../assets/Download_on_the_App_Store.svg"
+        />
+        <a
+          href="https://play.google.com/store/apps/details?id=com.trenstop.mobile"
         >
-      </a>
-    </v-flex>
+          <img
+            style="width: 120px;height: 40px;"
+            alt="google-play-badge"
+            src="../assets/google-play-badge.png"
+        /></a>
+      </v-flex>
+    </v-layout>
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
         <v-card>
           <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialog = false">
