@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <v-layout class="main-holder" xs12 wrap>
+    <v-layout class="main-holder" xs12 wrap v-if="videoLoaded">
       <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
         <div v-show="!playerOptions.sources[0].src.isEmpty">
           <video-player
@@ -12,14 +12,11 @@
             :options="playerOptions"
             @ready="playerIsReady"
             @timeupdate="onPlayerTimeupdate($event)"
-          >
-          </video-player>
+          ></video-player>
         </div>
         <v-layout class="padding" align-center justify-left row fill-height>
           <v-layout class="padding" align-left justify-left column fill-height>
-            <div class="title-details--text max-1-lines quick-sand-font-b">
-              {{ trailer.title }}
-            </div>
+            <div class="title-details--text max-1-lines quick-sand-font-b">{{ trailer.title }}</div>
             <div class="desc-details--text">{{ trailer.views }} views</div>
           </v-layout>
           <v-spacer></v-spacer>
@@ -30,16 +27,12 @@
           </a>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-              <v-icon v-bind:class="{ active: isNeutral }"
-                >sentiment_dissatisfied</v-icon
-              >
+              <v-icon v-bind:class="{ active: isNeutral }">sentiment_dissatisfied</v-icon>
             </div>
           </a>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-              <v-icon v-bind:class="{ active: isUserDisLiked }"
-                >thumb_down</v-icon
-              >
+              <v-icon v-bind:class="{ active: isUserDisLiked }">thumb_down</v-icon>
             </div>
           </a>
         </v-layout>
@@ -55,74 +48,15 @@
 
         <v-layout class="padding" justify-left fill-height>
           <div class="padding">
-            <img
-              class="channel-image square"
-              :src="trailer != null ? trailer.channelImage : ''"
-            />
+            <img class="channel-image square" :src="trailer != null ? trailer.channelImage : ''">
           </div>
           <v-flex class="padding">
             <v-layout align-center justify-left row>
               <v-layout align-left justify-left column fill-height>
                 <h2 class="quick-sand-font-b">{{ trailer.channelName }}</h2>
-                <span class="published--text"
-                  >Published {{ trailer.timeAgo }}</span
-                >
+                <span class="published--text">Published {{ trailer.timeAgo }}</span>
               </v-layout>
               <v-spacer></v-spacer>
-
-              <!--Subscribe and Donate Buttons-->
-              <div>
-                <v-layout row wrap align-end>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    class="white--text"
-                    color="blue lighten-1"
-                    :loading="subscribeProcessing"
-                    :disabled="subscribeProcessing"
-                    @click="prepareSubscribe"
-                    v-if="showSubscribeButton && !showDonateText"
-                  >
-                    Subscribe &nbsp;<strong> ${{ channel.price }}</strong>
-                    <template v-slot:loader>
-                      <span class="custom-loader">
-                        <v-icon light>cached</v-icon>
-                      </span>
-                    </template>
-                  </v-btn>
-
-                  <v-btn
-                    class="white--text"
-                    color="blue lighten-1"
-                    :loading="donate5Processing"
-                    :disabled="donate5Processing"
-                    @click="prepareSubscribe(5)"
-                    v-if="showSubscribeButton && showDonateText"
-                  >
-                    <v-icon left light>attach_money</v-icon> Donate 5$
-                    <template v-slot:loader>
-                      <span class="custom-loader">
-                        <v-icon light>cached</v-icon>
-                      </span>
-                    </template>
-                  </v-btn>
-
-                  <v-btn
-                    class="white--text"
-                    color="blue lighten-1"
-                    :loading="donate10Processing"
-                    :disabled="donate10Processing"
-                    @click="prepareSubscribe(10)"
-                    v-if="showSubscribeButton && showDonateText"
-                  >
-                    <v-icon left light>attach_money</v-icon> Donate 10$
-                    <template v-slot:loader>
-                      <span class="custom-loader">
-                        <v-icon light>cached</v-icon>
-                      </span>
-                    </template>
-                  </v-btn>
-                </v-layout>
-              </div>
             </v-layout>
 
             <!--Description-->
@@ -132,18 +66,68 @@
           </v-flex>
         </v-layout>
 
+        <!-- Sub -->
+        <!--Subscribe and Donate Buttons-->
+        <div>
+          <v-layout row wrap>
+            <v-btn
+              block
+              class="white--text"
+              color="blue lighten-1"
+              :loading="subscribeProcessing"
+              :disabled="subscribeProcessing"
+              @click="prepareSubscribe"
+              v-if="showSubscribeButton && !showDonateText"
+            >
+              Join this Community &nbsp;
+              <strong>${{ channel.price }}</strong>
+              <template v-slot:loader>
+                <span class="custom-loader">
+                  <v-icon light>cached</v-icon>
+                </span>
+              </template>
+            </v-btn>
+
+            <v-btn
+              class="white--text"
+              color="blue lighten-1"
+              :loading="donate5Processing"
+              :disabled="donate5Processing"
+              @click="prepareSubscribe(5)"
+              v-if="showSubscribeButton && showDonateText"
+            >
+              <v-icon left light>attach_money</v-icon>Donate 5$
+              <template v-slot:loader>
+                <span class="custom-loader">
+                  <v-icon light>cached</v-icon>
+                </span>
+              </template>
+            </v-btn>
+
+            <v-btn
+              class="white--text"
+              color="blue lighten-1"
+              :loading="donate10Processing"
+              :disabled="donate10Processing"
+              @click="prepareSubscribe(10)"
+              v-if="showSubscribeButton && showDonateText"
+            >
+              <v-icon left light>attach_money</v-icon>Donate 10$
+              <template v-slot:loader>
+                <span class="custom-loader">
+                  <v-icon light>cached</v-icon>
+                </span>
+              </template>
+            </v-btn>
+          </v-layout>
+        </div>
+
         <v-divider></v-divider>
 
         <!--Comments Section-->
         <div class="comment-holder padding">
           <div v-if="showComments">
-            <v-textarea
-              solo
-              label="Add a comment"
-              rows="1"
-              auto-grow
-              v-model="commentText"
-            ></v-textarea>
+            <v-textarea solo label="Add a comment" rows="1" auto-grow v-model="commentText"></v-textarea>
             <v-layout>
               <v-spacer></v-spacer>
               <v-btn
@@ -151,28 +135,19 @@
                 color="blue lighten-1"
                 :disabled="disabelComment"
                 @click="doComment"
-              >
-                Comment
-              </v-btn>
+              >Comment</v-btn>
             </v-layout>
           </div>
           <div v-if="!showComments">
             <div class="logincomment text-xs-center">
               <p>
                 Please
-                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
-                  >sign in</router-link
-                >
-                to comment
+                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">sign in</router-link>to comment
               </p>
             </div>
           </div>
           <v-flex class="padding" v-if="commentsList.length > 0">
-            <div
-              class="comment"
-              v-for="comment in commentsList"
-              v-bind:key="comment.commentId"
-            >
+            <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
               <h4>{{ comment.userName }}</h4>
               <div>{{ comment.comment }}</div>
               <p class="grey--text">{{ comment.timeAgo }}</p>
@@ -187,9 +162,7 @@
       </v-flex>
       <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
         <div style="width: 100%;">
-          <h2 class="quick-sand-font-n" style="padding-top: 5px;">
-            Related Trailers
-          </h2>
+          <h2 class="quick-sand-font-n" style="padding-top: 5px;">Related Trailers</h2>
           <TrailerDetailVideoItem
             v-for="trailer in catTrailersList"
             v-bind:key="trailer.trailerId"
@@ -198,10 +171,14 @@
         </div>
       </v-flex>
     </v-layout>
+    <v-container v-else style="padding: 20px;">
+      <p class="text-xs-center" style="font-size: 20px;">Now Loading..</p>
+    </v-container>
   </div>
 </template>
 
 <script>
+import "vue-content-placeholders";
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import trailerModule from "../store/trailers/trailer";
 import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
@@ -216,6 +193,7 @@ export default {
   name: "CategoryTrailers",
   data: () => {
     return {
+      videoLoaded: false,
       trailer: null,
       channel: null,
       catTrailersList: null,
@@ -322,6 +300,7 @@ export default {
         if (user != null && user.uid == this.trailer.userId) {
           this.showSubscribeButton = false;
         }
+        this.videoLoaded = true;
         this.getLikes();
         this.getComments();
       });
