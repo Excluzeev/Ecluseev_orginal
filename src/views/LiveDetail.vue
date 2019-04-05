@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <v-layout class="main-holder" xs12>
+    <v-layout class="main-holder" xs12 wrap>
       <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
         <div v-show="!playerOptions.sources[0].src.isEmpty">
           <video-player
@@ -80,9 +80,9 @@
                 <v-icon>close</v-icon>&nbsp;End Live
               </v-btn>
               <v-progress-circular
-                      v-if="showEndLiveProgress"
-                      indeterminate
-                      color="primary"
+                v-if="showEndLiveProgress"
+                indeterminate
+                color="primary"
               ></v-progress-circular>
             </v-layout>
           </div>
