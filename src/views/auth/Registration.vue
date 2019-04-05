@@ -53,7 +53,7 @@
                     style="margin-left: 5px;"
                     id="cpassword"
                     name="cpassword"
-                    label="Confrim Password"
+                    label="Confirm Password"
                     type="password"
                     v-model="cPassword"
                     :rules="[rules.required, rules.password]"
