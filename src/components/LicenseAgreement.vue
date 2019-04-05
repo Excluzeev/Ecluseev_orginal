@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="license_page">
+    <div>
       <h1 class="main_text">Licensing Agreement</h1>
       <p>
         Excluzeev contains vast amount of user content including user profiles,

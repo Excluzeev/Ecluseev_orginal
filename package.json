@@ -24,6 +24,7 @@
     "videojs-ima": "^1.5.2",
     "vue": "^2.6.10",
     "vue-awesome-swiper": "^3.1.3",
+    "vue-content-placeholders": "^0.2.1",
     "vue-datetime": "^1.0.0-beta.10",
     "vue-meta": "^1.5.8",
     "vue-programmatic-invisible-google-recaptcha": "^2.0.1",

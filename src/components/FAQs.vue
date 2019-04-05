@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="license_page">
+    <div>
       <h1 class="main_text">FAQ's</h1>
       <p>1. What is Excluzeev?</p>
       <p>Excluzeev is a Streaming, Crowdfunding and Social Media Website/Mobile Application. Excluzeev offers content creators a platform to monetize their content.</p>
