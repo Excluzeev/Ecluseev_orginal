@@ -42,7 +42,7 @@
 
     <router-link :to="{ name: 'MySubscriptions' }" v-if="!showLogin">
       <v-btn flat>
-        <span class="mr-2">My Subscriptions</span>
+        <span class="mr-2">My Communities</span>
       </v-btn>
     </router-link>
     <router-link :to="{ name: 'MyChannels' }" v-if="hideSignUpContentCreator">

@@ -79,7 +79,7 @@
               @click="prepareSubscribe"
               v-if="showSubscribeButton && !showDonateText"
             >
-              Subscribe &nbsp;
+              Join this Community &nbsp;
               <strong>${{ channel.price }}</strong>
               <template v-slot:loader>
                 <span class="custom-loader">
