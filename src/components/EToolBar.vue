@@ -12,6 +12,12 @@
     </router-link>
     <v-spacer></v-spacer>
 
+    <div style="width: 200px; margin-right: 10px;">
+      <form @submit.prevent="searchPreviews">
+        <v-text-field append-icon="search" v-model="query" label="Search" single-line></v-text-field>
+      </form>
+    </div>
+
     <v-menu>
       <template #activator="{ on: menu }">
         <v-tooltip bottom>
@@ -89,7 +95,9 @@ export default {
     }
   },
   data: () => {
-    return {};
+    return {
+      query: ""
+    };
   },
   methods: {
     goLoginContentCreator() {
@@ -115,6 +123,12 @@ export default {
       } else {
         this.$router.push({ name: "CreateChannel" });
       }
+    },
+    searchPreviews() {
+      this.$router.push({
+        name: "SearchPreviews",
+        params: { query: this.query }
+      });
     }
   }
 };
