@@ -37,7 +37,7 @@
         <p>To join a community of any channel or use any of the contents made available to you on our Website or App, you’ll be required to go through the registration process. You can either register by using your email and creating a password. If you’re already registered, you’ll be required to log in to access the Service. You will be charged through PayPal (our third party payment processor) for all payments made by you. You will be charged on a monthly basis for all channels that you join as a community member. Please note, if you are an IOS App User, you can only join the community for a channel by logging in your account through our Website. Apple Users cannot join communities, or make donations to their favourite Creators through the IOS App. However, they can use the IOS App to view and like content.</p>
       </li>
       <br>
-      <h5>Donations:</h5>
+      <h3>Donations:</h3>
       <br>
       <p>
         At a community member’s sole discretion, the community member may choose to donate (as a gift) to a Content creator.

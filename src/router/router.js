@@ -29,6 +29,7 @@ import ContentCreator from "../components/ContentCreator";
 import LicenseAgreement from "../components/LicenseAgreement";
 import CookiePolicy from "../components/CookiePolicy";
 import FAQs from "../components/FAQs";
+import SearchPreviews from "../views/SearchPreviews";
 
 Vue.use(Meta);
 
@@ -151,6 +152,12 @@ const router = new VueRouter({
       props: route => ({
         ...route.params
       })
+    },
+    {
+      path: "/search/:query",
+      name: "SearchPreviews",
+      component: SearchPreviews,
+      meta: { noAuth: true, showNav: true, title: "Search | Excluzeev Videos" }
     },
     {
       path: "/video/:videoId",
