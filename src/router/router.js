@@ -29,7 +29,9 @@ import ContentCreator from "../components/ContentCreator";
 import LicenseAgreement from "../components/LicenseAgreement";
 import CookiePolicy from "../components/CookiePolicy";
 import FAQs from "../components/FAQs";
+import AboutUs from "../components/About";
 import SearchPreviews from "../views/SearchPreviews";
+import HowTo from "../views/HowTo";
 
 Vue.use(Meta);
 
@@ -157,7 +159,7 @@ const router = new VueRouter({
       path: "/search/:query",
       name: "SearchPreviews",
       component: SearchPreviews,
-      meta: { noAuth: true, showNav: true, title: "Search | Excluzeev Videos" }
+      meta: { showNav: true, title: "Search | Excluzeev Videos" }
     },
     {
       path: "/video/:videoId",
@@ -264,6 +266,26 @@ const router = new VueRouter({
         noAuth: false,
         showNav: false,
         title: "FAQ's"
+      }
+    },
+    {
+      path: "/aboutus",
+      name: "AboutUs",
+      component: AboutUs,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: "About Us - Excluzeev - Stream. Crowdfunding. Social Network"
+      }
+    },
+    {
+      path: "/howto",
+      name: "HowTo",
+      component: HowTo,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "How To - Excluzeev - Stream. Crowdfunding. Social Network"
       }
     }
     // {
