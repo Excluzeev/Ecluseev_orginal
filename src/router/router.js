@@ -31,6 +31,7 @@ import CookiePolicy from "../components/CookiePolicy";
 import FAQs from "../components/FAQs";
 import AboutUs from "../components/About";
 import SearchPreviews from "../views/SearchPreviews";
+import HowTo from "../views/HowTo";
 
 Vue.use(Meta);
 
@@ -275,6 +276,16 @@ const router = new VueRouter({
         noAuth: false,
         showNav: false,
         title: "About Us - Excluzeev - Stream. Crowdfunding. Social Network"
+      }
+    },
+    {
+      path: "/howto",
+      name: "HowTo",
+      component: HowTo,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "How To - Excluzeev - Stream. Crowdfunding. Social Network"
       }
     }
     // {
