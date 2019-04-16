@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div>
-      <h1 class="main_text">Licensing Agreement</h1>
+      <h1 class="main_text">Content creators terms of use</h1>
       <p>
         Excluzeev contains vast amount of user content including user profiles,
         audio and video content uploaded by Creators on their channels, content

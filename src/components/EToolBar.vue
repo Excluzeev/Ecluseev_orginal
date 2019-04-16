@@ -58,7 +58,7 @@
           <v-list-tile-title class="quick-sand-font">Community Agreement</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="showExcluzeevTerms">
-          <v-list-tile-title class="quick-sand-font">Licensing Agreement</v-list-tile-title>
+          <v-list-tile-title class="quick-sand-font">Content creators terms</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -164,7 +164,7 @@
               <v-list-tile-title class="quick-sand-font">Community Agreement</v-list-tile-title>
             </v-list-tile>
             <v-list-tile @click="showExcluzeevTerms">
-              <v-list-tile-title class="quick-sand-font">Licensing Agreement</v-list-tile-title>
+              <v-list-tile-title class="quick-sand-font">Content creators terms</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -278,7 +278,7 @@
             <v-list-tile-title class="quick-sand-font">Community Member Agreement</v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="showExcluzeevTerms">
-            <v-list-tile-title class="quick-sand-font">Licensing Agreement</v-list-tile-title>
+            <v-list-tile-title class="quick-sand-font">Content creators terms</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -366,42 +366,36 @@ export default {
       this.titleDialogt = "Privacy Policy";
       this.componentDialogt = PrivacyPolicy;
       this.dialogt = true;
-      this.nullDialog();
     },
     showCookiePolicy() {
       this.sideNav = false;
       this.titleDialogt = "Cookie Policy";
       this.componentDialogt = CookiePolicy;
       this.dialogt = true;
-      this.nullDialog();
     },
     showCreatorTerms() {
       this.sideNav = false;
-      this.titleDialogt = "Content Creator Terms";
+      this.titleDialogt = "Community Member Agreement";
       this.componentDialogt = ContentCreator;
       this.dialogt = true;
-      this.nullDialog();
     },
     showExcluzeevTerms() {
       this.sideNav = false;
-      this.titleDialogt = "Excluzeev Terms";
+      this.titleDialogt = "Content creators terms";
       this.componentDialogt = LicenseAgreement;
       this.dialogt = true;
-      this.nullDialog();
     },
     showAboutUs() {
       this.sideNav = false;
       this.titleDialogt = "About Us";
       this.componentDialogt = AboutUs;
       this.dialogt = true;
-      this.nullDialog();
     },
     showFAQs() {
       this.sideNav = false;
       this.titleDialogt = "FAQs";
       this.componentDialogt = FAQs;
       this.dialogt = true;
-      this.nullDialog();
     },
     nullDialog() {
       this.titleDialogt = "";
