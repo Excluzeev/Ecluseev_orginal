@@ -38,13 +38,13 @@
         </v-layout>
         <v-divider></v-divider>
 
-        <div v-if="showSubscribeButton && showDonateText">
+        <!-- <div v-if="showSubscribeButton && showDonateText">
           <v-progress-linear
             color="error"
             height="20"
             :value="(channel.targetFund * channel.currentFund) / 100"
           ></v-progress-linear>
-        </div>
+        </div>-->
 
         <v-layout class="padding" justify-left fill-height>
           <div class="padding">
@@ -77,7 +77,7 @@
               :loading="subscribeProcessing"
               :disabled="subscribeProcessing"
               @click="prepareSubscribe"
-              v-if="showSubscribeButton && !showDonateText"
+              v-if="showSubscribeButton"
             >
               Join this Community &nbsp;
               <strong>${{ channel.price }}</strong>
@@ -87,38 +87,42 @@
                 </span>
               </template>
             </v-btn>
+          </v-layout>
 
-            <v-btn
-              class="white--text"
-              color="blue lighten-1"
-              :loading="donate5Processing"
-              :disabled="donate5Processing"
-              @click="prepareSubscribe(5)"
-              v-if="showSubscribeButton && showDonateText"
-            >
-              <v-icon left light>attach_money</v-icon>Donate 5$
-              <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>cached</v-icon>
-                </span>
-              </template>
-            </v-btn>
+          <v-layout row wrap>
+            <v-flex xs12>
+              <v-btn
+                style="margin: 10px"
+                block
+                class="white--text"
+                color="blue lighten-1"
+                @click="startDonate"
+                v-if="!showSubscribeButton && !showDonateField"
+              >Donate</v-btn>
+            </v-flex>
 
-            <v-btn
-              class="white--text"
-              color="blue lighten-1"
-              :loading="donate10Processing"
-              :disabled="donate10Processing"
-              @click="prepareSubscribe(10)"
-              v-if="showSubscribeButton && showDonateText"
-            >
-              <v-icon left light>attach_money</v-icon>Donate 10$
-              <template v-slot:loader>
-                <span class="custom-loader">
-                  <v-icon light>cached</v-icon>
-                </span>
-              </template>
-            </v-btn>
+            <v-flex xs12 md5 v-if="showDonateField">
+              <v-text-field
+                label="Donate Amount(in Dollar's)"
+                placeholder="Donate Amount"
+                outline
+                v-model="donateAmount"
+              ></v-text-field>
+            </v-flex>
+
+            <v-spacer></v-spacer>
+            <v-flex xs12 md3 v-if="showDonateField" style="margin: 10px">
+              <v-btn
+                block
+                class="white--text"
+                color="blue lighten-1"
+                @click="startDonatePayment"
+              >Donate</v-btn>
+            </v-flex>
+            <v-spacer></v-spacer>
+            <v-flex xs12 md3 v-if="showDonateField" style="margin: 10px">
+              <v-btn block class="white--text" color="blue lighten-1" @click="cancelDonate">Cancel</v-btn>
+            </v-flex>
           </v-layout>
         </div>
 
@@ -193,6 +197,8 @@ export default {
   name: "CategoryTrailers",
   data: () => {
     return {
+      showDonateField: false,
+      donateAmount: 0,
       videoLoaded: false,
       trailer: null,
       channel: null,
@@ -404,10 +410,11 @@ export default {
         channelName: this.trailer.channelName,
         userId: auth.currentUser.uid,
         isDesktop: true,
-        redirectTo: "https://excluzeev.com/my-channels"
+        redirectTo: "https://excluzeev.com/my-channels",
+        isDonate: this.showDonateField
       };
       this.subscribeProcessing = true;
-      if (this.showDonateText) {
+      if (this.showDonateField) {
         prepareOptions.donate = donate;
       }
 
@@ -531,6 +538,19 @@ export default {
         });
         this.commentsList = commentsList;
       });
+    },
+    startDonate() {
+      this.showDonateField = true;
+    },
+    cancelDonate() {
+      this.showDonateField = false;
+    },
+    startDonatePayment() {
+      if (this.donateAmount > 0) {
+        this.prepareSubscribe(this.donateAmount);
+      } else {
+        this.showToast("Invalid amount in donate");
+      }
     }
   }
 };

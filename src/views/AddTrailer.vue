@@ -8,10 +8,7 @@
               <v-toolbar-title>Add a trailer</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form
-                class="blue--text lighten-1"
-                @submit.prevent="doUploadTrailer"
-              >
+              <v-form class="blue--text lighten-1" @submit.prevent="doUploadTrailer">
                 <v-text-field
                   v-model="title"
                   name="Title"
@@ -32,7 +29,7 @@
                   class="white--text"
                   title="Add trailer"
                   :fileChangedCallback="onVideoFileSelected"
-                  accept="video/*"
+                  accept="video/mp4, video/x-m4v, video/*"
                   :uniqueId="unique"
                   round
                 >
@@ -44,8 +41,7 @@
                 </upload-btn>
                 <div class="video-holder" v-if="videoFile != null">
                   <video controls>
-                    <source :src="videoUrl" type="video/mp4" />
-                    Your browser does not support HTML5 video.
+                    <source :src="videoUrl" type="video/mp4">Your browser does not support HTML5 video.
                   </video>
                 </div>
                 <div class="text-xs-center">

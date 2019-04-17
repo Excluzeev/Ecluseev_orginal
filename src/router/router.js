@@ -225,7 +225,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "Privacy Policy"
+        title: ""
       }
     },
     {
@@ -235,7 +235,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "Content Creator Policy"
+        title: ""
       }
     },
     {
@@ -245,7 +245,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "License Agreement"
+        title: ""
       }
     },
     {
@@ -255,7 +255,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "CookiePolicy"
+        title: ""
       }
     },
     {

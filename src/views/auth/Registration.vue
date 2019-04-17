@@ -9,7 +9,7 @@
               alt="Excluzeev
             logo"
               src="../../assets/excluzeev_bottom_text.png"
-            />
+            >
             <div class="signup-text quick-sand-font">Sign up</div>
             <div class="signup-continue-text">Continue to Excluzeev</div>
             <v-card-text>
@@ -60,25 +60,19 @@
                   ></v-text-field>
                 </v-layout>
 
-                <div
-                  class="text-xs-left grey--text"
-                  style="font-size: 12px"
-                ></div>
+                <div class="text-xs-left grey--text" style="font-size: 12px"></div>
 
                 <vue-programmatic-invisible-google-recaptcha
-                  ref="invisibleRecaptcha1"
+                  ref="invisibleRecaptcha2"
                   sitekey="6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co"
-                  elementId="'invisibleRecaptcha1'"
+                  elementId="invisibleRecaptcha2"
                   badgePosition="'left'"
                   showBadgeMobile="false"
                   showBadgeDesktop="true"
                   @recaptcha-callback="recaptchaCallback"
                 ></vue-programmatic-invisible-google-recaptcha>
 
-                <div
-                  class="text-xs-right quick-sand-font-b"
-                  style="padding: 0px;"
-                >
+                <div class="text-xs-right quick-sand-font-b" style="padding: 0px;">
                   <v-btn
                     class="white--text quick-sand-font-b"
                     color="blue lighten-1"
@@ -86,7 +80,8 @@
                     :loading="processing"
                     :disabled="processing"
                     @click="loader = 'loading4'"
-                    >Sign up
+                  >
+                    Sign up
                     <template v-slot:loader>
                       <span class="custom-loader">
                         <v-icon light>cached</v-icon>
@@ -99,28 +94,20 @@
               <div class="text-xs-left quick-sand-font">
                 Have an account? &nbsp;
                 <a>
-                  <span class color="blue lighten-1" @click="goLogin"
-                    >Sign in</span
-                  >
+                  <span class color="blue lighten-1" @click="goLogin">Sign in</span>
                 </a>
               </div>
             </v-card-text>
           </v-card>
-          <div
-            class="text-xs-right"
-            style="padding-right: 20px;padding-top: 10px;"
-          >
+          <div class="text-xs-right" style="padding-right: 20px;padding-top: 10px;">
             <a @click="showExcluzeevTerms">Terms</a>
 
-            <a @click="showPrivacyPolicy" style="padding-left: 20px;"
-              >Privacy</a
-            >
+            <a @click="showPrivacyPolicy" style="padding-left: 20px;">Privacy</a>
 
             <a
               href="mailto:support@excluzeev.com?subject=Need%20Help"
               style="padding-left: 20px;"
-              >Help</a
-            >
+            >Help</a>
           </div>
         </v-flex>
       </v-layout>
@@ -128,12 +115,7 @@
         {{ toastText }}
       </v-snackbar>-->
     </v-container>
-    <v-dialog
-      v-model="termsDialog"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-    >
+    <v-dialog v-model="termsDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="termsDialog = false">
@@ -164,8 +146,8 @@ export default {
       password: "",
       cPassword: "",
       termsDialog: false,
-      titleDialog: "Terms and Conditions",
-      componentDialog: LicenseAgreement,
+      titleDialog: "",
+      componentDialog: null,
       rules: {
         name: value => {
           const pattern = /^[a-zA-Z ]*$/;
@@ -317,7 +299,7 @@ export default {
         return;
       }
 
-      this.$refs.invisibleRecaptcha1.execute();
+      this.$refs.invisibleRecaptcha2.execute();
     }
   }
 };
