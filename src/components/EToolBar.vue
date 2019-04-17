@@ -1,6 +1,12 @@
 <template>
   <nav>
     <v-navigation-drawer app v-model="sideNav">
+      <img
+        style="margin: 16px;width: 90%;"
+        class
+        alt="Excluzeev logo"
+        src="../assets/excluzeev_trailer.png"
+      >
       <div style="width: 100%; padding: 10px;">
         <form @submit.prevent="searchPreviews">
           <v-text-field
@@ -12,7 +18,7 @@
           ></v-text-field>
         </form>
       </div>
-      <v-list style="padding-top: 12px;">
+      <v-list style="padding-top: 20px;">
         <v-list-tile @click="goLoginContentCreator" v-if="!hideSignUpContentCreator">
           <v-list-tile-title class="quick-sand-font">Become a Content Creator</v-list-tile-title>
         </v-list-tile>
@@ -35,8 +41,8 @@
         <v-list-tile @click="goToMyChannels" v-if="hideSignUpContentCreator">
           <v-list-tile-title class="quick-sand-font mr-2">My Channels</v-list-tile-title>
         </v-list-tile>
-        <AccountMenu v-if="!showLogin"/>
-        <router-link style="padding-top: 12px;" :to="{ name: 'Login' }" v-if="showLogin">
+        <!-- <AccountMenu v-if="!showLogin"/> -->
+        <router-link style="padding-top: 20px;" :to="{ name: 'Login' }" v-if="showLogin">
           <v-btn flat>
             <span class="nav-auth-button">SIGN IN</span>
           </v-btn>
@@ -51,14 +57,17 @@
         <v-list-tile @click="showPrivacyPolicy">
           <v-list-tile-title class="quick-sand-font">Privacy Policy</v-list-tile-title>
         </v-list-tile>
-        <!-- <v-list-tile @click="showHowTo">
-              <v-list-tile-title class="quick-sand-font">How to</v-list-tile-title>
-        </v-list-tile>-->
+        <v-list-tile @click="showHowTo">
+          <v-list-tile-title class="quick-sand-font">How to</v-list-tile-title>
+        </v-list-tile>
         <v-list-tile @click="showCreatorTerms">
           <v-list-tile-title class="quick-sand-font">Community Agreement</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="showExcluzeevTerms">
           <v-list-tile-title class="quick-sand-font">Content creators terms</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click="logout" v-if="!showLogin">
+          <v-list-tile-title class="quick-sand-font">Sign Out</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -93,12 +102,12 @@
           <template #activator="{ on: menu }">
             <v-tooltip bottom>
               <template #activator="{ on: tooltip }">
-                <v-icon style="padding-top: 12px;" v-on="{ ...tooltip, ...menu }">video_call</v-icon>
+                <v-icon style="padding-top: 20px;" v-on="{ ...tooltip, ...menu }">video_call</v-icon>
               </template>
               <span>Add a Video or Create a Live</span>
             </v-tooltip>
           </template>
-          <v-list style="padding-top: 12px;">
+          <v-list style="padding-top: 20px;">
             <v-list-tile @click="goLoginContentCreator" v-if="!hideSignUpContentCreator">
               <v-list-tile-title class="quick-sand-font">Become a Content Creator</v-list-tile-title>
             </v-list-tile>
@@ -117,13 +126,13 @@
           </v-list>
         </v-menu>
 
-        <router-link style="padding-top: 12px;" :to="{ name: 'MySubscriptions' }" v-if="!showLogin">
+        <router-link style="padding-top: 20px;" :to="{ name: 'MySubscriptions' }" v-if="!showLogin">
           <v-btn flat>
             <span class="mr-2">My Communities</span>
           </v-btn>
         </router-link>
         <router-link
-          style="padding-top: 12px;"
+          style="padding-top: 20px;"
           :to="{ name: 'MyChannels' }"
           v-if="hideSignUpContentCreator"
         >
@@ -132,7 +141,7 @@
           </v-btn>
         </router-link>
         <AccountMenu v-if="!showLogin"/>
-        <router-link style="padding-top: 12px;" :to="{ name: 'Login' }" v-if="showLogin">
+        <router-link style="padding-top: 20px;" :to="{ name: 'Login' }" v-if="showLogin">
           <v-btn flat>
             <span class="nav-auth-button">SIGN IN</span>
           </v-btn>
@@ -142,7 +151,7 @@
           <template #activator="{ on: menu }">
             <v-tooltip bottom>
               <template #activator="{ on: tooltip }">
-                <v-icon style="padding-top: 12px;" v-on="{ ...tooltip, ...menu }">more_vert</v-icon>
+                <v-icon style="padding-top: 20px;" v-on="{ ...tooltip, ...menu }">more_vert</v-icon>
               </template>
               <span>More</span>
             </v-tooltip>
@@ -157,9 +166,9 @@
             <v-list-tile @click="showPrivacyPolicy">
               <v-list-tile-title class="quick-sand-font">Privacy Policy</v-list-tile-title>
             </v-list-tile>
-            <!-- <v-list-tile @click="showHowTo">
+            <v-list-tile @click="showHowTo">
               <v-list-tile-title class="quick-sand-font">How to</v-list-tile-title>
-            </v-list-tile>-->
+            </v-list-tile>
             <v-list-tile @click="showCreatorTerms">
               <v-list-tile-title class="quick-sand-font">Community Agreement</v-list-tile-title>
             </v-list-tile>
@@ -322,6 +331,14 @@ export default {
     };
   },
   methods: {
+    logout() {
+      this.$router.push("/logout");
+      this.$toasted.show("Sign out successful", {
+        theme: "outline",
+        position: "top-right",
+        duration: 2000
+      });
+    },
     goLoginContentCreator() {
       if (this.showLogin) {
         this.$router.push({ name: "Login" });
@@ -400,6 +417,10 @@ export default {
     nullDialog() {
       this.titleDialogt = "";
       this.componentDialogt = null;
+    },
+
+    showHowTo() {
+      this.$router.push({ name: "HowTo" });
     }
   }
 };

@@ -8,10 +8,7 @@
               <v-toolbar-title>Add a video</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form
-                class="blue--text lighten-1"
-                @submit.prevent="doUploadVideo"
-              >
+              <v-form class="blue--text lighten-1" @submit.prevent="doUploadVideo">
                 <v-text-field
                   v-model="title"
                   name="Title"
@@ -32,7 +29,7 @@
                   class="white--text"
                   title="Add video"
                   :fileChangedCallback="onVideoFileSelected"
-                  accept="video/*"
+                  accept="video/mp4, video/x-m4v, video/*"
                   :uniqueId="unique"
                   round
                 >
@@ -44,8 +41,7 @@
                 </upload-btn>
                 <div class="video-holder" v-if="videoFile != null">
                   <video controls>
-                    <source :src="videoUrl" type="video/mp4" />
-                    Your browser does not support HTML5 video.
+                    <source :src="videoUrl" type="video/mp4">Your browser does not support HTML5 video.
                   </video>
                 </div>
                 <div class="text-xs-center">
@@ -66,13 +62,7 @@
                   </v-btn>
                 </div>
                 <div class="text-xs-center">
-                  <v-btn
-                    class="white--text"
-                    color="grey lighten-1"
-                    @click="$router.back()"
-                  >
-                    Cancel
-                  </v-btn>
+                  <v-btn class="white--text" color="grey lighten-1" @click="$router.back()">Cancel</v-btn>
                 </div>
               </v-form>
             </v-card-text>
@@ -85,12 +75,7 @@
 
 <script>
 import UploadButton from "vuetify-upload-button";
-import {
-  videoStorage,
-  auth,
-  firebaseTimestamp,
-  fireStore
-} from "../firebase/init";
+import { videoStorage, auth, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 
