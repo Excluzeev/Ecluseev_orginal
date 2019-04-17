@@ -8,10 +8,7 @@
               <v-toolbar-title>Create Channel</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form
-                class="blue--text lighten-1"
-                @submit.prevent="doCreateChannel"
-              >
+              <v-form class="blue--text lighten-1" @submit.prevent="doCreateChannel">
                 <v-select
                   v-model="categorySelected"
                   v-on:change="onCategorySelected"
@@ -80,7 +77,7 @@
                 </upload-btn>
 
                 <v-layout padding justify-center>
-                  <img :src="thumbnail" height="150" v-if="thumbnail" />
+                  <img :src="thumbnail" height="150" v-if="thumbnail">
                 </v-layout>
 
                 <upload-btn
@@ -101,7 +98,7 @@
                 </upload-btn>
 
                 <v-layout padding justify-center>
-                  <img :src="cover" height="150" v-if="cover" />
+                  <img :src="cover" height="150" v-if="cover">
                 </v-layout>
 
                 <div class="text-xs-center">
@@ -122,13 +119,7 @@
                   </v-btn>
                 </div>
                 <div class="text-xs-center">
-                  <v-btn
-                    class="white--text"
-                    color="grey lighten-1"
-                    @click="$router.back()"
-                  >
-                    Cancel
-                  </v-btn>
+                  <v-btn class="white--text" color="grey lighten-1" @click="$router.back()">Cancel</v-btn>
                 </div>
               </v-form>
             </v-card-text>
@@ -166,9 +157,9 @@ export default {
       showChannelType: false,
       channelTypes: ["VOD", "CrowdFunding"],
       selectedChannelType: "VOD",
-      price: 0.99,
+      price: 1,
       targetFund: 0,
-      minPrice: 0.99,
+      minPrice: 1,
       maxPrice: 10.0,
       unique: true,
       processing: false,
@@ -177,12 +168,11 @@ export default {
         priceCheck: value => {
           let number = Number(value);
           return (
-            (number >= 0.99 && number <= 10) ||
+            (number >= 1 && number <= 10) ||
             "Price must be between 0.99 and 10.0"
           );
         },
-        counter: value =>
-                value.length <= 32 || "Maximum 32 characters",
+        counter: value => value.length <= 32 || "Maximum 32 characters",
         email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
