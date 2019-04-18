@@ -8,10 +8,7 @@
               <v-toolbar-title>Sign up as Content Creator</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form
-                class="blue--text lighten-1"
-                @submit.prevent="doSignUpContentCreator"
-              >
+              <v-form class="blue--text lighten-1" @submit.prevent="doSignUpContentCreator">
                 <v-text-field
                   prepend-icon="person"
                   name="PayPal Email"
@@ -21,57 +18,26 @@
                   :rules="[rules.required, rules.email]"
                 ></v-text-field>
                 <div style="padding-left:40px;padding-bottom:10px;">
-                  <v-checkbox
-                    v-model="privacyPolicy"
-                    color="blue lighten-1"
-                    value="info"
-                  >
+                  <v-checkbox v-model="privacyPolicy" color="blue lighten-1" value="info">
                     <template v-slot:label>
                       <div>
                         I agree
-                        <v-tooltip >
+                        <v-tooltip>
                           <template v-slot:activator="{ on }">
-                            <a @click="showPrivacyPolicy" v-on="on">
-                              Privacy Policy
-                            </a>
+                            <a @click="showPrivacyPolicy" v-on="on">Privacy Policy</a>
                           </template>
                         </v-tooltip>
                       </div>
                     </template>
                   </v-checkbox>
 
-                  <v-checkbox
-                    v-model="termsCreator"
-                    color="blue lighten-1"
-                    value="info"
-                  >
+                  <v-checkbox v-model="termsCreator" color="blue lighten-1" value="info">
                     <template v-slot:label>
                       <div>
                         I agree
-                        <v-tooltip >
+                        <v-tooltip>
                           <template v-slot:activator="{ on }">
-                            <a @click="showCreatorTerms" v-on="on">
-                              Content Creator Terms
-                            </a>
-                          </template>
-                        </v-tooltip>
-                      </div>
-                    </template>
-                  </v-checkbox>
-
-                  <v-checkbox
-                    v-model="terms"
-                    color="blue lighten-1"
-                    value="info"
-                  >
-                    <template v-slot:label>
-                      <div>
-                        I agree
-                        <v-tooltip >
-                          <template v-slot:activator="{ on }">
-                            <a @click="showExcluzeevTerms" v-on="on">
-                              Excluzeev Terms
-                            </a>
+                            <a @click="showContentCreatorTerms" v-on="on">Content Creator Terms</a>
                           </template>
                         </v-tooltip>
                       </div>
@@ -102,12 +68,7 @@
       </v-layout>
     </v-container>
     <v-layout row justify-center>
-      <v-dialog
-        v-model="dialog"
-        fullscreen
-        hide-overlay
-        transition="dialog-bottom-transition"
-      >
+      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
           <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialog = false">
@@ -127,6 +88,7 @@
 import PrivacyPolicy from "../components/PrivacyPolicy";
 import ContentCreator from "../components/ContentCreator";
 import LicenseAgreement from "../components/LicenseAgreement";
+import CommunityAgreement from "../components/CommunityAgreement";
 
 export default {
   data: () => {
@@ -134,7 +96,6 @@ export default {
       email: "",
       privacyPolicy: false,
       termsCreator: false,
-      terms: false,
       dialog: false,
       titleDialog: "",
       componentDialog: null,
@@ -164,10 +125,6 @@ export default {
         this.showToast("Please Check Content Creator Terms");
         return;
       }
-      if (!this.terms) {
-        this.showToast("Please Check Terms");
-        return;
-      }
 
       this.processing = true;
       this.$store
@@ -189,16 +146,12 @@ export default {
       this.componentDialog = PrivacyPolicy;
       this.dialog = true;
     },
-    showCreatorTerms() {
-      this.titleDialog = "Content Creator Terms";
+
+    showContentCreatorTerms() {
+      this.titleDialog = "Terms Of Service For Creators";
       this.componentDialog = ContentCreator;
       this.dialog = true;
     },
-    showExcluzeevTerms() {
-      this.titleDialog = "Excluzeev Terms";
-      this.componentDialog = LicenseAgreement;
-      this.dialog = true;
-      },
     showToast(msg) {
       this.$toasted.show(msg, {
         theme: "outline",

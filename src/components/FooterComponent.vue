@@ -84,8 +84,6 @@
 
 <script>
 import PrivacyPolicy from "./PrivacyPolicy";
-import ContentCreator from "./ContentCreator";
-import LicenseAgreement from "./LicenseAgreement";
 import CookiePolicy from "./CookiePolicy";
 import About from "./About";
 import FAQs from "./FAQs";
@@ -117,16 +115,6 @@ export default {
     showFAQs() {
       this.titleDialog = "FAQs";
       this.componentDialog = FAQs;
-      this.dialog = true;
-    },
-    showCreatorTerms() {
-      this.titleDialog = "Content Creator Terms";
-      this.componentDialog = ContentCreator;
-      this.dialog = true;
-    },
-    showExcluzeevTerms() {
-      this.titleDialog = "Excluzeev Terms";
-      this.componentDialog = LicenseAgreement;
       this.dialog = true;
     },
     showCookiePolicy() {
