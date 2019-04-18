@@ -128,7 +128,6 @@ import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 import moment from "moment";
-import VideoDetailVideoItem from "../components/VideoDetailVideoItem";
 
 export default {
   name: "CrowdFundingVideo",
@@ -166,9 +165,7 @@ export default {
       prevWhat: -2
     };
   },
-  components: {
-    VideoDetailVideoItem
-  },
+  components: {},
   mixins: [RegisterStoreModule],
   computed: {
     player() {
@@ -178,7 +175,7 @@ export default {
       return this.commentText == "";
     },
     showComments() {
-      auth.onAuthStateChanged(user => {});
+      auth.onAuthStateChanged(() => {});
       return auth.currentUser != null;
     }
   },
@@ -331,11 +328,11 @@ export default {
         .then(() => {
           // console.log("Transaction successfully committed!");
         })
-        .catch(error => {
+        .catch(() => {
           // console.log("Transaction failed: ", error);
         });
     },
-    onPlayerTimeupdate(event) {
+    onPlayerTimeupdate() {
       if (
         this.$refs.videoPlayer.player.currentTime() > 5 &&
         !this.isViewTriggered

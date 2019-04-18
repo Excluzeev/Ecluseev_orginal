@@ -48,23 +48,26 @@
           </v-btn>
         </router-link>
 
-        <v-list-tile @click="showAboutUs">
-          <v-list-tile-title class="quick-sand-font">About Us</v-list-tile-title>
+        <v-list-tile @click="showHowTo">
+          <v-list-tile-title class="quick-sand-font">How to</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="showFAQs">
           <v-list-tile-title class="quick-sand-font">FAQs</v-list-tile-title>
         </v-list-tile>
+        <v-list-tile @click="showAboutUs">
+          <v-list-tile-title class="quick-sand-font">About Us</v-list-tile-title>
+        </v-list-tile>
         <v-list-tile @click="showPrivacyPolicy">
           <v-list-tile-title class="quick-sand-font">Privacy Policy</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="showHowTo">
-          <v-list-tile-title class="quick-sand-font">How to</v-list-tile-title>
+        <v-list-tile @click="showCookiePolicy">
+          <v-list-tile-title class="quick-sand-font">Cookie Policy</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="showCreatorTerms">
-          <v-list-tile-title class="quick-sand-font">Community Agreement</v-list-tile-title>
+        <v-list-tile @click="showCommunityMemberAgreement">
+          <v-list-tile-title class="quick-sand-font">Community Member Agreement</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="showExcluzeevTerms">
-          <v-list-tile-title class="quick-sand-font">Content creators terms</v-list-tile-title>
+        <v-list-tile @click="showContentCreatorTerms">
+          <v-list-tile-title class="quick-sand-font">Content Creators Terms</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="logout" v-if="!showLogin">
           <v-list-tile-title class="quick-sand-font">Sign Out</v-list-tile-title>
@@ -157,23 +160,26 @@
             </v-tooltip>
           </template>
           <v-list>
-            <v-list-tile @click="showAboutUs">
-              <v-list-tile-title class="quick-sand-font">About Us</v-list-tile-title>
+            <v-list-tile @click="showHowTo">
+              <v-list-tile-title class="quick-sand-font">How to</v-list-tile-title>
             </v-list-tile>
             <v-list-tile @click="showFAQs">
               <v-list-tile-title class="quick-sand-font">FAQs</v-list-tile-title>
             </v-list-tile>
+            <v-list-tile @click="showAboutUs">
+              <v-list-tile-title class="quick-sand-font">About Us</v-list-tile-title>
+            </v-list-tile>
             <v-list-tile @click="showPrivacyPolicy">
               <v-list-tile-title class="quick-sand-font">Privacy Policy</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click="showHowTo">
-              <v-list-tile-title class="quick-sand-font">How to</v-list-tile-title>
+            <v-list-tile @click="showCookiePolicy">
+              <v-list-tile-title class="quick-sand-font">Cookie Policy</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click="showCreatorTerms">
-              <v-list-tile-title class="quick-sand-font">Community Agreement</v-list-tile-title>
+            <v-list-tile @click="showCommunityMemberAgreement">
+              <v-list-tile-title class="quick-sand-font">Community Member Agreement</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click="showExcluzeevTerms">
-              <v-list-tile-title class="quick-sand-font">Content creators terms</v-list-tile-title>
+            <v-list-tile @click="showContentCreatorTerms">
+              <v-list-tile-title class="quick-sand-font">Content Creators Terms</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -193,106 +199,6 @@
       </v-dialog>
     </v-layout>
   </nav>
-  <!-- <v-layout>
-    <v-navigation-drawer v-model="sideNav">
-      <div style="width: 200px; margin-right: 10px;">
-        <form @submit.prevent="searchPreviews">
-          <v-text-field append-icon="search" v-model="query" label="Search" single-line></v-text-field>
-        </form>
-      </div>
-    </v-navigation-drawer>
-    <v-toolbar class="white quick-sand-font">
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav" class></v-toolbar-side-icon>
-      <router-link to="/">
-        <v-toolbar-title class="headline text-uppercase">
-          <img
-            class="padding-logo"
-            alt="Excluzeev logo"
-            src="../assets/excluzeev_trailer.png"
-            height="50px"
-          >
-        </v-toolbar-title>
-      </router-link>
-      <v-spacer></v-spacer>
-
-      <div style="width: 200px; margin-right: 10px;">
-        <form @submit.prevent="searchPreviews">
-          <v-text-field append-icon="search" v-model="query" label="Search" single-line></v-text-field>
-        </form>
-      </div>
-
-      <v-menu>
-        <template #activator="{ on: menu }">
-          <v-tooltip bottom>
-            <template #activator="{ on: tooltip }">
-              <v-icon v-on="{ ...tooltip, ...menu }">video_call</v-icon>
-            </template>
-            <span>Add a Video or Create a Live</span>
-          </v-tooltip>
-        </template>
-        <v-list>
-          <v-list-tile @click="goLoginContentCreator" v-if="!hideSignUpContentCreator">
-            <v-list-tile-title class="quick-sand-font">Become a Content Creator</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="goLoginLive" v-if="hideSignUpContentCreator">
-            <v-list-tile-avatar>
-              <img src="../assets/e.png" width="20">
-            </v-list-tile-avatar>
-            <v-list-tile-title class="quick-sand-font">Excluzeev live</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="goLoginCreate" v-if="hideSignUpContentCreator">
-            <v-list-tile-avatar>
-              <v-icon>add</v-icon>
-            </v-list-tile-avatar>
-            <v-list-tile-title class="quick-sand-font">Create Channel</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-
-      <router-link :to="{ name: 'MySubscriptions' }" v-if="!showLogin">
-        <v-btn flat>
-          <span class="mr-2">My Communities</span>
-        </v-btn>
-      </router-link>
-      <router-link :to="{ name: 'MyChannels' }" v-if="hideSignUpContentCreator">
-        <v-btn flat>
-          <span class="mr-2">My Channels</span>
-        </v-btn>
-      </router-link>
-      <AccountMenu v-if="!showLogin"/>
-      <router-link :to="{ name: 'Login' }" v-if="showLogin">
-        <v-btn flat>
-          <span class="nav-auth-button">SIGN IN</span>
-        </v-btn>
-      </router-link>
-
-      <v-menu>
-        <template #activator="{ on: menu }">
-          <v-tooltip bottom>
-            <template #activator="{ on: tooltip }">
-              <v-icon v-on="{ ...tooltip, ...menu }">more_vert</v-icon>
-            </template>
-            <span>More</span>
-          </v-tooltip>
-        </template>
-        <v-list>
-          <v-list-tile @click="showPrivacyPolicy">
-            <v-list-tile-title class="quick-sand-font">Privacy Policy</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="showCookiePolicy">
-            <v-list-tile-title class="quick-sand-font">Cookie Policy</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="showCreatorTerms">
-            <v-list-tile-title class="quick-sand-font">Community Member Agreement</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="showExcluzeevTerms">
-            <v-list-tile-title class="quick-sand-font">Content creators terms</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-    </v-toolbar>
-  </v-layout>-->
 </template>
 
 <script>
@@ -302,9 +208,11 @@ import store from "../store/index";
 import PrivacyPolicy from "../components/PrivacyPolicy";
 import CookiePolicy from "../components/CookiePolicy";
 import ContentCreator from "../components/ContentCreator";
+import CommunityAgreement from "../components/CommunityAgreement";
 import LicenseAgreement from "../components/LicenseAgreement";
 import AboutUs from "./About";
 import FAQs from "./FAQs";
+import CommunityAgreementVue from "./CommunityAgreement.vue";
 
 export default {
   components: {
@@ -390,16 +298,16 @@ export default {
       this.componentDialogt = CookiePolicy;
       this.dialogt = true;
     },
-    showCreatorTerms() {
+    showContentCreatorTerms() {
       this.sideNav = false;
-      this.titleDialogt = "Community Member Agreement";
+      this.titleDialogt = "Terms Of Service For Creators";
       this.componentDialogt = ContentCreator;
       this.dialogt = true;
     },
-    showExcluzeevTerms() {
+    showCommunityMemberAgreement() {
       this.sideNav = false;
-      this.titleDialogt = "Content creators terms";
-      this.componentDialogt = LicenseAgreement;
+      this.titleDialogt = "Community Member Agreement";
+      this.componentDialogt = CommunityAgreement;
       this.dialogt = true;
     },
     showAboutUs() {

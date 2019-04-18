@@ -275,7 +275,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "About Us - Excluzeev - Stream. Crowdfunding. Social Network"
+        title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
     },
     {
@@ -285,7 +285,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: true,
-        title: "How To - Excluzeev - Stream. Crowdfunding. Social Network"
+        title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
     }
     // {
