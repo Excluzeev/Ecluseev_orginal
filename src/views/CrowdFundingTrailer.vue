@@ -9,27 +9,21 @@
                 alt="avatar"
                 class="channel-image"
                 :src="trailer != null ? trailer.channelImage : ''"
-              />
+              >
             </v-avatar>
           </div>
-          <div style="font-size:1.4rem" class="quick-sand-font-l">
-            {{ trailer.channelName }}
-          </div>
+          <div style="font-size:1.4rem" class="quick-sand-font-l">{{ trailer.channelName }}</div>
         </div>
       </v-flex>
       <v-flex xs12 sm9 md10>
         <div align="left">
-          <div class="flex display-1 font-weight-normal">
-            {{ trailer.title }}
-          </div>
-          <div class="nav-c t1824">
-            {{ trailer.description }}
-          </div>
+          <div class="flex display-1 font-weight-normal">{{ trailer.title }}</div>
+          <div class="nav-c t1824">{{ trailer.description }}</div>
         </div>
       </v-flex>
-      <v-flex xs3> </v-flex>
+      <v-flex xs3></v-flex>
     </v-layout>
-    <v-layout row> </v-layout>
+    <v-layout row></v-layout>
     <v-layout row wrap>
       <v-flex xs12 md8>
         <div v-show="!playerOptions.sources[0].src.isEmpty">
@@ -42,8 +36,7 @@
             :options="playerOptions"
             @ready="playerIsReady"
             @timeupdate="onPlayerTimeupdate($event)"
-          >
-          </video-player>
+          ></video-player>
         </div>
       </v-flex>
       <v-flex>
@@ -59,15 +52,11 @@
           <div
             style="font-size:1.4rem;"
             class="flex display-1 font-weight-normal teal--text darken-2"
-          >
-            US$ {{ channel.currentFund }}
-          </div>
-          <p class="nav-c t1824">
-            pledged of US$ {{ channel.targetFund }} goal
-          </p>
-          <p class="nav-c flex d-flex align-start display-1 font-weight-thin">
-            {{ channel.subscriberCount }}
-          </p>
+          >US$ {{ channel.currentFund }}</div>
+          <p class="nav-c t1824">pledged of US$ {{ channel.targetFund }} goal</p>
+          <p
+            class="nav-c flex d-flex align-start display-1 font-weight-thin"
+          >{{ channel.subscriberCount }}</p>
           <p class="nav-c t1824">backers</p>
           <!--<p class="nav-c flex d-flex align-start display-1 font-weight-thin">-->
           <!--13-->
@@ -78,22 +67,19 @@
             class="quick-sand-font-b white--text"
             color="teal"
             @click="prepareSubscribe(25)"
-            >Donate 25$</v-btn
-          >
+          >Donate 25$</v-btn>
           <v-btn
             block
             class="quick-sand-font-b white--text"
             color="teal"
             @click="prepareSubscribe(50)"
-            >Donate 50$</v-btn
-          >
+          >Donate 50$</v-btn>
           <v-btn
             block
             class="quick-sand-font-b white--text"
             color="teal"
             @click="prepareSubscribe(100)"
-            >Donate 100$</v-btn
-          >
+          >Donate 100$</v-btn>
         </div>
       </v-flex>
     </v-layout>
@@ -102,13 +88,7 @@
       <v-flex xs12>
         <div class="comment-holder padding text-xs-left">
           <div v-if="showComments">
-            <v-textarea
-              solo
-              label="Add a comment"
-              rows="1"
-              auto-grow
-              v-model="commentText"
-            ></v-textarea>
+            <v-textarea solo label="Add a comment" rows="1" auto-grow v-model="commentText"></v-textarea>
             <v-layout>
               <v-spacer></v-spacer>
               <v-btn
@@ -116,28 +96,19 @@
                 color="blue lighten-1"
                 :disabled="disabelComment"
                 @click="doComment"
-              >
-                Comment
-              </v-btn>
+              >Comment</v-btn>
             </v-layout>
           </div>
           <div v-if="!showComments">
             <div class="logincomment text-xs-center">
               <p>
                 Please
-                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
-                  >sign in</router-link
-                >
-                to comment
+                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">sign in</router-link>to comment
               </p>
             </div>
           </div>
           <v-flex class="padding" v-if="commentsList.length > 0">
-            <div
-              class="comment"
-              v-for="comment in commentsList"
-              v-bind:key="comment.commentId"
-            >
+            <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
               <h4>{{ comment.userName }}</h4>
               <div>{{ comment.comment }}</div>
               <p class="grey--text">{{ comment.timeAgo }}</p>
@@ -370,7 +341,8 @@ export default {
         channelName: this.trailer.channelName,
         userId: auth.currentUser.uid,
         isDesktop: true,
-        redirectTo: "https://excluzeev.com/my-channels"
+        redirectTo: "https://excluzeev.com/my-channels",
+        isDonate: true
       };
       this.subscribeProcessing = true;
       if (this.showDonateText) {

@@ -1,8 +1,13 @@
 <template>
   <v-container>
-    <div v-for="category in categories" v-bind:key="category.id">
-      <category-trailers :catId="category.id" :catName="category.name" />
+    <div v-if="categories.length > 0">
+      <div v-for="category in categories" v-bind:key="category.id">
+        <category-trailers :catId="category.id" :catName="category.name"/>
+      </div>
     </div>
+    <v-container v-else style="padding: 20px;">
+      <p class="text-xs-center" style="font-size: 20px;">Now Loading..</p>
+    </v-container>
   </v-container>
 </template>
 
@@ -33,8 +38,8 @@ export default {
 </script>
 
 <style scoped>
-  .padding {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+.padding {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 </style>

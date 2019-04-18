@@ -8,6 +8,7 @@ export default {
   usersCollections: "users",
   categoriesCollection: "categories",
   channelsCollection: "channels",
+  howToCollection: "howto",
   generateId: () => {
     // Modeled after base64 web-safe chars, but ordered by ASCII.
     const PUSH_CHARS =

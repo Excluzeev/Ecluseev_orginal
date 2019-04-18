@@ -9,11 +9,9 @@
               alt="Excluzeev
             logo"
               src="../../assets/excluzeev_bottom_text.png"
-            />
+            >
             <div class="signin-text quick-sand-font">Sign in</div>
-            <div class="signin-continue-text">
-              Continue to Excluzeev
-            </div>
+            <div class="signin-continue-text">Continue to Excluzeev</div>
             <v-card-text>
               <v-form class="lighten-1" @submit.prevent="isHuman">
                 <v-text-field
@@ -49,15 +47,10 @@
                       class="v-btn--round"
                       color="primary lighten-1"
                       @click="goForgotPassword"
-                    >
-                      Forgot Password?
-                    </div>
+                    >Forgot Password?</div>
                   </a>
                 </div>
-                <div
-                  class="text-xs-right quick-sand-font-b"
-                  style="padding: 0px;"
-                >
+                <div class="text-xs-right quick-sand-font-b" style="padding: 0px;">
                   <v-btn
                     class="white--text quick-sand-font-b"
                     color="primary lighten-1"
@@ -81,45 +74,28 @@
               <div class="text-xs-center quick-sand-font">
                 New to Excluzeev? &nbsp;
                 <a>
-                  <span
-                    class=""
-                    color="primary lighten-1"
-                    @click="goRegistration"
-                  >
-                    Sign up!
-                  </span>
+                  <span class color="primary lighten-1" @click="goRegistration">Sign up!</span>
                 </a>
               </div>
             </v-card-text>
           </v-card>
-          <div
-            class="text-xs-right"
-            style="padding-right: 20px;padding-top: 10px;"
-          >
+          <div class="text-xs-right" style="padding-right: 20px;padding-top: 10px;">
             <a @click="showExcluzeevTerms">Terms</a>
 
-            <a @click="showPrivacyPolicy" style="padding-left: 20px;"
-              >Privacy</a
-            >
+            <a @click="showPrivacyPolicy" style="padding-left: 20px;">Privacy</a>
 
             <a
               href="mailto:support@excluzeev.com?subject=Need%20Help"
               style="padding-left: 20px;"
-              >Help</a
-            >
+            >Help</a>
           </div>
         </v-flex>
       </v-layout>
       <!-- <v-snackbar v-model="snackbar" bottom>
         {{ toastText }}
-      </v-snackbar> -->
+      </v-snackbar>-->
     </v-container>
-    <v-dialog
-      v-model="termsDialog"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-    >
+    <v-dialog v-model="termsDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="termsDialog = false">
@@ -157,8 +133,8 @@ export default {
       email: "",
       password: "",
       termsDialog: false,
-      titleDialog: "Terms and Conditions",
-      componentDialog: LicenseAgreement,
+      titleDialog: "",
+      componentDialog: null,
       rules: {
         required: value => !!value || "Required.",
         email: value => {

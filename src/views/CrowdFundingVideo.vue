@@ -5,28 +5,19 @@
         <div align="left">
           <div class="padding">
             <v-avatar tile="false" size="50px" color="grey lighten-4">
-              <img
-                class="channel-image"
-                :src="video != null ? video.channelImage : ''"
-              />
+              <img class="channel-image" :src="video != null ? video.channelImage : ''">
             </v-avatar>
           </div>
-          <div style="font-size:1.4rem" class="quick-sand-font-l">
-            {{ video.channelName }}
-          </div>
+          <div style="font-size:1.4rem" class="quick-sand-font-l">{{ video.channelName }}</div>
         </div>
       </v-flex>
       <v-flex xs12 sm9 md10>
         <div align="left">
-          <div class="flex display-1 font-weight-normal">
-            {{ video.title }}
-          </div>
-          <div class="nav-c t1824">
-            {{ video.description }}
-          </div>
+          <div class="flex display-1 font-weight-normal">{{ video.title }}</div>
+          <div class="nav-c t1824">{{ video.description }}</div>
         </div>
       </v-flex>
-      <v-flex xs3> </v-flex>
+      <v-flex xs3></v-flex>
     </v-layout>
     <!-- <v-layout row> </v-layout> -->
     <v-layout row wrap>
@@ -41,8 +32,7 @@
             :options="playerOptions"
             @ready="playerIsReady"
             @timeupdate="onPlayerTimeupdate($event)"
-          >
-          </video-player>
+          ></video-player>
         </div>
       </v-flex>
       <v-flex>
@@ -58,15 +48,11 @@
           <div
             style="font-size:1.4rem;"
             class="flex display-1 font-weight-normal teal--text darken-2"
-          >
-            US$ {{ channel.currentFund }}
-          </div>
-          <p class="nav-c t1824">
-            pledged of US$ {{ channel.targetFund }} goal
-          </p>
-          <p class="nav-c flex d-flex align-start display-1 font-weight-thin">
-            {{ channel.subscriberCount }}
-          </p>
+          >US$ {{ channel.currentFund }}</div>
+          <p class="nav-c t1824">pledged of US$ {{ channel.targetFund }} goal</p>
+          <p
+            class="nav-c flex d-flex align-start display-1 font-weight-thin"
+          >{{ channel.subscriberCount }}</p>
           <p class="nav-c t1824">backers</p>
           <!--<p class="nav-c flex d-flex align-start display-1 font-weight-thin">-->
           <!--13-->
@@ -77,22 +63,19 @@
             class="quick-sand-font-b white--text"
             color="teal"
             @click="prepareSubscribe(25)"
-            >Donate 25$</v-btn
-          >
+          >Donate 25$</v-btn>
           <v-btn
             block
             class="quick-sand-font-b white--text"
             color="teal"
             @click="prepareSubscribe(50)"
-            >Donate 50$</v-btn
-          >
+          >Donate 50$</v-btn>
           <v-btn
             block
             class="quick-sand-font-b white--text"
             color="teal"
             @click="prepareSubscribe(100)"
-            >Donate 100$</v-btn
-          >
+          >Donate 100$</v-btn>
         </div>
       </v-flex>
     </v-layout>
@@ -101,13 +84,7 @@
       <v-flex xs12>
         <div class="comment-holder padding text-xs-left">
           <div v-if="showComments">
-            <v-textarea
-              solo
-              label="Add a comment"
-              rows="1"
-              auto-grow
-              v-model="commentText"
-            ></v-textarea>
+            <v-textarea solo label="Add a comment" rows="1" auto-grow v-model="commentText"></v-textarea>
             <v-layout>
               <v-spacer></v-spacer>
               <v-btn
@@ -115,28 +92,19 @@
                 color="blue lighten-1"
                 :disabled="disabelComment"
                 @click="doComment"
-              >
-                Comment
-              </v-btn>
+              >Comment</v-btn>
             </v-layout>
           </div>
           <div v-if="!showComments">
             <div class="logincomment text-xs-center">
               <p>
                 Please
-                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
-                  >sign in</router-link
-                >
-                to comment
+                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">sign in</router-link>to comment
               </p>
             </div>
           </div>
           <v-flex class="padding" v-if="commentsList.length > 0">
-            <div
-              class="comment"
-              v-for="comment in commentsList"
-              v-bind:key="comment.commentId"
-            >
+            <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
               <h4>{{ comment.userName }}</h4>
               <div>{{ comment.comment }}</div>
               <p class="grey--text">{{ comment.timeAgo }}</p>
@@ -160,7 +128,6 @@ import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 import moment from "moment";
-import VideoDetailVideoItem from "../components/VideoDetailVideoItem";
 
 export default {
   name: "CrowdFundingVideo",
@@ -198,9 +165,7 @@ export default {
       prevWhat: -2
     };
   },
-  components: {
-    VideoDetailVideoItem
-  },
+  components: {},
   mixins: [RegisterStoreModule],
   computed: {
     player() {
@@ -210,7 +175,7 @@ export default {
       return this.commentText == "";
     },
     showComments() {
-      auth.onAuthStateChanged(user => {});
+      auth.onAuthStateChanged(() => {});
       return auth.currentUser != null;
     }
   },
@@ -363,11 +328,11 @@ export default {
         .then(() => {
           // console.log("Transaction successfully committed!");
         })
-        .catch(error => {
+        .catch(() => {
           // console.log("Transaction failed: ", error);
         });
     },
-    onPlayerTimeupdate(event) {
+    onPlayerTimeupdate() {
       if (
         this.$refs.videoPlayer.player.currentTime() > 5 &&
         !this.isViewTriggered
@@ -429,6 +394,45 @@ export default {
         this.commentsList = commentsList;
         console.log(this.commentsList);
       });
+    },
+    async prepareSubscribe(donate) {
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
+      let prepareOptions = {
+        channelId: this.trailer.channelId,
+        channelName: this.trailer.channelName,
+        userId: auth.currentUser.uid,
+        isDesktop: true,
+        redirectTo: "https://excluzeev.com/my-channels",
+        isDonate: true
+      };
+      this.subscribeProcessing = true;
+      if (this.showDonateText) {
+        prepareOptions.donate = donate;
+      }
+
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/generatePayKey",
+          prepareOptions
+        )
+        .then(response => {
+          console.log(response.data);
+          if (response.data.responseEnvelope.ack != "Success") {
+            this.subscribeProcessing = false;
+            this.showToast("Payment Failed Please try later.");
+          } else {
+            window.location =
+              "https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=" +
+              response.data.payKey;
+          }
+        })
+        .catch(error => {
+          this.subscribeProcessing = false;
+          console.log(error);
+        });
     }
   }
 };

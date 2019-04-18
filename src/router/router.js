@@ -29,6 +29,9 @@ import ContentCreator from "../components/ContentCreator";
 import LicenseAgreement from "../components/LicenseAgreement";
 import CookiePolicy from "../components/CookiePolicy";
 import FAQs from "../components/FAQs";
+import AboutUs from "../components/About";
+import SearchPreviews from "../views/SearchPreviews";
+import HowTo from "../views/HowTo";
 
 Vue.use(Meta);
 
@@ -153,6 +156,12 @@ const router = new VueRouter({
       })
     },
     {
+      path: "/search/:query",
+      name: "SearchPreviews",
+      component: SearchPreviews,
+      meta: { showNav: true, title: "Search | Excluzeev Videos" }
+    },
+    {
       path: "/video/:videoId",
       name: "VideoSingle",
       component: VideoDetail,
@@ -216,7 +225,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "Privacy Policy"
+        title: ""
       }
     },
     {
@@ -226,7 +235,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "Content Creator Policy"
+        title: ""
       }
     },
     {
@@ -236,7 +245,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "License Agreement"
+        title: ""
       }
     },
     {
@@ -246,7 +255,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: "CookiePolicy"
+        title: ""
       }
     },
     {
@@ -257,6 +266,26 @@ const router = new VueRouter({
         noAuth: false,
         showNav: false,
         title: "FAQ's"
+      }
+    },
+    {
+      path: "/aboutus",
+      name: "AboutUs",
+      component: AboutUs,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: "Excluzeev - Stream. Crowdfunding. Social Network"
+      }
+    },
+    {
+      path: "/howto",
+      name: "HowTo",
+      component: HowTo,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
     }
     // {

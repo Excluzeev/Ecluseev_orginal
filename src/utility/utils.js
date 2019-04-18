@@ -1,9 +1,16 @@
 /* eslint-disable */
 import moment from "moment";
+import { firebaseTimestamp } from "../firebase/init";
 
 export default {
-  extractTrailerData: documentSnap => {
-    const data = documentSnap.data();
+  extractTrailerData: (documentSnap, isSnap = true) => {
+    console.log(isSnap);
+    const data = isSnap ? documentSnap.data() : documentSnap;
+    if (!isSnap) {
+      data.createdDate = firebaseTimestamp.fromMillis(
+        parseInt(data.createdDate._seconds * 1000)
+      );
+    }
     return {
       userId: data.userId != null ? data.userId : "",
       trailerId: data.trailerId != null ? data.trailerId : "",
@@ -68,16 +75,21 @@ export default {
       type: data.type != null ? data.type : "",
       later: data.later != null ? data.later : "now",
       scheduleDate: data.scheduleDate != null ? data.scheduleDate : null,
-      streamCreatedDate: data.streamCreatedDate != null ? data.streamCreatedDate : null,
+      streamCreatedDate:
+        data.streamCreatedDate != null ? data.streamCreatedDate : null,
       description: data.description != null ? data.description : "",
-      image: "https://image.mux.com/" + data.playbackId + "/thumbnail.png?token=" + data.imageToken,
+      image:
+        "https://image.mux.com/" +
+        data.playbackId +
+        "/thumbnail.png?token=" +
+        data.imageToken,
       channelType: data.channelType != null ? data.channelType : "",
       streamKey: data.streamKey != null ? data.streamKey : "",
-      muxId: data.muxId != null ? data.muxId: "",
+      muxId: data.muxId != null ? data.muxId : "",
       channelImage:
-          "https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F" +
-          data.channelId +
-          "%2Fthumbnail.jpg?alt=media",
+        "https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F" +
+        data.channelId +
+        "%2Fthumbnail.jpg?alt=media",
       playbackId: data.playbackId != null ? data.playbackId : "",
       createdDate: data.createdDate != null ? data.createdDate : null,
       views: data.views != null ? data.views : 0,
