@@ -28,6 +28,7 @@ import PrivacyPolicy from "../components/PrivacyPolicy";
 import ContentCreator from "../components/ContentCreator";
 import LicenseAgreement from "../components/LicenseAgreement";
 import CookiePolicy from "../components/CookiePolicy";
+import CommunityAgreement from "../components/CommunityAgreement";
 import FAQs from "../components/FAQs";
 import AboutUs from "../components/About";
 import SearchPreviews from "../views/SearchPreviews";
@@ -252,6 +253,16 @@ const router = new VueRouter({
       path: "/cookie-policy",
       name: "CookiePolicy",
       component: CookiePolicy,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: ""
+      }
+    },
+    {
+      path: "/community-member",
+      name: "CommunityAgreement",
+      component: CommunityAgreement,
       meta: {
         noAuth: false,
         showNav: false,
