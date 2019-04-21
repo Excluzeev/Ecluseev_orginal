@@ -69,6 +69,9 @@
         <v-list-tile @click="showContentCreatorTerms">
           <v-list-tile-title class="quick-sand-font">Content Creators Terms</v-list-tile-title>
         </v-list-tile>
+        <v-list-tile @click="showLicenseAgreement">
+          <v-list-tile-title class="quick-sand-font">License Agreement</v-list-tile-title>
+        </v-list-tile>
         <v-list-tile @click="logout" v-if="!showLogin">
           <v-list-tile-title class="quick-sand-font">Sign Out</v-list-tile-title>
         </v-list-tile>
@@ -181,6 +184,9 @@
             <v-list-tile @click="showContentCreatorTerms">
               <v-list-tile-title class="quick-sand-font">Content Creators Terms</v-list-tile-title>
             </v-list-tile>
+            <v-list-tile @click="showLicenseAgreement">
+              <v-list-tile-title class="quick-sand-font">License Agreement</v-list-tile-title>
+            </v-list-tile>
           </v-list>
         </v-menu>
       </v-toolbar-items>
@@ -213,6 +219,7 @@ import LicenseAgreement from "../components/LicenseAgreement";
 import AboutUs from "./About";
 import FAQs from "./FAQs";
 import CommunityAgreementVue from "./CommunityAgreement.vue";
+import LicenseAgreementVue from "./LicenseAgreement.vue";
 
 export default {
   components: {
@@ -308,6 +315,13 @@ export default {
       this.sideNav = false;
       this.titleDialogt = "Community Member Agreement";
       this.componentDialogt = CommunityAgreement;
+      this.dialogt = true;
+    },
+
+    showLicenseAgreement() {
+      this.sideNav = false;
+      this.titleDialogt = "License Agreement";
+      this.componentDialogt = LicenseAgreement;
       this.dialogt = true;
     },
     showAboutUs() {
