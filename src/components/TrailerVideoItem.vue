@@ -59,7 +59,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-btn color="blue darken-1" flat @click="closeReportDialog">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="updateAndCloseReportDialog">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click="updateAndCloseReportDialog">Report</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -143,7 +143,7 @@ export default {
 
       let reportRef = fireStore.collection("reports").doc(reportId);
 
-      console.log(reasonUpdateData);
+      // console.log(reasonUpdateData);
       await reportRef.set(reasonUpdateData);
 
       this.reportReasons = [];
