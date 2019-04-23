@@ -14,50 +14,60 @@
           </div>-->
         </div>
       </v-flex>
-      <v-flex xs12 sm3 md2>
+      <v-flex xs12 sm3 md3>
         <div align="center">
           <div align="center">
             <h3 class="nav-c quick-sand-font-b">EXPLORE</h3>
 
             <h3 @click="showAbout" class="light-blue--text quick-sand-font">About</h3>
-            <a href="mailto:support@excluzeev.com?subject=Support%20Query">
+            <a href="https://excluzeev.typeform.com/to/s3gTOy" target="_blank">
               <h3 class="light-blue--text quick-sand-font">Support</h3>
+            </a>
+            <a href="https://excluzeev.typeform.com/to/A3Mu8b" target="_blank">
+              <h3 class="light-blue--text quick-sand-font">Contact Us</h3>
             </a>
             <h3 @click="showFAQs" class="light-blue--text quick-sand-font">FAQs</h3>
           </div>
         </div>
       </v-flex>
-      <v-flex xs12 sm3 md2>
+      <v-flex xs12 sm3 md3>
         <div align="top center">
           <div align="center">
             <h3 class="nav-c quick-sand-font-b">LEGAL</h3>
             <h3 class="light-blue--text quick-sand-font" @click="showPrivacyPolicy">Privacy Policy</h3>
             <h3 class="light-blue--text quick-sand-font" @click="showCookiePolicy">Cookie Policy</h3>
-          </div>
-        </div>
-      </v-flex>
-      <v-flex xs12 sm3 md2>
-        <div align="top center">
-          <div align="center">
-            <h3 class="nav-c quick-sand-font-b">FOLLOW US</h3>
-
-            <a href="https://www.facebook.com/excluzeev">
-              <h3 class="light-blue--text quick-sand-font">Facebook</h3>
-            </a>
-            <a href="https://www.instagram.com/excluzeev/">
-              <h3 class="light-blue--text quick-sand-font">Instagram</h3>
-            </a>
+            <h3
+              class="light-blue--text quick-sand-font"
+              @click="showLicenseAgreement"
+            >License Agreement</h3>
           </div>
         </div>
       </v-flex>
       <v-flex xs12 md3>
-        <h3 class="nav-c quick-sand-font-b">APPS</h3>
-        <img
-          style="width: 120px;height: 40px;"
-          alt="Download_on_the_App_Store"
-          src="../assets/Download_on_the_App_Store.svg"
-        >
-        <a href="https://play.google.com/store/apps/details?id=com.trenstop.mobile">
+        <v-layout wrap align-center class="text-xs-center">
+          <v-spacer></v-spacer>
+          <a style="padding-right:5px;" href="https://www.facebook.com/excluzeev">
+            <h3 class="black--text quick-sand-font">
+              <font-awesome-icon :icon="['fab', 'facebook']" size="2x"/>
+            </h3>
+          </a>
+          <a style="padding-left:5px;" href="https://www.instagram.com/excluzeev/">
+            <h3 class="black--text quick-sand-font">
+              <font-awesome-icon :icon="['fab', 'instagram']" size="2x"/>
+            </h3>
+          </a>
+
+          <v-spacer></v-spacer>
+        </v-layout>
+        <a href="https://itunes.apple.com/bt/app/excluzeev/id1457995935?mt=8" target="_blank">
+          <img
+            style="width: 120px;height: 40px;"
+            alt="Download_on_the_App_Store"
+            src="../assets/Download_on_the_App_Store.svg"
+          >
+        </a>
+        <br>
+        <a href="https://play.google.com/store/apps/details?id=com.trenstop.mobile" target="_blank">
           <img
             style="width: 120px;height: 40px;"
             alt="google-play-badge"
@@ -87,6 +97,8 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import CookiePolicy from "./CookiePolicy";
 import About from "./About";
 import FAQs from "./FAQs";
+
+import LicenseAgreement from "./LicenseAgreement";
 
 export default {
   name: "FooterComponent",
@@ -120,6 +132,12 @@ export default {
     showCookiePolicy() {
       this.titleDialog = "Cookie Policy";
       this.componentDialog = CookiePolicy;
+      this.dialog = true;
+    },
+
+    showLicenseAgreement() {
+      this.titleDialog = "License Agreement";
+      this.componentDialog = LicenseAgreement;
       this.dialog = true;
     }
   }
