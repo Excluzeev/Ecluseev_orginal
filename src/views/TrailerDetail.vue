@@ -80,7 +80,7 @@
               v-if="showSubscribeButton"
             >
               Join this Community &nbsp;
-              <strong>${{ channel.price }}</strong> per month
+              <strong>${{ channel.price }}</strong> &nbsp; per month
               <template v-slot:loader>
                 <span class="custom-loader">
                   <v-icon light>cached</v-icon>
