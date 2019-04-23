@@ -299,6 +299,7 @@ const router = new VueRouter({
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
     }
+
     // {
     //   path: "/",
     //   name: "home",

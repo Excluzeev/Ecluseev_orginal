@@ -58,7 +58,7 @@ export default {
           sources: [
             {
               withCredentials: false,
-              type: "video/mp4",
+              type: "application/x-mpegURL",
               src: how.url
             }
           ],

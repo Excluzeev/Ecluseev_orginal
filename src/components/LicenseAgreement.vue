@@ -32,10 +32,7 @@
 
 <script>
 export default {
-  name: "LicenseAgreement",
-  metaInfo: {
-    title: "License Agreement"
-  }
+  name: "LicenseAgreement"
 };
 </script>
 

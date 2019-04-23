@@ -80,7 +80,7 @@
               v-if="showSubscribeButton"
             >
               Join this Community &nbsp;
-              <strong>${{ channel.price }}</strong>
+              <strong>${{ channel.price }}</strong> per month
               <template v-slot:loader>
                 <span class="custom-loader">
                   <v-icon light>cached</v-icon>
@@ -474,7 +474,7 @@ export default {
           // console.log("Transaction failed: ", error);
         });
     },
-    onPlayerTimeupdate(event) {
+    onPlayerTimeupdate() {
       if (
         this.$refs.videoPlayer.player.currentTime() > 5 &&
         !this.isViewTriggered
@@ -492,8 +492,8 @@ export default {
           : {}
       );
 
-      if (fUser == null) {
-      }
+      // if (fUser == null) {
+      // }
 
       let commentId = utils.generateId();
 
