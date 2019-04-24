@@ -38,6 +38,8 @@ Vue.use(Meta);
 
 Vue.use(VueRouter);
 
+// Excluzeev - Stream. Crowdfunding. Social Network
+
 const router = new VueRouter({
   mode: "history",
   routes: [
@@ -318,6 +320,13 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const nearestWithTitle = to.matched
+    .slice()
+    .reverse()
+    .find(r => r.meta && r.meta.title);
+
+  if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
+
   if (to.meta.noAuth) {
     auth.onAuthStateChanged(user => {
       if (user) {

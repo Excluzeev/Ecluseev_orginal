@@ -19,7 +19,7 @@
           <div align="center">
             <h3 class="nav-c quick-sand-font-b">EXPLORE</h3>
 
-            <h3 @click="showAbout" class="light-blue--text quick-sand-font">About</h3>
+            <!-- <h3 @click="showAbout" class="light-blue--text quick-sand-font">About</h3> -->
             <a href="https://excluzeev.typeform.com/to/s3gTOy" target="_blank">
               <h3 class="light-blue--text quick-sand-font">Support</h3>
             </a>
