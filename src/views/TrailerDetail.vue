@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+    <vue-headful
+      :title="trailer.title"
+      :description="trailer.description"
+      :image="trailer.image"
+      :url="'https://excluzeev.com' + this.$route.path"
+    />
     <v-layout class="main-holder" xs12 wrap v-if="videoLoaded">
       <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
         <div v-show="!playerOptions.sources[0].src.isEmpty">
@@ -194,7 +200,7 @@ import "videojs-ima/dist/videojs.ima";
 import "videojs-ima/dist/videojs.ima.css";
 
 export default {
-  name: "CategoryTrailers",
+  name: "TrailerDetails",
   data: () => {
     return {
       showDonateField: false,
@@ -266,6 +272,8 @@ export default {
       })
       .then(data => {
         this.trailer = data;
+
+        this.title = this.trailer.title;
 
         this.$store
           .dispatch("trailers/fetchChannel", {

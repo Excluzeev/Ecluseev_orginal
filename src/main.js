@@ -77,9 +77,9 @@ library.add(faTwitter, faFacebook, faInstagram);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
-import VueContentPlaceholders from "vue-content-placeholders";
+import vueHeadful from "vue-headful";
 
-Vue.use(VueContentPlaceholders);
+Vue.component("vue-headful", vueHeadful);
 
 new Vue({
   router,

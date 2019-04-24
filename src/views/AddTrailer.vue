@@ -5,7 +5,7 @@
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-9">
             <v-toolbar dark color="blue lighten-1">
-              <v-toolbar-title>Add a trailer</v-toolbar-title>
+              <v-toolbar-title>Add a preview</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
               <v-form class="blue--text lighten-1" @submit.prevent="doUploadTrailer">
