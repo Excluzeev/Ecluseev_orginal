@@ -11,7 +11,9 @@ import Login from "../views/auth/Login";
 import Registration from "../views/auth/Registration";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
-import { auth } from "../firebase/init";
+import {
+  auth
+} from "../firebase/init";
 import store from "../store/index";
 import AddVideo from "../views/AddVideo";
 import MySubscriptions from "../views/MySubscriptions";
@@ -33,6 +35,7 @@ import FAQs from "../components/FAQs";
 import AboutUs from "../components/About";
 import SearchPreviews from "../views/SearchPreviews";
 import HowTo from "../views/HowTo";
+import ExcluzeevCharges from '../views/ExcluzeevCharges';
 
 Vue.use(Meta);
 
@@ -42,8 +45,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "Home",
       component: Home,
@@ -56,20 +58,29 @@ const router = new VueRouter({
       path: "/trailer/:trailerId",
       name: "TrailerSingle",
       component: TrailerDetail,
-      meta: { showNav: true, title: "Excluzeev Trailers" }
+      meta: {
+        showNav: true,
+        title: "Excluzeev Trailers"
+      }
     },
     {
       path: "/login",
       name: "Login",
       component: Login,
-      meta: { noAuth: true, showNav: false, title: "Excluzeev Login" }
+      meta: {
+        noAuth: true,
+        showNav: false,
+        title: "Excluzeev Login"
+      }
     },
     {
       path: "/logout",
       name: "Logout",
       beforeEnter(to, from, next) {
         store.dispatch("signOut").then(() => {
-          next({ name: "Home" });
+          next({
+            name: "Home"
+          });
         });
       }
     },
@@ -77,19 +88,31 @@ const router = new VueRouter({
       path: "/registration",
       name: "Registration",
       component: Registration,
-      meta: { title: "Excluzeev Registration", noAuth: true, showNav: false }
+      meta: {
+        title: "Excluzeev Registration",
+        noAuth: true,
+        showNav: false
+      }
     },
     {
       path: "/forgot-password",
       name: "ForgotPassword",
       component: ForgotPassword,
-      meta: { noAuth: true, showNav: false, title: "Excluzeev Forgot Password" }
+      meta: {
+        noAuth: true,
+        showNav: false,
+        title: "Excluzeev Forgot Password"
+      }
     },
     {
       path: "/reset-password",
       name: "ResetPassword",
       component: ResetPassword,
-      meta: { noAuth: true, showNav: false, title: "Excluzeev Reset Password" }
+      meta: {
+        noAuth: true,
+        showNav: false,
+        title: "Excluzeev Reset Password"
+      }
     },
     {
       path: "/sign-up-cc",
@@ -135,7 +158,11 @@ const router = new VueRouter({
       path: "/add-trailer",
       name: "AddTrailer",
       component: AddTrailer,
-      meta: { noAuth: false, showNav: true, title: "Add a trailer" },
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "Add a trailer"
+      },
       props: route => ({
         ...route.params
       })
@@ -144,7 +171,11 @@ const router = new VueRouter({
       path: "/add-video",
       name: "AddVideo",
       component: AddVideo,
-      meta: { noAuth: false, showNav: true, title: "Add a Video" },
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "Add a Video"
+      },
       props: route => ({
         ...route.params
       })
@@ -153,7 +184,11 @@ const router = new VueRouter({
       path: "/add-excluzeev",
       name: "AddExcluzeev",
       component: AddLive,
-      meta: { noAuth: false, showNav: true, title: "Excluzeev Live" },
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "Excluzeev Live"
+      },
       props: route => ({
         ...route.params
       })
@@ -162,31 +197,46 @@ const router = new VueRouter({
       path: "/search/:query",
       name: "SearchPreviews",
       component: SearchPreviews,
-      meta: { showNav: true, title: "Search | Excluzeev Videos" }
+      meta: {
+        showNav: true,
+        title: "Search | Excluzeev Videos"
+      }
     },
     {
       path: "/video/:videoId",
       name: "VideoSingle",
       component: VideoDetail,
-      meta: { showNav: true, title: "Excluzeev Videos" }
+      meta: {
+        showNav: true,
+        title: "Excluzeev Videos"
+      }
     },
     {
       path: "/crowd/:trailerId",
       name: "CrowdFundingTrailer",
       component: CrowdFundingTrailer,
-      meta: { showNav: true, title: "Excluzeev Videos" }
+      meta: {
+        showNav: true,
+        title: "Excluzeev Videos"
+      }
     },
     {
       path: "/crowd/video/:videoId",
       name: "CrowdFundingVideo",
       component: CrowdFundingVideo,
-      meta: { showNav: true, title: "Excluzeev Videos" }
+      meta: {
+        showNav: true,
+        title: "Excluzeev Videos"
+      }
     },
     {
       path: "/live/:videoId",
       name: "LiveSingle",
       component: LiveDetail,
-      meta: { showNav: true, title: "Excluzeev Videos" }
+      meta: {
+        showNav: true,
+        title: "Excluzeev Videos"
+      }
     },
     {
       path: "/my-subscriptions",
@@ -235,6 +285,16 @@ const router = new VueRouter({
       path: "/content-creator-policy",
       name: "ContentCreator",
       component: ContentCreator,
+      meta: {
+        noAuth: false,
+        showNav: false,
+        title: ""
+      }
+    },
+    {
+      path: "/excluzeev-charges",
+      name: "ExcluzeevCharges",
+      component: ExcluzeevCharges,
       meta: {
         noAuth: false,
         showNav: false,
@@ -330,7 +390,9 @@ router.beforeEach((to, from, next) => {
   if (to.meta.noAuth) {
     auth.onAuthStateChanged(user => {
       if (user) {
-        next({ name: "Home" });
+        next({
+          name: "Home"
+        });
       } else {
         next();
       }

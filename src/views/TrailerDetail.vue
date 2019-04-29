@@ -188,7 +188,6 @@
 </template>
 
 <script>
-import "vue-content-placeholders";
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import trailerModule from "../store/trailers/trailer";
 import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
