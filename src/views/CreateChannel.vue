@@ -65,7 +65,7 @@
                   <a
                     href="/excluzeev-charges"
                     target="_blank"
-                  >Learn more</a>
+                  >Learn more about pricing here.</a>
                 </p>
                 <upload-btn
                   color="blue--text lighten-1"
