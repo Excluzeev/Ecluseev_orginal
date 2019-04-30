@@ -298,7 +298,7 @@ const router = new VueRouter({
       meta: {
         noAuth: false,
         showNav: false,
-        title: ""
+        title: "Excluzeev Pricing information"
       }
     },
     {

@@ -1,9 +1,14 @@
 <template>
-  <v-content>
-    <v-container fluid fill-height>
-      <ChartPie/>
+  <div style="height:100%;">
+    <v-container text-xs-center fill-height>
+      <v-layout align-center row wrap justify-center>
+        <v-flex xs12 sm8 md5 align-center>
+          <h1>Ecluzeev Pricing Info</h1>
+          <ChartPie/>
+        </v-flex>
+      </v-layout>
     </v-container>
-  </v-content>
+  </div>
 </template>
 
 <script>
