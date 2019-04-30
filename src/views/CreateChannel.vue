@@ -61,11 +61,7 @@
                 ></v-text-field>
 
                 <p>
-                  10% of {{this.selectedChannelType == 'VOD' ? price : targetFund}} is for Excluzeev and 5% + 5 cents id paypal fee and remaining amount will credited to you.
-                  <a
-                    href="/excluzeev-charges"
-                    target="_blank"
-                  >Learn more about pricing here.</a>
+                  <a href="/excluzeev-charges" target="_blank">Learn more about pricing here.</a>
                 </p>
                 <upload-btn
                   color="blue--text lighten-1"
