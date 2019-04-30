@@ -2,7 +2,6 @@
   <v-container>
     <h1 class="quick-sand-font-n">My Subscriptions</h1>
     <v-layout xs12 row wrap>
-
       <v-flex
         class="channel-item"
         xs6
@@ -12,10 +11,14 @@
         v-for="subscription in subscriptionsList"
         v-bind:key="subscription.channelId"
       >
-        <SubscribedChannelItem style="margin-left: 5px;margin-right: 5px;margin-top: 5px" :subscription="subscription" />
+        <SubscribedChannelItem
+          style="margin-left: 5px;margin-right: 5px;margin-top: 5px"
+          :subscription="subscription"
+        />
       </v-flex>
       <v-flex v-if="subscriptionsList.length <= 0" class="text-xs-center">
-        <img style="width: 80%" src="../assets/empty-subscribe.png" />
+        <h4>Join the communities to see them here</h4>
+        <!-- <img style="width: 80%" src="../assets/empty-subscribe.png"> -->
       </v-flex>
     </v-layout>
   </v-container>
@@ -29,7 +32,7 @@ import SubscribedChannelItem from "../components/SubscribedChannelItem";
 
 export default {
   name: "MySubscriptions",
-  components: {SubscribedChannelItem},
+  components: { SubscribedChannelItem },
   data: () => {
     return {
       subscriptionsList: [],
@@ -46,7 +49,10 @@ export default {
   },
   async mounted() {
     if (this.$route.query.done) {
-      await this.$store.commit("forceFetchUser", { user: auth.currentUser, force: true});
+      await this.$store.commit("forceFetchUser", {
+        user: auth.currentUser,
+        force: true
+      });
     }
     this.$store.dispatch("subscriptions/getUserSubscriptions").then(data => {
       console.log(data);
