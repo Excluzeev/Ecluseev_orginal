@@ -143,7 +143,6 @@ export default {
 
       let reportRef = fireStore.collection("reports").doc(reportId);
 
-      // console.log(reasonUpdateData);
       await reportRef.set(reasonUpdateData);
 
       this.reportReasons = [];

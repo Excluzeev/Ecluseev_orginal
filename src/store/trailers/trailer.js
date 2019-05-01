@@ -1,4 +1,6 @@
-import { fireStore } from "../../firebase/init";
+import {
+  fireStore
+} from "../../firebase/init";
 import collections from "../../firebase/utils";
 import utils from "../../utility/utils";
 
@@ -14,7 +16,12 @@ export default {
   },
   mutations: {},
   actions: {
-    fetchChannel: ({ state, commit }, { channelId }) => {
+    fetchChannel: ({
+      state,
+      commit
+    }, {
+      channelId
+    }) => {
       return new Promise((resolve, reject) => {
         fireStore
           .collection(collections.channelsCollection)
@@ -25,10 +32,13 @@ export default {
           });
       });
     },
-    fetchCategoryTrailers: (
-      { state, commit },
-      { categoryId, categoryName }
-    ) => {
+    fetchCategoryTrailers: ({
+      state,
+      commit
+    }, {
+      categoryId,
+      categoryName
+    }) => {
       return new Promise((resolve, reject) => {
         let catTrailers = {
           catId: categoryId,
@@ -53,10 +63,12 @@ export default {
           });
       });
     },
-    fetchCategoryTrailersTop10: (
-      { state, commit },
-      { categoryId }
-    ) => {
+    fetchCategoryTrailersTop10: ({
+      state,
+      commit
+    }, {
+      categoryId
+    }) => {
       return new Promise((resolve, reject) => {
         fireStore
           .collection(collections.trailerCollection)
@@ -73,8 +85,12 @@ export default {
           });
       });
     },
-    fetchTrailer: ({ state, commit }, { trailerId }) => {
-      console.log(trailerId);
+    fetchTrailer: ({
+      state,
+      commit
+    }, {
+      trailerId
+    }) => {
       return new Promise(resolve => {
         fireStore
           .collection(collections.trailerCollection)
@@ -85,7 +101,10 @@ export default {
           });
       });
     },
-    fetchTop10Trailer: ({ state, commit }) => {
+    fetchTop10Trailer: ({
+      state,
+      commit
+    }) => {
       return new Promise(resolve => {
         fireStore
           .collection(collections.trailerCollection)

@@ -1,13 +1,13 @@
 <template>
   <v-container v-if="channel != null">
     <img
-            :src="
+      :src="
         'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
           channel.channelId +
           '%2Fcover.jpg?alt=media'
       "
-            style="width: 100%; height: 150px; object-fit: cover;"
-    />
+      style="width: 100%; height: 150px; object-fit: cover;"
+    >
     <v-layout row wrap xs12 text-xs-center class="padding">
       <v-avatar :tile="tile" size="100px" color="grey lighten-4">
         <img
@@ -17,13 +17,13 @@
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"
-        />
+        >
       </v-avatar>
       <div class="channel-details padding">
         <h2 class="quick-sand-font-b">{{ channel.title }}</h2>
         <p class="subscribers-count">
           {{
-            channel.subscriberCount == undefined ? 0 : channel.subscriberCount
+          channel.subscriberCount == undefined ? 0 : channel.subscriberCount
           }}
           Subscribers
         </p>
@@ -36,7 +36,7 @@
         :disabled="processing"
         @click="cancelSubscription"
       >
-        <v-icon light>close</v-icon> Cancel Subscription
+        <v-icon light>close</v-icon>Cancel Subscription
         <template v-slot:loader>
           <span class="custom-loader">
             <v-icon light>cached</v-icon>
@@ -45,8 +45,8 @@
       </v-btn>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
-      <h1 class=" quick-sand-font-b">Trailer</h1>
-      <br />
+      <h1 class="quick-sand-font-b">Trailer</h1>
+      <br>
       <v-layout xs12 row wrap>
         <v-flex
           class="trailer-item"
@@ -57,14 +57,14 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer" />
+          <TrailerVideoItem :trailer="trailer"/>
         </v-flex>
       </v-layout>
     </div>
     <div class="padding"></div>
     <div v-if="!(videosList.length == 0)">
-      <h1 class=" quick-sand-font-b">Videos</h1>
-      <br />
+      <h1 class="quick-sand-font-b">Videos</h1>
+      <br>
       <v-layout xs12 row wrap>
         <v-flex
           class="video-item"
@@ -75,29 +75,23 @@
           v-for="video in videosList"
           v-bind:key="video.videoId"
         >
-          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted" />
+          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted"/>
         </v-flex>
       </v-layout>
     </div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
-          <v-card-title class="headline"
-            >Do you want to cancel the subscription?</v-card-title
-          >
-          <v-card-text
-            >Hello, <br />
-            Do you really want to cancel the subscription, You still have
-            <strong>{{ getExpiryToNow }}</strong></v-card-text
-          >
+          <v-card-title class="headline">Do you want to cancel the subscription?</v-card-title>
+          <v-card-text>
+            Hello,
+            <br>Do you really want to cancel the subscription, You still have
+            <strong>{{ getExpiryToNow }}</strong>
+          </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" flat @click="dialog = false"
-              >Cancel</v-btn
-            >
-            <v-btn color="green darken-1" flat @click="cancelSubscriptionAgree"
-              >Accept</v-btn
-            >
+            <v-btn color="green darken-1" flat @click="dialog = false">Cancel</v-btn>
+            <v-btn color="green darken-1" flat @click="cancelSubscriptionAgree">Accept</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -139,8 +133,8 @@ export default {
   computed: {
     getExpiryToNow() {
       return (
-              moment(this.subscription.expiryDate.toDate()).diff(new Date(), "days") +
-              " Days Left"
+        moment(this.subscription.expiryDate.toDate()).diff(new Date(), "days") +
+        " Days Left"
       );
     }
   },
@@ -155,7 +149,6 @@ export default {
         })
         .then(data => {
           this.trailersList = data;
-          console.log(data);
         });
     },
     loadVideosData() {
@@ -165,7 +158,6 @@ export default {
         })
         .then(data => {
           this.videosList = data;
-          console.log(data);
         });
     },
     async cancelSubscription() {
@@ -234,7 +226,6 @@ export default {
 
       this.subscription = subDoc.data();
 
-      console.log(this.channel);
       this.loadTrailersData();
 
       this.loadVideosData();

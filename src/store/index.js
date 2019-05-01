@@ -6,7 +6,10 @@ import authModule from "./auth/auth";
 import channelsModule from "./channels/channels";
 import videosModule from "./videos/video";
 
-import { auth, fireStore } from "../firebase/init";
+import {
+  auth,
+  fireStore
+} from "../firebase/init";
 import collections from "../firebase/utils";
 import utils from "../utility/utils";
 
@@ -41,7 +44,6 @@ export default new Vuex.Store({
     forceFetchUser: async state => {
       auth.onAuthStateChanged(user => {});
       let user = auth.currentUser;
-      console.log("Fetch Force forceFetchUser");
       let userRef = fireStore
         .collection(collections.usersCollections)
         .doc(user.uid);
@@ -54,12 +56,15 @@ export default new Vuex.Store({
       localStorage.setItem("last", Date.now());
       state.fUser = userData;
     },
-    fetchUser: async (state, { user, force = false }) => {
+    fetchUser: async (state, {
+      user,
+      force = false
+    }) => {
       let now = Date.now();
       let last =
-        localStorage.getItem("last") != null
-          ? parseInt(localStorage.getItem("last")) + 600000
-          : 0;
+        localStorage.getItem("last") != null ?
+        parseInt(localStorage.getItem("last")) + 600000 :
+        0;
       if (user == null) {
         // localStorage.removeItem("fUser");
         localStorage.removeItem("last");
@@ -70,7 +75,6 @@ export default new Vuex.Store({
         force = true;
       }
       if ((last != null && last < now) || last == 0 || force) {
-        console.log("Fetch Force");
         let userRef = fireStore
           .collection(collections.usersCollections)
           .doc(user.uid);
@@ -91,14 +95,23 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    signOut: ({ state, commit }) => {
+    signOut: ({
+      state,
+      commit
+    }) => {
       return new Promise(resolve => {
         auth.signOut();
         commit("setUser");
         resolve("Done");
       });
     },
-    signUpContentCreator: ({ state, commit, dispatch }, { email }) => {
+    signUpContentCreator: ({
+      state,
+      commit,
+      dispatch
+    }, {
+      email
+    }) => {
       return new Promise(async resolve => {
         let userDoc = {
           isContentCreator: true,
@@ -111,11 +124,18 @@ export default new Vuex.Store({
         let userSnap = await userRef.get();
         if (userSnap.exists) {
           await userRef.update(userDoc);
-          commit("fetchUser", { user: auth.currentUser, force: true });
-          resolve({ error: false });
+          commit("fetchUser", {
+            user: auth.currentUser,
+            force: true
+          });
+          resolve({
+            error: false
+          });
         } else {
           dispatch("signOut");
-          resolve({ error: true });
+          resolve({
+            error: true
+          });
         }
         commit("setUser");
         resolve("Done");
@@ -138,7 +158,12 @@ export default new Vuex.Store({
         }
       });
     },
-    deleteVideo: async ({ state, commit }, { video }) => {
+    deleteVideo: async ({
+      state,
+      commit
+    }, {
+      video
+    }) => {
       return new Promise(async resolve => {
         let videosRef = fireStore
           .collection(collections.videosCollection)

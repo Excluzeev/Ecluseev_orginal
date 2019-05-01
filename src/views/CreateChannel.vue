@@ -268,13 +268,13 @@ export default {
         await thumbnailRef.put(this.thumbnailFile, metadata);
         thumbnailUrl = await thumbnailRef.getDownloadURL();
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
       try {
         await coverRef.put(this.coverFile, metadata);
         coverUrl = await coverRef.getDownloadURL();
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
 
       let channelData = {
@@ -308,7 +308,7 @@ export default {
           }
         });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         this.showToast("Channel Creation failed.");
       }
       this.processing = false;

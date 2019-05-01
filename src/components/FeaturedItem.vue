@@ -3,13 +3,11 @@
   <div style="max-height: 320px;">
     <swiper :options="swiperOption" v-if="featuredTrailers.length > 0">
       <swiper-slide v-for="(trailer, x) in featuredTrailers" :key="x">
-        <router-link  :to="'/trailer/' + trailer.trailerId">
+        <router-link :to="'/trailer/' + trailer.trailerId">
           <div class="image">
-
-            <img :src="trailer.image" alt="" />
+            <img :src="trailer.image" alt>
 
             <h2>{{ trailer.title }}</h2>
-
           </div>
         </router-link>
       </swiper-slide>
@@ -33,7 +31,6 @@ export default {
     this.registerStoreModule("trailers", trailerModule);
 
     this.$store.dispatch("trailers/fetchTop10Trailer").then(data => {
-      console.log(data);
       this.featuredTrailers = data;
     });
   },
@@ -82,11 +79,11 @@ export default {
   bottom: 10px;
 }
 /*.v-responsive__sizer {*/
-  /*padding-bottom: 56.25% !important;*/
+/*padding-bottom: 56.25% !important;*/
 /*}*/
-  /*.v-image__image--cover {*/
-    /*background-size: cover;*/
-  /*}*/
+/*.v-image__image--cover {*/
+/*background-size: cover;*/
+/*}*/
 .image {
   width: 320px;
   height: auto;

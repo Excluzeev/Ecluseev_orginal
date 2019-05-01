@@ -332,7 +332,7 @@ export default {
       player.ima(options);
 
       player.ima.setAdBreakReadyListener(() => {
-        console.log("AdBreak");
+        // console.log("AdBreak");
       });
     },
     async getLikes() {
@@ -431,7 +431,6 @@ export default {
           prepareOptions
         )
         .then(response => {
-          console.log(response.data);
           if (response.data.responseEnvelope.ack != "Success") {
             this.subscribeProcessing = false;
             this.showToast("Payment Failed Please try later.");
@@ -443,7 +442,7 @@ export default {
         })
         .catch(error => {
           this.subscribeProcessing = false;
-          console.log(error);
+          // console.log(error);
         });
     },
     showToast(msg) {
@@ -491,8 +490,6 @@ export default {
       }
     },
     async doComment() {
-      console.log(this.commentText);
-
       let fUser = JSON.parse(
         localStorage.getItem("fUser") != null
           ? localStorage.getItem("fUser")

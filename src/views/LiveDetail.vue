@@ -12,14 +12,11 @@
             :options="playerOptions"
             @ready="playerIsReady"
             @timeupdate="onPlayerTimeupdate($event)"
-          >
-          </video-player>
+          ></video-player>
         </div>
         <v-layout class="padding" align-center justify-left row fill-height>
           <v-layout class="padding" align-left justify-left column fill-height>
-            <div class="title-details--text max-1-lines ">
-              {{ video.title }}
-            </div>
+            <div class="title-details--text max-1-lines">{{ video.title }}</div>
             <div class="desc-details--text">{{ video.views }} views</div>
           </v-layout>
           <v-spacer></v-spacer>
@@ -30,16 +27,12 @@
           </a>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-              <v-icon v-bind:class="{ active: isNeutral }"
-                >sentiment_dissatisfied</v-icon
-              >
+              <v-icon v-bind:class="{ active: isNeutral }">sentiment_dissatisfied</v-icon>
             </div>
           </a>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-              <v-icon v-bind:class="{ active: isUserDisLiked }"
-                >thumb_down</v-icon
-              >
+              <v-icon v-bind:class="{ active: isUserDisLiked }">thumb_down</v-icon>
             </div>
           </a>
         </v-layout>
@@ -47,18 +40,13 @@
 
         <v-layout class="padding" justify-left fill-height>
           <div class="padding">
-            <img
-              class="channel-image square"
-              :src="video != null ? video.channelImage : ''"
-            />
+            <img class="channel-image square" :src="video != null ? video.channelImage : ''">
           </div>
           <v-flex class="padding">
             <v-layout align-center justify-left row>
               <v-layout align-left justify-left column fill-height>
                 <h2>{{ video.channelName }}</h2>
-                <span class="published--text"
-                  >Published {{ video.timeAgo }}</span
-                >
+                <span class="published--text">Published {{ video.timeAgo }}</span>
               </v-layout>
               <v-spacer></v-spacer>
             </v-layout>
@@ -79,11 +67,7 @@
               >
                 <v-icon>close</v-icon>&nbsp;End Live
               </v-btn>
-              <v-progress-circular
-                v-if="showEndLiveProgress"
-                indeterminate
-                color="primary"
-              ></v-progress-circular>
+              <v-progress-circular v-if="showEndLiveProgress" indeterminate color="primary"></v-progress-circular>
             </v-layout>
           </div>
         </v-layout>
@@ -143,27 +127,20 @@
             <div class="logincomment text-xs-center">
               <p>
                 Please
-                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
-                  >login</router-link
-                >
-                to chat
+                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">login</router-link>to chat
               </p>
             </div>
           </div>
-          <LiveChat v-if="showComments" :videoId="this.video.videoId" />
+          <LiveChat v-if="showComments" :videoId="this.video.videoId"/>
         </div>
       </v-flex>
     </v-layout>
     <v-dialog v-model="endLiveDialog" persistent max-width="320">
       <v-card>
-        <v-card-title class="headline"
-          >Do you want to End Excluzeev Live?</v-card-title
-        >
+        <v-card-title class="headline">Do you want to End Excluzeev Live?</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click="endLiveDialog = false"
-            >Cancel</v-btn
-          >
+          <v-btn color="green darken-1" flat @click="endLiveDialog = false">Cancel</v-btn>
           <v-btn color="green darken-1" flat @click="endLive">End</v-btn>
         </v-card-actions>
       </v-card>
@@ -235,10 +212,9 @@ export default {
     }
   },
   mounted() {
-    console.log("this is current player instance object", this.player);
+    // console.log("this is current player instance object", this.player);
   },
   created() {
-    console.log(this.$route.params.videoId);
     this.registerStoreModule("videos", videoModule);
     this.$store
       .dispatch("videos/fetchVideo", {
@@ -275,12 +251,6 @@ export default {
               }
             }
 
-            console.log(
-              moment(this.video.streamCreatedDate.toDate()).diff(
-                new Date(),
-                "hours"
-              )
-            );
             try {
               if (
                 moment(this.video.streamCreatedDate.toDate()).diff(
@@ -291,13 +261,13 @@ export default {
                 this.shouldShowStreamDetails = false;
               }
             } catch (e) {
-              console.log(e);
+              // console.log(e);
             }
 
             // this.shouldShowStreamDetails = moment(this.video.)
           })
           .catch(error => {
-            console.log(error);
+            // console.log(error);
           });
 
         this.getLikes();
@@ -328,7 +298,7 @@ export default {
         })
         .catch(error => {
           this.processing = false;
-          console.log(error);
+          // console.log(error);
         });
     },
     async getLikes() {
@@ -460,13 +430,12 @@ export default {
           // this.shouldShowStreamDetails = moment(this.video.)
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
 
           this.showEndLiveProgress = false;
         });
     },
     onPlayerTimeupdate(event) {
-      console.log(this.$refs.videoPlayer.player.errors);
       if (
         this.$refs.videoPlayer.player.currentTime() > 5 &&
         !this.isViewTriggered

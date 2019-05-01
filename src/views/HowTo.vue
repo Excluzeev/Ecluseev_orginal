@@ -67,7 +67,7 @@ export default {
         this.playersOptions.push(option);
         this.hows.push(how);
       }
-      console.log(this.playersOptions[0]);
+      // console.log(this.playersOptions[0]);
     }
   }
 };

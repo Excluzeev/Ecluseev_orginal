@@ -173,10 +173,8 @@ export default {
             password: this.password
           })
           .then(newData => {
-            console.log(newData);
             if (newData.error) {
               this.processing = false;
-              console.log(newData.message);
               if (newData.code == "auth/user-not-found") {
                 this.showToast("User not found.");
               } else {
@@ -221,7 +219,6 @@ export default {
           }
         )
         .then(response => {
-          console.log(response.data);
           if (!response.data.error) {
             this.doLogin();
           } else {

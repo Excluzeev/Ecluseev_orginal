@@ -8,10 +8,7 @@
               <v-toolbar-title>Excluzeev Live</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form
-                class="blue--text lighten-1"
-                @submit.prevent="doUploadVideo"
-              >
+              <v-form class="blue--text lighten-1" @submit.prevent="doUploadVideo">
                 <v-text-field
                   v-model="videoTitle"
                   name="Title"
@@ -39,12 +36,7 @@
                   single-line
                 ></v-select>
 
-                <v-radio-group
-                  v-model="timePublish"
-                  :mandatory="true"
-                  row
-                  v-on:change="timeUpdate"
-                >
+                <v-radio-group v-model="timePublish" :mandatory="true" row v-on:change="timeUpdate">
                   <v-radio label="Now" value="now"></v-radio>
                   <v-radio label="Schedule" value="later"></v-radio>
                 </v-radio-group>
@@ -70,15 +62,8 @@
                       </template>
                       <v-date-picker v-model="date" scrollable>
                         <v-spacer></v-spacer>
-                        <v-btn flat color="primary" @click="dateModal = false"
-                          >Cancel</v-btn
-                        >
-                        <v-btn
-                          flat
-                          color="primary"
-                          @click="$refs.datedialog.save(date)"
-                          >OK</v-btn
-                        >
+                        <v-btn flat color="primary" @click="dateModal = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs.datedialog.save(date)">OK</v-btn>
                       </v-date-picker>
                     </v-dialog>
                   </v-flex>
@@ -103,15 +88,8 @@
                       </template>
                       <v-time-picker v-if="timeModal" v-model="time" full-width>
                         <v-spacer></v-spacer>
-                        <v-btn flat color="primary" @click="timeModal = false"
-                          >Cancel</v-btn
-                        >
-                        <v-btn
-                          flat
-                          color="primary"
-                          @click="$refs.timedialog.save(time)"
-                          >OK</v-btn
-                        >
+                        <v-btn flat color="primary" @click="timeModal = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs.timedialog.save(time)">OK</v-btn>
                       </v-time-picker>
                     </v-dialog>
                   </v-flex>
@@ -133,13 +111,7 @@
                         </span>
                       </template>
                     </v-btn>
-                    <v-btn
-                      class="white--text"
-                      color="grey lighten-1"
-                      @click="$router.back()"
-                    >
-                      Cancel
-                    </v-btn>
+                    <v-btn class="white--text" color="grey lighten-1" @click="$router.back()">Cancel</v-btn>
                   </v-flex>
                 </v-layout>
               </v-form>
@@ -184,14 +156,8 @@
                   :loading="processing"
                   :disabled="processing"
                   @click="checkStreamStatus()"
-                >
-                  Next
-                </v-btn>
-                <v-progress-circular
-                  v-if="checkingStream"
-                  indeterminate
-                  color="primary"
-                ></v-progress-circular>
+                >Next</v-btn>
+                <v-progress-circular v-if="checkingStream" indeterminate color="primary"></v-progress-circular>
               </v-flex>
             </v-card-text>
           </v-card>
@@ -282,7 +248,6 @@ export default {
 
       let videoId = utils.generateId();
 
-      console.log(this.selectedChannel);
       let channelD;
       if (this.getChannel) {
         channelD = this.selectedChannel;
@@ -338,7 +303,7 @@ export default {
         })
         .catch(error => {
           this.processing = false;
-          console.log(error);
+          // console.log(error);
         });
     },
     copyStreamData(copyData) {
@@ -356,9 +321,7 @@ export default {
       window.getSelection().removeAllRanges();
     },
     checkStreamStatus() {
-      console.log(this.liveId);
       this.checkingStream = true;
-      console.log("Done");
       //https://us-central1-trenstop-2033f.cloudfunctions.net/getLiveStatus
       let data = {
         liveId: this.liveId
@@ -370,7 +333,6 @@ export default {
         )
         .then(response => {
           let d = response.data;
-          console.log(d);
           if (d.error) {
             this.showToast(d.message);
           } else {
@@ -386,7 +348,7 @@ export default {
         })
         .catch(error => {
           this.processing = false;
-          console.log(error);
+          // console.log(error);
         });
     },
     showToast(msg) {

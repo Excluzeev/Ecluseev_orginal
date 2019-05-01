@@ -42,9 +42,6 @@ export default {
   mixins: [RegisterStoreModule],
   props: {},
   async created() {
-    console.log(this.$route.query.done);
-    console.log(auth.currentUser);
-
     this.registerStoreModule("subscriptions", subscriptionsModule);
   },
   async mounted() {
@@ -55,7 +52,6 @@ export default {
       });
     }
     this.$store.dispatch("subscriptions/getUserSubscriptions").then(data => {
-      console.log(data);
       this.subscriptionsList = data;
     });
   }

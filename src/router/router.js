@@ -11,9 +11,7 @@ import Login from "../views/auth/Login";
 import Registration from "../views/auth/Registration";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
-import {
-  auth
-} from "../firebase/init";
+import { auth } from "../firebase/init";
 import store from "../store/index";
 import AddVideo from "../views/AddVideo";
 import MySubscriptions from "../views/MySubscriptions";
@@ -35,7 +33,7 @@ import FAQs from "../components/FAQs";
 import AboutUs from "../components/About";
 import SearchPreviews from "../views/SearchPreviews";
 import HowTo from "../views/HowTo";
-import ExcluzeevCharges from '../views/ExcluzeevCharges';
+import ExcluzeevCharges from "../views/ExcluzeevCharges";
 
 Vue.use(Meta);
 
@@ -45,7 +43,17 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
-  routes: [{
+  routes: [
+    {
+      path: "/",
+      name: "Home",
+      component: Home,
+      meta: {
+        showNav: true,
+        title: "Excluzeev - Stream. Crowdfunding. Social Network"
+      }
+    },
+    {
       path: "/",
       name: "Home",
       component: Home,
@@ -207,6 +215,7 @@ const router = new VueRouter({
       name: "VideoSingle",
       component: VideoDetail,
       meta: {
+        noAuth: false,
         showNav: true,
         title: "Excluzeev Videos"
       }
@@ -234,6 +243,7 @@ const router = new VueRouter({
       name: "LiveSingle",
       component: LiveDetail,
       meta: {
+        noAuth: false,
         showNav: true,
         title: "Excluzeev Videos"
       }
@@ -276,7 +286,7 @@ const router = new VueRouter({
       name: "PrivacyPolicy",
       component: PrivacyPolicy,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: false,
         title: ""
       }
@@ -286,7 +296,7 @@ const router = new VueRouter({
       name: "ContentCreator",
       component: ContentCreator,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: false,
         title: ""
       }
@@ -296,7 +306,7 @@ const router = new VueRouter({
       name: "ExcluzeevCharges",
       component: ExcluzeevCharges,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: false,
         title: "Excluzeev Pricing information"
       }
@@ -306,7 +316,7 @@ const router = new VueRouter({
       name: "LicenseAgreement",
       component: LicenseAgreement,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: false,
         title: ""
       }
@@ -316,7 +326,7 @@ const router = new VueRouter({
       name: "CookiePolicy",
       component: CookiePolicy,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: false,
         title: ""
       }
@@ -336,7 +346,7 @@ const router = new VueRouter({
       name: "Faqs",
       component: FAQs,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: false,
         title: "FAQ's"
       }
@@ -346,7 +356,7 @@ const router = new VueRouter({
       name: "AboutUs",
       component: AboutUs,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: false,
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
@@ -356,7 +366,7 @@ const router = new VueRouter({
       name: "HowTo",
       component: HowTo,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: true,
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
@@ -387,11 +397,14 @@ router.beforeEach((to, from, next) => {
 
   if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
-  if (to.meta.noAuth) {
+  if (to.meta.noAuth == false) {
     auth.onAuthStateChanged(user => {
-      if (user) {
+      if (user == null) {
+        next(false);
+        // this.$router.push({ name: "Login" });
         next({
-          name: "Home"
+          name: "Home",
+          replace: true
         });
       } else {
         next();

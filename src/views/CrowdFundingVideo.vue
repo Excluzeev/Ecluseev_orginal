@@ -180,7 +180,7 @@ export default {
     }
   },
   mounted() {
-    console.log("this is current player instance object", this.player);
+    // console.log("this is current player instance object", this.player);
   },
   created() {
     this.registerStoreModule("videos", videoModule);
@@ -220,7 +220,7 @@ export default {
               });
           })
           .catch(error => {
-            console.log(error);
+            // console.log(error);
           });
 
         this.getLikes();
@@ -342,8 +342,6 @@ export default {
       }
     },
     async doComment() {
-      console.log(this.commentText);
-
       let fUser = JSON.parse(
         localStorage.getItem("fUser") != null
           ? localStorage.getItem("fUser")
@@ -392,7 +390,6 @@ export default {
           commentsList.push(d);
         });
         this.commentsList = commentsList;
-        console.log(this.commentsList);
       });
     },
     async prepareSubscribe(donate) {
@@ -419,7 +416,6 @@ export default {
           prepareOptions
         )
         .then(response => {
-          console.log(response.data);
           if (response.data.responseEnvelope.ack != "Success") {
             this.subscribeProcessing = false;
             this.showToast("Payment Failed Please try later.");
@@ -431,7 +427,7 @@ export default {
         })
         .catch(error => {
           this.subscribeProcessing = false;
-          console.log(error);
+          // console.log(error);
         });
     }
   }

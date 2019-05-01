@@ -133,7 +133,7 @@ export default {
         await videoVideoRef.put(this.videoFile, metadata);
         videoUrl = await videoVideoRef.getDownloadURL();
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         this.show("VideoUpload failed.");
       }
 
@@ -175,7 +175,7 @@ export default {
         })
         .catch(error => {
           this.processing = false;
-          console.log(error);
+          // console.log(error);
         });
     },
     showToast(msg) {

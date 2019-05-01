@@ -1,10 +1,11 @@
 /* eslint-disable */
 import moment from "moment";
-import { firebaseTimestamp } from "../firebase/init";
+import {
+  firebaseTimestamp
+} from "../firebase/init";
 
 export default {
   extractTrailerData: (documentSnap, isSnap = true) => {
-    console.log(isSnap);
     const data = isSnap ? documentSnap.data() : documentSnap;
     if (!isSnap) {
       data.createdDate = firebaseTimestamp.fromMillis(
@@ -23,8 +24,7 @@ export default {
       title: data.title != null ? data.title : "",
       description: data.description != null ? data.description : "",
       image: "https://image.mux.com/" + data.playbackId + "/thumbnail.png",
-      channelImage:
-        "https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F" +
+      channelImage: "https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F" +
         data.channelId +
         "%2Fthumbnail.jpg?alt=media",
       videoUrl: "https://stream.mux.com/" + data.playbackId + ".m3u8",
@@ -75,19 +75,16 @@ export default {
       type: data.type != null ? data.type : "",
       later: data.later != null ? data.later : "now",
       scheduleDate: data.scheduleDate != null ? data.scheduleDate : null,
-      streamCreatedDate:
-        data.streamCreatedDate != null ? data.streamCreatedDate : null,
+      streamCreatedDate: data.streamCreatedDate != null ? data.streamCreatedDate : null,
       description: data.description != null ? data.description : "",
-      image:
-        "https://image.mux.com/" +
+      image: "https://image.mux.com/" +
         data.playbackId +
         "/thumbnail.png?token=" +
         data.imageToken,
       channelType: data.channelType != null ? data.channelType : "",
       streamKey: data.streamKey != null ? data.streamKey : "",
       muxId: data.muxId != null ? data.muxId : "",
-      channelImage:
-        "https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F" +
+      channelImage: "https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F" +
         data.channelId +
         "%2Fthumbnail.jpg?alt=media",
       playbackId: data.playbackId != null ? data.playbackId : "",

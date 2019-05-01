@@ -118,8 +118,6 @@ export default {
       return this.video.userId == auth.currentUser.uid;
     },
     getLinkTag() {
-      // console.log(this.video.channelType == "CrowdFunding");
-      // console.log(this.video.type != "Live");
       if (
         this.video.channelType == "CrowdFunding" &&
         this.video.type != "Live"
@@ -174,7 +172,6 @@ export default {
 
       let reportRef = fireStore.collection("reports").doc(reportId);
 
-      // console.log(reasonUpdateData);
       await reportRef.set(reasonUpdateData);
 
       this.reportReasons = [];

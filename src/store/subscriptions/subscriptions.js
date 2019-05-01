@@ -1,5 +1,8 @@
 /* eslint-disable */
-import { fireStore, auth } from "../../firebase/init";
+import {
+    fireStore,
+    auth
+} from "../../firebase/init";
 import collections from "../../firebase/utils";
 import utils from "../../utility/utils";
 
@@ -9,10 +12,12 @@ export default {
     getters: {},
     mutations: {},
     actions: {
-        getUserSubscriptions: ({ state }) => {
+        getUserSubscriptions: ({
+            state
+        }) => {
             let fUser = localStorage.getItem("fUser") != null ? JSON.parse(localStorage.getItem("fUser")) : null;
             let userId = fUser.uid;
-            if(userId == "" || userId == null) {
+            if (userId == "" || userId == null) {
                 let userId = auth.currentUser.uid;
             }
             return new Promise(async resolve => {
@@ -22,7 +27,6 @@ export default {
                     .where("userId", "==", userId)
                     .where("isActive", "==", true);
 
-                console.log(userId);
                 let channelsQuerySnapshot = await channelsRef.get();
                 channelsQuerySnapshot.forEach(snapshot => {
                     channelsList.push(snapshot.data());
@@ -31,7 +35,11 @@ export default {
                 resolve(channelsList);
             });
         },
-        getUserChannelTrailers: ({ state }, { channelId }) => {
+        getUserChannelTrailers: ({
+            state
+        }, {
+            channelId
+        }) => {
             let userId = auth.currentUser.uid;
             return new Promise(async resolve => {
                 let trailersList = [];
@@ -42,13 +50,17 @@ export default {
 
                 let trailersQuerySnapshot = await trailersRef.get();
                 trailersQuerySnapshot.forEach(snapshot => {
-                   trailersList.push(utils.extractTrailerData(snapshot));
+                    trailersList.push(utils.extractTrailerData(snapshot));
                 });
 
                 resolve(trailersList);
             });
         },
-        getUserChannelVideos: ({ state }, { channelId }) => {
+        getUserChannelVideos: ({
+            state
+        }, {
+            channelId
+        }) => {
             let userId = auth.currentUser.uid;
             return new Promise(async resolve => {
                 let videosList = [];

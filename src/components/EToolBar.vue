@@ -230,7 +230,6 @@ export default {
       return store.getters.getUser == null;
     },
     hideSignUpContentCreator() {
-      // console.log(store.getters.getFUser.isContentCreator);
       return store.getters.getFUser != null
         ? store.getters.getFUser.isContentCreator
         : false;
@@ -286,12 +285,10 @@ export default {
     },
     searchPreviews() {
       this.sideNav = false;
-      console.log({ query: this.query });
       this.$router.push({
         name: "SearchPreviews",
         params: { query: this.query }
       });
-      console.log("pushed");
     },
     showPrivacyPolicy() {
       this.sideNav = false;

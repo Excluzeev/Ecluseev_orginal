@@ -135,7 +135,7 @@ export default {
         await trailerVideoRef.put(this.videoFile, metadata);
         trailerUrl = await trailerVideoRef.getDownloadURL();
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         this.show("TrailerUpload failed.");
       }
 
@@ -161,7 +161,7 @@ export default {
         this.showToast("Trailer Uploaded Successfully");
         this.$router.push({ name: "MyChannels" });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         this.showToast("Trailer Upload failed.");
       }
       this.processing = false;

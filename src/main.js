@@ -19,7 +19,9 @@ import "videojs-ima/dist/videojs.ima.css";
 import "videojs-contrib-ads/dist/videojs-contrib-ads";
 import "videojs-contrib-ads/dist/videojs-contrib-ads.css";
 
-import { auth } from "./firebase/init";
+import {
+  auth
+} from "./firebase/init";
 
 import Toasted from "vue-toasted";
 
@@ -37,24 +39,26 @@ Vue.component(
 Vue.loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js")
   .then(() => {
     // Script is loaded, do something
-    console.log("ima3 loaded");
+    // console.log("ima3 loaded");
   })
   .catch(() => {
     // Failed to fetch script
-    console.log("ima3 load failed");
+    // console.log("ima3 load failed");
   });
 
 Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
   .then(() => {
-    console.log("recaptcha loaded");
+    // console.log("recaptcha loaded");
   })
   .catch(() => {
-    console.log("recaptcha load failed");
+    // console.log("recaptcha load failed");
   });
 
 auth.onAuthStateChanged(user => {
   store.commit("setUser");
-  store.commit("fetchUser", { user });
+  store.commit("fetchUser", {
+    user
+  });
 });
 
 Vue.config.productionTip = false;
@@ -65,13 +69,17 @@ Vue.use(Toasted, {
 });
 Vue.mixin(titleMixin);
 
-import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  library
+} from "@fortawesome/fontawesome-svg-core";
 import {
   faTwitter,
   faFacebook,
   faInstagram
 } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+  FontAwesomeIcon
+} from "@fortawesome/vue-fontawesome";
 
 library.add(faTwitter, faFacebook, faInstagram);
 

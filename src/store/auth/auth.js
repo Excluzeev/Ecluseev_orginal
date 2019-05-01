@@ -1,5 +1,8 @@
 /* eslint-disable */
-import { fireStore, auth } from "../../firebase/init";
+import {
+  fireStore,
+  auth
+} from "../../firebase/init";
 import collections from "../../firebase/utils";
 import utils from "../../utility/utils";
 
@@ -13,17 +16,16 @@ export default {
   },
   mutations: {},
   actions: {
-    checkUser: ({ state }) => {
+    checkUser: ({
+      state
+    }) => {
       let userId = auth.currentUser.uid;
-      console.log("Check User");
       return new Promise(async resolve => {
         let userRef = fireStore
           .collection(collections.usersCollections)
           .doc(userId);
         let userSnap = await userRef.get();
         let userData = null;
-        console.log(userSnap.data());
-        console.log(userSnap.exists);
         if (userSnap.exists) {
           userData = utils.extractUserData(userSnap);
         }
@@ -33,18 +35,33 @@ export default {
         });
       });
     },
-    loginUser: ({ state, dispatch }, { email, password }) => {
+    loginUser: ({
+      state,
+      dispatch
+    }, {
+      email,
+      password
+    }) => {
       return new Promise(resolve => {
-        let errorData = { error: false, message: "Login Successful" };
+        let errorData = {
+          error: false,
+          message: "Login Successful"
+        };
         auth
           .signInWithEmailAndPassword(email, password)
           .then(() => {
-            errorData = { error: false, message: "Login Successful" };
+            errorData = {
+              error: false,
+              message: "Login Successful"
+            };
             dispatch('checkUser').then(userRecord => {
-              if(userRecord.exists) {
+              if (userRecord.exists) {
                 resolve(errorData);
               } else {
-                errorData = { error: true, message: "User not found. Please register." };
+                errorData = {
+                  error: true,
+                  message: "User not found. Please register."
+                };
                 resolve(errorData);
               }
             });
@@ -59,9 +76,20 @@ export default {
           });
       });
     },
-    signUpUser: ({ state, dispatch }, { email, password, firstName, lastName }) => {
+    signUpUser: ({
+      state,
+      dispatch
+    }, {
+      email,
+      password,
+      firstName,
+      lastName
+    }) => {
       return new Promise(resolve => {
-        let errorData = { error: false, message: "User SignUp Successful" };
+        let errorData = {
+          error: false,
+          message: "User SignUp Successful"
+        };
         auth
           .createUserWithEmailAndPassword(email, password)
           .then(async () => {
@@ -90,10 +118,13 @@ export default {
               });
             }
             dispatch('checkUser').then(userRecord => {
-              if(userRecord.exists) {
+              if (userRecord.exists) {
                 resolve(errorData);
               } else {
-                errorData = { error: true, message: "User not found. Please register." };
+                errorData = {
+                  error: true,
+                  message: "User not found. Please register."
+                };
                 resolve(errorData);
               }
             });
@@ -102,12 +133,20 @@ export default {
           .catch(error => {
             let errorCode = error.code;
             let errorMessage = error.message;
-            errorData = { error: true, message: errorMessage, code: errorCode };
+            errorData = {
+              error: true,
+              message: errorMessage,
+              code: errorCode
+            };
             resolve(errorData);
           });
       });
     },
-    resetPassword: ({ state }, { email }) => {
+    resetPassword: ({
+      state
+    }, {
+      email
+    }) => {
       return new Promise(resolve => {
         let data = {
           error: false,

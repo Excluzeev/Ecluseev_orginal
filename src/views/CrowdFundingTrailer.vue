@@ -192,9 +192,9 @@ export default {
     }
   },
   mounted() {
-    console.log(
-      "this is current player instance object " + this.$refs.videoPlayer.player
-    );
+    // console.log(
+    //   "this is current player instance object " + this.$refs.videoPlayer.player
+    // );
   },
   created() {
     this.registerStoreModule("trailers", trailerModule);
@@ -355,7 +355,6 @@ export default {
           prepareOptions
         )
         .then(response => {
-          console.log(response.data);
           if (response.data.responseEnvelope.ack != "Success") {
             this.subscribeProcessing = false;
             this.showToast("Payment Failed Please try later.");
@@ -367,7 +366,7 @@ export default {
         })
         .catch(error => {
           this.subscribeProcessing = false;
-          console.log(error);
+          // console.log(error);
         });
     },
     showToast(msg) {
@@ -415,8 +414,6 @@ export default {
       }
     },
     async doComment() {
-      console.log(this.commentText);
-
       let fUser = JSON.parse(
         localStorage.getItem("fUser") != null
           ? localStorage.getItem("fUser")

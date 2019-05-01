@@ -54,7 +54,7 @@ export default {
       })
       .catch(error => {
         this.processing = false;
-        console.log(error);
+        // console.log(error);
       })
       .finally(() => {
         this.processing = false;
