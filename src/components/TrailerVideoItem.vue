@@ -11,7 +11,7 @@
                 absolute
                 right
                 v-on="on"
-                style="background-color:rgba(0, 0, 0, 0.13);box-shadow:0px 0px 0px 0px;"
+                style="background-color:transparent;box-shadow:0px 0px 0px 0px;"
               >
                 <v-icon style="padding: 10px;">more_vert</v-icon>
               </v-btn>

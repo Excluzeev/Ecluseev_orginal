@@ -9,12 +9,10 @@
               alt="Excluzeev
             logo"
               src="../../assets/excluzeev_white.png"
-            />
+            >
             <v-card class="elevation-12">
               <v-toolbar dark color="white">
-                <v-toolbar-title class="blue--text lighten-1"
-                  >Reset Password</v-toolbar-title
-                >
+                <v-toolbar-title class="blue--text lighten-1">Reset Password</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form class="blue--text lighten-1">
@@ -39,13 +37,14 @@
                       :loading="processing"
                       :disabled="processing"
                       @click="loader = 'loading4'"
-                      >Reset Password
+                    >
+                      Reset Password
                       <template v-slot:loader>
                         <span class="custom-loader">
                           <v-icon light>cached</v-icon>
                         </span>
-                      </template></v-btn
-                    >
+                      </template>
+                    </v-btn>
                   </div>
                 </v-form>
               </v-card-text>

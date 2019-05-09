@@ -37,7 +37,7 @@
                   elementId="'invisibleRecaptcha1'"
                   badgePosition="'left'"
                   showBadgeMobile="false"
-                  showBadgeDesktop="true"
+                  showBadgeDesktop="false"
                   @recaptcha-callback="recaptchaCallback"
                 ></vue-programmatic-invisible-google-recaptcha>
 

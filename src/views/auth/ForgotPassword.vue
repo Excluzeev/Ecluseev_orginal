@@ -9,7 +9,7 @@
               alt="Excluzeev
             logo"
               src="../../assets/excluzeev_bottom_text.png"
-            />
+            >
 
             <v-card-text>
               <v-form class="lighten-1" @submit.prevent="isHuman">
@@ -27,7 +27,7 @@
                   elementId="'invisibleRecaptcha1'"
                   badgePosition="'left'"
                   showBadgeMobile="false"
-                  showBadgeDesktop="true"
+                  showBadgeDesktop="false"
                   @recaptcha-callback="recaptchaCallback"
                 ></vue-programmatic-invisible-google-recaptcha>
 
@@ -39,7 +39,8 @@
                     :loading="processing"
                     :disabled="processing"
                     @click="loader = 'loading4'"
-                    >Reset Password
+                  >
+                    Reset Password
                     <template v-slot:loader>
                       <span class="custom-loader">
                         <v-icon light>cached</v-icon>
@@ -53,9 +54,7 @@
               <div class="text-xs-center quick-sand-font">
                 Got the Password? &nbsp;
                 <a>
-                  <span class color="blue lighten-1" @click="goLogin"
-                    >Log in</span
-                  >
+                  <span class color="blue lighten-1" @click="goLogin">Log in</span>
                 </a>
               </div>
             </v-card-text>
@@ -137,23 +136,23 @@ export default {
     recaptchaCallback(token) {
       this.processing = true;
       axios
-              .post(
-                      "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
-                      {
-                        token: token
-                      }
-              )
-              .then(response => {
-                if (!response.data.error) {
-                  this.doSendEmail();
-                } else {
-                  this.showToast("Verification failed");
-                  this.processing = false;
-                }
-              })
-              .catch(() => {
-                this.processing = false;
-              })
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
+          {
+            token: token
+          }
+        )
+        .then(response => {
+          if (!response.data.error) {
+            this.doSendEmail();
+          } else {
+            this.showToast("Verification failed");
+            this.processing = false;
+          }
+        })
+        .catch(() => {
+          this.processing = false;
+        });
     },
     isHuman() {
       if (this.rules.email(this.email) != "Invalid e-mail.") {
