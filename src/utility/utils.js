@@ -23,7 +23,7 @@ export default {
       createdBy: data.createdBy != null ? data.createdBy : "",
       title: data.title != null ? data.title : "",
       description: data.description != null ? data.description : "",
-      image: "https://image.mux.com/" + data.playbackId + "/thumbnail.png",
+      image: "https://image.mux.com/" + data.playbackId + "/thumbnail.png?width=214&fit_mode=pad",
       channelImage: "https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F" +
         data.channelId +
         "%2Fthumbnail.jpg?alt=media",
@@ -79,7 +79,7 @@ export default {
       description: data.description != null ? data.description : "",
       image: "https://image.mux.com/" +
         data.playbackId +
-        "/thumbnail.png?token=" +
+        "/thumbnail.png?width=214&fit_mode=pad&token=" +
         data.imageToken,
       channelType: data.channelType != null ? data.channelType : "",
       streamKey: data.streamKey != null ? data.streamKey : "",
