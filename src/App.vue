@@ -4,13 +4,24 @@
     <v-content>
       <router-view :key="$route.fullPath"></router-view>
     </v-content>
-    <FooterComponent v-if="isNavBar"/>
+    <cookie-law theme="base">
+      <div slot="message">
+        This site uses cookies to provide you with great user experience. By
+        using excluzeev , you accept our
+        <span style="color:#03a9f4" @click="openCookiePolicy"
+          >Cookie Policy</span
+        >
+      </div>
+    </cookie-law>
+
+    <FooterComponent v-if="isNavBar" />
   </v-app>
 </template>
 
 <script>
 import EToolBar from "./components/EToolBar";
 import FooterComponent from "./components/FooterComponent";
+import CookieLaw from "vue-cookie-law";
 export default {
   name: "App",
   metaInfo: {
@@ -20,7 +31,13 @@ export default {
   title: "Excluzeev - Stream. Crowdfunding. Social Network",
   components: {
     FooterComponent,
-    EToolBar
+    EToolBar,
+    CookieLaw
+  },
+  methods: {
+    openCookiePolicy: function() {
+      window.open("https://excluzeev.com/cookie-policy", "_blank");
+    }
   },
   computed: {
     isNavBar() {
