@@ -11,7 +11,9 @@ import Login from "../views/auth/Login";
 import Registration from "../views/auth/Registration";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
-import { auth } from "../firebase/init";
+import {
+  auth
+} from "../firebase/init";
 import store from "../store/index";
 import AddVideo from "../views/AddVideo";
 import MySubscriptions from "../views/MySubscriptions";
@@ -43,8 +45,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "Home",
       component: Home,
@@ -397,8 +398,9 @@ router.beforeEach((to, from, next) => {
 
   if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
-  if (to.meta.noAuth == false) {
-    auth.onAuthStateChanged(user => {
+  auth.onAuthStateChanged(user => {
+
+    if (to.meta.noAuth == false) {
       if (user == null) {
         next(false);
         // this.$router.push({ name: "Login" });
@@ -409,10 +411,23 @@ router.beforeEach((to, from, next) => {
       } else {
         next();
       }
-    });
-  } else {
-    next();
-  }
+    } else {
+      console.log(to.path);
+      if (user && (to.path == "/login" || to.path == '/registration' || to.path == '/forgot-password')) {
+        next(false);
+        next({
+          name: "Home",
+          replace: true
+        });
+        location.reload();
+      } else {
+        next();
+      }
+    }
+
+  });
+
+
 });
 
 export default router;

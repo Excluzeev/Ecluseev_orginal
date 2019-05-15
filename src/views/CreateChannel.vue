@@ -40,6 +40,12 @@
                   v-model="description"
                   :rules="[rules.required]"
                 ></v-textarea>
+                <v-select
+                  v-model="selectedTierType"
+                  v-on:change="onTierTypeSelected"
+                  :items="tierTypes"
+                  label="Channel Tier"
+                ></v-select>
                 <v-text-field
                   v-if="this.selectedChannelType == 'VOD'"
                   v-model="price"
@@ -49,7 +55,7 @@
                   :min="minPrice"
                   :max="maxPrice"
                   prefix="$"
-                  :rules="[rules.required, rules.priceCheck]"
+                  :rules="[rules.required, this.selectedTierType == 'Tier 1' ? rules.priceCheck : rules.priceCheck2]"
                 ></v-text-field>
                 <v-text-field
                   v-if="this.selectedChannelType != 'VOD'"
@@ -161,6 +167,8 @@ export default {
       showChannelType: false,
       channelTypes: ["VOD", "CrowdFunding"],
       selectedChannelType: "VOD",
+      tierTypes: ["Tier 1", "Tier 2"],
+      selectedTierType: "Tier 1",
       price: 1,
       targetFund: 0,
       minPrice: 1,
@@ -175,6 +183,10 @@ export default {
             (number >= 1 && number <= 10) ||
             "Price must be between 0.99 and 10.0"
           );
+        },
+        priceCheck2: value => {
+          let number = Number(value);
+          return number >= 10 || "Price must be greater than 10.0";
         },
         counter: value => value.length <= 32 || "Maximum 32 characters",
         email: value => {
@@ -198,6 +210,7 @@ export default {
       this.coverFile = file;
       this.cover = URL.createObjectURL(this.coverFile);
     },
+    onTierTypeSelected(selected) {},
     onCategorySelected(selected) {
       if (selected.name == "Call-to-Action") {
         this.showChannelType = true;
@@ -287,6 +300,7 @@ export default {
         title: this.channelName,
         image: thumbnailUrl,
         coverImage: coverUrl,
+        tier: this.selectedTierType,
         createdDate: firebaseTimestamp.fromDate(new Date()),
         subscriberCount: 0,
         price: this.selectedChannelType == "CrowdFunding" ? 0 : this.price,
