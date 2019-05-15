@@ -33,7 +33,7 @@
 
                 <vue-programmatic-invisible-google-recaptcha
                   ref="invisibleRecaptcha1"
-                  sitekey="6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co"
+                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
                   elementId="'invisibleRecaptcha1'"
                   badgePosition="'left'"
                   showBadgeMobile="false"
@@ -120,7 +120,7 @@ import axios from "axios";
 //
 // // For more options see below
 // Vue.use(VueReCaptcha, {
-//   siteKey: "6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co",
+//   siteKey: "6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC",
 //   loaderOptions: {
 //     useRecaptchaNet: true,
 //     autoHideBadge: true
@@ -184,7 +184,7 @@ export default {
               this.processing = false;
               this.showToast("Sign in successfully");
               setTimeout(() => {
-                // this.$router.push({ name: "Home" });
+                this.$router.push({ name: "Home" });
               }, 1000);
             }
           });
@@ -219,6 +219,7 @@ export default {
           }
         )
         .then(response => {
+          // console.log(response);
           if (!response.data.error) {
             this.doLogin();
           } else {

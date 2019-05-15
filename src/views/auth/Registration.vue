@@ -64,7 +64,7 @@
 
                 <vue-programmatic-invisible-google-recaptcha
                   ref="invisibleRecaptcha2"
-                  sitekey="6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co"
+                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
                   elementId="invisibleRecaptcha2"
                   badgePosition="'left'"
                   showBadgeMobile="false"

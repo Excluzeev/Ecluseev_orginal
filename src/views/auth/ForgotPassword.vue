@@ -23,7 +23,7 @@
 
                 <vue-programmatic-invisible-google-recaptcha
                   ref="invisibleRecaptcha1"
-                  sitekey="6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co"
+                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
                   elementId="'invisibleRecaptcha1'"
                   badgePosition="'left'"
                   showBadgeMobile="false"
@@ -72,16 +72,16 @@ import authModule from "../../store/auth/auth";
 import axios from "axios";
 
 import Vue from "vue";
-import { VueReCaptcha } from "vue-recaptcha-v3";
+// import { VueReCaptcha } from "vue-recaptcha-v3";
 
-// For more options see below
-Vue.use(VueReCaptcha, {
-  siteKey: "6LcAGZoUAAAAAM5ZzNmJBStSpLk1nL3Y1pbQN6Co",
-  loaderOptions: {
-    useRecaptchaNet: true,
-    autoHideBadge: true
-  }
-});
+// // For more options see below
+// Vue.use(VueReCaptcha, {
+//   siteKey: "6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC",
+//   loaderOptions: {
+//     useRecaptchaNet: true,
+//     autoHideBadge: true
+//   }
+// });
 
 export default {
   data: () => {
