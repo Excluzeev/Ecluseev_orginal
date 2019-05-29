@@ -9,14 +9,6 @@
             </v-toolbar>
             <v-card-text>
               <v-form class="blue--text lighten-1" @submit.prevent="doSignUpContentCreator">
-                <v-text-field
-                  prepend-icon="person"
-                  name="PayPal Email"
-                  label="PayPal Email"
-                  type="text"
-                  v-model="email"
-                  :rules="[rules.required, rules.email]"
-                ></v-text-field>
                 <div style="padding-left:40px;padding-bottom:10px;">
                   <v-checkbox v-model="privacyPolicy" color="blue lighten-1" value="info">
                     <template v-slot:label>
@@ -53,7 +45,7 @@
                     :disabled="processing"
                     @click="loader = 'loading4'"
                   >
-                    Proceed
+                    Connect Stripe
                     <template v-slot:loader>
                       <span class="custom-loader">
                         <v-icon light>cached</v-icon>
@@ -93,7 +85,6 @@ import CommunityAgreement from "../components/CommunityAgreement";
 export default {
   data: () => {
     return {
-      email: "",
       privacyPolicy: false,
       termsCreator: false,
       dialog: false,
@@ -114,9 +105,9 @@ export default {
   },
   methods: {
     doSignUpContentCreator() {
-      if (this.rules.email(this.email) == "Invalid e-mail.") {
-        this.showToast("Invalid Email");
-      }
+      // if (this.rules.email(this.email) == "Invalid e-mail.") {
+      //   this.showToast("Invalid Email");
+      // }
       if (!this.privacyPolicy) {
         this.showToast("Please Check Privacy Policy");
         return;
@@ -127,19 +118,24 @@ export default {
       }
 
       this.processing = true;
-      this.$store
-        .dispatch("signUpContentCreator", { email: this.email })
-        .then(data => {
-          if (data.error) {
-            this.processing = false;
-            this.showToast("Invalid Login. Please Login again");
-            this.$router.push({ name: "Login" });
-          } else {
-            this.processing = false;
-            this.showToast("Success");
-            this.$router.push({ name: "MyChannels" });
-          }
-        });
+
+      // change those to live
+      window.location =
+        "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_F90HDO14vD97St5ir3scNmlL8b2DXiD1&scope=read_write";
+
+      // this.$store
+      //   .dispatch("signUpContentCreator", { email: this.email })
+      //   .then(data => {
+      //     if (data.error) {
+      //       this.processing = false;
+      //       this.showToast("Invalid Login. Please Login again");
+      //       this.$router.push({ name: "Login" });
+      //     } else {
+      //       this.processing = false;
+      //       this.showToast("Success");
+      //       this.$router.push({ name: "MyChannels" });
+      //     }
+      //   });
     },
     showPrivacyPolicy() {
       this.titleDialog = "Privacy Policy";

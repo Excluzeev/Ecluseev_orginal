@@ -36,6 +36,7 @@ import AboutUs from "../components/About";
 import SearchPreviews from "../views/SearchPreviews";
 import HowTo from "../views/HowTo";
 import ExcluzeevCharges from "../views/ExcluzeevCharges";
+import ConnectStripe from '../views/ConnectStripe';
 
 Vue.use(Meta);
 
@@ -55,19 +56,22 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/",
-      name: "Home",
-      component: Home,
+      path: '/connect',
+      name: "ConnectStripe",
+      component: ConnectStripe,
       meta: {
-        showNav: true,
+        noAuth: true,
+        showNav: false,
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
+
     },
     {
       path: "/trailer/:trailerId",
       name: "TrailerSingle",
       component: TrailerDetail,
       meta: {
+        noAuth: false,
         showNav: true,
         title: "Excluzeev Trailers"
       }
@@ -398,6 +402,10 @@ router.beforeEach((to, from, next) => {
 
   if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
+  // if (to.path == "/connect") {
+  //   next();
+  // } else {
+
   auth.onAuthStateChanged(user => {
 
     if (to.meta.noAuth == false) {
@@ -424,8 +432,8 @@ router.beforeEach((to, from, next) => {
         next();
       }
     }
-
   });
+  // }
 
 
 });

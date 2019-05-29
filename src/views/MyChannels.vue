@@ -1,13 +1,13 @@
 <template>
-  <v-container class="">
+  <v-container class>
     <div>
       <v-layout xs12>
         <h1 class="quick-sand-font-n">My Channels</h1>
         <v-spacer></v-spacer>
         <router-link right :to="{ name: 'CreateChannel' }">
           <v-btn color="primary" class="white--text quick-sand-font-b">
-            <v-icon left>add</v-icon>Create Channel</v-btn
-          >
+            <v-icon left>add</v-icon>Create Channel
+          </v-btn>
         </router-link>
       </v-layout>
       <v-layout xs12 row wrap>
@@ -28,24 +28,22 @@
                 params: { channelId: channel.channelId }
               }"
             >
-              <h3 class="padding">
-                {{ channel.title }}
-              </h3>
-              <p class="subscribers-count">
-                {{ channel.subscriberCount }} Subscribers
-              </p>
+              <h3 class="padding">{{ channel.title }}</h3>
+              <p class="subscribers-count">{{ channel.subscriberCount }} Subscribers</p>
 
               <div class="padding text-xs-center" justify-center>
-                <v-avatar :tile="tile" size="150px" color="grey lighten-4" :class="channel.isDeleted ? 'red' : ''">
-                  <img
-                    :src="channel.image"
-                    alt="avatar"
-                    v-if="!channel.isDeleted"
-                  />
-                  <div v-if="channel.isDeleted"  class="red">
-                    <div v-if="channel.isDeleted" class="white--text">
-                      Deletes in {{ getExpiry(channel.deleteOn) }} days
-                    </div>
+                <v-avatar
+                  :tile="tile"
+                  size="150px"
+                  color="grey lighten-4"
+                  :class="channel.isDeleted ? 'red' : ''"
+                >
+                  <img :src="channel.image" alt="avatar" v-if="!channel.isDeleted">
+                  <div v-if="channel.isDeleted" class="red">
+                    <div
+                      v-if="channel.isDeleted"
+                      class="white--text"
+                    >Deletes in {{ getExpiry(channel.deleteOn) }} days</div>
                   </div>
                 </v-avatar>
               </div>
@@ -53,7 +51,7 @@
           </v-card>
         </v-flex>
         <v-flex v-if="channelsList.length <= 0" class="text-xs-center">
-          <img  style="width: 80%" src="../assets/empty-create-channel.png" />
+          <img style="width: 80%" src="../assets/empty-create-channel.png">
         </v-flex>
       </v-layout>
     </div>
@@ -64,6 +62,8 @@
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import channelsModule from "../store/channels/channels";
 import moment from "moment";
+
+import { auth } from "../firebase/init";
 
 export default {
   name: "MyChannels",
@@ -84,7 +84,13 @@ export default {
       return moment(date.toDate()).diff(Date.now(), "day");
     }
   },
-  mounted() {
+  async mounted() {
+    if (this.$route.query.done) {
+      await this.$store.commit("forceFetchUser", {
+        user: auth.currentUser,
+        force: true
+      });
+    }
     this.$store.dispatch("channels/getChannels").then(data => {
       this.channelsList = data;
     });
