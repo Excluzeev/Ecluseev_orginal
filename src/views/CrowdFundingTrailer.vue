@@ -66,23 +66,37 @@
             block
             class="quick-sand-font-b white--text"
             color="teal"
-            @click="prepareSubscribe(25)"
+            @click="checkout(25)"
           >Donate 25$</v-btn>
           <v-btn
             block
             class="quick-sand-font-b white--text"
             color="teal"
-            @click="prepareSubscribe(50)"
+            @click="checkout(50)"
           >Donate 50$</v-btn>
           <v-btn
             block
             class="quick-sand-font-b white--text"
             color="teal"
-            @click="prepareSubscribe(100)"
+            @click="checkout(100)"
           >Donate 100$</v-btn>
         </div>
       </v-flex>
     </v-layout>
+
+    <vue-stripe-checkout
+      ref="checkoutRef"
+      name="Donate to Community"
+      description
+      currency="CAD"
+      :amount="donateAmount * 100"
+      :allow-remember-me="false"
+      @done="done"
+      @opened="opened"
+      @closed="closed"
+      @canceled="canceled"
+    ></vue-stripe-checkout>
+
     <v-layout>
       <!--Comments Section-->
       <v-flex xs12>
@@ -148,6 +162,7 @@ export default {
       donate5Processing: false,
       donate10Processing: false,
       commentsList: [],
+      donateAmount: 0,
       commentText: "",
       playerOptions: {
         overNative: true,
@@ -249,6 +264,35 @@ export default {
       });
   },
   methods: {
+    async checkout(donate) {
+      this.donateAmount = donate;
+      // token - is the token object
+      // args - is an object containing the billing and shipping address if enabled
+      console.log("Checkout");
+      const { token, args } = await this.$refs.checkoutRef.open();
+      console.log(token);
+      console.log(args);
+    },
+    done({ token, args }) {
+      // token - is the token object
+      // args - is an object containing the billing and shipping address if enabled
+      // do stuff...
+      console.log(token);
+      console.log(args);
+      this.prepareSubscribe(this.donateAmount, token);
+    },
+    opened() {
+      // do stuff
+      console.log("opened");
+    },
+    closed() {
+      // do stuff
+      console.log("Closed");
+    },
+    canceled() {
+      // do stuff
+      console.log("Canceled");
+    },
     playerIsReady(player) {
       // TODO(Karthik): Modify the adTagUrl
       // let options = {
@@ -331,7 +375,7 @@ export default {
         this.isUserLiked = false;
       }
     },
-    async prepareSubscribe(donate) {
+    async prepareSubscribe(donate, token) {
       if (auth.currentUser == null) {
         this.$router.push({ name: "Login" });
         return;
@@ -342,7 +386,8 @@ export default {
         userId: auth.currentUser.uid,
         isDesktop: true,
         redirectTo: "https://excluzeev.com/my-channels",
-        isDonate: true
+        isDonate: true,
+        token: token.id
       };
       this.subscribeProcessing = true;
       if (this.showDonateText) {
@@ -351,17 +396,27 @@ export default {
 
       axios
         .post(
-          "https://us-central1-trenstop-2033f.cloudfunctions.net/generatePayKey",
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/chargeAmount",
           prepareOptions
         )
         .then(response => {
-          if (response.data.responseEnvelope.ack != "Success") {
+          if (response.data.error) {
             this.subscribeProcessing = false;
             this.showToast("Payment Failed Please try later.");
+
+            window.location =
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentCanceled?subId=" +
+              response.data.subId +
+              "&donate=" +
+              this.showDonateField +
+              "&redirect=https://excluzeev.com/";
           } else {
             window.location =
-              "https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=" +
-              response.data.payKey;
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentSuccess?subId=" +
+              response.data.subId +
+              "&donate=" +
+              this.showDonateField +
+              "&redirect=https://excluzeev.com/my-channels";
           }
         })
         .catch(error => {

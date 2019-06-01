@@ -22,9 +22,7 @@
         </div>
         <v-layout class="padding" align-center justify-left row fill-height>
           <v-layout class="padding" align-left justify-left column fill-height>
-            <div class="title-details--text max-1-lines quick-sand-font-b">
-              {{ trailer.title }}
-            </div>
+            <div class="title-details--text max-1-lines quick-sand-font-b">{{ trailer.title }}</div>
             <div class="desc-details--text">{{ trailer.views }} views</div>
           </v-layout>
           <v-spacer></v-spacer>
@@ -35,16 +33,12 @@
           </a>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-              <v-icon v-bind:class="{ active: isNeutral }"
-                >sentiment_dissatisfied</v-icon
-              >
+              <v-icon v-bind:class="{ active: isNeutral }">sentiment_dissatisfied</v-icon>
             </div>
           </a>
           <a>
             <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-              <v-icon v-bind:class="{ active: isUserDisLiked }"
-                >thumb_down</v-icon
-              >
+              <v-icon v-bind:class="{ active: isUserDisLiked }">thumb_down</v-icon>
             </div>
           </a>
         </v-layout>
@@ -60,18 +54,13 @@
 
         <v-layout class="padding" justify-left fill-height>
           <div class="padding">
-            <img
-              class="channel-image square"
-              :src="trailer != null ? trailer.channelImage : ''"
-            />
+            <img class="channel-image square" :src="trailer != null ? trailer.channelImage : ''">
           </div>
           <v-flex class="padding">
             <v-layout align-center justify-left row>
               <v-layout align-left justify-left column fill-height>
                 <h2 class="quick-sand-font-b">{{ trailer.channelName }}</h2>
-                <span class="published--text"
-                  >Published {{ trailer.timeAgo }}</span
-                >
+                <span class="published--text">Published {{ trailer.timeAgo }}</span>
               </v-layout>
               <v-spacer></v-spacer>
             </v-layout>
@@ -93,7 +82,7 @@
               color="blue lighten-1"
               :loading="subscribeProcessing"
               :disabled="subscribeProcessing"
-              @click="prepareSubscribe"
+              @click="checkout"
               v-if="showSubscribeButton"
             >
               Join this Community &nbsp;
@@ -115,8 +104,7 @@
                 color="blue lighten-1"
                 @click="startDonate"
                 v-if="!showSubscribeButton && !showDonateField"
-                >Donate</v-btn
-              >
+              >Donate</v-btn>
             </v-flex>
 
             <v-flex xs12 md5 v-if="showDonateField">
@@ -135,34 +123,34 @@
                 class="white--text"
                 color="blue lighten-1"
                 @click="startDonatePayment"
-                >Donate</v-btn
-              >
+              >Donate</v-btn>
             </v-flex>
             <v-spacer></v-spacer>
             <v-flex xs12 md3 v-if="showDonateField" style="margin: 10px">
-              <v-btn
-                block
-                class="white--text"
-                color="blue lighten-1"
-                @click="cancelDonate"
-                >Cancel</v-btn
-              >
+              <v-btn block class="white--text" color="blue lighten-1" @click="cancelDonate">Cancel</v-btn>
             </v-flex>
           </v-layout>
         </div>
+
+        <vue-stripe-checkout
+          ref="checkoutRef"
+          name="Join Community"
+          description
+          currency="CAD"
+          :amount="channel.price * 100"
+          :allow-remember-me="false"
+          @done="done"
+          @opened="opened"
+          @closed="closed"
+          @canceled="canceled"
+        ></vue-stripe-checkout>
 
         <v-divider></v-divider>
 
         <!--Comments Section-->
         <div class="comment-holder padding">
           <div v-if="showComments">
-            <v-textarea
-              solo
-              label="Add a comment"
-              rows="1"
-              auto-grow
-              v-model="commentText"
-            ></v-textarea>
+            <v-textarea solo label="Add a comment" rows="1" auto-grow v-model="commentText"></v-textarea>
             <v-layout>
               <v-spacer></v-spacer>
               <v-btn
@@ -170,26 +158,19 @@
                 color="blue lighten-1"
                 :disabled="disabelComment"
                 @click="doComment"
-                >Comment</v-btn
-              >
+              >Comment</v-btn>
             </v-layout>
           </div>
           <div v-if="!showComments">
             <div class="logincomment text-xs-center">
               <p>
                 Please
-                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
-                  >sign in</router-link
-                >to comment
+                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">sign in</router-link>to comment
               </p>
             </div>
           </div>
           <v-flex class="padding" v-if="commentsList.length > 0">
-            <div
-              class="comment"
-              v-for="comment in commentsList"
-              v-bind:key="comment.commentId"
-            >
+            <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
               <h4>{{ comment.userName }}</h4>
               <div>{{ comment.comment }}</div>
               <p class="grey--text">{{ comment.timeAgo }}</p>
@@ -204,9 +185,7 @@
       </v-flex>
       <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
         <div style="width: 100%;">
-          <h2 class="quick-sand-font-n" style="padding-top: 5px;">
-            Related Trailers
-          </h2>
+          <h2 class="quick-sand-font-n" style="padding-top: 5px;">Related Trailers</h2>
           <TrailerDetailVideoItem
             v-for="trailer in catTrailersList"
             v-bind:key="trailer.trailerId"
@@ -231,6 +210,11 @@ import TrailerDetailVideoItem from "../components/TrailerDetailVideoItem";
 import moment from "moment";
 import "videojs-ima/dist/videojs.ima";
 import "videojs-ima/dist/videojs.ima.css";
+
+import Vue from "vue";
+import VueStripeCheckout from "vue-stripe-checkout";
+
+Vue.use(VueStripeCheckout, "pk_test_cf1l5xJI5WKEBPCKbYRRKnLB00FKzaOcN5");
 
 export default {
   name: "TrailerDetails",
@@ -442,7 +426,7 @@ export default {
         this.isUserLiked = false;
       }
     },
-    async prepareSubscribe(donate) {
+    async prepareSubscribe(donate, token) {
       if (auth.currentUser == null) {
         this.$router.push({ name: "Login" });
         return;
@@ -453,7 +437,8 @@ export default {
         userId: auth.currentUser.uid,
         isDesktop: true,
         redirectTo: "https://excluzeev.com/my-channels",
-        isDonate: this.showDonateField
+        isDonate: this.showDonateField,
+        token: token.id
       };
       this.subscribeProcessing = true;
       if (this.showDonateField) {
@@ -462,17 +447,26 @@ export default {
 
       axios
         .post(
-          "https://us-central1-trenstop-2033f.cloudfunctions.net/generatePayKey",
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/chargeAmount",
           prepareOptions
         )
         .then(response => {
-          if (response.data.responseEnvelope.ack != "Success") {
+          if (response.data.error) {
             this.subscribeProcessing = false;
             this.showToast("Payment Failed Please try later.");
+            window.location =
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentCanceled?subId=" +
+              response.data.subId +
+              "&donate=" +
+              this.showDonateField +
+              "&redirect=https://excluzeev.com/";
           } else {
             window.location =
-              "https://www.sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey=" +
-              response.data.payKey;
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentSuccess?subId=" +
+              response.data.subId +
+              "&donate=" +
+              this.showDonateField +
+              "&redirect=https://excluzeev.com/my-channels";
           }
         })
         .catch(error => {
@@ -578,6 +572,34 @@ export default {
         });
         this.commentsList = commentsList;
       });
+    },
+    async checkout() {
+      // token - is the token object
+      // args - is an object containing the billing and shipping address if enabled
+      console.log("Checkout");
+      const { token, args } = await this.$refs.checkoutRef.open();
+      console.log(token);
+      console.log(args);
+    },
+    done({ token, args }) {
+      // token - is the token object
+      // args - is an object containing the billing and shipping address if enabled
+      // do stuff...
+      console.log(token);
+      console.log(args);
+      this.prepareSubscribe(this.donateAmount, token);
+    },
+    opened() {
+      // do stuff
+      console.log("opened");
+    },
+    closed() {
+      // do stuff
+      console.log("Closed");
+    },
+    canceled() {
+      // do stuff
+      console.log("Canceled");
     },
     startDonate() {
       this.showDonateField = true;

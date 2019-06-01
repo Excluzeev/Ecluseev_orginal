@@ -34,6 +34,7 @@
     "vue-recaptcha-v3": "^1.4.0",
     "vue-router": "^3.0.1",
     "vue-snotify": "^3.2.1",
+    "vue-stripe-checkout": "^1.2.6",
     "vue-toasted": "^1.1.26",
     "vue-video-player": "^5.0.2",
     "vuetify": "^1.5.7",
