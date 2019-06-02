@@ -1,4 +1,6 @@
-import { fireStore } from "../../firebase/init";
+import {
+  fireStore
+} from "../../firebase/init";
 import collections from "../../firebase/utils";
 import utils from "../../utility/utils";
 
@@ -16,7 +18,9 @@ export default {
           .then(querySnapshot => {
             let categories = [];
             querySnapshot.forEach(doc => {
-              categories.push(utils.extractCategoryData(doc));
+              if (doc.data().name != "Call-to-Action") {
+                categories.push(utils.extractCategoryData(doc));
+              }
             });
             // commit("addNewCategoryTrailers", catTrailers);
             resolve(categories);
