@@ -79,11 +79,11 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/category/",
+      path: "/category",
       name: "SingleCategory",
       component: SingleCategory,
       meta: {
-        noAuth: false,
+        noAuth: true,
         showNav: true,
         title: "Excluzeev Trailers"
       }
@@ -422,6 +422,7 @@ router.beforeEach((to, from, next) => {
 
     if (to.meta.noAuth == false) {
       if (user == null) {
+        console.log("force redirect");
         next(false);
         // this.$router.push({ name: "Login" });
         next({

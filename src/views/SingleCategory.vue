@@ -26,7 +26,6 @@ export default {
   },
   created() {
     let cat = this.$route.query.category;
-    console.log(cat);
     if (cat.includes(",")) {
       cat = cat.split(",");
 
@@ -34,8 +33,6 @@ export default {
     } else {
       this.categories.push(cat);
     }
-    console.log(this.categories);
-    // this.fetchCategoryTrailers("VGf1Xq2czICWnIHdg6Pz", "Comedy");
   }
 };
 </script>

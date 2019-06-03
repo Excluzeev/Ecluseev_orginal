@@ -44,8 +44,6 @@ export default {
           catId: categoryId,
           catName: categoryName
         };
-        console.log(categoryId);
-        console.log(categoryName);
         let query;
         if (categoryId != undefined) {
           query = fireStore
