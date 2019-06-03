@@ -34,6 +34,11 @@
           </v-list-tile-avatar>
           <v-list-tile-title class="quick-sand-font">Create Channel</v-list-tile-title>
         </v-list-tile>
+
+        <v-list-tile @click="goCallToAction">
+          <v-list-tile-title class="quick-sand-font mr-2">Call to Action</v-list-tile-title>
+        </v-list-tile>
+
         <v-list-tile @click="goToSubscriptions" v-if="!showLogin">
           <v-list-tile-title class="quick-sand-font mr-2">My Communities</v-list-tile-title>
         </v-list-tile>
@@ -131,6 +136,15 @@
             </v-list-tile>
           </v-list>
         </v-menu>
+
+        <router-link
+          style="padding-top: 20px;"
+          :to="{ name: 'SingleCategory', query: { category: 'Call-to-Action' }}"
+        >
+          <v-btn flat>
+            <span class="mr-2">Call to Action</span>
+          </v-btn>
+        </router-link>
 
         <router-link style="padding-top: 20px;" :to="{ name: 'MySubscriptions' }" v-if="!showLogin">
           <v-btn flat>
@@ -262,6 +276,12 @@ export default {
         this.$router.push({ name: "SignUpCC" });
         return;
       }
+    },
+    goCallToAction() {
+      this.$router.push({
+        name: "SingleCategory",
+        query: { category: "Call-to-Action" }
+      });
     },
     goLoginLive() {
       if (this.showLogin) {

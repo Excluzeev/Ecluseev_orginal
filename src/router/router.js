@@ -37,6 +37,8 @@ import SearchPreviews from "../views/SearchPreviews";
 import HowTo from "../views/HowTo";
 import ExcluzeevCharges from "../views/ExcluzeevCharges";
 import ConnectStripe from '../views/ConnectStripe';
+// import SingleCategory from '.../views/SingleCategory';
+import SingleCategory from '../views/SingleCategory';
 
 Vue.use(Meta);
 
@@ -70,6 +72,16 @@ const router = new VueRouter({
       path: "/trailer/:trailerId",
       name: "TrailerSingle",
       component: TrailerDetail,
+      meta: {
+        noAuth: false,
+        showNav: true,
+        title: "Excluzeev Trailers"
+      }
+    },
+    {
+      path: "/category/",
+      name: "SingleCategory",
+      component: SingleCategory,
       meta: {
         noAuth: false,
         showNav: true,

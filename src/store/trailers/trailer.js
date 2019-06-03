@@ -44,11 +44,22 @@ export default {
           catId: categoryId,
           catName: categoryName
         };
-        fireStore
-          .collection(collections.trailerCollection)
-          .where("categoryId", "==", categoryId)
-          .orderBy("createdDate", "desc")
-          .get()
+        console.log(categoryId);
+        console.log(categoryName);
+        let query;
+        if (categoryId != undefined) {
+          query = fireStore
+            .collection(collections.trailerCollection)
+            .where("categoryId", "==", categoryId)
+            .orderBy("createdDate", "desc");
+        } else {
+          query = fireStore
+            .collection(collections.trailerCollection)
+            .where("categoryName", "==", categoryName)
+            .orderBy("createdDate", "desc")
+        }
+
+        query.get()
           .then(querySnapshot => {
             let trailers = [];
             querySnapshot.forEach(doc => {
