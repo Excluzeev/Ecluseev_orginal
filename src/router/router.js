@@ -62,7 +62,7 @@ const router = new VueRouter({
       name: "ConnectStripe",
       component: ConnectStripe,
       meta: {
-        noAuth: true,
+        noEntry: true,
         showNav: false,
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
@@ -73,7 +73,7 @@ const router = new VueRouter({
       name: "TrailerSingle",
       component: TrailerDetail,
       meta: {
-        noAuth: false,
+        noEntry: false,
         showNav: true,
         title: "Excluzeev Trailers"
       }
@@ -83,7 +83,7 @@ const router = new VueRouter({
       name: "SingleCategory",
       component: SingleCategory,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: true,
         title: "Excluzeev Trailers"
       }
@@ -93,7 +93,7 @@ const router = new VueRouter({
       name: "Login",
       component: Login,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: "Excluzeev Login"
       }
@@ -115,7 +115,7 @@ const router = new VueRouter({
       component: Registration,
       meta: {
         title: "Excluzeev Registration",
-        noAuth: true,
+        noEntry: false,
         showNav: false
       }
     },
@@ -124,7 +124,7 @@ const router = new VueRouter({
       name: "ForgotPassword",
       component: ForgotPassword,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: "Excluzeev Forgot Password"
       }
@@ -134,7 +134,7 @@ const router = new VueRouter({
       name: "ResetPassword",
       component: ResetPassword,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: "Excluzeev Reset Password"
       }
@@ -144,7 +144,7 @@ const router = new VueRouter({
       name: "SignUpCC",
       component: SignUpCC,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "Sign up as content creator"
       }
@@ -154,7 +154,7 @@ const router = new VueRouter({
       name: "CreateChannel",
       component: CreateChannel,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "Create a Channel"
       }
@@ -164,7 +164,7 @@ const router = new VueRouter({
       name: "MyChannels",
       component: MyChannels,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "My Channels"
       }
@@ -174,7 +174,7 @@ const router = new VueRouter({
       name: "MyChannelDetails",
       component: MyChannelDetails,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "My Channels Details"
       }
@@ -184,7 +184,7 @@ const router = new VueRouter({
       name: "AddTrailer",
       component: AddTrailer,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "Add a trailer"
       },
@@ -197,7 +197,7 @@ const router = new VueRouter({
       name: "AddVideo",
       component: AddVideo,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "Add a Video"
       },
@@ -210,7 +210,7 @@ const router = new VueRouter({
       name: "AddExcluzeev",
       component: AddLive,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "Excluzeev Live"
       },
@@ -232,7 +232,7 @@ const router = new VueRouter({
       name: "VideoSingle",
       component: VideoDetail,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "Excluzeev Videos"
       }
@@ -260,7 +260,7 @@ const router = new VueRouter({
       name: "LiveSingle",
       component: LiveDetail,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "Excluzeev Videos"
       }
@@ -270,7 +270,7 @@ const router = new VueRouter({
       name: "MySubscriptions",
       component: MySubscriptions,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "My Subscriptions"
       }
@@ -280,7 +280,7 @@ const router = new VueRouter({
       name: "SubscribedChannelDetails",
       component: SubscribedChannelDetails,
       meta: {
-        noAuth: false,
+        noEntry: true,
         showNav: true,
         title: "Channels Details"
       },
@@ -293,7 +293,7 @@ const router = new VueRouter({
       name: "Crowd",
       component: DCrowd,
       meta: {
-        noAuth: false,
+        noEntry: false,
         showNav: true,
         title: "Crowd Funding"
       }
@@ -303,7 +303,7 @@ const router = new VueRouter({
       name: "PrivacyPolicy",
       component: PrivacyPolicy,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: ""
       }
@@ -313,7 +313,7 @@ const router = new VueRouter({
       name: "ContentCreator",
       component: ContentCreator,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: ""
       }
@@ -323,7 +323,7 @@ const router = new VueRouter({
       name: "ExcluzeevCharges",
       component: ExcluzeevCharges,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: "Excluzeev Pricing information"
       }
@@ -333,7 +333,7 @@ const router = new VueRouter({
       name: "LicenseAgreement",
       component: LicenseAgreement,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: ""
       }
@@ -343,7 +343,7 @@ const router = new VueRouter({
       name: "CookiePolicy",
       component: CookiePolicy,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: ""
       }
@@ -353,7 +353,7 @@ const router = new VueRouter({
       name: "CommunityAgreement",
       component: CommunityAgreement,
       meta: {
-        noAuth: false,
+        noEntry: false,
         showNav: false,
         title: ""
       }
@@ -363,7 +363,7 @@ const router = new VueRouter({
       name: "Faqs",
       component: FAQs,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: "FAQ's"
       }
@@ -373,7 +373,7 @@ const router = new VueRouter({
       name: "AboutUs",
       component: AboutUs,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: false,
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
@@ -383,7 +383,7 @@ const router = new VueRouter({
       name: "HowTo",
       component: HowTo,
       meta: {
-        noAuth: true,
+        noEntry: false,
         showNav: true,
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
@@ -419,8 +419,11 @@ router.beforeEach((to, from, next) => {
   // } else {
 
   auth.onAuthStateChanged(user => {
+    console.log(to.meta.noEntry);
+    console.log(to.path);
+    console.log(user);
 
-    if (to.meta.noAuth == false) {
+    if (to.meta.noEntry == true) {
       if (user == null) {
         console.log("force redirect");
         next(false);
@@ -445,8 +448,13 @@ router.beforeEach((to, from, next) => {
         next();
       }
     }
+  }, error => {
+    console.log(error);
+    next({
+      name: "Home",
+      replace: true
+    });
   });
-  // }
 
 
 });
