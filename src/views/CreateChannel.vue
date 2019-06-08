@@ -214,6 +214,7 @@ export default {
     onCategorySelected(selected) {
       if (selected.name == "Call-to-Action") {
         this.showChannelType = true;
+        this.selectedChannelType = "CrowdFunding"
       } else {
         this.showChannelType = false;
         this.selectedChannelType = "VOD";
