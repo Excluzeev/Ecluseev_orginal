@@ -21,7 +21,6 @@
           <div class="nav-c t1824">{{ trailer.description }}</div>
         </div>
       </v-flex>
-      <v-flex xs3></v-flex>
     </v-layout>
     <v-layout row></v-layout>
     <v-layout row wrap>
@@ -42,7 +41,7 @@
       <v-flex>
         <v-spacer></v-spacer>
       </v-flex>
-      <v-flex xs12 md4>
+      <v-flex xs12 md3>
         <v-progress-linear
           color="teal"
           height="5"
@@ -62,25 +61,28 @@
           <!--13-->
           <!--</p>-->
           <!--<p class="nav-c t1824">days to go</p>-->
-          <v-btn
-            block
-            class="quick-sand-font-b white--text"
-            color="teal"
-            @click="checkout(25)"
-          >Donate 25$</v-btn>
-          <v-btn
-            block
-            class="quick-sand-font-b white--text"
-            color="teal"
-            @click="checkout(50)"
-          >Donate 50$</v-btn>
-          <v-btn
-            block
-            class="quick-sand-font-b white--text"
-            color="teal"
-            @click="checkout(100)"
-          >Donate 100$</v-btn>
         </div>
+      </v-flex>
+    </v-layout>
+
+    <v-layout row wrap v-if="channel != null">
+      <v-flex xs12 sm6 md4 v-for="tier in channel.tiers" v-bind:key="tier">
+        <v-card color="blue-grey darken-2" class="white--text">
+          <v-card-title primary-title>
+            <div>
+              <div class="headline">{{tier.tier}}</div>
+              <span>{{tier.description}}</span>
+            </div>
+          </v-card-title>
+          <v-card-text>
+            <v-btn
+              block
+              class="quick-sand-font-b white--text"
+              color="teal"
+              @click="checkout(tier.price)"
+            >{{tier.tier}} - {{tier.price}}$</v-btn>
+          </v-card-text>
+        </v-card>
       </v-flex>
     </v-layout>
 
