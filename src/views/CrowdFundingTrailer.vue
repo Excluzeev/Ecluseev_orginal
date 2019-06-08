@@ -62,27 +62,36 @@
           <!--</p>-->
           <!--<p class="nav-c t1824">days to go</p>-->
         </div>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap v-if="channel != null">
-      <v-flex xs12 sm6 md4 v-for="tier in channel.tiers" v-bind:key="tier">
-        <v-card color="blue-grey darken-2" class="white--text">
-          <v-card-title primary-title>
-            <div>
-              <div class="headline">{{tier.tier}}</div>
-              <span>{{tier.description}}</span>
-            </div>
-          </v-card-title>
-          <v-card-text>
-            <v-btn
-              block
-              class="quick-sand-font-b white--text"
-              color="teal"
-              @click="checkout(tier.price)"
-            >{{tier.tier}} - {{tier.price}}$</v-btn>
-          </v-card-text>
-        </v-card>
+        <div xs12 row wrap v-if="channel != null">
+          <v-expansion-panel
+            class="margin"
+            popout
+            xs12
+            v-for="tier in channel.tiers"
+            v-bind:key="tier"
+          >
+            <v-expansion-panel-content>
+              <template v-slot:header class="card-shadow">
+                <div class="headline">Join {{tier.tier}}</div>
+              </template>
+              <v-card color="primary darken-2" class="white--text">
+                <v-card-title primary-title>
+                  <div>
+                    <span>{{tier.description}}</span>
+                  </div>
+                </v-card-title>
+                <v-card-text>
+                  <v-btn
+                    block
+                    class="quick-sand-font-b white--text"
+                    color="teal"
+                    @click="checkout(tier.price)"
+                  >{{tier.tier}} - {{tier.price}}$</v-btn>
+                </v-card-text>
+              </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </div>
       </v-flex>
     </v-layout>
 
@@ -528,4 +537,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.margin {
+  margin: 5px 2px;
+}
+.card-shadow {
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+</style>
