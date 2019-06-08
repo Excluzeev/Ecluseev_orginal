@@ -18,13 +18,6 @@
                   item-value="id"
                   return-object
                 ></v-select>
-                <v-select
-                  v-if="showChannelType"
-                  v-model="selectedChannelType"
-                  v-on:change="onChannelTypeSelected"
-                  :items="channelTypes"
-                  label="Channel Type"
-                ></v-select>
                 <v-text-field
                   name="Channel Name"
                   label="Channel Name"
@@ -164,8 +157,6 @@ export default {
       cover: null,
       coverFile: null,
       categories: [],
-      showChannelType: false,
-      channelTypes: ["VOD", "CrowdFunding"],
       selectedChannelType: "VOD",
       tierTypes: ["Tier 1", "Tier 2"],
       selectedTierType: "Tier 1",
@@ -213,15 +204,10 @@ export default {
     onTierTypeSelected(selected) {},
     onCategorySelected(selected) {
       if (selected.name == "Call-to-Action") {
-        this.showChannelType = true;
-        this.selectedChannelType = "CrowdFunding"
+        this.selectedChannelType = "CrowdFunding";
       } else {
-        this.showChannelType = false;
         this.selectedChannelType = "VOD";
       }
-    },
-    onChannelTypeSelected() {
-      // perform target fund and price
     },
     async doCreateChannel() {
       if (this.categorySelected == null || this.categorySelected.isEmpty) {
