@@ -214,7 +214,9 @@ import "videojs-ima/dist/videojs.ima.css";
 import Vue from "vue";
 import VueStripeCheckout from "vue-stripe-checkout";
 
-Vue.use(VueStripeCheckout, "pk_test_cf1l5xJI5WKEBPCKbYRRKnLB00FKzaOcN5");
+// Vue.use(VueStripeCheckout, "pk_test_cf1l5xJI5WKEBPCKbYRRKnLB00FKzaOcN5");
+
+Vue.use(VueStripeCheckout, "pk_live_s20gmEBa8ovLkyFvYBSWMxDJ00LGR5TSeG");
 
 export default {
   name: "TrailerDetails",

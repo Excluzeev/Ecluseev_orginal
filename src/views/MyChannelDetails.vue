@@ -7,7 +7,7 @@
           '%2Fcover.jpg?alt=media'
       "
       style="width: 100%; height: 150px; object-fit: cover;"
-    />
+    >
     <v-layout row wrap xs12 text-xs-center class="padding">
       <v-avatar :tile="tile" size="100px" color="grey lighten-4">
         <img
@@ -17,13 +17,11 @@
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"
-        />
+        >
       </v-avatar>
       <div class="channel-details padding">
         <h2 class="quick-sand-font-b">{{ channel.title }}</h2>
-        <p class="subscribers-count">
-          {{ channel.subscriberCount }} Subscribers
-        </p>
+        <p class="subscribers-count">{{ channel.subscriberCount }} Subscribers</p>
       </div>
       <v-spacer></v-spacer>
       <div>
@@ -32,24 +30,22 @@
           :to="{ name: 'AddVideo', params: { channelData: channel } }"
         >
           <v-btn color="primary" class="white--text quick-sand-font-b">
-            <v-icon left>add</v-icon>Add Video</v-btn
-          >
+            <v-icon left>add</v-icon>Add Video
+          </v-btn>
         </router-link>
         <router-link
           v-if="!channel.isDeleted"
           :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
         >
-          <v-btn color="primary" class="white--text  quick-sand-font-b">
-            <v-icon left>add</v-icon>Excluzeev Live</v-btn
-          >
+          <v-btn color="primary" class="white--text quick-sand-font-b">
+            <v-icon left>add</v-icon>Excluzeev Live
+          </v-btn>
         </router-link>
         <v-btn
           color="primary"
           class="white--text quick-sand-font-b"
           @click="getSubscribers"
-        >
-          Subscribers</v-btn
-        >
+        >Subscribers</v-btn>
         <v-btn
           v-if="!channel.isDeleted"
           color="red"
@@ -57,13 +53,13 @@
           center
           @click="deleteDialog = true"
         >
-          <v-icon left>delete</v-icon>Delete Channel</v-btn
-        >
+          <v-icon left>delete</v-icon>Delete Channel
+        </v-btn>
       </div>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
       <h1 class="quick-sand-font-b">Trailer</h1>
-      <br />
+      <br>
       <v-layout xs12 row wrap>
         <v-flex
           class="trailer-item"
@@ -74,14 +70,14 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer" />
+          <TrailerVideoItem :trailer="trailer"/>
         </v-flex>
       </v-layout>
     </div>
     <div class="padding"></div>
     <div v-if="!(videosList.length == 0)">
       <h1 class="quick-sand-font-b">Videos</h1>
-      <br />
+      <br>
       <v-layout xs12 row wrap>
         <v-flex
           class="video-item"
@@ -92,16 +88,14 @@
           v-for="video in videosList"
           v-bind:key="video.videoId"
         >
-          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted" />
+          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted"/>
         </v-flex>
       </v-layout>
     </div>
     <!--<v-layout>-->
     <v-dialog v-model="dialog">
       <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>
-          Subscribers List
-        </v-card-title>
+        <v-card-title class="headline grey lighten-2" primary-title>Subscribers List</v-card-title>
         <v-list two-line v-if="!subscriberLoading && !subscriberEmpty">
           <v-list-tile
             v-for="(subscriber, index) in subscribersList"
@@ -109,29 +103,19 @@
           >
             <!--<v-divider v-if="index != 0" :key="index"></v-divider>-->
             <v-list-tile-content>
-              <v-list-tile-title>{{ subscriber.userName }}</v-list-tile-title>
-              <v-list-tile-sub-title>
-                {{ subscriber.daysLeft }}
-              </v-list-tile-sub-title>
+              <v-list-tile-title>{{ subscriber.userName }} - {{ subscriber.email }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ subscriber.daysLeft }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
 
-        <v-card-text v-if="subscriberEmpty">
-          No Subscribers yet.
-        </v-card-text>
+        <v-card-text v-if="subscriberEmpty">No Subscribers yet.</v-card-text>
 
-        <v-progress-circular
-          v-if="subscriberLoading"
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
+        <v-progress-circular v-if="subscriberLoading" indeterminate color="primary"></v-progress-circular>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="dialog = false">
-            Close
-          </v-btn>
+          <v-btn color="primary" flat @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -139,21 +123,16 @@
     <v-layout row justify-center>
       <v-dialog v-model="deleteDialog" persistent max-width="320">
         <v-card>
-          <v-card-title class="headline"
-            >Do you want to delete the channel?</v-card-title
-          >
+          <v-card-title class="headline">Do you want to delete the channel?</v-card-title>
           <v-card-text>
-            Do you really want to delete the channel? <br />Users will have a 30
-            days notice period.</v-card-text
-          >
+            Do you really want to delete the channel?
+            <br>Users will have a 30
+            days notice period.
+          </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary darken-1" flat @click="deleteDialog = false"
-              >Dont Delete</v-btn
-            >
-            <v-btn color="primary darken-1" flat @click="deleteChannel"
-              >Delete</v-btn
-            >
+            <v-btn color="primary darken-1" flat @click="deleteDialog = false">Dont Delete</v-btn>
+            <v-btn color="primary darken-1" flat @click="deleteChannel">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

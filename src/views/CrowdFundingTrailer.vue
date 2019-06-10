@@ -74,7 +74,7 @@
               <template v-slot:header class="card-shadow">
                 <div class="headline">Join {{tier.tier}}</div>
               </template>
-              <v-card color="primary darken-2" class="white--text">
+              <v-card color class>
                 <v-card-title primary-title>
                   <div>
                     <span>{{tier.description}}</span>
@@ -418,15 +418,13 @@ export default {
             window.location =
               "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentCanceled?subId=" +
               response.data.subId +
-              "&donate=" +
-              this.showDonateField +
+              "&donate=true" +
               "&redirect=https://excluzeev.com/";
           } else {
             window.location =
               "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentSuccess?subId=" +
               response.data.subId +
-              "&donate=" +
-              this.showDonateField +
+              "&donate=true" +
               "&redirect=https://excluzeev.com/my-channels";
           }
         })
