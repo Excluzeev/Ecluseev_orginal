@@ -186,7 +186,7 @@ const router = new VueRouter({
       meta: {
         noEntry: true,
         showNav: true,
-        title: "Add a trailer"
+        title: "Add a preview"
       },
       props: route => ({
         ...route.params

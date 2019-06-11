@@ -21,8 +21,8 @@
                 ></v-select>
                 <!-- Channel Name -->
                 <v-text-field
-                  name="Channel Name"
-                  label="Channel Name"
+                  :name="this.selectedChannelType == 'VOD' ? 'Channel Name' : 'Title'"
+                  :label="this.selectedChannelType == 'VOD' ? 'Channel Name' : 'Title'"
                   type="text"
                   counter
                   v-model="channelName"
@@ -76,21 +76,21 @@
                     </v-checkbox>
                     <!-- V-if tier 1 selected -->
                     <div v-if="selectedTiers[0]">
-                      <!-- Tier1 Price -->
+                      <!-- Tier 1 Price -->
                       <v-text-field
                         v-model="tierPrices[0]"
-                        label="Tier1 Price"
+                        label="Tier 1 Price"
                         :value="tierPrices[0]"
                         type="number"
                         :min="minPrice"
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier1 Description -->
+                      <!-- Tier 1 Description -->
                       <v-textarea
                         class="blue--text"
-                        name="Tier1 Description"
-                        label="Tier1 Description"
+                        name="Tier 1 Description"
+                        label="Tier 1 Description"
                         v-model="tierDescriptions[0]"
                         :rules="[rules.required]"
                       ></v-textarea>
@@ -109,21 +109,21 @@
                     </v-checkbox>
                     <!-- V-if tier 2 selected -->
                     <div v-if="selectedTiers[1]">
-                      <!-- Tier2 Price -->
+                      <!-- Tier 2 Price -->
                       <v-text-field
                         v-model="tierPrices[1]"
-                        label="Tier2 Price"
+                        label="Tier 2 Price"
                         :value="tierPrices[1]"
                         type="number"
                         :min="minPrice"
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier1 Description -->
+                      <!-- Tier 2 Description -->
                       <v-textarea
                         class="blue--text"
-                        name="Tier1 Description"
-                        label="Tier1 Description"
+                        name="Tier 2 Description"
+                        label="Tier 2 Description"
                         v-model="tierDescriptions[1]"
                         :rules="[rules.required]"
                       ></v-textarea>
@@ -145,18 +145,18 @@
                       <!-- Tier3 Price -->
                       <v-text-field
                         v-model="tierPrices[2]"
-                        label="Tier3 Price"
+                        label="Tier 3 Price"
                         :value="tierPrices[2]"
                         type="number"
                         :min="minPrice"
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier2 Description -->
+                      <!-- Tier 3 Description -->
                       <v-textarea
                         class="blue--text"
-                        name="Tier2 Description"
-                        label="Tier2 Description"
+                        name="Tier 3 Description"
+                        label="Tier 3 Description"
                         v-model="tierDescriptions[2]"
                         :rules="[rules.required]"
                       ></v-textarea>
@@ -178,18 +178,18 @@
                       <!-- Tier4 Price -->
                       <v-text-field
                         v-model="tierPrices[3]"
-                        label="Tier4 Price"
+                        label="Tier 4 Price"
                         :value="tierPrices[3]"
                         type="number"
                         :min="minPrice"
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier3 Description -->
+                      <!-- Tier4 Description -->
                       <v-textarea
                         class="blue--text"
-                        name="Tier3 Description"
-                        label="Tier3 Description"
+                        name="Tier 4 Description"
+                        label="Tier 4 Description"
                         v-model="tierDescriptions[3]"
                         :rules="[rules.required]"
                       ></v-textarea>
@@ -211,7 +211,7 @@
                       <!-- Tier5 Price -->
                       <v-text-field
                         v-model="tierPrices[4]"
-                        label="Tier5 Price"
+                        label="Tier 5 Price"
                         :value="tierPrices[4]"
                         type="number"
                         :min="minPrice"
@@ -221,8 +221,8 @@
                       <!-- Tier4 Description -->
                       <v-textarea
                         class="blue--text"
-                        name="Tier4 Description"
-                        label="Tier4 Description"
+                        name="Tier 5 Description"
+                        label="Tier 5 Description"
                         v-model="tierDescriptions[4]"
                         :rules="[rules.required]"
                       ></v-textarea>
