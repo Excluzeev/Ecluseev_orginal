@@ -26,7 +26,7 @@
       <v-spacer></v-spacer>
       <div>
         <router-link
-          v-if="!channel.isDeleted"
+          v-if="!channel.isDeleted && channel.channelType == 'VOD'"
           :to="{ name: 'AddVideo', params: { channelData: channel } }"
         >
           <v-btn color="primary" class="white--text quick-sand-font-b">
@@ -53,7 +53,7 @@
           center
           @click="deleteDialog = true"
         >
-          <v-icon left>delete</v-icon>Delete Channel
+          <v-icon left>delete</v-icon>Remove
         </v-btn>
       </div>
     </v-layout>
@@ -103,7 +103,7 @@
           >
             <!--<v-divider v-if="index != 0" :key="index"></v-divider>-->
             <v-list-tile-content>
-              <v-list-tile-title>{{ subscriber.userName }} - {{ subscriber.email }}</v-list-tile-title>
+              <v-list-tile-title>{{ subscriber.email }} ( {{ subscriber.userName }} )</v-list-tile-title>
               <v-list-tile-sub-title>{{ subscriber.daysLeft }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>

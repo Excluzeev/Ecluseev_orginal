@@ -1,153 +1,200 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex xs12 sm3 md2>
-        <div align="left">
-          <div class="padding">
-            <v-avatar :tile="tile" size="50px" color="grey lighten-4">
-              <img
-                alt="avatar"
-                class="channel-image"
-                :src="trailer != null ? trailer.channelImage : ''"
-              >
-            </v-avatar>
-          </div>
-          <div style="font-size:1.4rem" class="quick-sand-font-l">{{ trailer.channelName }}</div>
-        </div>
-      </v-flex>
-      <v-flex xs12 sm9 md10>
-        <div align="left">
-          <div class="flex display-1 font-weight-normal">{{ trailer.title }}</div>
-          <div class="nav-c t1824">{{ trailer.description }}</div>
-        </div>
-      </v-flex>
-    </v-layout>
-    <v-layout row></v-layout>
-    <v-layout row wrap>
-      <v-flex xs12 md8>
-        <div v-show="!playerOptions.sources[0].src.isEmpty">
-          <video-player
-            class="video-holder vjs-big-play-centered"
-            width="100%"
-            height="auto"
-            id="player_id"
-            ref="videoPlayer"
-            :options="playerOptions"
-            @ready="playerIsReady"
-            @timeupdate="onPlayerTimeupdate($event)"
-          ></video-player>
-        </div>
-      </v-flex>
-      <v-flex>
-        <v-spacer></v-spacer>
-      </v-flex>
-      <v-flex xs12 md3>
-        <v-progress-linear
-          color="teal"
-          height="5"
-          :value="(channel.targetFund * channel.currentFund) / 100"
-        ></v-progress-linear>
-        <div align="left">
-          <div
-            style="font-size:1.4rem;"
-            class="flex display-1 font-weight-normal teal--text darken-2"
-          >US$ {{ channel.currentFund }}</div>
-          <p class="nav-c t1824">pledged of US$ {{ channel.targetFund }} goal</p>
-          <p
-            class="nav-c flex d-flex align-start display-1 font-weight-thin"
-          >{{ channel.subscriberCount }}</p>
-          <p class="nav-c t1824">backers</p>
-          <!--<p class="nav-c flex d-flex align-start display-1 font-weight-thin">-->
-          <!--13-->
-          <!--</p>-->
-          <!--<p class="nav-c t1824">days to go</p>-->
-        </div>
-        <div xs12 row wrap v-if="channel != null">
-          <v-expansion-panel
-            class="margin"
-            popout
-            xs12
-            v-for="tier in channel.tiers"
-            v-bind:key="tier"
-          >
-            <v-expansion-panel-content>
-              <template v-slot:header class="card-shadow">
-                <div class="headline">Join {{tier.tier}}</div>
-              </template>
-              <v-card color class>
-                <v-card-title primary-title>
-                  <div>
-                    <span>{{tier.description}}</span>
-                  </div>
-                </v-card-title>
-                <v-card-text>
-                  <v-btn
-                    block
-                    class="quick-sand-font-b white--text"
-                    color="teal"
-                    @click="checkout(tier.price)"
-                  >{{tier.tier}} - {{tier.price}}$</v-btn>
-                </v-card-text>
-              </v-card>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </div>
-      </v-flex>
-    </v-layout>
-
-    <vue-stripe-checkout
-      ref="checkoutRef"
-      name="Donate to Community"
-      description
-      currency="CAD"
-      :amount="donateAmount * 100"
-      :allow-remember-me="false"
-      @done="done"
-      @opened="opened"
-      @closed="closed"
-      @canceled="canceled"
-    ></vue-stripe-checkout>
-
+  <div>
     <v-layout>
-      <!--Comments Section-->
-      <v-flex xs12>
-        <div class="comment-holder padding text-xs-left">
-          <div v-if="showComments">
-            <v-textarea solo label="Add a comment" rows="1" auto-grow v-model="commentText"></v-textarea>
-            <v-layout>
-              <v-spacer></v-spacer>
-              <v-btn
-                class="white--text quick-sand-font-b"
-                color="blue lighten-1"
-                :disabled="disabelComment"
-                @click="doComment"
-              >Comment</v-btn>
+      <vue-headful
+        :title="trailer.title"
+        :description="trailer.description"
+        :image="trailer.image"
+        :url="'https://excluzeev.com' + this.$route.path"
+      />
+      <v-layout class="main-holder" xs12 wrap v-if="videoLoaded">
+        <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
+          <div v-show="!playerOptions.sources[0].src.isEmpty">
+            <video-player
+              class="video-holder vjs-big-play-centered"
+              width="100%"
+              height="auto"
+              id="player_id"
+              ref="videoPlayer"
+              :options="playerOptions"
+              @ready="playerIsReady"
+              @timeupdate="onPlayerTimeupdate($event)"
+            ></video-player>
+          </div>
+          <v-layout class="padding" align-center justify-left row fill-height>
+            <v-layout class="padding" align-left justify-left column fill-height>
+              <div class="title-details--text max-1-lines quick-sand-font-b">{{ trailer.title }}</div>
+              <div class="desc-details--text">{{ trailer.views }} views</div>
             </v-layout>
+            <v-spacer></v-spacer>
+            <a>
+              <div v-ripple class="like-holder" @click="updateWhat('like')">
+                <v-icon v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
+              </div>
+            </a>
+            <a>
+              <div v-ripple class="like-holder" @click="updateWhat('neutral')">
+                <v-icon v-bind:class="{ active: isNeutral }">sentiment_dissatisfied</v-icon>
+              </div>
+            </a>
+            <a>
+              <div v-ripple class="like-holder" @click="updateWhat('dislike')">
+                <v-icon v-bind:class="{ active: isUserDisLiked }">thumb_down</v-icon>
+              </div>
+            </a>
+          </v-layout>
+          <v-divider></v-divider>
+
+          <!-- <v-layout class="padding" justify-left fill-height>
+            <div class="padding">
+              <img class="channel-image square" :src="trailer != null ? trailer.channelImage : ''">
+            </div>
+            <v-flex class="padding">
+              <v-layout align-center justify-left row>
+                <v-layout align-left justify-left column fill-height>
+                  <h2 class="quick-sand-font-b">{{ trailer.channelName }}</h2>
+                  <span class="published--text">Published {{ trailer.timeAgo }}</span>
+                </v-layout>
+                <v-spacer></v-spacer>
+              </v-layout>
+              <div class="detail-description">
+                <div>{{ trailer.description }}</div>
+              </div>
+            </v-flex>
+          </v-layout>-->
+
+          <!-- Sub -->
+          <!--Subscribe and Donate Buttons-->
+
+          <vue-stripe-checkout
+            ref="checkoutRef"
+            :name="'Donate to Community CAD $' + donateAmount"
+            description
+            currency="CAD"
+            :amount="donateAmount * 100"
+            :allow-remember-me="false"
+            @done="done"
+            @opened="opened"
+            @closed="closed"
+            @canceled="canceled"
+          ></vue-stripe-checkout>
+
+          <v-divider></v-divider>
+
+          <!-- Linear Progressbar -->
+          <v-progress-linear
+            color="teal"
+            height="15"
+            :value="(this.channel.currentFund / parseInt(this.channel.targetFund)) * 100"
+          ></v-progress-linear>
+
+          <v-layout class="padding">
+            <v-flex>
+              <div align="left">
+                <div
+                  style="font-size:1.4rem;"
+                  class="flex display-1 font-weight-normal teal--text darken-2"
+                >CAD$ {{ channel.currentFund }}</div>
+                <p class="sub-text">pledged of CAD$ {{ channel.targetFund }} goal</p>
+              </div>
+            </v-flex>
+            <v-spacer></v-spacer>
+            <div>
+              <div
+                style="font-size:1.4rem;"
+                class="flex display-1 font-weight-normal teal--text darken-2"
+              >{{ channel.subscriberCount }}</div>
+              <!-- <p
+                class="nav-c flex d-flex align-start display-1 font-weight-thin"
+              >{{ channel.subscriberCount }}</p>-->
+              <p class="sub-text">backers</p>
+            </div>
+          </v-layout>
+
+          <!--Comments Section-->
+          <div class="comment-holder padding">
+            <div v-if="showComments">
+              <v-textarea solo label="Add a comment" rows="1" auto-grow v-model="commentText"></v-textarea>
+              <v-layout>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="white--text quick-sand-font-b"
+                  color="blue lighten-1"
+                  :disabled="disabelComment"
+                  @click="doComment"
+                >Comment</v-btn>
+              </v-layout>
+            </div>
+            <div v-if="!showComments">
+              <div class="logincomment text-xs-center">
+                <p>
+                  Please
+                  <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">sign in</router-link>to comment
+                </p>
+              </div>
+            </div>
+            <v-flex class="padding" v-if="commentsList.length > 0">
+              <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
+                <h4>{{ comment.userName }}</h4>
+                <div>{{ comment.comment }}</div>
+                <p class="grey--text">{{ comment.timeAgo }}</p>
+              </div>
+            </v-flex>
+            <v-flex v-else text-xs-center>
+              <div class="nocomment">
+                <p>No comments yet, be the first</p>
+              </div>
+            </v-flex>
           </div>
-          <div v-if="!showComments">
-            <div class="logincomment text-xs-center">
-              <p>
-                Please
-                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">sign in</router-link>to comment
-              </p>
+        </v-flex>
+        <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
+          <div style="width: 100%;">
+            <!-- <h2 class="quick-sand-font-n" style="padding-top: 5px;">Related Trailers</h2>
+          <TrailerDetailVideoItem
+            v-for="trailer in catTrailersList"
+            v-bind:key="trailer.trailerId"
+            :trailer="trailer"
+            />-->
+            <h2 class="quick-sand-font-n" style="padding-top: 5px;">Donate</h2>
+
+            <div xs12 row wrap v-if="channel != null">
+              <v-expansion-panel
+                class="margin"
+                popout
+                xs12
+                v-for="(tier,index) in channel.tiers"
+                v-bind:key="index"
+              >
+                <v-expansion-panel-content>
+                  <template v-slot:header class="card-shadow">
+                    <div class="headline">Join {{tier.tier}}</div>
+                  </template>
+                  <v-card color class>
+                    <v-card-title primary-title>
+                      <div>
+                        <span>{{tier.description}}</span>
+                      </div>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-btn
+                        block
+                        class="quick-sand-font-b white--text"
+                        color="teal"
+                        @click="checkout(tier.price)"
+                      >{{tier.tier}} - {{tier.price}}$</v-btn>
+                    </v-card-text>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
             </div>
           </div>
-          <v-flex class="padding" v-if="commentsList.length > 0">
-            <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
-              <h4>{{ comment.userName }}</h4>
-              <div>{{ comment.comment }}</div>
-              <p class="grey--text">{{ comment.timeAgo }}</p>
-            </div>
-          </v-flex>
-          <v-flex v-else text-xs-center>
-            <div class="nocomment">
-              <p>No comments yet, be the first</p>
-            </div>
-          </v-flex>
-        </div>
-      </v-flex>
+        </v-flex>
+      </v-layout>
+      <v-container v-else style="padding: 20px;">
+        <p class="text-xs-center" style="font-size: 20px;">Now Loading..</p>
+      </v-container>
     </v-layout>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -165,6 +212,7 @@ export default {
     return {
       trailer: null,
       channel: null,
+      videoLoaded: false,
       catTrailersList: null,
       showSubscribeButton: false,
       showDonateText: false,
@@ -270,13 +318,20 @@ export default {
         if (user != null && user.uid == this.trailer.userId) {
           this.showSubscribeButton = false;
         }
+
+        this.videoLoaded = true;
+
         this.getLikes();
         this.getComments();
       });
   },
   methods: {
+    async sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
     async checkout(donate) {
       this.donateAmount = donate;
+      await this.sleep(1000);
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
       console.log("Checkout");
@@ -542,5 +597,40 @@ export default {
 .card-shadow {
   box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
     0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+.main-holder {
+  align-items: flex-start;
+}
+.channel-image {
+  border-radius: 50%;
+  object-fit: cover;
+}
+.square {
+  width: 64px;
+  height: 64px;
+}
+.padding {
+  padding: 10px;
+}
+.like-holder {
+  padding: 10px;
+}
+.active {
+  color: #42a5f5;
+}
+.published--text {
+  color: rgba(17, 17, 17, 0.6);
+}
+.detail-description {
+}
+.linked-trailers {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.v-text-field__details {
+  display: none;
+}
+.sub-text {
+  font-size: 14px;
 }
 </style>
