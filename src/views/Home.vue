@@ -43,6 +43,14 @@ export default {
     //   this.componentDialog = LicenseAgreement;
     //   this.dialog = true;
     // }
+  },
+  async mounted() {
+    if (this.$route.query.done) {
+      await this.$store.commit("forceFetchUser", {
+        user: auth.currentUser,
+        force: true
+      });
+    }
   }
 };
 </script>
