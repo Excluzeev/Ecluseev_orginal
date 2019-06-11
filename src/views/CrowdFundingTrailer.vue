@@ -68,7 +68,7 @@
 
           <vue-stripe-checkout
             ref="checkoutRef"
-            :name="'Donate to Community CAD $' + donateAmount"
+            :name="'Payment Details'"
             description
             currency="CAD"
             :amount="donateAmount * 100"

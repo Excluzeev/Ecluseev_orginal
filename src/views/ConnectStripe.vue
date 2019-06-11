@@ -42,15 +42,15 @@ export default {
             console.log(response);
             if (response.data.error) {
               this.showToast(response.data.message);
-              this.$router.push({ name: "Home" });
+              this.$router.push({ name: "Home", params: { done: true } });
             } else {
               this.showToast(response.data.message);
-              this.$router.push({ name: "MyChannels" });
+              this.$router.push({ name: "MyChannels", params: { done: true } });
             }
           })
           .catch(error => {
             this.showToast("Connecting Failed.");
-            this.$router.push({ name: "Home" });
+            this.$router.push({ name: "Home", params: { done: true } });
             console.log(error);
           });
         this.isCalled = true;
