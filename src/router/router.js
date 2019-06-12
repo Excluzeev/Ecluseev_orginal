@@ -48,6 +48,10 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
+  fallback: false,
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes: [{
       path: "/",
       name: "Home",
@@ -147,7 +151,7 @@ const router = new VueRouter({
         noEntry: true,
         showNav: true,
         title: "Sign up as content creator"
-      }
+      },
     },
     {
       path: "/create-channel",
@@ -406,7 +410,7 @@ const router = new VueRouter({
   ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const nearestWithTitle = to.matched
     .slice()
     .reverse()
@@ -414,18 +418,32 @@ router.beforeEach((to, from, next) => {
 
   if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
+  // if (from.path == to.path) {
+  //   console.log("aborting route");
+  //   return next(false);
+  // }
+
+  // auth.onAuthStateChanged(user => {
+  //   console.log(user);
+  //   next();
+  // }, error => {
+  //   console.log(error);
+  //   return next({
+  //     name: "Home",
+  //     replace: true
+  //   });
+  // });
+
+
   // if (to.path == "/connect") {
   //   next();
   // } else {
 
   auth.onAuthStateChanged(user => {
-    console.log(to.meta.noEntry);
-    console.log(to.path);
-    console.log(user);
 
     if (to.meta.noEntry == true) {
       if (user == null) {
-        console.log("force redirect");
+        // console.log("force redirect");
         next(false);
         // this.$router.push({ name: "Login" });
         next({
@@ -436,7 +454,7 @@ router.beforeEach((to, from, next) => {
         next();
       }
     } else {
-      console.log(to.path);
+      // console.log(to.path);
       if (user && (to.path == "/login" || to.path == '/registration' || to.path == '/forgot-password')) {
         next(false);
         next({

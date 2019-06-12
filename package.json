@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --https",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --mode production --dest public",
     "cbuild": "vue-cli-service build --mode production --dest public --target app --modern --dashboard",
     "lint": "vue-cli-service lint"
   },
@@ -32,14 +32,14 @@
     "vue-meta": "^1.6.0",
     "vue-programmatic-invisible-google-recaptcha": "^2.0.1",
     "vue-recaptcha-v3": "^1.4.0",
-    "vue-router": "^3.0.1",
+    "vue-router": "^3.0.6",
     "vue-snotify": "^3.2.1",
     "vue-stripe-checkout": "^1.2.6",
     "vue-toasted": "^1.1.26",
     "vue-video-player": "^5.0.2",
     "vuetify": "^1.5.7",
     "vuetify-upload-button": "^1.2.2",
-    "vuex": "^3.0.1"
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
@@ -48,7 +48,7 @@
     "@vue/cli-service": "^3.6.0",
     "@vue/eslint-config-prettier": "^4.0.1",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.15.3",  
+    "eslint": "^5.15.3",
     "eslint-plugin-vue": "^5.0.0",
     "material-design-icons-iconfont": "^4.0.5",
     "node-sass": "^4.9.0",

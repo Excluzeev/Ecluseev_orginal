@@ -103,6 +103,9 @@ export default {
   components: {
     PrivacyPolicy
   },
+  created() {
+    console.log("Created");
+  },
   methods: {
     doSignUpContentCreator() {
       // if (this.rules.email(this.email) == "Invalid e-mail.") {
