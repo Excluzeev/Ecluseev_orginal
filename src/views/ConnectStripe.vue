@@ -11,6 +11,7 @@
 <script>
 import { auth } from "../firebase/init";
 import axios from "axios";
+import { async } from "q";
 
 export default {
   data: () => {
@@ -37,13 +38,17 @@ export default {
 
           axios
             .post("https://excluzeev.com/connectS", data)
-            .then(response => {
+            .then(async response => {
               // console.log(response);
               if (response.data.error) {
                 this.showToast(response.data.message);
                 this.$router.push({ name: "Home", params: { done: true } });
               } else {
                 this.showToast(response.data.message);
+                await this.$store.commit("forceFetchUser", {
+                  user: auth.currentUser,
+                  force: true
+                });
                 this.$router.push({
                   name: "MyChannels",
                   params: { done: true }
