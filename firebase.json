@@ -10,33 +10,33 @@
         "destination": "/index.html"
       }
     ],
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": ["firebase.json", "*/.", "*/node_modules/*"],
     "headers": [{
-        "source": "**/*.@(html|css)",
+        "source": "/**",
         "headers": [{
           "key": "Cache-Control",
-          "value": "max-age=600"
+          "value": "no-cache, no-store, must-revalidate"
         }]
       },
       {
-        "source": "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
+        "source": "*/.@(eot|otf|ttf|ttc|woff|font.css)",
         "headers": [{
           "key": "Access-Control-Allow-Origin",
           "value": "*"
         }]
       },
       {
-        "source": "**/*.@(jpg|jpeg|gif|png)",
+        "source": "*/.@(jpg|jpeg|gif|png)",
         "headers": [{
           "key": "Cache-Control",
-          "value": "max-age=7200"
+          "value": "max-age=0"
         }]
       },
       {
         "source": "404.html",
         "headers": [{
           "key": "Cache-Control",
-          "value": "max-age=300"
+          "value": "max-age=0"
         }]
       }
     ]

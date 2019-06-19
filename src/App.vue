@@ -1,20 +1,23 @@
 <template>
   <v-app>
-    <EToolBar v-if="isNavBar" />
-    <v-content>
-      <router-view :key="$route.fullPath"></router-view>
-    </v-content>
+    <EToolBar v-if="isNavBar"/>
+    <keep-alive>
+      <v-content>
+        <router-view :key="$route.fullPath"></router-view>
+      </v-content>
+    </keep-alive>
     <cookie-law theme="base">
       <div slot="message">
         This site uses cookies to provide you with great user experience. By
         using excluzeev , you accept our
-        <span style="color:#03a9f4" @click="openCookiePolicy"
-          >Cookie Policy</span
-        >
+        <span
+          style="color:#03a9f4"
+          @click="openCookiePolicy"
+        >Cookie Policy</span>
       </div>
     </cookie-law>
 
-    <FooterComponent v-if="isNavBar" />
+    <FooterComponent v-if="isNavBar"/>
   </v-app>
 </template>
 

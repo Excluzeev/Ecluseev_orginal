@@ -11,6 +11,7 @@
 <script>
 import { auth } from "../firebase/init";
 import axios from "axios";
+import { async } from "q";
 
 export default {
   data: () => {
@@ -20,44 +21,51 @@ export default {
   },
   components: {},
   async created() {
-    console.log("Created");
-    let user = await auth.currentUser;
-    console.log(user);
-    if (user) {
-      let query = this.$route.query;
-      this.$router.push({ name: "Home" });
-      if (query.error) {
-        this.showToast(query.error_description);
-      } else {
-        let data = {
-          code: query.code,
-          uid: user.uid
-        };
+    auth.onAuthStateChanged(user => {
+      // console.log(user);
+      if (user) {
+        let query = this.$route.query;
+        this.$router.push({ name: "Home" });
+        if (query.error) {
+          this.showToast(query.error_description);
+        } else {
+          let data = {
+            code: query.code,
+            uid: user.uid
+          };
 
-        console.log(data);
+          // console.log(data);
 
-        axios
-          .post("https://excluzeev.com/connectS", data)
-          .then(response => {
-            console.log(response);
-            if (response.data.error) {
-              this.showToast(response.data.message);
+          axios
+            .post("https://excluzeev.com/connectS", data)
+            .then(async response => {
+              // console.log(response);
+              if (response.data.error) {
+                this.showToast(response.data.message);
+                this.$router.push({ name: "Home", params: { done: true } });
+              } else {
+                this.showToast(response.data.message);
+                await this.$store.commit("forceFetchUser", {
+                  user: auth.currentUser,
+                  force: true
+                });
+                this.$router.push({
+                  name: "MyChannels",
+                  params: { done: true }
+                });
+              }
+            })
+            .catch(error => {
+              this.showToast("Connecting Failed.");
               this.$router.push({ name: "Home", params: { done: true } });
-            } else {
-              this.showToast(response.data.message);
-              this.$router.push({ name: "MyChannels", params: { done: true } });
-            }
-          })
-          .catch(error => {
-            this.showToast("Connecting Failed.");
-            this.$router.push({ name: "Home", params: { done: true } });
-            console.log(error);
-          });
-        this.isCalled = true;
+              console.log(error);
+            });
+          this.isCalled = true;
+        }
+      } else {
+        this.$router.push({ name: "Home" });
       }
-    } else {
-      this.$router.push({ name: "Home" });
-    }
+    });
   },
   async mounted() {},
   methods: {
