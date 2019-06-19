@@ -179,7 +179,7 @@ export default {
       videosList: [],
       channel: null,
       subscription: null,
-      donateDialog: true,
+      donateDialog: false,
       donateAmount: 0
     };
   },
