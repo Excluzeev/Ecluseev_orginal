@@ -27,7 +27,7 @@
                   color="blue--text lighten-1"
                   style="background-color: #fff !important;"
                   class="white--text"
-                  title="Add trailer"
+                  title="Add preview"
                   :fileChangedCallback="onVideoFileSelected"
                   accept="video/mp4, video/x-m4v, video/*"
                   :uniqueId="unique"
@@ -113,7 +113,7 @@ export default {
         return;
       }
       if (this.videoFile == null) {
-        this.showToast("Please select Trailer Video");
+        this.showToast("Please select Preview Video");
         return;
       }
 
@@ -136,7 +136,7 @@ export default {
         trailerUrl = await trailerVideoRef.getDownloadURL();
       } catch (e) {
         // console.log(e);
-        this.show("TrailerUpload failed.");
+        this.show("Preview Upload failed.");
       }
 
       let trailerData = {
@@ -158,11 +158,11 @@ export default {
         .doc(trailerId);
       try {
         await trailerRef.set(trailerData);
-        this.showToast("Trailer Uploaded Successfully");
+        this.showToast("Preview Uploaded Successfully");
         this.$router.push({ name: "MyChannels" });
       } catch (error) {
         // console.log(error);
-        this.showToast("Trailer Upload failed.");
+        this.showToast("Preview Upload failed.");
       }
       this.processing = false;
     },

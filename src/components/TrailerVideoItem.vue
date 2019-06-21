@@ -118,7 +118,8 @@ export default {
   },
   computed: {
     showDelete() {
-      return this.trailer.userId == auth.currentUser.uid;
+      if (auth.currentUser == null) return false;
+      else return this.trailer.userId == auth.currentUser.uid;
     },
     getLinkTag() {
       return this.trailer.channelType == "CrowdFunding" ? "crowd" : "trailer";

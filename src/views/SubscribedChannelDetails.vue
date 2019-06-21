@@ -13,7 +13,7 @@
         <img
           :src="
             'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-              subscription.channClearedelId +
+              subscription.channelId +
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"

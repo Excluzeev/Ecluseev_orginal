@@ -66,7 +66,7 @@
       </div>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
-      <h1 class="quick-sand-font-b">Trailer</h1>
+      <h1 class="quick-sand-font-b">Preview</h1>
       <br>
       <v-layout xs12 row wrap>
         <v-flex
