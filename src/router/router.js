@@ -11,7 +11,9 @@ import Login from "../views/auth/Login";
 import Registration from "../views/auth/Registration";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
-import { auth } from "../firebase/init";
+import {
+  auth
+} from "../firebase/init";
 import store from "../store/index";
 import AddVideo from "../views/AddVideo";
 import MySubscriptions from "../views/MySubscriptions";
@@ -50,8 +52,7 @@ const router = new VueRouter({
   scrollBehavior: () => ({
     y: 0
   }),
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "Home",
       component: Home,
