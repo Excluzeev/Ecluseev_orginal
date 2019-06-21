@@ -26,6 +26,14 @@
       <v-spacer></v-spacer>
       <div>
         <router-link
+          v-if="!channel.isDeleted"
+          :to="{ name: 'AddTrailer', params: { channelData: channel } }"
+        >
+          <v-btn color="primary" class="white--text quick-sand-font-b">
+            <v-icon left>add</v-icon>Add Preview
+          </v-btn>
+        </router-link>
+        <router-link
           v-if="!channel.isDeleted && channel.channelType == 'VOD'"
           :to="{ name: 'AddVideo', params: { channelData: channel } }"
         >
@@ -70,7 +78,7 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer"/>
+          <TrailerVideoItem :trailer="trailer" v-on:tailerDelete="onTrailerDeleted"/>
         </v-flex>
       </v-layout>
     </div>
@@ -98,7 +106,7 @@
         <v-card-title class="headline grey lighten-2" primary-title>Subscribers List</v-card-title>
         <v-list two-line v-if="!subscriberLoading && !subscriberEmpty">
           <v-list-tile
-            v-for="(subscriber, index) in subscribersList"
+            v-for="(subscriber) in subscribersList"
             v-bind:key="subscriber.subscriptionId"
           >
             <!--<v-divider v-if="index != 0" :key="index"></v-divider>-->
@@ -201,6 +209,9 @@ export default {
     },
     onVideoDeleted() {
       this.loadVideosData();
+    },
+    onTrailerDeleted() {
+      this.loadTrailersData();
     },
     loadTrailersData() {
       this.$store

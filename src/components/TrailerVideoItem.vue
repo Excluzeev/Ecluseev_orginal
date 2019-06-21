@@ -33,7 +33,29 @@
           <div class="desc--text">{{ trailer.views }} views • {{ trailer.timeAgo }}</div>
         </div>
       </router-link>
+      <v-card-actions v-if="showDelete">
+        <v-btn flat color="red" @click="deleteTrailerDialog = true">
+          <v-icon left>delete</v-icon>Delete
+        </v-btn>
+      </v-card-actions>
     </v-card>
+
+    <v-dialog v-model="deleteTrailerDialog" max-width="320">
+      <v-card>
+        <v-card-title class="headline">Delete the Trailer?</v-card-title>
+        <v-card-text>
+          Hello,
+          <br>Do you really want to delete the Preview.
+          <br>
+          <strong>{{ trailer.title }}</strong>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click="deleteTrailerDialog = false">Dont Delete</v-btn>
+          <v-btn color="green darken-1" flat @click="deleteTrailer">Delete</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <v-dialog v-model="reportDialog" scrollable max-width="300px">
       <v-card>
@@ -90,15 +112,26 @@ export default {
         "Hate Speech",
         "Terrorism",
         "Other"
-      ]
+      ],
+      deleteTrailerDialog: false
     };
   },
   computed: {
+    showDelete() {
+      return this.trailer.userId == auth.currentUser.uid;
+    },
     getLinkTag() {
       return this.trailer.channelType == "CrowdFunding" ? "crowd" : "trailer";
     }
   },
   methods: {
+    deleteTrailer() {
+      this.$store
+        .dispatch("deleteTrailer", { video: this.trailer })
+        .then(() => {
+          this.$emit("trailerDelete");
+        });
+    },
     navigateToDetailTrailer() {
       let path = "/" + this.getLinkTag + "/" + this.trailer.trailerId;
       this.$router.push({ path: `${path}` });

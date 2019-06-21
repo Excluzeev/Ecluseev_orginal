@@ -58,9 +58,9 @@
                   :rules="[rules.required]"
                 ></v-text-field>
                 <!-- Navigate to charages graph -->
-                <p>
+                <!-- <p>
                   <a href="/excluzeev-charges" target="_blank">Learn more about pricing here.</a>
-                </p>
+                </p>-->
                 <!-- Only if channelType is CrowdFunding -->
                 <div v-if="this.selectedChannelType != 'VOD'">
                   <!-- Tier 1 -->
@@ -342,7 +342,7 @@ export default {
         required: value => !!value || "Required.",
         priceCheck: value => {
           let number = Number(value);
-          return number >= 1 || "Price must be greater than 1$";
+          return number >= 1.99 || "Price must be greater than 1.99$";
         },
         counter: value => value.length <= 32 || "Maximum 32 characters",
         email: value => {

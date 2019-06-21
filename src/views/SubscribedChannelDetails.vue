@@ -107,7 +107,21 @@
           <h2 class="quick-sand-font-n" style="padding-top: 5px;">Donate</h2>
 
           <div xs12 row wrap v-if="channel != null">
-            <v-expansion-panel
+            <v-text-field
+              v-model="priceDonate"
+              label="Donate Amount"
+              :value="priceDonate"
+              type="number"
+              prefix="$"
+              :rules="[rules.required]"
+            ></v-text-field>
+            <v-btn
+              class="white--text"
+              color="blue lighten-1"
+              type="submit"
+              @click="checkout(priceDonate)"
+            >Doante</v-btn>
+            <!-- <v-expansion-panel
               class="margin"
               popout
               xs12
@@ -134,7 +148,7 @@
                   </v-card-text>
                 </v-card>
               </v-expansion-panel-content>
-            </v-expansion-panel>
+            </v-expansion-panel>-->
           </div>
         </v-card>
       </v-dialog>
@@ -180,7 +194,11 @@ export default {
       channel: null,
       subscription: null,
       donateDialog: false,
-      donateAmount: 0
+      donateAmount: 0,
+      priceDonate: null,
+      rules: {
+        required: value => !!value || "Required."
+      }
     };
   },
   mixins: [RegisterStoreModule],
