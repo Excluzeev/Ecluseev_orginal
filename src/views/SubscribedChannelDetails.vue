@@ -62,7 +62,7 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer"/>
+          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
         </v-flex>
       </v-layout>
     </div>

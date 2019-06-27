@@ -42,7 +42,7 @@
 
     <v-dialog v-model="deleteTrailerDialog" max-width="320">
       <v-card>
-        <v-card-title class="headline">Delete the Trailer?</v-card-title>
+        <v-card-title class="headline">Delete the Preview?</v-card-title>
         <v-card-text>
           Hello,
           <br>Do you really want to delete the Preview.
@@ -128,7 +128,7 @@ export default {
   methods: {
     deleteTrailer() {
       this.$store
-        .dispatch("deleteTrailer", { video: this.trailer })
+        .dispatch("deleteTrailer", { trailer: this.trailer })
         .then(() => {
           this.$emit("trailerDelete");
         });
