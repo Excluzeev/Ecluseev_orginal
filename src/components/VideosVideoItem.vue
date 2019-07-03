@@ -53,6 +53,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <v-dialog v-model="reportDialog" scrollable max-width="300px">
       <v-card>
         <v-card-title>Select Reasons</v-card-title>

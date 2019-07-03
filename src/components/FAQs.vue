@@ -35,8 +35,8 @@
       <p>9. Is the a minimum or maximum price I am required to use when charging on my channel or can I charge anything I want?</p>
       <p>You cannot charge less than $1 and more than $10 per channel.</p>
       <p>&nbsp;</p>
-      <p>10. Do you have to Subscribe to watch the Trailers?</p>
-      <p>All trailers can be viewed without subscription.</p>
+      <p>10. Do you have to Subscribe to watch the Previews?</p>
+      <p>All previews can be viewed without subscription.</p>
       <!-- <h1 class="main_text">Licensing Agreement</h1> -->
     </div>
   </v-container>

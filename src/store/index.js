@@ -172,6 +172,21 @@ export default new Vuex.Store({
 
         resolve("Done");
       });
+    },
+    deleteTrailer: async ({
+      state,
+      commit
+    }, {
+      trailer
+    }) => {
+      return new Promise(async resolve => {
+        let tarilerRef = fireStore
+          .collection(collections.trailerCollection)
+          .doc(trailer.trailerId);
+        await tarilerRef.delete();
+
+        resolve("Done");
+      });
     }
   }
 });

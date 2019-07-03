@@ -36,9 +36,9 @@ import AboutUs from "../components/About";
 import SearchPreviews from "../views/SearchPreviews";
 import HowTo from "../views/HowTo";
 import ExcluzeevCharges from "../views/ExcluzeevCharges";
-import ConnectStripe from '../views/ConnectStripe';
+import ConnectStripe from "../views/ConnectStripe";
 // import SingleCategory from '.../views/SingleCategory';
-import SingleCategory from '../views/SingleCategory';
+import SingleCategory from "../views/SingleCategory";
 
 Vue.use(Meta);
 
@@ -62,7 +62,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: '/connect',
+      path: "/connect",
       name: "ConnectStripe",
       component: ConnectStripe,
       meta: {
@@ -70,7 +70,6 @@ const router = new VueRouter({
         showNav: false,
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
-
     },
     {
       path: "/trailer/:trailerId",
@@ -79,7 +78,7 @@ const router = new VueRouter({
       meta: {
         noEntry: false,
         showNav: true,
-        title: "Excluzeev Trailers"
+        title: "Excluzeev Previews"
       }
     },
     {
@@ -89,7 +88,7 @@ const router = new VueRouter({
       meta: {
         noEntry: false,
         showNav: true,
-        title: "Excluzeev Trailers"
+        title: "Excluzeev Previews"
       }
     },
     {
@@ -151,7 +150,7 @@ const router = new VueRouter({
         noEntry: true,
         showNav: true,
         title: "Sign up as content creator"
-      },
+      }
     },
     {
       path: "/create-channel",
@@ -434,47 +433,51 @@ router.beforeEach(async (to, from, next) => {
   //   });
   // });
 
-
   // if (to.path == "/connect") {
   //   next();
   // } else {
 
-  auth.onAuthStateChanged(user => {
-
-    if (to.meta.noEntry == true) {
-      if (user == null) {
-        // console.log("force redirect");
-        next(false);
-        // this.$router.push({ name: "Login" });
-        next({
-          name: "Home",
-          replace: true
-        });
+  auth.onAuthStateChanged(
+    user => {
+      if (to.meta.noEntry == true) {
+        if (user == null) {
+          // console.log("force redirect");
+          next(false);
+          // this.$router.push({ name: "Login" });
+          next({
+            name: "Home",
+            replace: true
+          });
+        } else {
+          next();
+        }
       } else {
-        next();
+        // console.log(to.path);
+        if (
+          user &&
+          (to.path == "/login" ||
+            to.path == "/registration" ||
+            to.path == "/forgot-password")
+        ) {
+          next(false);
+          next({
+            name: "Home",
+            replace: true
+          });
+          location.reload();
+        } else {
+          next();
+        }
       }
-    } else {
-      // console.log(to.path);
-      if (user && (to.path == "/login" || to.path == '/registration' || to.path == '/forgot-password')) {
-        next(false);
-        next({
-          name: "Home",
-          replace: true
-        });
-        location.reload();
-      } else {
-        next();
-      }
+    },
+    error => {
+      console.log(error);
+      next({
+        name: "Home",
+        replace: true
+      });
     }
-  }, error => {
-    console.log(error);
-    next({
-      name: "Home",
-      replace: true
-    });
-  });
-
-
+  );
 });
 
 export default router;

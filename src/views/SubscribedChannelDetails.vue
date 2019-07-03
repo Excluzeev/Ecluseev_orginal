@@ -13,7 +13,7 @@
         <img
           :src="
             'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-              subscription.channClearedelId +
+              subscription.channelId +
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"
@@ -32,6 +32,11 @@
       <v-btn
         class="white--text quick-sand-font-b"
         color="blue lighten-1"
+        @click="showDonatePop"
+      >Donate</v-btn>
+      <v-btn
+        class="white--text quick-sand-font-b"
+        color="blue lighten-1"
         :loading="processing"
         :disabled="processing"
         @click="cancelSubscription"
@@ -45,7 +50,7 @@
       </v-btn>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
-      <h1 class="quick-sand-font-b">Trailer</h1>
+      <h1 class="quick-sand-font-b">Previews</h1>
       <br>
       <v-layout xs12 row wrap>
         <v-flex
@@ -57,7 +62,7 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer"/>
+          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
         </v-flex>
       </v-layout>
     </div>
@@ -96,6 +101,70 @@
         </v-card>
       </v-dialog>
     </v-layout>
+    <v-layout row justify-center>
+      <v-dialog v-model="donateDialog" max-width="500">
+        <v-card class="donate-dialog">
+          <h2 class="quick-sand-font-n" style="padding-top: 5px;">Donate</h2>
+
+          <div xs12 row wrap v-if="channel != null">
+            <v-text-field
+              v-model="priceDonate"
+              label="Donate Amount"
+              :value="priceDonate"
+              type="number"
+              prefix="$"
+              :rules="[rules.required]"
+            ></v-text-field>
+            <v-btn
+              class="white--text"
+              color="blue lighten-1"
+              type="submit"
+              @click="checkout(priceDonate)"
+            >Doante</v-btn>
+            <!-- <v-expansion-panel
+              class="margin"
+              popout
+              xs12
+              v-for="(tier,index) in channel.tiers"
+              v-bind:key="index"
+            >
+              <v-expansion-panel-content>
+                <template v-slot:header class="card-shadow">
+                  <div class="headline">Join {{tier.tier}}</div>
+                </template>
+                <v-card color class>
+                  <v-card-title primary-title>
+                    <div>
+                      <span>{{tier.description}}</span>
+                    </div>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-btn
+                      block
+                      class="quick-sand-font-b white--text"
+                      color="teal"
+                      @click="checkout(tier.price)"
+                    >{{tier.tier}} - {{tier.price}}$</v-btn>
+                  </v-card-text>
+                </v-card>
+              </v-expansion-panel-content>
+            </v-expansion-panel>-->
+          </div>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+    <vue-stripe-checkout
+      ref="checkoutRef"
+      :name="'Payment Details'"
+      description
+      currency="CAD"
+      :amount="donateAmount * 100"
+      :allow-remember-me="false"
+      @done="done"
+      @opened="opened"
+      @closed="closed"
+      @canceled="canceled"
+    ></vue-stripe-checkout>
   </v-container>
 </template>
 
@@ -123,7 +192,13 @@ export default {
       trailersList: [],
       videosList: [],
       channel: null,
-      subscription: null
+      subscription: null,
+      donateDialog: false,
+      donateAmount: 0,
+      priceDonate: null,
+      rules: {
+        required: value => !!value || "Required."
+      }
     };
   },
   mixins: [RegisterStoreModule],
@@ -229,6 +304,75 @@ export default {
       this.loadTrailersData();
 
       this.loadVideosData();
+    },
+    showDonatePop() {
+      this.donateDialog = true;
+    },
+    async sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
+    async checkout(donate) {
+      this.donateAmount = donate;
+      await this.sleep(1000);
+      const { token, args } = await this.$refs.checkoutRef.open();
+    },
+    done({ token, args }) {
+      this.prepareSubscribe(this.donateAmount, token);
+    },
+    opened() {
+      console.log("opened");
+    },
+    closed() {
+      console.log("Closed");
+    },
+    canceled() {
+      console.log("Canceled");
+    },
+    async prepareSubscribe(donate, token) {
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
+      let prepareOptions = {
+        channelId: this.trailer.channelId,
+        channelName: this.trailer.channelName,
+        userId: auth.currentUser.uid,
+        isDesktop: true,
+        redirectTo: "https://excluzeev.com/my-channels",
+        isDonate: true,
+        token: token.id
+      };
+      this.subscribeProcessing = true;
+      if (this.showDonateText) {
+        prepareOptions.donate = donate;
+      }
+
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/chargeAmount",
+          prepareOptions
+        )
+        .then(response => {
+          if (response.data.error) {
+            this.subscribeProcessing = false;
+            this.showToast("Payment Failed Please try later.");
+
+            window.location =
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentCanceled?subId=" +
+              response.data.subId +
+              "&donate=true" +
+              "&redirect=https://excluzeev.com/";
+          } else {
+            window.location =
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentSuccess?subId=" +
+              response.data.subId +
+              "&donate=true" +
+              "&redirect=https://excluzeev.com/my-channels";
+          }
+        })
+        .catch(error => {
+          this.subscribeProcessing = false;
+        });
     }
   },
   mounted() {
@@ -248,5 +392,8 @@ export default {
 }
 .subscribers-count {
   color: gray;
+}
+.donate-dialog {
+  padding: 16px;
 }
 </style>

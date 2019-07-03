@@ -1,6 +1,7 @@
 <template>
   <v-menu offset-y content-class="dropdown-menu" transition="slide-y-transition">
-    <v-icon x-large slot="activator" color="blue lighten-1">account_circle</v-icon>
+    <p style="padding: 10px; margin-top: 10px;" slot="activator">{{ userName }}</p>
+    <!-- <v-icon x-large slot="activator" color="blue lighten-1">account_circle</v-icon> -->
     <v-card>
       <v-list>
         <v-list-tile v-if="!hideSignUpContentCreator">
@@ -35,6 +36,13 @@ export default {
       return store.getters.getFUser != null
         ? store.getters.getFUser.isContentCreator
         : false;
+    },
+    userName() {
+      return store.getters.getFUser != null
+        ? store.getters.getFUser.firstName +
+            " " +
+            store.getters.getFUser.lastName
+        : "";
     }
   },
   methods: {
