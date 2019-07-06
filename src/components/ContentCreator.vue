@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <h1 class="main_text">TERMS OF SERVICE FOR CREATORS</h1>
+        <br>
+    <br>
+    <p>Last Updated: 6th July 2019</p>
+    <br>
+    <br>
     <h3>1. Introduction</h3>
     <p>
       Thank you for your interest in Trenstop Global Inc (“Company,” “We,” “Us,” or “Our”)
