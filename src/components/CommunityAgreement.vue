@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <h1 class="main_text">COMMUNITY MEMBER AGREEMENT</h1>
+    <br>
+    <br>
+    <p>Last Updated: 6th July 2019</p>
+    <br>
+    <br>
 
     <p>THIS COMMUNITY MEMBER AGREEMENT APPLIES TO THE EXCLUZEEV WEBSITE
 (“WEBSITE” OR “SITE”) AND EXCLUZEEV MOBILE APPLICATION (THE “APP”), SERVICES
