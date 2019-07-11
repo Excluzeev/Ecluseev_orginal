@@ -59,8 +59,8 @@ enable your fans to subscribe to your channel and for you to receive income
       <br />
       <li>
         All personal information you provide us during account registration will be
-governed by our Privacy Policy. Please review our Privacy Policy before you sign
-up for a Creator account;
+        governed by our Privacy Policy. Please review our Privacy Policy before you sign
+        up for a Creator account;
       </li>
       <br />
       <li>All payments are collected and processed by Stripe payment gateway;</li>
@@ -88,37 +88,39 @@ up for a Creator account;
         and if you do not agree with them, please do not use our Services.
       </li>
     </ul>
-    <br>
+    <br />
     <h3>4.Key Terms</h3>
     <p>Unless expressly stated otherwise, the following words shall hold the meaning as described hereunder:</p>
-  
-  <br>  <p>
-      <b>"Creator"</b> - A User who registers for a Creator account on Excluzeev.
-    </p>
+
     <br />
     <p>
-      <b>“Subscriber,” “Fan,” or “Follower”</b> - refers to a User who subscribes for a specific
-channel offered by the Creator on Excluzeev.
+      <b>"Creator"</b> - A User who registers for a Creator account on Excluzeev.
     </p>
-    <br />
+
+    <p>
+      <b>“Subscriber,” “Fan,” or “Follower”</b> - refers to a User who subscribes for a specific
+      channel offered by the Creator on Excluzeev.
+    </p>
+
     <p>
       <b>“Content”</b> - Any audio/video content including any live video streams and chats offered
       by the Creator to his/her subscribers/fans/followers on Excluzeev.
     </p>
-    
+
     <p>
       <b>“User”</b> - refers to all Users of the Service offered by the Company whether registered or
       unregistered.
     </p>
-    
+
     <p>
       <b>“Content license”</b> - refers to the license that the Creator decides to grant his or her subscriber to access the content on his/her channel provided such license does not violate any terms of the licensing agreement between the Creator and the Company.
     </p>
     <p>
-      <b>“Parties”</b> - collectively refers to Creator, Community Members or Users when interacting with each other through the Service.
+      <b>“Parties”</b> - collectively refers to Creator, Subscribe or Users when interacting with each
+      other through the Service.
     </p>
     <p>
-      <b>“Service/s”</b> - include but is not limited to the website, app and all software features and functionality offered by the Company to its users such as content posting, uploading, live video streaming and chat functionality.
+      <b>“Service/s”</b> - include but is not limited to the website, app and all software features and functionality offered by the Company to its Users such as content posting, uploading, live video streaming and chat functionality.
     </p>
     <p>
       <b>“Subscription fees”</b> - refers to the monthly channel fee listed by the Creator that a
@@ -129,11 +131,13 @@ channel offered by the Creator on Excluzeev.
     </p>
     <p>
       <b>“Transaction fees”</b> - refers to 2.9% plus C$0.30 fee deducted by Stripe on each
-channel subscription received by the Creator.
+      channel subscription received by the Creator.
     </p>
 
     <p>
-      <b>“Excluzeev Live”</b> - refers to the live video streaming service offered by the Company to Creators as a marketing tool to connect with their community members. All community members of Creator’s channels get access to Creator’s Excluzeev live broadcast.
+      <b>“Excluzeev Live”</b> - refers to the live video streaming service offered by the Company to
+      creators as a marketing tool to connect with subscribers. All subscribers of Creator’s
+      channels get access to Creator’s Excluzeev live broadcast.
     </p>
     <br />
 
@@ -149,8 +153,7 @@ channel subscription received by the Creator.
       PERSONAL INFORMATION TO US. WE DO NOT KNOWINGLY COLLECT ANY
       PERSONAL INFORMATION FROM USERS UNDER THE AGE OF THIRTEEN YEARS.
       <br />
-      <br />
-BY CONTINUING TO USE THE SERVICES YOU REPRESENT AND WARRANT TO
+      <br />BY CONTINUING TO USE THE SERVICES YOU REPRESENT AND WARRANT TO
       THE COMPANY THAT YOU HAVE READ AND UNDERSTOOD THESE TERMS AND
       YOU AGREE TO BE BOUND BY THEM.
       <br />
@@ -162,13 +165,13 @@ BY CONTINUING TO USE THE SERVICES YOU REPRESENT AND WARRANT TO
     </p>
     <h3>6.About the Service</h3>
     <p>
-     Excluzeev is an online platform that enables fans/followers to gain access to Creator’s
-content by subscribing to channels offered by Creators on Excluzeev. Creators must sign up for an account on Excluzeev to start one or more channels to provide different
-content to their subscribers. Once the Creator uploads the content on a specific channel,
-the content will be accessible exclusively to all subscribers of that channel. The Creators
-are required to offer a channel description outlining the content that the subscriber will
-receive to enable the prospective subscriber in making an informed decision, along with
-a timeline of when the content will be released.
+      Excluzeev is an online platform that enables fans/followers to gain access to Creator’s
+      content by subscribing to channels offered by Creators on Excluzeev. Creators must sign up for an account on Excluzeev to start one or more channels to provide different
+      content to their subscribers. Once the Creator uploads the content on a specific channel,
+      the content will be accessible exclusively to all subscribers of that channel. The Creators
+      are required to offer a channel description outlining the content that the subscriber will
+      receive to enable the prospective subscriber in making an informed decision, along with
+      a timeline of when the content will be released.
       <br />
       <br />The Company does not charge Creators any fees for creating accounts and uploading
       content on Excluzeev. However, there is a fixed service fee and transaction fee payable
@@ -196,10 +199,10 @@ a timeline of when the content will be released.
     <ul>
       <li>
         You have the legal right to upload, share, transmit and monetize the content that
-you are offering through your account. The Company reserves the right to
-remove any content from Excluzeev if we are of the view that such content is
-violating any provisions of this Agreement, any applicable law or any other user
-or third-party’s lawful rights;
+        you are offering through your account. The Company reserves the right to
+        remove any content from Excluzeev if we are of the view that such content is
+        violating any provisions of this Agreement, any applicable law or any other user
+        or third-party’s lawful rights;
       </li>
       <br />
       <li>
@@ -261,14 +264,14 @@ or third-party’s lawful rights;
       <br />
       <li>
         You will not, in any way, infringe any User or third party’s copyright, patent,
-trademark, trade secret or other proprietary rights or intellectual property rights
-including but not limited to rights of publicity, confidentiality or privacy;
+        trademark, trade secret or other proprietary rights or intellectual property rights
+        including but not limited to rights of publicity, confidentiality or privacy;
       </li>
       <br />
       <li>
         You will not act in any manner that may lead to a violation of any applicable laws
-or regulations, including but not limited to those governing export and import
-control and trade practices;
+        or regulations, including but not limited to those governing export and import
+        control and trade practices;
       </li>
       <br />
       <li>
@@ -326,26 +329,26 @@ control and trade practices;
       >www.excluzeev.com</a> in order to create channels and offer their content to their fans/community members. We offer one account per Creator, however, a Creator can create multiple channels and offer them at varying subscription rates to his/her fans.
       <br />
       <br />During the account sign up stage you will be required to provide the Company with
-certain personal information. You agree to provide us with true and complete information
-when requested.
+      certain personal information. You agree to provide us with true and complete information
+      when requested.
       <br />
       <br />
       <b>Proof of User Identity:</b> The Company reserves the right to ask for proof of identity to
-confirm your age and accuracy of information provided by you during your account
-registration. Your failure to present any requested information may result in restriction or
-termination of your Account. The Company disclaims all liability for any loss, or damage
-incurred by you as a result of termination of your account arising from your failure to
-provide proof of your identity. Please note that all your personal information is collected
-and processed in accordance with our Privacy Policy. If you do not agree with our
-Privacy Policy, please refrain from creating an account on Excluzeev.
+      confirm your age and accuracy of information provided by you during your account
+      registration. Your failure to present any requested information may result in restriction or
+      termination of your Account. The Company disclaims all liability for any loss, or damage
+      incurred by you as a result of termination of your account arising from your failure to
+      provide proof of your identity. Please note that all your personal information is collected
+      and processed in accordance with our Privacy Policy. If you do not agree with our
+      Privacy Policy, please refrain from creating an account on Excluzeev.
       <br />
       <br />Your account is access controlled and as with all access controlled software, the system
-relies on the account holder to protect their login credentials. You accept that you are
-solely responsible for any activity that occurs on your account and you agree that you
-will maintain the confidentiality of your login credentials. Please note that we will never
-contact you to request your password or other similar sensitive information and it is your
-responsibility to immediately notify us of any such suspicious activity or unauthorized
-use of your Creator account.
+      relies on the account holder to protect their login credentials. You accept that you are
+      solely responsible for any activity that occurs on your account and you agree that you
+      will maintain the confidentiality of your login credentials. Please note that we will never
+      contact you to request your password or other similar sensitive information and it is your
+      responsibility to immediately notify us of any such suspicious activity or unauthorized
+      use of your Creator account.
       <br />
       <br />You may not use another User's account for any purposes whatsoever. You release us
       from any liability arising from or related to any unauthorized access to your account. In
@@ -367,9 +370,9 @@ use of your Creator account.
       Service Fee and Transaction Fees.
       <br />
       <br />When a User subscribes to one of your channels on Excluzeev, Stripe collects the full
-subscription fee from the subscriber each month and transfers the subscription fee less
-Service Fee (5%) and Transaction fees (2.9% plus C$0.30 per transaction) to the
-Creator’s linked account on a fortnightly basis.
+      subscription fee from the subscriber each month and transfers the subscription fee less
+      Service Fee (5%) and Transaction fees (2.9% plus C$0.30 per transaction) to the
+      Creator’s linked account on a fortnightly basis.
       <br />
       <br />By accepting these terms and conditions and making use of the Services offered by the
       Company, Creators expressly consent to the payment of service fees and transaction
@@ -387,8 +390,9 @@ Creator’s linked account on a fortnightly basis.
       >creatortermination@excluzeev.com</a> with the words “Account Termination” in the subject
       line. New fans/followers will no longer be able to subscribe to your channel after you
       serve your termination notice but you will remain under obligation to deliver all agreed
-      content to your current channel subscribers as per your channel description.  <br> <br>
-      Please take note that your data stored on Excluzeev may be retained on the Excluzeev
+      content to your current channel subscribers as per your channel description.
+      <br />
+      <br />Please take note that your data stored on Excluzeev may be retained on the Excluzeev
       Service after termination of your Creator account for a period required to fulfil our
       business and legal obligations. Notwithstanding the foregoing, the Company may in its
       sole discretion choose to delete all your personal data and content upon termination of
@@ -397,14 +401,13 @@ Creator’s linked account on a fortnightly basis.
       able to reactivate your account at a later stage once your account has been successfully
       terminated. The Company reserves the right to terminate this Agreement and your
       access to the Service at any time without giving any notice to you, if we find that:
-
     </p>
-    <br>
+    <br />
     <ul>
       <li>You have violated the terms of this Agreement</li>
       <li>Your conduct is harmful to the Company or any of its Users</li>
     </ul>
-    
+
     <p>We also reserve the right to terminate this Agreement and withdraw our services by giving you 30 days notice.</p>
     <h3>12.Your Content</h3>
     <p>
@@ -459,9 +462,11 @@ Creator’s linked account on a fortnightly basis.
         description of the content);
       </li>
       <li>Your contact information including your name, phone number and email address;</li>
-      <li>A statement by you setting out that you are either the owner of the copyrighted
-work or have been authorized by the owner to communicate with us regarding
-the copyright infringement;</li>
+      <li>
+        A statement by you setting out that you are either the owner of the copyrighted
+        work or have been authorized by the owner to communicate with us regarding
+        the copyright infringement;
+      </li>
       <li>A statement by you confirming that all information provided by you including your claim is bonafide true.</li>
     </ul>
     <p style="list-style: none">
@@ -555,10 +560,9 @@ the copyright infringement;</li>
     <h3>20.Indemnity</h3>
     <p>
       You agree to release, defend, indemnify, and hold harmless the Company, its founders, affiliates, subsidiaries against any claims, liabilities, charges, damages, losses, and expenses, including, without limitation, reasonable legal and accounting fees, arising out of or in any way connected with:
-     <br> <br />(i) the violation of these Terms by you,
-      
+      <br />
+      <br />(i) the violation of these Terms by you,
       <br />(ii) Your gross negligence or willful misconduct, or
-      
       <br />(iii) the infringement by you, or any third party using your Account, of any intellectual property or other right of any person or entity.
     </p>
     <h3>21.Governing Law and Jurisdiction</h3>
