@@ -364,11 +364,9 @@ enable your fans to subscribe to your channel and for you to receive income
     </p>
     <h3>10.Payment and Refunds</h3>
     <p>
-      When you sign up as a Creator, you are required to provide us with your banking details
-      in order to enable our selected payment gateway Stripe to forward the revenue
-      generated through your Excluzeev channels into your account after deducting our
-      Service Fee and Transaction Fees.
-      <br />
+      When you sign up as a Creator, our selected payment gateway Stripe will collect and
+forward the revenue generated through your Excluzeev channels into your account after
+deducting our Service Fee and Transaction Fees.<br />
       <br />When a User subscribes to one of your channels on Excluzeev, Stripe collects the full
       subscription fee from the subscriber each month and transfers the subscription fee less
       Service Fee (5%) and Transaction fees (2.9% plus C$0.30 per transaction) to the
