@@ -128,7 +128,8 @@ channel offered by the Creator on Excluzeev.
       <b>“Service fees”</b> - a fixed fee of 5% will be charged by the Company to the Creator on all income earned by the Creator through Ecluzeev.
     </p>
     <p>
-      <b>“Transaction fees”</b> - refers to Stripe transaction fees of 0.25% charged and deducted from the Creator on all income earned by the Creator through Excluzeev.
+      <b>“Transaction fees”</b> - refers to 2.9% plus C$0.30 fee deducted by Stripe on each
+channel subscription received by the Creator.
     </p>
 
     <p>
