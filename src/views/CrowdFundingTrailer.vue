@@ -334,17 +334,17 @@ export default {
       await this.sleep(1000);
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
-      console.log("Checkout");
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
       const { token, args } = await this.$refs.checkoutRef.open();
-      console.log(token);
-      console.log(args);
     },
     done({ token, args }) {
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
       // do stuff...
-      console.log(token);
-      console.log(args);
+
       this.prepareSubscribe(this.donateAmount, token);
     },
     opened() {
