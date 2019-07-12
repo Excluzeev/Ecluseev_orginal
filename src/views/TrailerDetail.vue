@@ -54,7 +54,7 @@
 
         <v-layout class="padding" justify-left fill-height>
           <div class="padding">
-            <img class="channel-image square" :src="trailer != null ? trailer.channelImage : ''">
+            <img class="channel-image square" :src="trailer != null ? trailer.channelImage : ''" />
           </div>
           <v-flex class="padding">
             <v-layout align-center justify-left row>
@@ -575,6 +575,10 @@ export default {
       });
     },
     async checkout() {
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
       const { token, args } = await this.$refs.checkoutRef.open();
