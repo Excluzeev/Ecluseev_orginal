@@ -41,7 +41,7 @@
                 </upload-btn>
                 <div class="video-holder" v-if="videoFile != null">
                   <video controls>
-                    <source :src="videoUrl" type="video/mp4">Your browser does not support HTML5 video.
+                    <source :src="videoUrl" type="video/mp4" />Your browser does not support HTML5 video.
                   </video>
                 </div>
                 <div class="text-xs-center">

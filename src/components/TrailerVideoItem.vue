@@ -31,6 +31,10 @@
           </v-layout>
           <span class="desc--text">{{ trailer.channelName }}</span>
           <div class="desc--text">{{ trailer.views }} views • {{ trailer.timeAgo }}</div>
+
+          <div class="red--text" v-show="getIsExpired(trailer.expiry)">
+            <p danger>Expired</p>
+          </div>
         </div>
       </router-link>
       <v-card-actions v-if="showDelete">
@@ -45,8 +49,8 @@
         <v-card-title class="headline">Delete the Preview?</v-card-title>
         <v-card-text>
           Hello,
-          <br>Do you really want to delete the Preview.
-          <br>
+          <br />Do you really want to delete the Preview.
+          <br />
           <strong>{{ trailer.title }}</strong>
         </v-card-text>
         <v-card-actions>
@@ -91,6 +95,8 @@
 <script>
 import { auth, fireStore } from "../firebase/init";
 import utils from "../firebase/utils";
+import moment from "moment";
+
 export default {
   name: "TrailerVideoItem",
   props: ["trailer"],
@@ -126,6 +132,13 @@ export default {
     }
   },
   methods: {
+    getIsExpired(date) {
+      if (date != null && date != undefined) {
+        return moment(date.toDate()).diff(Date.now()) <= 0;
+      } else {
+        return false;
+      }
+    },
     deleteTrailer() {
       this.$store
         .dispatch("deleteTrailer", { trailer: this.trailer })

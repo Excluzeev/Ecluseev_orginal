@@ -35,7 +35,8 @@ export default {
       likes: data.likes != null ? data.likes : 0,
       dislikes: data.dislikes != null ? data.dislikes : 0,
       neutral: data.neutral != null ? data.neutral : 0,
-      timeAgo: moment(data.createdDate.toDate()).fromNow()
+      timeAgo: moment(data.createdDate.toDate()).fromNow(),
+      expiry: data.expiry
     };
   },
 
@@ -93,7 +94,8 @@ export default {
       likes: data.likes != null ? data.likes : 0,
       dislikes: data.dislikes != null ? data.dislikes : 0,
       neutral: data.neutral != null ? data.neutral : 0,
-      timeAgo: moment(data.createdDate.toDate()).fromNow()
+      timeAgo: moment(data.createdDate.toDate()).fromNow(),
+      expiry: data.expiry
     };
   },
 

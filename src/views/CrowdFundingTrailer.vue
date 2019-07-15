@@ -25,6 +25,7 @@
             <v-layout class="padding" align-left justify-left column fill-height>
               <div class="title-details--text max-1-lines quick-sand-font-b">{{ trailer.title }}</div>
               <div class="desc-details--text">{{ trailer.views }} views</div>
+              <div v-show="getIsExpired(trailer.expiry)" class="red--text">Expired</div>
             </v-layout>
             <v-spacer></v-spacer>
             <a>
@@ -177,6 +178,7 @@
                     </v-card-title>
                     <v-card-text>
                       <v-btn
+                        :disabled="getIsExpired(trailer.expiry)"
                         block
                         class="quick-sand-font-b white--text"
                         color="teal"
@@ -326,6 +328,16 @@ export default {
       });
   },
   methods: {
+    getIsExpired(date) {
+      console.log(date);
+      if (date != null && date != undefined) {
+        console.log(true);
+        return moment(date.toDate()).diff(Date.now()) <= 0;
+      } else {
+        console.log(false);
+        return false;
+      }
+    },
     async sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
