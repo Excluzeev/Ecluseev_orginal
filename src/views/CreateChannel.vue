@@ -63,6 +63,31 @@
                 </p>-->
                 <!-- Only if channelType is CrowdFunding -->
                 <div v-if="this.selectedChannelType != 'VOD'">
+                  <div class="calltoactionclass">
+                    <v-dialog
+                      ref="dialog"
+                      v-model="expiryModal"
+                      :return-value.sync="expiryDate"
+                      persistent
+                      lazy
+                      full-width
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="expiryDate"
+                          label="Select Expiry Date"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="expiryDate" dark scrollable :min="minDate">
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="expiryModal = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs.dialog.save(expiryDate)">OK</v-btn>
+                      </v-date-picker>
+                    </v-dialog>
+                  </div>
                   <!-- Tier 1 -->
                   <div class="tier1">
                     <v-checkbox
@@ -249,7 +274,7 @@
                 </upload-btn>
                 <!-- Thumnail Image viewing -->
                 <v-layout padding justify-center>
-                  <img :src="thumbnail" height="150" v-if="thumbnail">
+                  <img :src="thumbnail" height="150" v-if="thumbnail" />
                 </v-layout>
                 <!-- Cover Image Upload Button -->
                 <upload-btn
@@ -270,7 +295,7 @@
                 </upload-btn>
                 <!-- Cover Image viewing -->
                 <v-layout padding justify-center>
-                  <img :src="cover" height="150" v-if="cover">
+                  <img :src="cover" height="150" v-if="cover" />
                 </v-layout>
 
                 <div class="text-xs-center">
@@ -320,6 +345,9 @@ export default {
   },
   data: () => {
     return {
+      expiryDate: null,
+      minDate: undefined,
+      expiryModal: false,
       categorySelected: null,
       channelName: "",
       description: "",
@@ -353,6 +381,7 @@ export default {
     };
   },
   created() {
+    this.minDate = new Date().toISOString();
     this.$store.dispatch("fetchCategories").then(cats => {
       this.categories = cats;
     });
@@ -418,6 +447,10 @@ export default {
           this.showToast("TargetFund  cannot be less than 1");
           return;
         }
+        if (this.expiryDate == null) {
+          this.showToast("Please select end Date");
+          return;
+        }
       }
 
       if (this.thumbnailFile == null) {
@@ -463,6 +496,7 @@ export default {
       }
 
       let tierArray = [];
+      let expiry = "";
       if (this.selectedChannelType != "VOD") {
         for (let i = 0; i < this.selectedTiers.length; i++) {
           let tier = i + 1;
@@ -474,6 +508,7 @@ export default {
             });
           }
         }
+        expiry = firebaseTimestamp.fromDate(new Date(this.expiryDate));
       }
 
       let channelData = {
@@ -491,6 +526,7 @@ export default {
         price: this.selectedChannelType == "CrowdFunding" ? 0 : this.price,
         targetFund: this.targetFund,
         tiers: tierArray,
+        expiry: expiry,
         currentFund: 0,
         percentage: 0.0
       };
