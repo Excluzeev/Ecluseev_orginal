@@ -9,7 +9,7 @@
               alt="Excluzeev
             logo"
               src="../../assets/excluzeev_bottom_text.png"
-            >
+            />
             <div class="signup-text quick-sand-font">Sign up</div>
             <div class="signup-continue-text">Continue to Excluzeev</div>
             <v-card-text>
@@ -103,6 +103,7 @@
             <a @click="showExcluzeevTerms">Terms</a>
 
             <a @click="showPrivacyPolicy" style="padding-left: 20px;">Privacy</a>
+            <a @click="showCallToActionTerms" style="padding-left: 20px;">Call to Action Terms</a>
 
             <a
               href="mailto:support@excluzeev.com?subject=Need%20Help"
@@ -134,6 +135,7 @@ import RegisterStoreModule from "../../mixins/RegisterStoreModule";
 import authModule from "../../store/auth/auth";
 
 import LicenseAgreement from "../../components/LicenseAgreement";
+import CallToActionTerms from "../../components/CallToActionTerms";
 import PrivacyPolicy from "../../components/PrivacyPolicy";
 import axios from "axios";
 
@@ -248,6 +250,11 @@ export default {
     showExcluzeevTerms() {
       this.titleDialog = "Excluzeev Terms";
       this.componentDialog = LicenseAgreement;
+      this.termsDialog = true;
+    },
+    showCallToActionTerms() {
+      this.titleDialog = "Excluzeev Call To Action Terms";
+      this.componentDialog = CallToActionTerms;
       this.termsDialog = true;
     },
     recaptchaCallback(token) {
