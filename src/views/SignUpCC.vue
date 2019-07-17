@@ -30,6 +30,20 @@
                         <v-tooltip>
                           <template v-slot:activator="{ on }">
                             <a @click="showContentCreatorTerms" v-on="on">Content Creator Terms</a>
+                            showCallToActionTerms
+                          </template>
+                        </v-tooltip>
+                      </div>
+                    </template>
+                  </v-checkbox>
+
+                  <v-checkbox v-model="termsCallToAction" color="blue lighten-1" value="info">
+                    <template v-slot:label>
+                      <div>
+                        I agree
+                        <v-tooltip>
+                          <template v-slot:activator="{ on }">
+                            <a @click="showCallToActionTerms" v-on="on">Call to Action Terms</a>
                           </template>
                         </v-tooltip>
                       </div>
@@ -82,12 +96,15 @@ import ContentCreator from "../components/ContentCreator";
 import LicenseAgreement from "../components/LicenseAgreement";
 import CommunityAgreement from "../components/CommunityAgreement";
 
+import CallToActionTerms from "../components/CallToActionTerms";
+
 export default {
   data: () => {
     return {
       privacyPolicy: false,
       termsCreator: false,
       dialog: false,
+      termsCallToAction: false,
       titleDialog: "",
       componentDialog: null,
       rules: {
@@ -119,6 +136,10 @@ export default {
         this.showToast("Please Check Content Creator Terms");
         return;
       }
+      if (!this.termsCallToAction) {
+        this.showToast("Please Check Call to Action Terms");
+        return;
+      }
 
       this.processing = true;
 
@@ -143,6 +164,11 @@ export default {
     showPrivacyPolicy() {
       this.titleDialog = "Privacy Policy";
       this.componentDialog = PrivacyPolicy;
+      this.dialog = true;
+    },
+    showCallToActionTerms() {
+      this.titleDialog = "Excluzeev Call To Action Terms";
+      this.componentDialog = CallToActionTerms;
       this.dialog = true;
     },
 

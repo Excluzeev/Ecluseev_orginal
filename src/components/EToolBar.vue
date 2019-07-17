@@ -6,7 +6,7 @@
         class
         alt="Excluzeev logo"
         src="../assets/excluzeev_trailer.png"
-      >
+      />
       <div style="width: 100%; padding: 10px;">
         <form @submit.prevent="searchPreviews">
           <v-text-field
@@ -24,7 +24,7 @@
         </v-list-tile>
         <v-list-tile @click="goLoginLive" v-if="hideSignUpContentCreator">
           <v-list-tile-avatar>
-            <img src="../assets/e.png" width="20">
+            <img src="../assets/e.png" width="20" />
           </v-list-tile-avatar>
           <v-list-tile-title class="quick-sand-font">Excluzeev live</v-list-tile-title>
         </v-list-tile>
@@ -92,7 +92,7 @@
             alt="Excluzeev logo"
             src="../assets/excluzeev_trailer.png"
             height="50px"
-          >
+          />
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -124,7 +124,7 @@
             </v-list-tile>
             <v-list-tile @click="goLoginLive" v-if="hideSignUpContentCreator">
               <v-list-tile-avatar>
-                <img src="../assets/e.png" width="20">
+                <img src="../assets/e.png" width="20" />
               </v-list-tile-avatar>
               <v-list-tile-title class="quick-sand-font">Excluzeev live</v-list-tile-title>
             </v-list-tile>
@@ -160,7 +160,7 @@
             <span class="mr-2">My Channels</span>
           </v-btn>
         </router-link>
-        <AccountMenu v-if="!showLogin"/>
+        <AccountMenu v-if="!showLogin" />
         <router-link style="padding-top: 20px;" :to="{ name: 'Login' }" v-if="showLogin">
           <v-btn flat>
             <span class="nav-auth-button">SIGN IN</span>
@@ -198,6 +198,10 @@
             <v-list-tile @click="showContentCreatorTerms">
               <v-list-tile-title class="quick-sand-font">Content Creators Terms</v-list-tile-title>
             </v-list-tile>
+
+            <v-list-tile @click="showCallToActionTerms">
+              <v-list-tile-title class="quick-sand-font">Call to Action Terms</v-list-tile-title>
+            </v-list-tile>
             <v-list-tile @click="showLicenseAgreement">
               <v-list-tile-title class="quick-sand-font">License Agreement</v-list-tile-title>
             </v-list-tile>
@@ -234,6 +238,7 @@ import AboutUs from "./About";
 import FAQs from "./FAQs";
 import CommunityAgreementVue from "./CommunityAgreement.vue";
 import LicenseAgreementVue from "./LicenseAgreement.vue";
+import CallToActionTerms from "./CallToActionTerms";
 
 export default {
   components: {
@@ -326,6 +331,13 @@ export default {
       this.sideNav = false;
       this.titleDialogt = "Terms Of Service For Creators";
       this.componentDialogt = ContentCreator;
+      this.dialogt = true;
+    },
+
+    showCallToActionTerms() {
+      this.sideNav = false;
+      this.titleDialogt = "Excluzeev Call To Action Terms";
+      this.componentDialogt = CallToActionTerms;
       this.dialogt = true;
     },
     showCommunityMemberAgreement() {

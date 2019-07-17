@@ -31,6 +31,7 @@ import ContentCreator from "../components/ContentCreator";
 import LicenseAgreement from "../components/LicenseAgreement";
 import CookiePolicy from "../components/CookiePolicy";
 import CommunityAgreement from "../components/CommunityAgreement";
+import CallToActionTerms from "../components/CallToActionTerms";
 import FAQs from "../components/FAQs";
 import AboutUs from "../components/About";
 import SearchPreviews from "../views/SearchPreviews";
@@ -315,6 +316,16 @@ const router = new VueRouter({
       path: "/content-creator-policy",
       name: "ContentCreator",
       component: ContentCreator,
+      meta: {
+        noEntry: false,
+        showNav: false,
+        title: ""
+      }
+    },
+    {
+      path: "/call-to-action-terms",
+      name: "CallToActionTerms",
+      component: CallToActionTerms,
       meta: {
         noEntry: false,
         showNav: false,
