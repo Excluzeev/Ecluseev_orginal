@@ -8,42 +8,62 @@
               <v-toolbar-title>Sign up as Content Creator</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form class="blue--text lighten-1" @submit.prevent="doSignUpContentCreator">
+              <v-form
+                class="blue--text lighten-1"
+                @submit.prevent="doSignUpContentCreator"
+              >
                 <div style="padding-left:40px;padding-bottom:10px;">
-                  <v-checkbox v-model="privacyPolicy" color="blue lighten-1" value="info">
+                  <v-checkbox
+                    v-model="privacyPolicy"
+                    color="blue lighten-1"
+                    value="info"
+                  >
                     <template v-slot:label>
                       <div>
                         I agree
                         <v-tooltip>
                           <template v-slot:activator="{ on }">
-                            <a @click="showPrivacyPolicy" v-on="on">Privacy Policy</a>
+                            <a @click="showPrivacyPolicy" v-on="on"
+                              >Privacy Policy</a
+                            >
                           </template>
                         </v-tooltip>
                       </div>
                     </template>
                   </v-checkbox>
 
-                  <v-checkbox v-model="termsCreator" color="blue lighten-1" value="info">
+                  <v-checkbox
+                    v-model="termsCreator"
+                    color="blue lighten-1"
+                    value="info"
+                  >
                     <template v-slot:label>
                       <div>
                         I agree
                         <v-tooltip>
                           <template v-slot:activator="{ on }">
-                            <a @click="showContentCreatorTerms" v-on="on">Content Creator Terms</a>
-                            showCallToActionTerms
+                            <a @click="showContentCreatorTerms" v-on="on"
+                              >Content Creator Terms</a
+                            >
                           </template>
                         </v-tooltip>
                       </div>
                     </template>
                   </v-checkbox>
 
-                  <v-checkbox v-model="termsCallToAction" color="blue lighten-1" value="info">
+                  <v-checkbox
+                    v-model="termsCallToAction"
+                    color="blue lighten-1"
+                    value="info"
+                  >
                     <template v-slot:label>
                       <div>
                         I agree
                         <v-tooltip>
                           <template v-slot:activator="{ on }">
-                            <a @click="showCallToActionTerms" v-on="on">Call to Action Terms</a>
+                            <a @click="showCallToActionTerms" v-on="on"
+                              >Call to Action Terms</a
+                            >
                           </template>
                         </v-tooltip>
                       </div>
@@ -74,13 +94,18 @@
       </v-layout>
     </v-container>
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
         <v-card>
           <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialog = false">
               <v-icon>close</v-icon>
             </v-btn>
-            <v-toolbar-title>{{titleDialog}}</v-toolbar-title>
+            <v-toolbar-title>{{ titleDialog }}</v-toolbar-title>
           </v-toolbar>
           <component v-bind:is="componentDialog"></component>
         </v-card>
