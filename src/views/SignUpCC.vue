@@ -64,7 +64,7 @@
                     </template>
                   </v-checkbox>
 
-                  <v-checkbox
+                  <!-- <v-checkbox
                     v-model="checkAll"
                     color="blue lighten-1"
                     value="true"
@@ -78,7 +78,7 @@
                         </v-tooltip>
                       </div>
                     </template>
-                  </v-checkbox>
+                  </v-checkbox>-->
                 </div>
                 <div class="text-xs-center">
                   <v-btn
