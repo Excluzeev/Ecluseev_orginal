@@ -10,7 +10,12 @@
             <v-card-text>
               <v-form class="blue--text lighten-1" @submit.prevent="doSignUpContentCreator">
                 <div style="padding-left:40px;padding-bottom:10px;">
-                  <v-checkbox v-model="privacyPolicy" color="blue lighten-1" value="info">
+                  <v-checkbox
+                    v-model="privacyPolicy"
+                    color="blue lighten-1"
+                    value="true"
+                    @change="checkSomeCheckUpdated()"
+                  >
                     <template v-slot:label>
                       <div>
                         I agree
@@ -23,7 +28,12 @@
                     </template>
                   </v-checkbox>
 
-                  <v-checkbox v-model="termsCreator" color="blue lighten-1" value="info">
+                  <v-checkbox
+                    v-model="termsCreator"
+                    color="blue lighten-1"
+                    value="true"
+                    @change="checkSomeCheckUpdated()"
+                  >
                     <template v-slot:label>
                       <div>
                         I agree
@@ -37,7 +47,12 @@
                     </template>
                   </v-checkbox>
 
-                  <v-checkbox v-model="termsCallToAction" color="blue lighten-1" value="info">
+                  <v-checkbox
+                    v-model="termsCallToAction"
+                    color="blue lighten-1"
+                    value="true"
+                    @change="checkSomeCheckUpdated()"
+                  >
                     <template v-slot:label>
                       <div>
                         I agree
@@ -45,6 +60,22 @@
                           <template v-slot:activator="{ on }">
                             <a @click="showCallToActionTerms" v-on="on">Call to Action Terms</a>
                           </template>
+                        </v-tooltip>
+                      </div>
+                    </template>
+                  </v-checkbox>
+
+                  <v-checkbox
+                    v-model="checkAll"
+                    color="blue lighten-1"
+                    value="true"
+                    @change="updateCheckall()"
+                  >
+                    <template v-slot:label>
+                      <div>
+                        I agree
+                        <v-tooltip>
+                          <template v-slot:activator="{ on }">Check All</template>
                         </v-tooltip>
                       </div>
                     </template>
@@ -105,6 +136,7 @@ export default {
       termsCreator: false,
       dialog: false,
       termsCallToAction: false,
+      checkAll: false,
       titleDialog: "",
       componentDialog: null,
       rules: {
@@ -176,6 +208,30 @@ export default {
       this.titleDialog = "Terms Of Service For Creators";
       this.componentDialog = ContentCreator;
       this.dialog = true;
+    },
+    updateCheckall() {
+      console.log(this.checkAll);
+      if (this.checkAll == "true") {
+        console.log("Inside checkAll if");
+        this.privacyPolicy = "true";
+        this.termsCreator = "true";
+        this.termsCallToAction = "true";
+      }
+    },
+    checkSomeCheckUpdated() {
+      if (this.privacyPolicy != "true") {
+        this.checkAll = "";
+        return;
+      }
+      if (this.termsCreator != "true") {
+        this.checkAll = "";
+        return;
+      }
+      if (this.termsCallToAction != "true") {
+        this.checkAll = "";
+        return;
+      }
+      this.checkAll = "true";
     },
     showToast(msg) {
       this.$toasted.show(msg, {
