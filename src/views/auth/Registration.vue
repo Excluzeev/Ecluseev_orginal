@@ -60,7 +60,10 @@
                   ></v-text-field>
                 </v-layout>
 
-                <div class="text-xs-left grey--text" style="font-size: 12px"></div>
+                <div
+                  class="text-xs-left grey--text"
+                  style="font-size: 12px"
+                ></div>
 
                 <vue-programmatic-invisible-google-recaptcha
                   ref="invisibleRecaptcha2"
@@ -72,7 +75,10 @@
                   @recaptcha-callback="recaptchaCallback"
                 ></vue-programmatic-invisible-google-recaptcha>
 
-                <div class="text-xs-right quick-sand-font-b" style="padding: 0px;">
+                <div
+                  class="text-xs-right quick-sand-font-b"
+                  style="padding: 0px;"
+                >
                   <v-btn
                     class="white--text quick-sand-font-b"
                     color="blue lighten-1"
@@ -94,21 +100,32 @@
               <div class="text-xs-left quick-sand-font">
                 Have an account? &nbsp;
                 <a>
-                  <span class color="blue lighten-1" @click="goLogin">Sign in</span>
+                  <span class color="blue lighten-1" @click="goLogin"
+                    >Sign in</span
+                  >
                 </a>
               </div>
             </v-card-text>
           </v-card>
-          <div class="text-xs-right" style="padding-right: 20px;padding-top: 10px;">
+          <div
+            class="text-xs-right"
+            style="padding-right: 20px;padding-top: 10px;font-weight: bolder;"
+          >
+            <strong>By creating account you agree to &nbsp;&nbsp;</strong>
             <a @click="showExcluzeevTerms">Terms</a>
 
-            <a @click="showPrivacyPolicy" style="padding-left: 20px;">Privacy</a>
-            <a @click="showCallToActionTerms" style="padding-left: 20px;">Call to Action Terms</a>
+            <a @click="showPrivacyPolicy" style="padding-left: 20px;"
+              >Privacy</a
+            >
+            <a @click="showCallToActionTerms" style="padding-left: 20px;"
+              >Call to Action Terms</a
+            >
 
             <a
               href="mailto:support@excluzeev.com?subject=Need%20Help"
               style="padding-left: 20px;"
-            >Help</a>
+              >Help</a
+            >
           </div>
         </v-flex>
       </v-layout>
@@ -116,7 +133,12 @@
         {{ toastText }}
       </v-snackbar>-->
     </v-container>
-    <v-dialog v-model="termsDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-dialog
+      v-model="termsDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="termsDialog = false">
