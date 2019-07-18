@@ -8,24 +8,20 @@
               <v-toolbar-title>Sign up as Content Creator</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <v-form
-                class="blue--text lighten-1"
-                @submit.prevent="doSignUpContentCreator"
-              >
+              <v-form class="blue--text lighten-1" @submit.prevent="doSignUpContentCreator">
                 <div style="padding-left:40px;padding-bottom:10px;">
                   <v-checkbox
                     v-model="privacyPolicy"
                     color="blue lighten-1"
-                    value="info"
+                    value="true"
+                    @change="checkSomeCheckUpdated()"
                   >
                     <template v-slot:label>
                       <div>
                         I agree
                         <v-tooltip>
                           <template v-slot:activator="{ on }">
-                            <a @click="showPrivacyPolicy" v-on="on"
-                              >Privacy Policy</a
-                            >
+                            <a @click="showPrivacyPolicy" v-on="on">Privacy Policy</a>
                           </template>
                         </v-tooltip>
                       </div>
@@ -35,16 +31,15 @@
                   <v-checkbox
                     v-model="termsCreator"
                     color="blue lighten-1"
-                    value="info"
+                    value="true"
+                    @change="checkSomeCheckUpdated()"
                   >
                     <template v-slot:label>
                       <div>
                         I agree
                         <v-tooltip>
                           <template v-slot:activator="{ on }">
-                            <a @click="showContentCreatorTerms" v-on="on"
-                              >Content Creator Terms</a
-                            >
+                            <a @click="showContentCreatorTerms" v-on="on">Content Creator Terms</a>
                           </template>
                         </v-tooltip>
                       </div>
@@ -54,17 +49,32 @@
                   <v-checkbox
                     v-model="termsCallToAction"
                     color="blue lighten-1"
-                    value="info"
+                    value="true"
+                    @change="checkSomeCheckUpdated()"
                   >
                     <template v-slot:label>
                       <div>
                         I agree
                         <v-tooltip>
                           <template v-slot:activator="{ on }">
-                            <a @click="showCallToActionTerms" v-on="on"
-                              >Call to Action Terms</a
-                            >
+                            <a @click="showCallToActionTerms" v-on="on">Call to Action Terms</a>
                           </template>
+                        </v-tooltip>
+                      </div>
+                    </template>
+                  </v-checkbox>
+
+                  <v-checkbox
+                    v-model="checkAll"
+                    color="blue lighten-1"
+                    value="true"
+                    @change="updateCheckall()"
+                  >
+                    <template v-slot:label>
+                      <div>
+                        I agree
+                        <v-tooltip>
+                          <template v-slot:activator="{ on }">Check All</template>
                         </v-tooltip>
                       </div>
                     </template>
@@ -94,12 +104,7 @@
       </v-layout>
     </v-container>
     <v-layout row justify-center>
-      <v-dialog
-        v-model="dialog"
-        fullscreen
-        hide-overlay
-        transition="dialog-bottom-transition"
-      >
+      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
           <v-toolbar dark color="primary">
             <v-btn icon dark @click="dialog = false">
@@ -130,6 +135,7 @@ export default {
       termsCreator: false,
       dialog: false,
       termsCallToAction: false,
+      checkAll: false,
       titleDialog: "",
       componentDialog: null,
       rules: {
@@ -201,6 +207,30 @@ export default {
       this.titleDialog = "Terms Of Service For Creators";
       this.componentDialog = ContentCreator;
       this.dialog = true;
+    },
+    updateCheckall() {
+      console.log(this.checkAll);
+      if (this.checkAll == "true") {
+        console.log("Inside checkAll if");
+        this.privacyPolicy = "true";
+        this.termsCreator = "true";
+        this.termsCallToAction = "true";
+      }
+    },
+    checkSomeCheckUpdated() {
+      if (this.privacyPolicy != "true") {
+        this.checkAll = "";
+        return;
+      }
+      if (this.termsCreator != "true") {
+        this.checkAll = "";
+        return;
+      }
+      if (this.termsCallToAction != "true") {
+        this.checkAll = "";
+        return;
+      }
+      this.checkAll = "true";
     },
     showToast(msg) {
       this.$toasted.show(msg, {
