@@ -438,7 +438,7 @@ export default {
       }
 
       if (this.selectedChannelType == "VOD") {
-        if (!(this.price >= 1.0 && this.price <= 10.0)) {
+        if (!(this.price >= 1.0)) {
           this.showToast("Price cannot be less than 1 or greater than 10");
           return;
         }
