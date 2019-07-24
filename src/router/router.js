@@ -448,7 +448,7 @@ router.beforeEach(async (to, from, next) => {
   //   next();
   // } else {
 
-  auth.onAuthStateChanged(
+  var unsubscribe = auth.onAuthStateChanged(
     user => {
       if (to.meta.noEntry == true) {
         if (user == null) {
@@ -459,6 +459,7 @@ router.beforeEach(async (to, from, next) => {
             name: "Home",
             replace: true
           });
+          location.reload();
         } else {
           next();
         }
@@ -489,6 +490,9 @@ router.beforeEach(async (to, from, next) => {
       });
     }
   );
+  setTimeout(() => {
+    unsubscribe();
+  }, 2000);
 });
 
 export default router;
