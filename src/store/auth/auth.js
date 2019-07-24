@@ -104,6 +104,7 @@ export default {
               uid: currentUser.uid,
               isContentCreator: false
             };
+            console.log(userDoc);
             let userRef = fireStore
               .collection(collections.usersCollections)
               .doc(userDoc.uid);
