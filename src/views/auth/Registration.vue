@@ -61,12 +61,7 @@
                 </v-layout>
 
                 <v-layout row>
-                  <v-checkbox
-                    v-model="checkAll"
-                    color="blue lighten-1"
-                    value="true"
-                    @change="updateCheckall()"
-                  >
+                  <v-checkbox v-model="checkAll" color="blue lighten-1" value="true">
                     <template v-slot:label>
                       <div>
                         Agree to &nbsp;

@@ -26,26 +26,37 @@
 
 <script>
 import store from "../store/index";
+import { auth } from "../firebase/init";
+import { async } from "q";
 
 export default {
   data() {
-    return {};
+    return {
+      userName: "User"
+    };
+  },
+  mounted() {
+    this.getUserName();
   },
   computed: {
     hideSignUpContentCreator() {
       return store.getters.getFUser != null
         ? store.getters.getFUser.isContentCreator
         : false;
-    },
-    userName() {
-      return store.getters.getFUser != null
-        ? store.getters.getFUser.firstName +
-            " " +
-            store.getters.getFUser.lastName
-        : "";
     }
   },
   methods: {
+    async getUserName() {
+      await auth.onAuthStateChanged(user => {
+        this.userName = user.displayName;
+      });
+      // console.log(user);
+      // return store.getters.getFUser != null
+      //   ? store.getters.getFUser.firstName +
+      //       " " +
+      //       store.getters.getFUser.lastName
+      //   : "";
+    },
     logout() {
       this.$router.push("/logout");
       this.$toasted.show("Sign out successful", {

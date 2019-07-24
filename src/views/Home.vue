@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
+  <div class="home" :key="$route.fullPath">
     <div style="padding-top:25px"></div>
     <!--<FeaturedItem />-->
-    <CategoriesTrailerVideos/>
+    <CategoriesTrailerVideos />
   </div>
 </template>
 
