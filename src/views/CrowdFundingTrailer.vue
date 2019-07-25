@@ -108,7 +108,7 @@
               <!-- <p
                 class="nav-c flex d-flex align-start display-1 font-weight-thin"
               >{{ channel.subscriberCount }}</p>-->
-              <p class="sub-text">backers</p>
+              <p class="sub-text">contributors</p>
             </div>
           </v-layout>
 

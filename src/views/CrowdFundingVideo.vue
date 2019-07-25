@@ -5,7 +5,7 @@
         <div align="left">
           <div class="padding">
             <v-avatar tile="false" size="50px" color="grey lighten-4">
-              <img class="channel-image" :src="video != null ? video.channelImage : ''">
+              <img class="channel-image" :src="video != null ? video.channelImage : ''" />
             </v-avatar>
           </div>
           <div style="font-size:1.4rem" class="quick-sand-font-l">{{ video.channelName }}</div>
@@ -53,7 +53,7 @@
           <p
             class="nav-c flex d-flex align-start display-1 font-weight-thin"
           >{{ channel.subscriberCount }}</p>
-          <p class="nav-c t1824">backers</p>
+          <p class="nav-c t1824">contributors</p>
           <!--<p class="nav-c flex d-flex align-start display-1 font-weight-thin">-->
           <!--13-->
           <!--</p>-->
