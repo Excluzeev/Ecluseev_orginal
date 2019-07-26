@@ -545,7 +545,7 @@ export default {
       };
 
       let commentRef = fireStore
-        .collection(utils.videosCollection)
+        .collection(utils.trailerCollection)
         .doc(this.trailer.trailerId)
         .collection(utils.commentsCollections)
         .doc(commentId);
@@ -556,7 +556,7 @@ export default {
     },
     async getComments() {
       let commentRef = fireStore
-        .collection(utils.videosCollection)
+        .collection(utils.trailerCollection)
         .doc(this.trailer.trailerId)
         .collection(utils.commentsCollections)
         .orderBy("createdDate", "desc")
