@@ -350,7 +350,11 @@ export default {
         this.$router.push({ name: "Login" });
         return;
       }
+      // if (auth.currentUser.uid == "8tofk8UcabOsu89X04bOaMwvH2C3") {
+      //   this.prepareSubscribe(this.donateAmount, "demo_token");
+      // } else {
       const { token, args } = await this.$refs.checkoutRef.open();
+      // }
     },
     done({ token, args }) {
       // token - is the token object
@@ -463,7 +467,7 @@ export default {
         channelName: this.trailer.channelName,
         userId: auth.currentUser.uid,
         isDesktop: true,
-        redirectTo: "https://excluzeev.com/my-channels",
+        redirectTo: "https://excluzeev.com/my-subscriptions",
         isDonate: true,
         token: token.id
       };
