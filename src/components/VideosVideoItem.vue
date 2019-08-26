@@ -23,7 +23,10 @@
               </v-list-tile>
             </v-list>
           </v-menu>
-          <v-img :src="video.image" height="118px"></v-img>
+          <v-img
+            :src="video.hasCustomThumbnail ? video.customThumbnail : video.image"
+            height="118px"
+          ></v-img>
         </v-flex>
         <div class="padding">
           <div class="title--text max-2-lines quick-sand-font-b">{{ video.title }}</div>
@@ -42,8 +45,8 @@
         <v-card-title class="headline">Delete the Video?</v-card-title>
         <v-card-text>
           Hello,
-          <br>Do you really want to delete the Video.
-          <br>
+          <br />Do you really want to delete the Video.
+          <br />
           <strong>{{ video.title }}</strong>
         </v-card-text>
         <v-card-actions>

@@ -44,6 +44,38 @@
                     <source :src="videoUrl" type="video/mp4" />Your browser does not support HTML5 video.
                   </video>
                 </div>
+                <div class="custom-thumbnail-holder">
+                  <v-checkbox
+                    v-bind:key="index"
+                    style="margin-top: 0;     padding-top: 0;"
+                    v-model="hasCustomThumbnail"
+                    label="Upload Custom Thumbnail"
+                    :value="checked"
+                  ></v-checkbox>
+                </div>
+                <div class="image-holder" v-if="hasCustomThumbnail">
+                  <!-- Custom Thumbnail Image viewing -->
+                  <upload-btn
+                    color="blue--text lighten-1"
+                    style="background-color: #fff !important;"
+                    class="white--text"
+                    title="Upload Thumbnail"
+                    :fileChangedCallback="onCustomThumbnailSelected"
+                    accept="image/*"
+                    :uniqueId="unique"
+                    round
+                  >
+                    <template slot="icon">
+                      <div style="padding-left:4px">
+                        <v-icon color="blue lighten-1">cloud_upload</v-icon>
+                      </div>
+                    </template>
+                  </upload-btn>
+                  <v-layout padding justify-center>
+                    <img :src="customThumbnailUrl" height="150" v-if="customThumbnailUrl" />
+                  </v-layout>
+                </div>
+
                 <div class="text-xs-center">
                   <v-btn
                     class="white--text"
@@ -90,6 +122,10 @@ export default {
       description: "",
       videoFile: null,
       videoUrl: "",
+      checked: true,
+      customThumbnailFile: null,
+      hasCustomThumbnail: false,
+      customThumbnailUrl: "",
       processing: false,
       unique: true,
       rules: {
@@ -103,6 +139,10 @@ export default {
       this.videoFile = file;
       this.videoUrl = URL.createObjectURL(this.videoFile);
     },
+    onCustomThumbnailSelected(file) {
+      this.customThumbnailFile = file;
+      this.customThumbnailUrl = URL.createObjectURL(this.customThumbnailFile);
+    },
     async doUploadTrailer() {
       if (this.title == "") {
         this.showToast("Title cannot be empty.");
@@ -114,6 +154,11 @@ export default {
       }
       if (this.videoFile == null) {
         this.showToast("Please select Preview Video");
+        return;
+      }
+
+      if (this.hasCustomThumbnail == true && this.customThumbnailFile == null) {
+        this.showToast("Thumbnail cannot be empty");
         return;
       }
 
@@ -139,6 +184,26 @@ export default {
         this.show("Preview Upload failed.");
       }
 
+      // Upload Custom Thumbnail
+      let trailerThumbnailRef = publicStorage
+        .ref()
+        .child(this.channelData.channelId)
+        .child(trailerId)
+        .child("thumbnail");
+      let trailerThumbnailUrl = "";
+
+      if (this.hasCustomThumbnail == true) {
+        try {
+          await trailerThumbnailRef.put(this.customThumbnailFile, {
+            contentType: "image/*"
+          });
+          trailerThumbnailUrl = await trailerThumbnailRef.getDownloadURL();
+        } catch (e) {
+          // console.log(e);
+          this.show("Thumbanil Upload failed.");
+        }
+      }
+
       let trailerData = {
         trailerId: trailerId,
         categoryName: this.channelData.categoryName,
@@ -148,6 +213,8 @@ export default {
         channelName: this.channelData.title,
         channelType: this.channelData.channelType,
         title: this.title,
+        hasCustomThumbnail: this.hasCustomThumbnail,
+        customThumbnail: trailerThumbnailUrl,
         description: this.description,
         videoUrl: trailerUrl,
         createdDate: firebaseTimestamp.fromDate(new Date()),
