@@ -182,7 +182,7 @@
                         block
                         class="quick-sand-font-b white--text"
                         color="teal"
-                        @click="checkout(tier.price)"
+                        @click="checkout(tier.price, tier.tier)"
                       >{{tier.tier}} - {{tier.price}}$</v-btn>
                     </v-card-text>
                   </v-card>
@@ -224,6 +224,7 @@ export default {
       donate10Processing: false,
       commentsList: [],
       donateAmount: 0,
+      tierName: "",
       commentText: "",
       playerOptions: {
         overNative: true,
@@ -341,8 +342,9 @@ export default {
     async sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
-    async checkout(donate) {
+    async checkout(donate, tierName) {
       this.donateAmount = donate;
+      this.tierName = tierName;
       await this.sleep(1000);
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
@@ -361,7 +363,7 @@ export default {
       // args - is an object containing the billing and shipping address if enabled
       // do stuff...
 
-      this.prepareSubscribe(this.donateAmount, token);
+      this.prepareSubscribe(this.donateAmount, this.tierName, token);
     },
     opened() {
       // do stuff
@@ -457,7 +459,7 @@ export default {
         this.isUserLiked = false;
       }
     },
-    async prepareSubscribe(donate, token) {
+    async prepareSubscribe(donate, tierName, token) {
       if (auth.currentUser == null) {
         this.$router.push({ name: "Login" });
         return;
@@ -474,6 +476,7 @@ export default {
       this.subscribeProcessing = true;
       if (this.showDonateText) {
         prepareOptions.donate = donate;
+        prepareOptions.tierName = tierName;
       }
 
       axios
