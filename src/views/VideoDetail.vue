@@ -19,7 +19,7 @@
             <div class="title-details--text max-1-lines quick-sand-font-b">
               {{ video.title }}
             </div>
-            <div class="desc-details--text">{{ video.views }} views</div>
+            <!--<div class="desc-details--text">{{ video.views }} views</div>-->
           </v-layout>
           <v-spacer></v-spacer>
           <a>

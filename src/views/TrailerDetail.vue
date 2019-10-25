@@ -25,7 +25,7 @@
             <div class="title-details--text max-1-lines quick-sand-font-b">
               {{ trailer.title }}
             </div>
-            <div class="desc-details--text">{{ trailer.views }} views</div>
+            <!--<div class="desc-details--text">{{ trailer.views }} views</div>-->
           </v-layout>
           <v-spacer></v-spacer>
           <a>

@@ -30,7 +30,7 @@
             <div class="title--text max-2-lines quick-sand-font-n">{{ trailer.title }}</div>
           </v-layout>
           <span class="desc--text">{{ trailer.channelName }}</span>
-          <div class="desc--text">{{ trailer.views }} views • {{ trailer.timeAgo }}</div>
+          <div class="desc--text">{{ trailer.timeAgo }}</div>
 
           <div class="red--text" v-show="getIsExpired(trailer.expiry)">
             <p danger>Expired</p>
