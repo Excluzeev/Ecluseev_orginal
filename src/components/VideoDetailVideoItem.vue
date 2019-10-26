@@ -7,7 +7,7 @@
         <div class="title--text max-2-lines quick-sand-font-b">{{ video.title }}</div>
         <span class="desc--text">{{ video.channelName }}</span>
         <div class="desc--text">
-          {{ video.views }} views • {{ video.timeAgo }}
+          {{ video.timeAgo }}
         </div>
       </div>
     </v-layout>

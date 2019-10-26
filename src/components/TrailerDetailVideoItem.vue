@@ -8,7 +8,7 @@
         </div>
         <span class="desc--text">{{ trailer.channelName }}</span>
         <div class="desc--text">
-          {{ trailer.views }} views • {{ trailer.timeAgo }}
+          {{ trailer.timeAgo }}
         </div>
       </div>
     </v-layout>
