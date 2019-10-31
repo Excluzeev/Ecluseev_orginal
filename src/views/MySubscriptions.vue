@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="quick-sand-font-n">My Subscriptions</h1>
+    <h1 class="quick-sand-font-n">My Communities</h1>
     <v-layout xs12 row wrap>
       <v-flex
         class="channel-item"

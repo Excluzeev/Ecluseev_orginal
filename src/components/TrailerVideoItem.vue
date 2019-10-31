@@ -23,7 +23,10 @@
               </v-list-tile>
             </v-list>
           </v-menu>
-          <v-img :src="trailer.image" height="118px"></v-img>
+          <v-img
+            :src="trailer.hasCustomThumbnail ? trailer.customThumbnail :  trailer.image"
+            height="118px"
+          ></v-img>
         </v-flex>
         <div class="padding">
           <v-layout row>
@@ -124,6 +127,7 @@ export default {
   },
   computed: {
     showDelete() {
+      console.log(this.trailer);
       if (auth.currentUser == null) return false;
       else return this.trailer.userId == auth.currentUser.uid;
     },

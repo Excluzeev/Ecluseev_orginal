@@ -22,6 +22,8 @@ export default {
       channelType: data.channelType != null ? data.channelType : "",
       createdBy: data.createdBy != null ? data.createdBy : "",
       title: data.title != null ? data.title : "",
+      hasCustomThumbnail: data.hasCustomThumbnail != null ? data.hasCustomThumbnail : false,
+      customThumbnail: data.customThumbnail != null ? data.customThumbnail : false,
       description: data.description != null ? data.description : "",
       image: "https://image.mux.com/" + data.playbackId + "/thumbnail.png?width=214&fit_mode=pad",
       channelImage: "https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F" +
@@ -72,6 +74,8 @@ export default {
       categoryId: data.categoryId != null ? data.categoryId : "",
       categoryName: data.categoryName != null ? data.categoryName : "",
       createdBy: data.createdBy != null ? data.createdBy : "",
+      hasCustomThumbnail: data.hasCustomThumbnail != null ? data.hasCustomThumbnail : false,
+      customThumbnail: data.customThumbnail != null ? data.customThumbnail : false,
       title: data.title != null ? data.title : "",
       type: data.type != null ? data.type : "",
       later: data.later != null ? data.later : "now",

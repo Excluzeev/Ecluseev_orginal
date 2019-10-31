@@ -7,7 +7,7 @@
           '%2Fcover.jpg?alt=media'
       "
       style="width: 100%; height: 150px; object-fit: cover;"
-    >
+    />
     <v-layout row wrap xs12 text-xs-center class="padding">
       <v-avatar :tile="tile" size="100px" color="grey lighten-4">
         <img
@@ -17,7 +17,7 @@
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"
-        >
+        />
       </v-avatar>
       <div class="channel-details padding">
         <h2 class="quick-sand-font-b">{{ channel.title }}</h2>
@@ -67,7 +67,7 @@
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
       <h1 class="quick-sand-font-b">Preview</h1>
-      <br>
+      <br />
       <v-layout xs12 row wrap>
         <v-flex
           class="trailer-item"
@@ -78,14 +78,14 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
+          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted" />
         </v-flex>
       </v-layout>
     </div>
     <div class="padding"></div>
     <div v-if="!(videosList.length == 0)">
       <h1 class="quick-sand-font-b">Videos</h1>
-      <br>
+      <br />
       <v-layout xs12 row wrap>
         <v-flex
           class="video-item"
@@ -96,7 +96,7 @@
           v-for="video in videosList"
           v-bind:key="video.videoId"
         >
-          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted"/>
+          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted" />
         </v-flex>
       </v-layout>
     </div>
@@ -112,7 +112,10 @@
             <!--<v-divider v-if="index != 0" :key="index"></v-divider>-->
             <v-list-tile-content>
               <v-list-tile-title>{{ subscriber.email }} ( {{ subscriber.userName }} )</v-list-tile-title>
-              <v-list-tile-sub-title>{{ subscriber.daysLeft }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>
+                <b>{{subscriber.tierName}}</b>
+                - {{ subscriber.daysLeft }}
+              </v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -134,7 +137,7 @@
           <v-card-title class="headline">Do you want to delete the channel?</v-card-title>
           <v-card-text>
             Do you really want to delete the channel?
-            <br>Users will have a 30
+            <br />Users will have a 30
             days notice period.
           </v-card-text>
           <v-card-actions>
@@ -196,9 +199,16 @@ export default {
       let subscribers = [];
       querySnapshot.forEach(snap => {
         let data = snap.data();
-        data.daysLeft =
-          moment(data.expiryDate.toDate()).diff(moment(), "days") +
-          " Days Left";
+        let days = moment(data.expiryDate.toDate()).diff(moment(), "days");
+
+        if (days < 0) {
+          data.daysLeft = "Expired";
+        } else {
+          data.daysLeft =
+            moment(data.expiryDate.toDate()).diff(moment(), "days") +
+            " Days Left";
+        }
+
         subscribers.push(data);
       });
       this.subscribersList = subscribers;

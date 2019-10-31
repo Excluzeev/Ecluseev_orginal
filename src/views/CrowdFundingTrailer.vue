@@ -108,7 +108,7 @@
               <!-- <p
                 class="nav-c flex d-flex align-start display-1 font-weight-thin"
               >{{ channel.subscriberCount }}</p>-->
-              <p class="sub-text">backers</p>
+              <p class="sub-text">contributors</p>
             </div>
           </v-layout>
 
@@ -182,7 +182,7 @@
                         block
                         class="quick-sand-font-b white--text"
                         color="teal"
-                        @click="checkout(tier.price)"
+                        @click="checkout(tier.price, tier.tier)"
                       >{{tier.tier}} - {{tier.price}}$</v-btn>
                     </v-card-text>
                   </v-card>
@@ -224,6 +224,7 @@ export default {
       donate10Processing: false,
       commentsList: [],
       donateAmount: 0,
+      tierName: "",
       commentText: "",
       playerOptions: {
         overNative: true,
@@ -341,8 +342,9 @@ export default {
     async sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
-    async checkout(donate) {
+    async checkout(donate, tierName) {
       this.donateAmount = donate;
+      this.tierName = tierName;
       await this.sleep(1000);
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
@@ -350,14 +352,18 @@ export default {
         this.$router.push({ name: "Login" });
         return;
       }
+      // if (auth.currentUser.uid == "8tofk8UcabOsu89X04bOaMwvH2C3") {
+      //   this.prepareSubscribe(this.donateAmount, "demo_token");
+      // } else {
       const { token, args } = await this.$refs.checkoutRef.open();
+      // }
     },
     done({ token, args }) {
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
       // do stuff...
 
-      this.prepareSubscribe(this.donateAmount, token);
+      this.prepareSubscribe(this.donateAmount, this.tierName, token);
     },
     opened() {
       // do stuff
@@ -453,7 +459,7 @@ export default {
         this.isUserLiked = false;
       }
     },
-    async prepareSubscribe(donate, token) {
+    async prepareSubscribe(donate, tierName, token) {
       if (auth.currentUser == null) {
         this.$router.push({ name: "Login" });
         return;
@@ -463,13 +469,14 @@ export default {
         channelName: this.trailer.channelName,
         userId: auth.currentUser.uid,
         isDesktop: true,
-        redirectTo: "https://excluzeev.com/my-channels",
+        redirectTo: "https://excluzeev.com/my-subscriptions",
         isDonate: true,
         token: token.id
       };
       this.subscribeProcessing = true;
       if (this.showDonateText) {
         prepareOptions.donate = donate;
+        prepareOptions.tierName = tierName;
       }
 
       axios
