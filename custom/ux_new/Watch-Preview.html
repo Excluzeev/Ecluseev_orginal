@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Excluzeev! Watch Preview</title>
+	<!-- Bootstarp CD Stylesheet -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,500i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:400,500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="icon" type="image/png" href="assets/images/fav_icon.png">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="responsive-style.css">
+
+</head>
+<body>
+	<div class="nav_section homepage-nav create_community_page_nav mobile_bg">
+		<nav class="nav-home navbar-expand-lg navbar " id="nav">
+			<div class="pull-left d-md-block d-xl-none d-lg-none">
+				<div id="mySidenav" class="sidenav">
+					<div class="inline-list ">
+
+						<img src="assets/images/menu_logo.png">
+						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+					</div>
+					<h5>Account</h5>
+					<a href="#">My Profile</a>
+					<a href="#">Communities</a>
+					<a href="#">Excluzeev Live</a>
+					<a href="#">Setting</a>
+					<h5>COMPANY</h5>
+					<a href="#">About</a>
+					<a href="#">Careers</a>
+					<a href="#">News</a>
+					<h5>SUPPORT</h5>
+					<a href="#">Contact Support</a>
+					<a href="#">Help Guide</a>
+					<a href="#">FAQ</a>
+					<h5>LEAGAL</h5>
+					<hr>
+					<a href="#">Logout</a>
+					<hr class="logout_link">
+					<ul class="list-unstyled inline-list social_links">
+						<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+						<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+				<div class="menu_sticks d-none d-lg-none d-xl-none" onclick="openNav()">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="menu_sticks d-block d-lg-none d-xl-none" >
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			<div class="pull-left  home_brand ">
+				<a class="navbar-brand" href="index.html">
+					<img src="Assets/images/brand.svg" draggable="false" class="d-block d-xl-none d-lg-none">
+					<img src="Assets/images/logo.svg" draggable="false" class="d-none d-xl-block d-lg-block">
+				</a>
+			</div>
+			<div class="pull-right">
+				<div class="text-center row-auto " id="navbarSupportedContent row-auto ">
+					<ul class="navbar-nav row-auto">
+						<li class="nav-item color_fffffff d-none d-lg-block d-lg-block">
+							<a class="nav-link color_fffffff" href="#">About Excluzeev</a>
+						</li>
+						<li class="nav-item color_fffffff search_group d-none d-xl-block d-lg-none">
+							<div class="form-group has-search">
+								<span class="fa fa-search form-control-feedback color_fffffff"></span>
+								<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+							</div>
+						</li>
+						<li class="nav-item color_fffffff d-none d-lg-block d-lg-block">
+							<a class="nav-link color_fffffff" href="#" data-toggle="modal" data-target="#forgotPasswordAfterLinkModal">Contact</a>
+						</li>
+						<li class="nav-item d-xs-block d-block d-sm-block d-md-block d-xl-none d-lg-block">
+							<div class="search_icon ">
+								<button class="btn btn-borderless search_btn ">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</div>
+						</li>
+						<li class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn create-account-btn btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signUpModal">Create an Account</button>
+						</li>
+						<li class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signInModal">Sign In</button>
+						</li>
+						<li class="nav-item dropdown dropleft d-none d-xl-block d-lg-block">
+							<img src="assets/images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
+							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
+								<li class="dropdown-item" type="button"><a href="#">BRI N TEESH</a> </li>
+								<li class="dropdown-item" type="button"><a href="#">My profile</a></li>
+								<li class="dropdown-item" type="button"><a href="#">My crowd funding</a></li>
+								<li class="dropdown-item" type="button"><a href="#">My earnings</a></li>
+								
+								<li class="dropdown-item" type="button"> <a href="#">Settings</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div id="watch_preview_page">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-6">
+						<div class="watch_vedio_section">
+							<img src="assets/Images/watch-preview.png" class="img-fluid" style="width: 100%"> <!-- video -->
+							<h2 class="d-none d-md-none d-sm-none d-lg-block d-xl-block">Join Bri n Teesh in an adventurous journey around the world.</h2>
+							<div class="list-inline video_content">
+								<div class="list-inline d-flex pull-left">
+									<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle"  style="width: 46px;height: 46px;">&nbsp;&nbsp; &nbsp;
+									<h3><span>BRI N TEESH</span><br><span class="sub_title d-block  d-sm-block d-xl-none d-lg-none">Artist/Band/Vlog</span></h3>
+								</div>
+
+								<div class="pull-right">
+									<div class="btn-group" role="group" aria-label="Basic example">
+										<button type="button" class="btn btn-per-month d-none d-xl-block d-lg-block">$10 per month</button>
+										<a href="watch-Preview-mobile.html" class="btn-join-community d-block d-xl-none d-lg-none d-sm-block">Join</a>
+
+										<button type="button" class="btn btn-join-community d-none d-xl-block d-lg-block" data-toggle="modal" data-target="#joinCommunityModal">Join community</button>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+								<p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifest, meet people, learn culture and spread the love and positivity. 
+									<a href="#collapse" class="nav-toggle ">Read Less</a>
+								</p>
+								<div id="collapse" class="content_text">
+
+									<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neq ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p>
+									<p>Condimentum vitae sapien pellentesque habitant morbi tristique. Tempo orci eu lobortis elementum nibh tellus. Commodo sed egestas egestas fringilla phasellus. Faucibus turpis in eu mi bibendum neque egest congue. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit. Feugiat scelerisque varius morbi enim. Velit dignissim sodales ut eu sem integer vitae.</p>
+									<p> Suspendisse sed nisi lacus sed viverra tellus in hac. Vitae proin sagittis nisl rhoncus mattis. Libero justo laoreet sit amet. Turpis egestas sed tempus urna et pharetra. </p>
+									<p>vestibulum mattis ullamcorper velit. Amet nulla facilisi morbi tempus iaculis urna id volutpat lacus. Pharetra pharetra massa massa ultricies mi. Sit amet cursus sit amet dictum sit. Faucibus vitae aliquet nec ullamcorper sit. Molestie ac feugiat sed lectus.</p> 
+								</div>
+							</div>
+							<div class="chat_section d-none d-xl-block d-lg-block">
+								<h3><span>Comments</span></h3>
+								<div class="user_comment_section d-flex">
+									<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+									<div class="user_name_comment">
+										<ul class="list-unstyled">
+											<li class="list-inline">
+												<h3 class="pull-left">Rick Patterson</h3>
+												<div class="posted_time pull-right"><p>5 hours ago</p></div>
+												<div class="clearfix"></div>
+											</li>
+											<li><p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p></li>
+										</ul>
+									</div>
+								</div>
+								<div class="user_comment_section d-flex">
+									<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+									<div class="user_name_comment">
+										<ul class="list-unstyled">
+											<li class="list-inline">
+												<h3 class="pull-left">Maik Wasowski</h3>
+												<div class="posted_time pull-right">
+													<p>2 hours ago</p>
+												</div>
+												<div class="clearfix"></div>
+											</li>
+											<li>
+												<p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="user_comment_section d-flex">
+									<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+									<div class="user_name_comment">
+										<ul class="list-unstyled">
+											<li class="list-inline">
+												<h3 class="pull-left">Tim Cloak</h3>
+												<div class="posted_time pull-right">
+													<p>30 Dec, 19</p>
+												</div>
+												<div class="clearfix"></div>
+											</li>
+											<li>
+												<p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="chat_messege_section">
+								<button class="btn btn-add-comment d-none d-xl-block d-lg-block" type="button">Add a comment</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-6">
+						<div class="row ">
+							<div class="col-xl-5 col-lg-5 ">
+								<div class="start_excluzeev_btn_section d-none d-xl-block d-lg-block">
+									<div class=" start_excluzeev_btn_description">
+										<p>Start excluzeev live now and interact with the fans. </p>
+										<br>
+										<p>Just a click away.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-7 col-lg-7">
+								<div class="d-none d-xl-block d-lg-block">
+									<button class="btn btn-start-excluzeev-live"><img src="assets/images/live-blue.png" style="width: 36px">&nbsp;&nbsp;Start Excluzeev Live</button>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="related_video_section">
+							<ul class="list-unstyled">
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid" style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>An amazing day in the land of potatoes</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid"  style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>Happy llamas friendly spitting on travelers</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid" style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>An amazing day in the land of potatoes</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid"  style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>Happy llamas friendly spitting on travelers</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid" style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>An amazing day in the land of potatoes</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid"  style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>Happy llamas friendly spitting on travelers</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid" style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>An amazing day in the land of potatoes</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid"  style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>Happy llamas friendly spitting on travelers</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<img src=" assets/Images/related-video.png" class="img-fluid"  style="width: 100%">
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span>Happy llamas friendly spitting on travelers</span></h3>
+													<h4>BRI N TEESH</h4>
+													<p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="footer_brand_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+				<a class="navbar-brand" href="index.html"><img src="Assets/images/logo.svg" draggable="false"></a>
+			</div>
+
+			<div class="footer_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block ">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+							<h4>COMPANY</h4>
+							<a href="#">About</a>
+							<a href="#">Careers</a>
+							<a href="#">News</a>
+						</div>
+						<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+							<h4>ACCOUNT</h4>
+							<a href="#">My Community</a>
+							<a href="#">My Profile</a>
+							<a href="#">Settings</a>
+
+						</div>
+						<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+							<h4>SUPPORT</h4>
+							<a href="#">Contact Support</a>
+							<a href="#">Help Guide</a>
+							<a href="#">FAQ</a>
+
+						</div>
+						<div class="padding_top col-md-4 col-sm-4 col-lg-4 col-xl-2">
+							<h4>LEGAL</h4>
+							<a href="#">Privacy Policy</a>
+							<a href="#">Cookie Policy</a>
+							<a href="#">Community Member Agreement</a>
+							<a href="#">Content Creator Terms</a>
+							<a href="#">Call to Action Terms</a>
+							<a href="#">Content Creator Licence Agreement</a>
+						</div>
+						<div class="padding_top col-md-4 col-sm-4 col-lg-4 col-xl-2">
+							<h4>PARTNERSHIP</h4>
+							<a href="#">Advertise With Us</a>
+							<a href="#">Partnerships</a>
+							<a href="#">Content Research</a>
+						</div>
+						<div class="padding_top col-md-4 text-center col-sm-4 col-lg-4 col-xl-2">
+							<ul class="list-unstyled inline-list bootom_social_links">
+								<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+							</ul>
+							<a href="#"><img src="Assets/images/Download_on_the_App_Store_Badge.svg"></a>
+							<a href="#"><img src="Assets/images/Google_Play_Store_badge_EN.svg"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="copyright_section text-center d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+				<hr>
+				<p>Copyright © 2019 Excluzeev, Inc. All rights reserved.</p>
+				<!-- <p>A Design by Tracy Tech Works</p> -->
+			</div>
+			<div class="footer_menu_section  d-xs-block d-lg-none d-xl-none d-md-block">
+				<nav class="navbar fixed-bottom navbar-light bg-faded">
+					<div class="pull-left">
+						<a class="" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+					</div>
+					<div class="text-center row-auto">
+						<a class="" href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
+					</div>
+					<div class="pull-right">
+						<a class="" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+					</div>
+				</nav>
+			</div>
+		</div> 
+		<!-- Model for Join Community  -->
+		<div class="modal fade bd-example-modal-md" id="joinCommunityModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">Close</span>
+						</button>
+					</div>
+					<div class="modal-body text-center">
+						<br>
+						<br>
+						<h2>Join Community</h2>
+						<div class="clearfix"></div>
+						<p>Join Community and explore the exluzeev videos and intaract with the amazing people behind the community</p>
+						<div class="clearfix"></div>
+						<br>
+						<div class="community_section">
+							<div class="text-center img_title">
+								<div class="list-inline d-flex pull-left">
+									<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle"  style="width: 46px;height: 46px;">&nbsp;&nbsp; &nbsp;
+									<h3><span>Bri N Teesh</span></h3>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<br>
+
+							<form>
+								<div class="container ">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="input-group" style="width: 100%">
+												<div class="input-group-prepend">
+													<button class="btn btn-minus " id="minus-btn"><i class="fa fa-minus"></i></button>
+												</div>
+												<input type="number" id="months_input" class="form-control " value="1" min="1">
+												<div class="input-group-prepend">
+													<button class="btn btn-plus " id="plus-btn"><i class="fa fa-plus"></i></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<br>
+										<h4>22 Jan 2020 - 25 Apr 2020</h4>
+										<div class="clearfix"></div>
+										<br>
+										<h2>$10</h2>
+										<br>
+
+									</div>
+								</div>
+							</form>
+							<div class="clearfix"></div>
+						</div>
+						<button class="btn btn-join-via-stripe" >Let's join via Stripe</button>
+						<br><br>
+						<div class="note_section">
+							<p>NOTE: Price are in CAD(Canadian Dollars)</p>
+						</div>
+						<br><br><br><br><br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+		<!--Bootstarp CD Scripts -->
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<!-- owl javascript -->
+		<script src="assets/owlcarousel/js/jquery.min.js"></script>
+		<script src="assets/owlcarousel/js/owl.carousel.js"></script>
+		<script type="text/javascript" src="javaScript.js"></script>
+		<script type="text/javascript">
+
+		</script>
+	</body>
+	</html>

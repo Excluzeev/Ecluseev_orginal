@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Excluzeev | Home</title>
+	<!-- Bootstarp CD Stylesheet -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,500i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:400,500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="icon" type="image/png" href="assets/images/fav_icon.png">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="responsive-style.css">
+
+
+</head>
+<body>
+	<div id="homePage">
+		<div class="nav_section homepage-nav">
+			<nav class="nav-home navbar-expand-lg navbar " id="nav">
+				<div class="pull-left d-md-block d-xl-none d-lg-none">
+					<div id="mySidenav" class="sidenav">
+						<div class="inline-list ">
+							<img src="assets/images/menu_logo.png">
+							<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+						</div>
+						<h5>Account</h5>
+						<a href="#">My Profile</a>
+						<a href="#">Communities</a>
+						<a href="#">Excluzeev Live</a>
+						<a href="#">Setting</a>
+						<h5>COMPANY</h5>
+						<a href="#">About</a>
+						<a href="#">Careers</a>
+						<a href="#">News</a>
+						<h5>SUPPORT</h5>
+						<a href="#">Contact Support</a>
+						<a href="#">Help Guide</a>
+						<a href="#">FAQ</a>
+						<h5>LEAGAL</h5>
+						<hr>
+						<a href="#">Logout</a>
+						<hr class="logout_link">
+						<ul class="list-unstyled inline-list social_links">
+							<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						</ul>
+					</div>
+					<div class="menu_sticks" onclick="openNav()">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div class="pull-left  home_brand ">
+					<a class="navbar-brand" href="index.html">
+						<img src="Assets/images/logo.svg" draggable="false">
+					</a>
+				</div>
+
+				<div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
+					<ul class="navbar-nav row-auto">
+						<li class="nav-item color_fffffff">
+							<a class="nav-link color_fffffff" href="#">About Excluzeev</a>
+						</li>
+						<li class="nav-item color_fffffff search_group">
+							<div class="form-group has-search">
+								<span class="fa fa-search form-control-feedback color_fffffff"></span>
+								<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+							</div>
+						</li>
+						<li class="nav-item color_fffffff">
+							<a class="nav-link color_fffffff" href="#" data-toggle="modal" data-target="#forgotPasswordAfterLinkModal">Contact</a>
+						</li>
+					</ul>
+				</div>
+				<div class="pull-right search_icon d-md-block d-xl-none d-lg-block">
+					<button class="btn btn-borderless search_btn "><i class="fa fa-search" aria-hidden="true"></i></button>
+				</div>
+				<div class="pull-right d-none d-lg-block d-lg-block">
+					<form class=" inline my-2 my-lg-0">
+						<button class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signUpModal">Create an Account</button>
+						<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signInModal">Sign In</button>
+					</form>
+				</div>
+			</nav>
+		</div>
+		<div id="home">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="offset-xl-2 col-xl-8 offset-xl-2  offset-md-1  col-md-10 offset-md-1 offset-lg-1 col-lg-10  offset-lg-1 text-center">
+						<h1 class="inline-list"><img src="assets/Images/home_logo.png"><span>den</span></h1>
+						<h4>of</h4>
+						<h2>Content Creators</h2>
+						<p>A platform where content creators feature and monetize their exclusive content.</p>
+						<div class="inline-list">
+							<button class="btn btn-explore-previews btn_radius color_fffffff">Explore Previews</button>
+							<button class="btn btn-learn-more ">Learn More</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div id="how-does-it-works-section">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-12 text-center">
+						<h3>How does it work?</h3>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xl-4 col-lg-4 col-md-4 text-center">
+						<h4>UPLOAD</h4>
+						<img src="assets/Images/2.png" class="img-fluid">
+						<p>Create a community and upload your recordings or videos based on your category in the website</p>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 text-center">
+						<h4>SHARE</h4>
+						<img src="assets/Images/1.png" class="img-fluid">
+						<p>Promote the preview video to the world on your social platforms</p>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 text-center">
+						<h4>EXCLUZEEV!</h4>
+						<img src="assets/Images/3.png" class="img-fluid">
+						<p>Go excluzeev! and generate revenue from your fans joining your community</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="curious_section">
+			<div class="container-fluid">
+			<div class="row">
+				<div class="offset-xl-3 col-xl-6 offset-xl-3 offset-lg-2 col-lg-8">
+					<div class="list-inline curious_section ">
+						<div class="curious_title_top">
+							<h3>Curious?</h3>
+							<div class="list-inline title_btn_inline "><h4>Let’s</h4><button class="btn btn-lts-start">Start</button><h4>a community now!</h4></div>
+							<p>It takes less than a minute to upload your first video</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="footer_brand_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+			<a class="navbar-brand" href="index.html"><img src="Assets/images/logo.svg" draggable="false"></a>
+		</div>
+
+		<div class="footer_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block ">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>COMPANY</h4>
+						<a href="#">About</a>
+						<a href="#">Careers</a>
+						<a href="#">News</a>
+					</div>
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>ACCOUNT</h4>
+						<a href="#">My Community</a>
+						<a href="#">My Profile</a>
+						<a href="#">Settings</a>
+
+					</div>
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>SUPPORT</h4>
+						<a href="#">Contact Support</a>
+						<a href="#">Help Guide</a>
+						<a href="#">FAQ</a>
+
+					</div>
+					<div class="padding_top col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>LEGAL</h4>
+						<a href="#">Privacy Policy</a>
+						<a href="#">Cookie Policy</a>
+						<a href="#">Community Member Agreement</a>
+						<a href="#">Content Creator Terms</a>
+						<a href="#">Call to Action Terms</a>
+						<a href="#">Content Creator Licence Agreement</a>
+					</div>
+					<div class="padding_top col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>PARTNERSHIP</h4>
+						<a href="#">Advertise With Us</a>
+						<a href="#">Partnerships</a>
+						<a href="#">Content Research</a>
+					</div>
+					<div class="padding_top col-md-4 text-center col-sm-4 col-lg-4 col-xl-2">
+						<ul class="list-unstyled inline-list bootom_social_links">
+							<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						</ul>
+						<a href="#"><img src="Assets/images/Download_on_the_App_Store_Badge.svg"></a>
+						<a href="#"><img src="Assets/images/Google_Play_Store_badge_EN.svg"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copyright_section text-center d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+			<hr>
+			<p>Copyright © 2019 Excluzeev, Inc. All rights reserved.</p>
+			<!-- <p>A Design by Tracy Tech Works</p> -->
+		</div>
+		<div class="footer_menu_section  d-xs-block d-lg-none d-xl-none d-md-block">
+			<nav class="navbar fixed-bottom navbar-light bg-faded">
+				<div class="pull-left">
+					<a class="" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+				</div>
+				<div class="text-center row-auto footer-searchbar">
+					<div class="form-group has-search">
+						<span class="fa fa-search form-control-feedback color_fffffff"></span>
+						<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+					</div>
+					<!-- <a class="" href="#"><i class="fa fa-users" aria-hidden="true"></i></a> -->
+				</div>
+				<div class="pull-right">
+					<a class="" href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+				</div>
+			</nav>
+		</div>
+
+		<!-- model for sign up start-->
+		<div class="modal fade bd-example-modal-lg" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">Close</span>
+						</button>
+					</div>
+					<div class="modal-body text-center">
+						<div class="inline-list text-center">
+							<h2>Join</h2>
+							<div class="modal-title_section">
+								<img src="assets/Images/logo_window.svg"><sup>TM</sup>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<p>Register to create or join communities, and to explore the popular and upcoming excluzeev communities and interact with the fans/stars.</p>
+
+						<form>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<span class="head"></span>
+									<span class="body"></span>
+									<input type="name" class="form-control" id="firstName" placeholder="Please enter first name">
+								</div>
+								<div class="form-group col-md-6">
+									<span class="head"></span>
+									<span class="body"></span>
+									<input type="name" class="form-control" id="lastName" placeholder="Please enter first name">
+								</div>
+
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<span><i class="fa fa-envelope"></i></span>
+									<input type="email" class="form-control" id="email" placeholder="Please enter email address">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<span><i class="fa fa-lock"></i></span>
+									<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+								</div>
+								<div class="form-group col-md-6">
+									<span><i class="fa fa-lock"></i></span>
+									<input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password">
+								</div>
+
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-8 text-left">
+									<p>By clicking on “Sign Up” button, I agree to <a href="#"> terms, call to action terms <span>and</span> privacy policy.</a></p>
+								</div>
+								<div class="form-group col-md-4 text-right">
+									<button type="submit" class="btn btn-windowSignUp">Sign Up</button>
+								</div>
+							</div>
+						</form>
+						<p class="already-have-an-account">Already have an account? <a href="#">Sign in now!</a></p>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+
+		<!-- Modal for sign in -->
+		<div class="modal fade bd-example-modal-xl" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">Close</span>
+						</button>
+					</div>
+					<div class="modal-body text-center">
+						<h2>Welcome back.</h2>
+						<div class="clearfix"></div>
+						<p>Sign in to create or join communities, and to explore the popular and upcoming excluzeev communities and interact with the fans/stars.</p>
+
+						<form>
+							<div class="form-row">
+								<div class="form-group col-md-12 margin_bottom_none">
+									<div class="form-row margin_bottom_none">
+										<div class="form-group col-md-9 margin_bottom_none">
+											<div class="form-row margin_bottom_none">
+												<div class="form-group col-md-12" >
+													<span class="head"></span>
+													<span class="body"></span>
+													<input type="name" class="form-control" id="userNameOrEmail" placeholder="Please enter email or username">
+												</div>
+												<div class="form-group col-md-12">
+													<span><i class="fa fa-lock"></i></span>
+													<input type="password" class="form-control" id="userPassword" placeholder="Please enter password">
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-3 text-left">
+											<button class="btn btn-windowSignIn">Sign in</button>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</form>
+						<div class="clearfix"></div>
+						<a href="#" class="forgor_psw_link" data-toggle="modal" data-target="#forgotPasswordModal">Forgot password?</a><br><br>
+						<div class="clearfix"></div>
+						<p>Or sign in with</p><br>
+						<div class="clearfix"></div>
+						<div class="signIn-btns">
+							<a href="#" class="btn-signInWithGoogle"><img src="assets/Images/google_icon.png">Google</a>
+							<a href="#" class="btn-signInWithFacebok"><img src="assets/Images/facebook_icon.svg">Facebook</a>
+						</div>
+						<br>
+						<br>
+						<div class="clearfix"></div>
+						<p class="already-have-an-account">New to excluzeev? <a href="#">Create an account now!</a></p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+
+		<!-- Model for fogot password -->
+		<div class="modal fade bd-example-modal-xl" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">Close</span>
+						</button>
+					</div>
+					<div class="modal-body text-center">
+						<h2>Let us revive you!</h2>
+						<div class="clearfix"></div>
+						<p>We’ll help you reclaim your glory. Just follow the instructions mentioned below.</p>
+
+						<form>
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<span class="head"></span>
+									<span class="body"></span>
+									<input type="name" class="form-control" id="userNameOrEmail" placeholder="Please enter email or username">
+									<div class="clearfix"></div>
+									<br>
+									<br>
+									<br>
+									<button class="btn btn-send-me-a-revive-link" >Send me a revive link</button>
+									<br><br><br><br>
+								</div>
+							</div>
+						</form>
+						<div class="clearfix"></div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+
+		<!-- Model for Forgot password after Link start -->
+		<div class="modal fade bd-example-modal-lg" id="forgotPasswordAfterLinkModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">Close</span>
+						</button>
+					</div>
+					<div class="modal-body text-center">
+						<div class="row">
+							<div class="col-xl-12 text-center">
+								<h2>Alrighty! <br>Set a password now.</h2>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="offset-xl-3 col-xl-6 offset-xl-3 offset-lg-2 col-lg-8 offset-lg-2 offset-sm-1 col-sm-10 offset-sm-1 text-center">
+								<p>We’ll help you reclaim your glory. Just follow the instructions mentioned below.</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class=" offset-xl-3 col-xl-6 offset-xl-3 offset-lg-2 col-lg-8 offset-lg-2 offset-sm-1 col-sm-10 offset-sm-1 ">
+								<form>
+									<div class="form-row text-center">
+										<div class="form-group col-md-12 margin_bottom_none text-center">
+											<div class="form-group col-md-12" >
+												<span><i class="fa fa-lock"></i></span>
+												<input type="name" class="form-control" id="enterNewPassword" placeholder="Please enter a new password">
+											</div>
+											<div class="form-group col-md-12">
+												<span><i class="fa fa-lock"></i></span>
+												<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm the new password">
+											</div>
+											<br>
+											<br>
+											<div class="form-group col-md-12 text-center">
+												<button class="btn btn-windowSaveIt">Save it, I remember this</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- ---End---- -->
+	</div>
+
+	<!--Bootstarp CD Scripts -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<!-- owl javascript -->
+	<script src="assets/owlcarousel/js/jquery.min.js"></script>
+	<script src="assets/owlcarousel/js/owl.carousel.js"></script>
+	<script type="text/javascript" src="javaScript.js"></script>
+	<script type="text/javascript">
+		function openNav() {
+			document.getElementById("mySidenav").style.width = "250px";
+		}
+
+		function closeNav() {
+			document.getElementById("mySidenav").style.width = "0";
+		}
+	</script>
+
+</body>
+</html>

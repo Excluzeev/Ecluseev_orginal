@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Excluzeev | Communities</title>
+	<!-- Bootstarp CD Stylesheet -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,500i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:400,500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="icon" type="image/png" href="assets/images/fav_icon.png">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	
+	<div class="nav_section homepage-nav create_community_page_nav communities_mb">
+		<nav class="nav-home navbar-expand-lg navbar " id="nav">
+			<div class="pull-left d-md-block d-xl-none d-lg-none">
+				<div id="mySidenav" class="sidenav">
+					<div class="inline-list">
+						<img src="assets/images/menu_logo.png">
+						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+					</div>
+					<h5>Account</h5>
+					<a href="#">My Profile</a>
+					<a href="#">Communities</a>
+					<a href="#">Excluzeev Live</a>
+					<a href="#">Setting</a>
+					<h5>COMPANY</h5>
+					<a href="#">About</a>
+					<a href="#">Careers</a>
+					<a href="#">News</a>
+					<h5>SUPPORT</h5>
+					<a href="#">Contact Support</a>
+					<a href="#">Help Guide</a>
+					<a href="#">FAQ</a>
+					<h5>LEAGAL</h5>
+					<hr>
+					<a href="#">Logout</a>
+					<hr class="logout_link">
+					<ul class="list-unstyled inline-list social_links">
+						<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+						<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+				<div class="menu_sticks" onclick="openNav()">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			<!-- <span style="font-size:30px;cursor:pointer" >&#9776;</span> -->
+			<div class="pull-left  home_brand ">
+				<h2 class="d-block d-xl-none d-lg-none">Communities</h2>
+				<a class="navbar-brand d-none d-xl-block d-lg-block" href="index.html">
+					<img src="Assets/images/logo.svg" draggable="false">
+				</a>
+			</div>
+
+			<div class="pull-right ">
+				<div class="text-center " id="navbarSupportedContent row-auto ">
+					<ul class="navbar-nav row-auto">
+						<li class="nav-item color_fffffff d-none d-lg-block d-lg-block">
+							<a class="nav-link color_fffffff" href="#">About Excluzeev</a>
+						</li>
+						<li class="nav-item color_fffffff search_group d-none d-xl-block d-lg-none">
+							<div class="form-group has-search">
+								<span class="fa fa-search form-control-feedback color_fffffff"></span>
+								<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+							</div>
+						</li>
+						<li class="nav-item   ">
+							<div class="search_icon d-xl-none d-lg-block d-block">
+								<button class="btn btn-borderless plus_btn" >
+									+
+								</button>
+							</div>
+						</li>
+						<li class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
+								<img src="assets/images/live.png"> Excluzeev Live
+							</button>
+						</li>
+						<li class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
+						</li>
+						<li class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
+						</li>
+						<li class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
+							<img src="assets/images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
+							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
+								<li class="dropdown-item" type="button"><a href="#">BRI N TEESH</a> </li>
+								<li class="dropdown-item" type="button"><a href="#">My profile</a></li>
+								<li class="dropdown-item" type="button"><a href="#">My crowd funding</a></li>
+								<li class="dropdown-item" type="button"><a href="#">My earnings</a></li>
+								<li class="dropdown-item" type="button"> <a href="#">Settings</a></li>
+							</ul>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div id="communities" class="communities">
+		<div class="container-fluid d-none d-lg-block d-xl-block">
+			<div class="row ">
+				<div class="col-xl-12">
+					<br>
+					<br>
+					<h2>Communities</h2>
+					<p>Here you’ll find all the communities you created and joined to.</p>
+					<br>
+					<br>
+				</div>
+			</div>
+
+			<div class="row ">
+				<div class="col-xl-12 col-xs-12 col-sm-12 col-lg-12 col-md-12">
+					<h5>My communities</h5>
+				</div>
+			</div>
+
+			<div class="row ">
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6 col-md-12">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-xl-12 text-center">
+					<button class="btn btn-view-all">View all</button>
+				</div>
+			</div>
+
+			<div class="row ">
+				<div class="col-xl-12 col-xs-12 col-sm-12 col-lg-12 col-md-12"><h5>Join communities</h5></div>
+			</div>
+			<div class="row ">
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-6 col-md-12">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+									<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>SUNSET BLVD</h5>
+									<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									<div class="inline-list">
+										<button class="btn btn-manage pull-left">Manage</button>
+										<button class="btn btn-remove pull-right">Remove</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-xl-12 text-center">
+					<button class="btn btn-view-all">View all</button>
+				</div>
+			</div>
+			<div class="row ">
+				<div class=" offset-1  col-10 text-center">
+					<p>Here you’ll find all the communities you created and joined to.</p>
+				</div>
+			</div>
+
+			
+		</div>
+		<div class="container-fluid d-block d-xl-none d-lg-none">
+			<div class="row">
+				<div class="offset-1 col-10 text-center">
+					<p>Here you’ll find all the communities you created and joined to.</p>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-12 margin-col">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" id="myCommunities-tab" data-toggle="tab" href="#myCommunities" role="tab" aria-controls="home" aria-selected="true">My communities</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="joinCommunities-tab" data-toggle="tab" href="#joinCommunities" role="tab" aria-controls="profile" aria-selected="false">Joined communities</a>
+						</li>
+
+					</ul>
+					<div class="tab-content communitiesTab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="myCommunities" role="tabpanel" aria-labelledby="home-tab">
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="joinCommunities" role="tabpanel" aria-labelledby="profile-tab">
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+							<div class="row community_row_section">
+								<div class="col-3">
+									<div class="community_circle_image text-center">
+										<img src="assets/images/commu_image.png" class="rounded-circle img-fluid">
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="community_circle_content">
+										<h5>SUNSET BLVD</h5>
+										<p>Faming and anchor responsibilities to the recent graduates in Parlon city</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer_brand_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+		<a class="navbar-brand" href="index.html"><img src="Assets/images/logo.svg" draggable="false"></a>
+	</div>
+	<div class="footer_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block ">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+					<h4>COMPANY</h4>
+					<a href="#">About</a>
+					<a href="#">Careers</a>
+					<a href="#">News</a>
+				</div>
+				<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+					<h4>ACCOUNT</h4>
+					<a href="#">My Community</a>
+					<a href="#">My Profile</a>
+					<a href="#">Settings</a>
+
+				</div>
+				<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+					<h4>SUPPORT</h4>
+					<a href="#">Contact Support</a>
+					<a href="#">Help Guide</a>
+					<a href="#">FAQ</a>
+
+				</div>
+				<div class="padding_top col-md-4 col-sm-4 col-lg-4 col-xl-2">
+					<h4>LEGAL</h4>
+					<a href="#">Privacy Policy</a>
+					<a href="#">Cookie Policy</a>
+					<a href="#">Community Member Agreement</a>
+					<a href="#">Content Creator Terms</a>
+					<a href="#">Call to Action Terms</a>
+					<a href="#">Content Creator Licence Agreement</a>
+				</div>
+				<div class="padding_top col-md-4 col-sm-4 col-lg-4 col-xl-2">
+					<h4>PARTNERSHIP</h4>
+					<a href="#">Advertise With Us</a>
+					<a href="#">Partnerships</a>
+					<a href="#">Content Research</a>
+				</div>
+				<div class="padding_top col-md-4 text-center col-sm-4 col-lg-4 col-xl-2">
+					<ul class="list-unstyled inline-list bootom_social_links">
+						<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+						<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					</ul>
+					<a href="#"><img src="Assets/images/Download_on_the_App_Store_Badge.svg"></a>
+					<a href="#"><img src="Assets/images/Google_Play_Store_badge_EN.svg"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="copyright_section text-center d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+		<hr>
+		<p>Copyright © 2019 Excluzeev, Inc. All rights reserved.</p>
+		<!-- <p>A Design by Tracy Tech Works</p> -->
+	</div>
+	<div class="footer_menu_section  d-xs-block d-lg-none d-xl-none d-md-block">
+		<nav class="navbar fixed-bottom navbar-light bg-faded">
+			<div class="pull-left">
+				<a class="" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+			</div>
+			<div class="text-center row-auto footer-searchbar">
+				<a class="" href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
+			</div>
+			<div class="pull-right">
+				<a class="" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+			</div>
+		</nav>
+	</div>
+
+
+	<!--Bootstarp CD Scripts -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="javaScript.js"></script>
+
+</body>
+</html>

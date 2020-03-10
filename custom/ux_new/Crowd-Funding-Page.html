@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Excluzeev | Crow Funding </title>
+	<!-- Bootstarp CD Stylesheet -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,500i&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:400,500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="icon" type="image/png" href="assets/images/fav_icon.png">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+	<div class="nav_section homepage-nav create_community_page_nav">
+		<nav class="nav-home navbar-expand-lg navbar " id="nav">
+			<div class="pull-left d-md-block d-xl-none d-lg-none">
+				<div id="mySidenav" class="sidenav">
+					<div class="inline-list">
+						<img src="assets/images/menu_logo.png">
+						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+					</div>
+					<h5>Account</h5>
+					<a href="#">My Profile</a>
+					<a href="#">Communities</a>
+					<a href="#">Excluzeev Live</a>
+					<a href="#">Setting</a>
+					<h5>COMPANY</h5>
+					<a href="#">About</a>
+					<a href="#">Careers</a>
+					<a href="#">News</a>
+					<h5>SUPPORT</h5>
+					<a href="#">Contact Support</a>
+					<a href="#">Help Guide</a>
+					<a href="#">FAQ</a>
+					<h5>LEAGAL</h5>
+					<hr>
+					<a href="#">Logout</a>
+					<hr class="logout_link">
+					<ul class="list-unstyled inline-list social_links">
+						<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+						<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+				<div class="menu_sticks" onclick="openNav()">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			<!-- <span style="font-size:30px;cursor:pointer" >&#9776;</span> -->
+			<div class="pull-left  home_brand ">
+				<a class="navbar-brand" href="index.html">
+					<img src="Assets/images/logo.svg" draggable="false">
+				</a>
+			</div>
+
+			<div class="pull-right ">
+				<div class="text-center d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
+					<ul class="navbar-nav row-auto">
+						<li class="nav-item color_fffffff d-none d-lg-block d-lg-block">
+							<a class="nav-link color_fffffff" href="#">About Excluzeev</a>
+						</li>
+						<li class="nav-item color_fffffff search_group d-none d-xl-block d-lg-none">
+							<div class="form-group has-search">
+								<span class="fa fa-search form-control-feedback color_fffffff"></span>
+								<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+							</div>
+						</li>
+						<li class="nav-item  d-xl-none d-lg-block ">
+							<div class="search_icon d-xl-none d-lg-block d-block">
+								<button class="btn btn-borderless search_btn" id="search_btn">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</div>
+						</li>
+						<li class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
+								<img src="assets/images/live.png"> Excluzeev Live
+							</button>
+						</li>
+						<li class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
+						</li>
+						<li class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
+						</li>
+						<li class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
+							<img src="assets/images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
+							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
+								<li class="dropdown-item" type="button"><a href="#">BRI N TEESH</a> </li>
+								<li class="dropdown-item" type="button"><a href="#">My profile</a></li>
+								<li class="dropdown-item" type="button"><a href="#">My crowd funding</a></li>
+								<li class="dropdown-item" type="button"><a href="#">My earnings</a></li>
+								<li class="dropdown-item" type="button"> <a href="#">Settings</a></li>
+							</ul>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div id="croud_funding_page">
+		<div class="container-fluid">
+			<div class="row d-none d-xl-block d-lg-block">
+				<div class="col-12">
+					<div class="inline-list">
+						<br>
+						<a href="#">Communities</a><i class="fa fa-angle-right"></i><a href="#">Bri N Teesh</a><i class="fa fa-angle-right"></i><a href="#">Crowd Funding</a>
+						<br><br>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-6">
+					<div class="watch_vedio_section">
+						<img src="assets/Images/video-img.png" class="img-fluid" style="width: 100%"> <!-- video -->
+						<h2>Support the cage-less farm movement</h2>
+
+						<p>Support the cage-less farm movement best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity.
+							<a href="#collapse" class="nav-toggle ">Read Less...</a>
+						</p>
+						<div id="collapse" class="content_text">
+							<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p> 
+							<p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.
+							</p>
+						</div>
+						<div class="chat_section">
+							<h3><span>Comments</span></h3>
+							<div class="user_comment_section d-flex">
+								<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+								<div class="user_name_comment">
+									<ul class="list-unstyled">
+										<li class="list-inline">
+											<h3 class="pull-left">Rick Patterson</h3>
+											<div class="posted_time pull-right"><p>5 hours ago</p></div>
+											<div class="clearfix"></div>
+										</li>
+										<li><p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p></li>
+									</ul>
+								</div>
+							</div>
+							<div class="user_comment_section d-flex">
+								<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+								<div class="user_name_comment">
+									<ul class="list-unstyled">
+										<li class="list-inline">
+											<h3 class="pull-left">Maik Wasowski</h3>
+											<div class="posted_time pull-right">
+												<p>2 hours ago</p>
+											</div>
+											<div class="clearfix"></div>
+										</li>
+										<li>
+											<p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="user_comment_section d-flex">
+								<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+								<div class="user_name_comment">
+									<ul class="list-unstyled">
+										<li class="list-inline">
+											<h3 class="pull-left">Tim Cloak</h3>
+											<div class="posted_time pull-right">
+												<p>30 Dec, 19</p>
+											</div>
+											<div class="clearfix"></div>
+										</li>
+										<li>
+											<p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="chat_messege_section">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<button class="btn btn-user-img" type="button"><img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle " style="width: 25px;height: 25px;" ></button>
+								</div>
+								<input type="text" class="form-control" placeholder="Type to comment" id="messageInput" aria-label="" aria-describedby="basic-addon1">
+								<div class="input-group-append">
+									<button class="btn btn-send" type="button">Send</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-6">
+					<ul class="list-unstyled list-inline d-flex share_links d-none d-xl-block d-lg-block">
+						<li class="d-none d-xl-block d-lg-block"><a href="#"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;&nbsp;Copy profile link</a></li>
+						<li class="d-none d-xl-block d-lg-block"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Share via email</a></li>
+						<li class="d-none d-xl-block d-lg-block"><a href="#"><i class="fa fa-facebook"></i>&nbsp;&nbsp;Share via facebook</a></li>
+					</ul>
+					<div class="progressbar_section inline-list d-none d-xl-block d-lg-block">
+						<h3><span>Pledged of CAD 2000 goal</span></h3>
+						<br>
+						<div class="clearfix"></div>
+						<div class="list-inline">
+							<div class="progress pull-left">
+								<div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"><span>55%</span></div>
+							</div>
+							<h3 class="pull-right"><span>CAD 2000</span></h3>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="cad_title d-none d-xl-block d-lg-block"> 
+						<h3>More<span> CAD 421 </span>to go</h3>
+					</div>
+					<br>
+					<p>Join your hand in reaching the goal</p>
+					<div class=" card_section">
+						<div class="list-inline tile_btn"> 
+							<h3 class="pull-left"><span>Tier 1 - $5</span></h3>
+							<button class="btn btn-donate-now pull-right">Donate now</button>
+							<div class="clearfix"></div>
+						</div>
+
+						<p>You’ll get email preproduction updates of the upcoming cage-less news. You’ll get email preproduction updates of the upcoming cage-less events </p>
+					</div>
+					<div class=" card_section">
+						<div class="list-inline tile_btn"> 
+							<h3 class="pull-left"><span>Tier 2 - $25</span></h3>
+							<button class="btn btn-donate-now pull-right">Donate now</button>
+							<div class="clearfix"></div>
+						</div>
+
+						<p>You’ll get email preproduction updates of the upcoming cage-less news. You’ll get email preproduction updates of the upcoming cage-less events </p>
+					</div>
+					<div class=" card_section">
+						<div class="list-inline tile_btn"> 
+							<h3 class="pull-left"><span>Tier 3 - $50</span></h3>
+							<button class="btn btn-donate-now pull-right">Donate now</button>
+							<div class="clearfix"></div>
+						</div>
+
+						<p>You’ll get email preproduction updates of the upcoming cage-less news. You’ll get email preproduction updates of the upcoming cage-less events </p>
+					</div>
+					<div class=" card_section">
+						<div class="list-inline tile_btn"> 
+							<h3 class="pull-left"><span>Tier 4 - $100</span></h3>
+							<button class="btn btn-donate-now pull-right">Donate now</button>
+							<div class="clearfix"></div>
+						</div>
+
+						<p>You’ll get email preproduction updates of the upcoming cage-less news. You’ll get email preproduction updates of the upcoming cage-less events </p>
+					</div>
+					<div class=" card_section">
+						<div class="list-inline tile_btn"> 
+							<h3 class="pull-left"><span>Tier 5 - $1000</span></h3>
+							<button class="btn btn-donate-now pull-right">Donate now</button>
+							<div class="clearfix"></div>
+						</div>
+
+						<p>You’ll get email preproduction updates of the upcoming cage-less events and news. You’ll get email preproduction updates of the upcoming cage-less events and news. You’ll get email preproduction updates of the upcoming cage-less events and news. You’ll get email preproduction updates of the upcoming cage-less events and news.</p>
+					</div>
+				</div>
+			</div>	
+			
+		</div>
+
+		<div class="footer_brand_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+			<a class="navbar-brand" href="index.html"><img src="Assets/images/logo.svg" draggable="false"></a>
+		</div>
+
+		<div class="footer_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block ">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>COMPANY</h4>
+						<a href="#">About</a>
+						<a href="#">Careers</a>
+						<a href="#">News</a>
+					</div>
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>ACCOUNT</h4>
+						<a href="#">My Community</a>
+						<a href="#">My Profile</a>
+						<a href="#">Settings</a>
+
+					</div>
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>SUPPORT</h4>
+						<a href="#">Contact Support</a>
+						<a href="#">Help Guide</a>
+						<a href="#">FAQ</a>
+
+					</div>
+					<div class="padding_top col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>LEGAL</h4>
+						<a href="#">Privacy Policy</a>
+						<a href="#">Cookie Policy</a>
+						<a href="#">Community Member Agreement</a>
+						<a href="#">Content Creator Terms</a>
+						<a href="#">Call to Action Terms</a>
+						<a href="#">Content Creator Licence Agreement</a>
+					</div>
+					<div class="padding_top col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>PARTNERSHIP</h4>
+						<a href="#">Advertise With Us</a>
+						<a href="#">Partnerships</a>
+						<a href="#">Content Research</a>
+					</div>
+					<div class="padding_top col-md-4 text-center col-sm-4 col-lg-4 col-xl-2">
+						<ul class="list-unstyled inline-list bootom_social_links">
+							<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						</ul>
+						<a href="#"><img src="Assets/images/Download_on_the_App_Store_Badge.svg"></a>
+						<a href="#"><img src="Assets/images/Google_Play_Store_badge_EN.svg"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copyright_section text-center d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+			<hr>
+			<p>Copyright © 2019 Excluzeev, Inc. All rights reserved.</p>
+			<!-- <p>A Design by Tracy Tech Works</p> -->
+		</div>
+		<div class="footer_menu_section  d-xs-block d-lg-none d-xl-none d-md-block">
+			<nav class="navbar fixed-bottom navbar-light bg-faded">
+				<div class="pull-left">
+					<a class="" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+				</div>
+				<div class="text-center row-auto footer-searchbar">
+					<div class="form-group has-search">
+						<span class="fa fa-search form-control-feedback color_fffffff"></span>
+						<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+					</div>
+					<!-- <a class="" href="#"><i class="fa fa-users" aria-hidden="true"></i></a> -->
+				</div>
+				<div class="pull-right">
+					<a class="" href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+				</div>
+			</nav>
+		</div>
+		
+	</div> 
+
+
+	<!--Bootstarp CD Scripts -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<!-- owl javascript -->
+	<script src="assets/owlcarousel/js/jquery.min.js"></script>
+	<script src="assets/owlcarousel/js/owl.carousel.js"></script>
+	<script type="text/javascript" src="javaScript.js"></script>
+	<script type="text/javascript">
+		$("#progress-bar").progressbar({
+			value: 50
+		}).append("<div class='caption'>50%</span>");
+	</script>
+
+</body>
+</html>
