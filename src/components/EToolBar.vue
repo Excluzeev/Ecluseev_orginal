@@ -1,5 +1,5 @@
 <template>
-    
+  
 		<div class="nav_section homepage-nav">
 			<nav class="nav-home navbar-expand-lg navbar " id="nav">
 				<div class="pull-left d-md-block d-xl-none d-lg-none">
@@ -51,7 +51,7 @@
 						<li class="nav-item color_fffffff search_group">
 							<div class="form-group has-search">
 								<span class="fa fa-search form-control-feedback color_fffffff"></span>
-                        <form @submit.prevent="searchPreviews">
+                        <form @submit.prevent="searchPreviews" style="margin:0;">
                           
                           	<input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
 
@@ -455,5 +455,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>

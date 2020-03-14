@@ -51,7 +51,8 @@ export default {
     //     force: true
     //   });
 	// }
-	$("#search_btn").click(function(){
+	
+	   $("#search_btn").click(function(){
 		  	$("#search_btn").hide("slow");
 		  	$(".footer_search_section").show("slow");
 		  	$(".footer_search_section").slideDown("slow");
@@ -64,12 +65,61 @@ export default {
 		  	$(".footer_search_section").slideUp("slow");
 		  	$(".footer_menu_section_icons").show("slow");
 		});
+		
+		let owl_carousel = require('owl.carousel');
+		window.fn = owl_carousel;
+
+			$(document).ready(function() {
+				setTimeout(function(){
+					console.log("Loaded previews js",$('.owl-carousel').length)
+					$('.owl-carousel').owlCarousel({
+						loop: false, // Do not make it as loop, if there is only one video then it will create muliple carousel items for same video
+						margin: 10,
+						responsiveClass: true,
+						// stagePadding: 50,
+						nav: true,
+						navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+						responsive: {
+							0: {
+								items: 1,
+								nav: true,
+								margin:20
+							},
+							600: {
+								items: 2,
+								nav: true,
+								margin:20
+							},
+							1000: {
+								items: 3,
+								nav: true,
+								margin:20
+							},
+							1400: {
+								items: 4,
+								nav: true,
+								loop: false,
+								margin: 40
+							},
+							1923: {
+								items: 6,
+								nav: true,
+								loop: false,
+								margin: 40
+							}
+						}
+					});
+
+				},3000);
+			});
+
   }
 };
 
 
-// import '../assets/owlcarousel/js/owl.carousel.js';
-// import '../assets/javaScript.js';
+
+
+//import '../assets/javaScript.js';
 
 </script>
 

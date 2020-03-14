@@ -11,17 +11,11 @@
           <div class="row">
             <div class="large-12 columns col-md-12 col-lg-12 col-xs-12 col-sm-12">
               <div class="owl-carousel owl-theme">
-
+                
                 <div class="item"  v-for="trailer in item.trailers" v-bind:key="trailer.trailerId">
 
-                    <div class="item_img">
-                    <img src="Assets/slider_images/1.png" class="img-fluid">
-                  </div>
-                  <h6>Two best friends who navigate life in Los Angeles.</h6>
-                  <p>Bri N Teesh</p>
-                  <p><i class="fa fa-tripadvisor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Artist/Band/Vlog</p>
-        
-                  <!-- <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/> -->
+                   
+                  <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
 
 
         
@@ -65,7 +59,6 @@
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import trailerModule from "../store/trailers/trailer";
-
 import TrailerVideoItem from "./TrailerVideoItem";
 
 export default {

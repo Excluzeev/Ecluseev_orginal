@@ -1,4 +1,15 @@
 <template>
+  <div>
+
+      <div class="item_img">
+        <img height="118px" v-bind:src="trailer.hasCustomThumbnail ? trailer.customThumbnail :  trailer.image" class="img-fluid" >
+      </div>
+      <h6>{{ trailer.title }}</h6>
+      <p>{{ trailer.channelName }}</p>
+      <p><i class="fa fa-tripadvisor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ trailer.timeAgo }}</p>
+
+  </div>
+  <!--
   <v-flex>
     <v-card elevation="0" class="all-bg">
       <router-link :to="'/' + getLinkTag + '/' + trailer.trailerId">
@@ -69,7 +80,7 @@
         <v-card-title>Select Reasons</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
-          <!-- <v-radio-group v-model="reportReasons" column> -->
+          <!\-- <v-radio-group v-model="reportReasons" column> --\>
           <v-container fluid>
             <v-checkbox
               v-for="(reason, index) in reasons"
@@ -83,7 +94,7 @@
               <v-text-field v-model="otherReason" label="Reason"></v-text-field>
             </v-flex>
           </v-container>
-          <!-- </v-checkbox-group> -->
+          <!-- </v-checkbox-group> --\>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -93,6 +104,7 @@
       </v-card>
     </v-dialog>
   </v-flex>
+  -->
 </template>
 
 <script>
@@ -218,5 +230,14 @@ a {
   color: #0a0a0a;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.owl-carousel .owl-item img {
+  background-image:url('../assets/Images/curious_img.png');
+
+  height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
 </style>

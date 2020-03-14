@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div id="app">
     <EToolBar v-if="isNavBar"/>
 

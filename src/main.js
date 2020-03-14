@@ -1,6 +1,11 @@
 import Vue from "vue";
 import "./plugins/vuetify";
 
+
+import  "jquery";
+
+
+
 import App from "./App.vue";
 import store from "./store/index";
 import router from "./router/router";
@@ -57,13 +62,6 @@ Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
     // console.log("recaptcha load failed");
   });
 
-  Vue.loadScript("https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
-  .then(() => {
-    console.log("jquery loaded");
-  })
-  .catch(() => {
-    console.log("jquery load failed");
-  });
 
   Vue.loadScript("https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")
   .then(() => {

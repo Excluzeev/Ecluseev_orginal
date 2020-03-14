@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --https",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --mode production --dest public",
     "cbuild": "vue-cli-service build --mode production --dest public --target app --modern --dashboard",
     "lint": "vue-cli-service lint"
@@ -19,8 +19,10 @@
     "css-loader": "^2.1.1",
     "firebase": "^6.0.2",
     "i": "^0.3.6",
+    "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "npm": "^6.9.0",
+    "owl.carousel": "^2.3.4",
     "register-service-worker": "^1.5.2",
     "videojs-contrib-ads": "^6.6.2",
     "videojs-ima": "^1.5.2",
