@@ -1,0 +1,56 @@
+@media only screen and (max-width: 550px){
+/*---Home Page-----*/
+#home {background-image: url(../mobile-bg-images/home-landing-Page_mobile_bg.png); padding-top: 65px;background-size: cover; }
+#homePage h1{font-size: 60px;line-height: 50px}
+#homePage h1 img {float: none; width: 60px; margin-top: -12%; } 
+#home h4{font-size: 36px} 
+#home h2{font-size: 32px;} 
+#home p,#curious_section p, #how-does-it-works-section p{font-size: 18px;}
+.btn-explore-previews, .btn-explore-previews:hover, .btn-learn-more, .btn-learn-more:hover,
+.btn-lts-start, .btn-lts-start:focus, .btn-lts-start:hover
+{font-size: 16px;line-height: 18px}
+.btn-lts-start, .btn-lts-start:focus, .btn-lts-start:hover{height: 35px;width:100px;line-height: 16px }
+#curious_section h4{font-size: 20px;line-height: 30px}
+#curious_section h3, #how-does-it-works-section h3{font-size: 40px;}
+img{width: 100%}
+.btn-explore-previews{margin-right:15px }
+#curious_section p, #how-does-it-works-section p{padding-top: 10px}
+#curious_section{padding-bottom: 15%;background-position: right 00; background-size: 35%;}
+}
+
+
+@media (min-width: 551px) and (max-width: 767px){
+#how-does-it-works-section h4, h4{padding-bottom: 0;margin-bottom: 0};
+}
+
+@media (min-width: 768px) and (max-width: 991px){
+}
+#homePage h1{font-size: 100px;line-height: 1px}
+#homePage h1 img {float: none; width: 84px; margin-top: -12%; }
+#home h2{font-size: 50px;} 
+#curious_section h3, #how-does-it-works-section h3{margin-bottom: 3%;font-size: 40px}
+#how-does-it-works-section h4, h4{padding-bottom: 0;margin-bottom: 0}
+
+@media (min-width: 992px) and (max-width: 1439px){
+#homePage h1{font-size: 120px;line-height: 90px}
+#homePage h1 img { width: 95px;  } 
+#home h2 {font-size: 64px ;line-height: 63px; text-transform: capitalize; }
+#home p{margin-bottom: 1.25rem}
+.padding_top{padding-top: 20px;}
+.footer_section h4 {color: #000000; padding-bottom: 11px; border-bottom: 1px solid #29abe2b8; }
+#home{padding-bottom: 6%}
+#curious_section{padding-bottom: 0;background-position: right 00; background-size: 35%;margin-top: 0}
+.footer_brand_section{padding-top: 30px}
+}
+@media only screen and (max-width: 767px){
+
+}	
+
+@media only screen and (max-width: 991px){
+	.mobile_bg .search_btn{display: block;}
+	.search_btn{display: none;}
+	#curious_section{padding-bottom: 15%;background-position: right 00; background-size: 35%;}
+	.curious_section {
+    padding-top: 0;
+}
+}

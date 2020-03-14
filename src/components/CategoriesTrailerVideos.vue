@@ -1,4 +1,5 @@
 <template>
+
   <v-container>
     <div v-if="categories.length > 0">
       <div v-for="category in categories" v-bind:key="category.id">
@@ -38,8 +39,8 @@ export default {
 </script>
 
 <style scoped>
-.padding {
-  padding-left: 20px;
-  padding-right: 20px;
-}
+  .padding {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 </style>

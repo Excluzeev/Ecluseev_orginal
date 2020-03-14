@@ -1,30 +1,37 @@
 <template>
-  <v-app>
+  <div id="app">
     <EToolBar v-if="isNavBar"/>
+
     <keep-alive>
       <v-content>
         <router-view :key="$route.fullPath"></router-view>
       </v-content>
     </keep-alive>
+    
     <cookie-law theme="base">
       <div slot="message">
         This site uses cookies to provide you with great user experience. By
         using excluzeev , you accept our
-        <span
-          style="color:#03a9f4"
-          @click="openCookiePolicy"
-        >Cookie Policy</span>
       </div>
     </cookie-law>
 
+    <LoginModal />  
+    <RegistrationModal />
+    <ForgotPasswordModal />
     <FooterComponent v-if="isNavBar"/>
-  </v-app>
+
+  </div>
 </template>
 
 <script>
 import EToolBar from "./components/EToolBar";
 import FooterComponent from "./components/FooterComponent";
 import CookieLaw from "vue-cookie-law";
+import LoginModal from "./components/LoginModal";
+import ForgotPasswordModal from "./components/ForgotPasswordModal";
+import RegistrationModal from "./components/RegistrationModal";
+
+
 export default {
   name: "App",
   metaInfo: {
@@ -35,12 +42,13 @@ export default {
   components: {
     FooterComponent,
     EToolBar,
-    CookieLaw
+    CookieLaw,
+    LoginModal,
+    ForgotPasswordModal,
+    RegistrationModal
   },
   methods: {
-    openCookiePolicy: function() {
-      window.open("https://excluzeev.com/cookie-policy", "_blank");
-    }
+   
   },
   computed: {
     isNavBar() {
@@ -48,107 +56,19 @@ export default {
     }
   }
 };
+
+
+
 </script>
+
 <style>
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700");
-@import url("https://fonts.googleapis.com/css?family=Quicksand:400,500,700");
 
-a {
-  text-decoration: none;
-}
-.custom-loader {
-  animation: loader 1s infinite;
-  display: flex;
-}
-@-moz-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-body {
-  background-color: #fafafa;
-  font-family: "Source Sans Pro", sans-serif !important;
-}
-.application {
-  font-family: "Source Sans Pro", sans-serif !important;
-}
-.all-bg {
-  background-color: #fafafa;
-}
-main {
-  background-color: #fafafa;
-}
-.desc--text {
-  color: #606060;
-  font-size: 0.9rem;
-}
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
+@import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,500i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Quicksand:400,500&display=swap");
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
-.desc-details--text {
-  color: #606060;
-  font-size: 1.2rem;
-}
-.title-details--text {
-  color: #0a0a0a;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-.max-2-lines {
-  display: block; /* or inline-block */
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
-  max-height: 2.4em;
-  line-height: 1.2em;
-  white-space: normal;
-  -webkit-line-clamp: 2;
-}
-.max-1-lines {
-  display: block; /* or inline-block */
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
-  max-height: 1.2em;
-  line-height: 1.2em;
-  white-space: normal;
-  -webkit-line-clamp: 2;
-}
-.quick-sand-font-n {
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-}
-.quick-sand-font-b {
-  font-family: "Quicksand", sans-serif;
-  font-weight: 700;
-}
-.quick-sand-font {
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-}
+@import 'assets/css/style.css';
+@import 'assets/css/responsive-style.css';
+
 </style>

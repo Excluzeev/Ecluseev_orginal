@@ -1,4 +1,85 @@
 <template>
+    <div>
+    <div class="footer_brand_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+			<a class="navbar-brand" href="index.html"><img src="../assets/Images/logo.svg" draggable="false"></a>
+		</div>
+
+		<div class="footer_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block ">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>COMPANY</h4>
+						<a href="#">About</a>
+						<a href="#">Careers</a>
+						<a href="#">News</a>
+					</div>
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>ACCOUNT</h4>
+						<a href="#">My Community</a>
+						<a href="#">My Profile</a>
+						<a href="#">Settings</a>
+
+					</div>
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>SUPPORT</h4>
+						<a href="#">Contact Support</a>
+						<a href="#">Help Guide</a>
+						<a href="#">FAQ</a>
+
+					</div>
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>LEGAL</h4>
+						<a href="#">Privacy Policy</a>
+          
+						<a href="jvascript:\\" @click="openCookiePolicy">Cookie Policy</a>
+						<a href="#">Community Member Agreement</a>
+						<a href="#">Content Creator Terms</a>
+						<a href="#">Call to Action Terms</a>
+						<a href="#">Content Creator Licence Agreement</a>
+					</div>
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
+						<h4>PARTNERSHIP</h4>
+						<a href="#">Advertise With Us</a>
+						<a href="#">Partnerships</a>
+						<a href="#">Content Research</a>
+					</div>
+					<div class="col-md-4 text-center col-sm-4 col-lg-4 col-xl-2">
+						<ul class="list-unstyled inline-list bootom_social_links">
+							<li><a href="https://www.instagram.com/excluzeev/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+							<li><a href="https://www.twitter.com/excluzeev/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+							<li><a href="https://www.facebook.com/excluzeev" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						</ul>
+						<a href="https://itunes.apple.com/bt/app/excluzeev/id1457995935?mt=8" target="_blank"><img src="../assets/Images/Download_on_the_App_Store_Badge.svg"></a>
+						<a href="https://play.google.com/store/apps/details?id=com.trenstop.mobile" target="_blank"><img src="../assets/Images/Google_Play_Store_badge_EN.svg"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copyright_section text-center d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
+			<hr>
+			<p>Copyright © 2019 Excluzeev, Inc. All rights reserved.</p>
+			<!-- <p>A Design by Tracy Tech Works</p> -->
+		</div>
+		<div class="footer_menu_section  d-xs-block d-lg-none d-xl-none d-md-block">
+			<nav class="navbar fixed-bottom navbar-light bg-faded">
+				<div class="pull-left">
+					<a class="" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+				</div>
+				<div class="text-center row-auto footer-searchbar">
+					<div class="form-group has-search">
+						<span class="fa fa-search form-control-feedback color_fffffff"></span>
+						<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+					</div>
+					<!-- <a class="" href="#"><i class="fa fa-users" aria-hidden="true"></i></a> -->
+				</div>
+				<div class="pull-right">
+					<a class="" href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+				</div>
+			</nav>
+		</div>
+  </div>
+
+  <!--
   <v-footer class="white" height="auto">
     <v-layout wrap align-center class="text-xs-center">
       <v-flex xs12 sm3 md3>
@@ -9,9 +90,9 @@
             logo"
             src="../assets/excluzeev_bottom_text.png"
           >
-          <!-- <div class="light-blue--text quick-sand-font-b">
+          <div class="light-blue--text quick-sand-font-b">
           &copy; 2019 Excluzeev
-          </div>-->
+          </div>
         </div>
       </v-flex>
       <v-flex xs12 sm3 md3>
@@ -19,7 +100,7 @@
           <div align="center">
             <h3 class="nav-c quick-sand-font-b">EXPLORE</h3>
 
-            <!-- <h3 @click="showAbout" class="light-blue--text quick-sand-font">About</h3> -->
+            <h3 @click="showAbout" class="light-blue--text quick-sand-font">About</h3>
             <a href="https://excluzeev.typeform.com/to/s3gTOy" target="_blank">
               <h3 class="light-blue--text quick-sand-font">Support</h3>
             </a>
@@ -90,6 +171,7 @@
       </v-dialog>
     </v-layout>
   </v-footer>
+  -->
 </template>
 
 <script>
@@ -114,6 +196,9 @@ export default {
     };
   },
   methods: {
+     openCookiePolicy: function() {
+      window.open("https://excluzeev.com/cookie-policy", "_blank");
+    },
     showPrivacyPolicy() {
       this.titleDialog = "Privacy Policy";
       this.componentDialog = PrivacyPolicy;
@@ -145,26 +230,5 @@ export default {
 </script>
 
 <style scoped>
-a {
-  color: white;
-}
-footer {
-  width: 100%;
-  padding-bottom: 20px;
-}
-.quick-sand-font {
-  padding-top: 10px;
-}
-.bg {
-  background-color: #42a5f5;
-}
-.margin {
-  margin-top: 60px;
-}
-.padding {
-  padding: 20px;
-}
-.full-width {
-  width: 100%;
-}
+
 </style>

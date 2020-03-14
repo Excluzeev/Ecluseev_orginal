@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Previews from "../views/Previews.vue";
 import SignUpCC from "../views/SignUpCC.vue";
 import CreateChannel from "../views/CreateChannel.vue";
 import MyChannels from "../views/MyChannels.vue";
@@ -23,7 +24,7 @@ import AddLive from "../views/AddLive";
 import LiveDetail from "../views/LiveDetail";
 
 import Meta from "vue-meta";
-import DCrowd from "../views/DCrowd";
+import DCrowd from "../views/DCrowd"; 
 import CrowdFundingTrailer from "../views/CrowdFundingTrailer";
 import CrowdFundingVideo from "../views/CrowdFundingVideo";
 import PrivacyPolicy from "../components/PrivacyPolicy";
@@ -53,7 +54,8 @@ const router = new VueRouter({
   scrollBehavior: () => ({
     y: 0
   }),
-  routes: [{
+  routes: [
+    {
       path: "/",
       name: "Home",
       component: Home,
@@ -62,6 +64,16 @@ const router = new VueRouter({
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
     },
+    {
+      path: "/previews",
+      name: "Previews",
+      component: Previews,
+      meta: {
+        showNav: true,
+        title: "Excluzeev - Stream. Crowdfunding. Social Network"
+      }
+    },
+    
     {
       path: "/connect",
       name: "ConnectStripe",
