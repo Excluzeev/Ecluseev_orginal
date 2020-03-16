@@ -70,6 +70,7 @@ export default {
 		window.fn = owl_carousel;
 
 			$(document).ready(function() {
+				console.log("Here I am")
 				setTimeout(function(){
 					console.log("Loaded previews js",$('.owl-carousel').length)
 					$('.owl-carousel').owlCarousel({

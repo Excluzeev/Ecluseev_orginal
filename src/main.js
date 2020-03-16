@@ -2,8 +2,9 @@ import Vue from "vue";
 import "./plugins/vuetify";
 
 
-import  "jquery";
-
+import  jQuery from "jquery";
+window.jQuery = jQuery
+window.$ = jQuery
 
 
 import App from "./App.vue";
@@ -71,6 +72,7 @@ Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
     console.log("popper load failed");
   });
 
+ 
   Vue.loadScript("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js")
   .then(() => {
     console.log("bootstrapjs loaded");
@@ -78,8 +80,6 @@ Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
   .catch(() => {
     console.log("bootstrapjs load failed");
   });
-
-
 auth.onAuthStateChanged(user => {
   store.commit("setUser");
   store.commit("fetchUser", {

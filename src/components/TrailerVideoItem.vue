@@ -1,13 +1,62 @@
 <template>
   <div>
+      <router-link :to="'/' + getLinkTag + '/' + trailer.trailerId">
 
-      <div class="item_img">
-        <img height="118px" v-bind:src="trailer.hasCustomThumbnail ? trailer.customThumbnail :  trailer.image" class="img-fluid" >
+        <div class="item_img">
+          <img height="118px" v-bind:src="trailer.hasCustomThumbnail ? trailer.customThumbnail :  trailer.image" class="img-fluid" >
+        </div>
+        <h6>{{ trailer.title }}</h6>
+        <p>{{ trailer.channelName }}</p>
+        <p><i class="fa fa-tripadvisor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ trailer.timeAgo }}</p>
+
+         <div class="red--text" v-show="getIsExpired(trailer.expiry)">
+            <p danger>Expired</p>
+         </div>
+
+      </router-link>
+
+      <div class="bottom-controls">
+        <v-btn flat color="red" @click="deleteTrailerDialog = true">Delete
+        </v-btn>
+
+        <v-btn flat color="red" @click="openReportDialog(trailer.trailerId)">Report
+        </v-btn>
+
       </div>
-      <h6>{{ trailer.title }}</h6>
-      <p>{{ trailer.channelName }}</p>
-      <p><i class="fa fa-tripadvisor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ trailer.timeAgo }}</p>
 
+
+        
+    <div class="modal" id="reportModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Select Reasons</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                <form>
+                  <div class="row" v-for="(reason, index) in reasons">
+                      <div class="col-lg-6">
+                      <label v-text="reason"></label>
+                      </div>
+                      <div class="col-lg-6">
+                      <input style="height:auto;width:auto;" type="checkbox" class="form-control" v-bind:key="index"  v-model="reportReasons" value="reason" >
+                      </div>
+                  </div>
+                </form>
+                
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" @click="updateAndCloseReportDialog">Report</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     
   </div>
   <!--
   <v-flex>
@@ -51,6 +100,8 @@
           </div>
         </div>
       </router-link>
+
+
       <v-card-actions v-if="showDelete">
         <v-btn flat color="red" @click="deleteTrailerDialog = true">
           <v-icon left>delete</v-icon>Delete
@@ -169,6 +220,8 @@ export default {
     openReportDialog(trailerId) {
       this.reportTraileId = trailerId;
       this.reportDialog = true;
+      $("#reportModal").modal("show");     
+      $(".modal-backdrop").hide()
     },
     closeReportDialog() {
       this.reportReasons = [];
