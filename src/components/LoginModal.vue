@@ -15,7 +15,6 @@
 						<div class="clearfix"></div>
 						<p>Sign in to create or join communities, and to explore the popular and upcoming excluzeev communities and interact with the fans/stars.</p>
 
-						<form>
 							<div class="form-row">
 								<div class="form-group col-md-12 margin_bottom_none">
 									<div class="form-row margin_bottom_none">
@@ -40,7 +39,6 @@
 
 								</div>
 							</div>
-						</form>
 						<div class="clearfix"></div>
 						<a href="#" class="forgor_psw_link" data-toggle="modal" data-target="#forgotPasswordModal">Forgot password?</a><br><br>
 						<div class="clearfix"></div>
@@ -118,7 +116,6 @@ export default {
     },
     doLogin() {
       console.log("Clicked login");
-
       if (this.email && this.password ) {
         this.processing = true;
         this.$store
@@ -140,6 +137,7 @@ export default {
               this.processing = false;
               this.showToast("Sign in successfully");
               setTimeout(() => {
+                $("#signInModal").modal("hide"); // Hide the signin modal box
                 this.$router.push({ name: "Home" });
               }, 1000);
             }

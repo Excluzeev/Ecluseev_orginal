@@ -15,7 +15,7 @@
                 <div class="item"  v-for="trailer in item.trailers" v-bind:key="trailer.trailerId">
 
                    
-                  <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
+                  <TrailerVideoItem :trailer="trailer" />
 
 
         
@@ -29,6 +29,7 @@
 
 
       </div>
+
     <!--
     <v-layout text-xs wrap>
       <v-flex xs12>

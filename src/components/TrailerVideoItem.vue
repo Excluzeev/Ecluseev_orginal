@@ -16,7 +16,7 @@
       </router-link>
 
       <div class="bottom-controls">
-        <v-btn flat color="red" @click="deleteTrailerDialog = true">Delete
+        <v-btn v-if="showDelete"  flat color="red" @click="deleteTrailerDialog = true">Delete
         </v-btn>
 
         <v-btn flat color="red" @click="openReportDialog(trailer.trailerId)">Report
@@ -25,7 +25,7 @@
       </div>
 
 
-        
+<!--         
     <div class="modal" id="reportModal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -54,8 +54,56 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
+    <v-dialog v-model="deleteTrailerDialog" max-width="320">
+      <v-card>
+        <v-card-title class="headline">Delete the Preview?</v-card-title>
+        <v-card-text>
+          Hello,
+          <br />Do you really want to delete the Preview.
+          <br />
+          <strong>{{ trailer.title }}</strong>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click="deleteTrailerDialog = false">Dont Delete</v-btn>
+          <v-btn  color="green darken-1" flat @click="deleteTrailer">Delete</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="reportDialog" scrollable max-width="300px">
+      <v-card>
+        <v-card-title>Select Reasons</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text style="height: 300px;">
+          <!-- <v-radio-group v-model="reportReasons" column> -->
+          <v-container fluid>
+          
+                  <div class="row" v-for="(reason, index) in reasons" v-bind:key="index" >
+                      <div class="col-lg-6">
+                      <label v-text="reason"></label>
+                      </div>
+                      <div class="col-lg-6">
+                      <input style="height:auto;width:auto;" type="checkbox" class="form-control"  v-model="reportReasons[index]" value="reason" >
+                      </div>
+                  </div>
+              
+            <v-flex xs12 v-if="this.reportReasons.indexOf('Other') != -1">
+              <v-text-field v-model="otherReason" label="Reason"></v-text-field>
+            </v-flex>
+          </v-container>
+          <!-- </v-checkbox-group> -->
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn color="blue darken-1" flat @click="closeReportDialog">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="updateAndCloseReportDialog">Report</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  
      
   </div>
   <!--
@@ -109,52 +157,7 @@
       </v-card-actions>
     </v-card>
 
-    <v-dialog v-model="deleteTrailerDialog" max-width="320">
-      <v-card>
-        <v-card-title class="headline">Delete the Preview?</v-card-title>
-        <v-card-text>
-          Hello,
-          <br />Do you really want to delete the Preview.
-          <br />
-          <strong>{{ trailer.title }}</strong>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click="deleteTrailerDialog = false">Dont Delete</v-btn>
-          <v-btn color="green darken-1" flat @click="deleteTrailer">Delete</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="reportDialog" scrollable max-width="300px">
-      <v-card>
-        <v-card-title>Select Reasons</v-card-title>
-        <v-divider></v-divider>
-        <v-card-text style="height: 300px;">
-          <!\-- <v-radio-group v-model="reportReasons" column> --\>
-          <v-container fluid>
-            <v-checkbox
-              v-for="(reason, index) in reasons"
-              v-bind:key="index"
-              style="margin-top: 0;     padding-top: 0;"
-              v-model="reportReasons"
-              :label="reason"
-              :value="reason"
-            ></v-checkbox>
-            <v-flex xs12 v-if="this.reportReasons.indexOf('Other') != -1">
-              <v-text-field v-model="otherReason" label="Reason"></v-text-field>
-            </v-flex>
-          </v-container>
-          <!-- </v-checkbox-group> --\>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-btn color="blue darken-1" flat @click="closeReportDialog">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="updateAndCloseReportDialog">Report</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-flex>
+    v-flex>
   -->
 </template>
 
@@ -220,8 +223,6 @@ export default {
     openReportDialog(trailerId) {
       this.reportTraileId = trailerId;
       this.reportDialog = true;
-      $("#reportModal").modal("show");     
-      $(".modal-backdrop").hide()
     },
     closeReportDialog() {
       this.reportReasons = [];
@@ -244,6 +245,7 @@ export default {
       let user = auth.currentUser;
 
       let displayName = auth.currentUser.displayName;
+
       if (displayName == "" || displayName == null) {
         let fUser = JSON.parse(localStorage.getItem("fUser"));
         displayName = fUser.firstName + " " + fUser.lastName;

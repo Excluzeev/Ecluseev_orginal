@@ -19,52 +19,87 @@
 						<div class="clearfix"></div>
 						<p>Register to create or join communities, and to explore the popular and upcoming excluzeev communities and interact with the fans/stars.</p>
 
-						<form>
+						<form @submit.prevent="isHuman">
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<span class="head"></span>
 									<span class="body"></span>
-									<input type="name" class="form-control" id="firstName" placeholder="Please enter first name">
+									<input v-model="firstName"  type="name" class="form-control" id="firstName" placeholder="Please enter first name">
 								</div>
 								<div class="form-group col-md-6">
 									<span class="head"></span>
 									<span class="body"></span>
-									<input type="name" class="form-control" id="lastName" placeholder="Please enter first name">
+									<input v-model="lastName"  type="name" class="form-control" id="lastName" placeholder="Please enter last name">
 								</div>
 
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<span><i class="fa fa-envelope"></i></span>
-									<input type="email" class="form-control" id="email" placeholder="Please enter email address">
+									<input v-model="email"  type="email" class="form-control" id="email" placeholder="Please enter email address">
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<span><i class="fa fa-lock"></i></span>
-									<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+									<input v-model="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
 								</div>
 								<div class="form-group col-md-6">
 									<span><i class="fa fa-lock"></i></span>
-									<input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password">
+									<input v-model="cPassword"  type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password">
 								</div>
 
 							</div>
 							<div class="form-row">
+
+    									  By clicking on “Sign Up” button, I agree to
 								<div class="form-group col-md-8 text-left">
-									<p>By clicking on “Sign Up” button, I agree to <a href="#"> terms, call to action terms <span>and</span> privacy policy.</a></p>
+
+                      <input v-model="checkAll" type="checkbox" name="" id="" value="true">
+                        <a @click="showExcluzeevTerms">Terms</a>
+                    <a @click="showPrivacyPolicy">Privacy Policy</a>
+                    <a @click="showCallToActionTerms">Call to Action Terms</a>    
+
 								</div>
+                
 								<div class="form-group col-md-4 text-right">
-									<button type="submit" class="btn btn-windowSignUp">Sign Up</button>
+                  <vue-programmatic-invisible-google-recaptcha
+                  ref="invisibleRecaptcha2"
+                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
+                  elementId="invisibleRecaptcha2"
+                  badgePosition="'left'"
+                  :showBadgeMobile="false"
+                  :showBadgeDesktop="false"
+                  @recaptcha-callback="recaptchaCallback"
+                ></vue-programmatic-invisible-google-recaptcha>
+
+									<button type="submit" class="btn btn-windowSignUp" :loading="processing" :disabled="processing">Sign Up</button>
 								</div>
 							</div>
 						</form>
-						<p class="already-have-an-account">Already have an account? <a href="#">Sign in now!</a></p>
+
+						<p class="already-have-an-account">Already have an account? 
+              
+              <a href="#" @click="goLogin">Sign in now!</a></p>
 
 					</div>
 
 				</div>
 			</div>
+
+      <v-dialog v-model="termsDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-card>
+          <v-toolbar dark color="primary">
+            <v-btn icon dark @click="termsDialog = false">
+							<span aria-hidden="true">Close</span>
+            </v-btn>
+            <v-toolbar-title>{{ titleDialog }}</v-toolbar-title>
+          </v-toolbar>
+          <component v-bind:is="componentDialog"></component>
+        </v-card>
+      </v-dialog>
+      
+
 		</div>
 		<!-- End -->
 		
@@ -240,6 +275,7 @@ export default {
       termsDialog: false,
       titleDialog: "",
       componentDialog: null,
+      checkAll:[],
       rules: {
         name: value => {
           const pattern = /^[a-zA-Z ]*$/;
@@ -349,6 +385,10 @@ export default {
     },
     recaptchaCallback(token) {
       this.processing = true;
+      // Disabled for testing purpose
+      this.doSignUp(); // Signup without recaptcha
+
+      /*
       axios
         .post(
           "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
@@ -367,7 +407,10 @@ export default {
         })
         .catch(() => {
           this.processing = false;
+          this.showToast("Sign up Failed");
+
         });
+        */
     },
     isHuman() {
       if (this.rules.email(this.email) == "Invalid e-mail.") {

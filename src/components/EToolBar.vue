@@ -3,27 +3,29 @@
 		<div class="nav_section homepage-nav">
 			<nav class="nav-home navbar-expand-lg navbar " id="nav">
 				<div class="pull-left d-md-block d-xl-none d-lg-none">
-					<div id="mySidenav" class="sidenav">
+					<div id="mySidenav" class="sidenav" v-show="sideNav">
 						<div class="inline-list ">
 							<img src="../assets/Images/menu_logo.png">
-							<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+							<a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
 						</div>
+            <template v-if="!showLogin">
 						<h5>Account</h5>
 						<a href="#">My Profile</a>
-						<a href="#">Communities</a>
-						<a href="#">Excluzeev Live</a>
+					  <a href="#" @click="goToSubscriptions">Communities</a>
+						<a href="#"  @click="goLoginLive">Excluzeev Live</a>
 						<a href="#">Setting</a>
+            </template>
 						<h5>COMPANY</h5>
-						<a href="#">About</a>
+						<a href="#" @click="showAboutUs">About</a>
 						<a href="#">Careers</a>
 						<a href="#">News</a>
 						<h5>SUPPORT</h5>
 						<a href="#">Contact Support</a>
-						<a href="#">Help Guide</a>
-						<a href="#">FAQ</a>
+						<a href="#" @click="showHowTo">Help Guide</a>
+						<a href="#" @click="showFAQs">FAQ</a>
 						<h5>LEAGAL</h5>
 						<hr>
-						<a href="#">Logout</a>
+						<a v-if="!showLogin" href="#" @click="logout">Logout</a>
 						<hr class="logout_link">
 						<ul class="list-unstyled inline-list social_links">
 							<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
@@ -31,14 +33,15 @@
 							<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 						</ul>
 					</div>
-					<div class="menu_sticks" onclick="openNav()">
+					<div class="menu_sticks" @click="sideNav = !sideNav">
 						<span></span>
 						<span></span>
 						<span></span>
 					</div>
 				</div>
+        
 				<div class="pull-left  home_brand ">
-					<a class="navbar-brand" href="index.html">
+					<a class="navbar-brand" href="/">
 						<img src="../assets/Images/logo.svg" draggable="false">
 					</a>
 				</div>
@@ -46,7 +49,7 @@
 				<div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
 					<ul class="navbar-nav row-auto">
 						<li class="nav-item color_fffffff">
-							<a class="nav-link color_fffffff" href="#">About Excluzeev</a>
+							<a class="nav-link color_fffffff" href="#" @click="showAboutUs">About Excluzeev</a>
 						</li>
 						<li class="nav-item color_fffffff search_group">
 							<div class="form-group has-search">
@@ -68,13 +71,36 @@
 					<button class="btn btn-borderless search_btn "><i class="fa fa-search" aria-hidden="true"></i></button>
 				</div>
 				<div class="pull-right d-none d-lg-block d-lg-block">
-					<form class=" inline my-2 my-lg-0">
+
+					<form class=" inline my-2 my-lg-0" v-if="showLogin">
 						<button class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signUpModal">Create an Account</button>
-          	<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signInModal">Sign In</button>
+          	<button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signInModal">Sign In</button>
 					</form>
+
+          <form class=" inline my-2 my-lg-0" v-if="!showLogin">
+          	<button  @click="logout" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Sign Out</button>
+					</form>
+            
 				</div>
 			</nav>
+
+      <v-layout row justify-center>
+      <v-dialog v-model="dialogt" fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-card>
+          <v-toolbar dark color="primary">
+            <v-btn icon dark @click="dialogt = false">
+              <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>{{ titleDialogt }}</v-toolbar-title>
+          </v-toolbar>
+          <component v-bind:is="componentDialogt"></component>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+    
 		</div>
+
+    
   <!--
   <nav>
     <v-navigation-drawer app v-model="sideNav">

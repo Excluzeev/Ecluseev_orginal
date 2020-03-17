@@ -3,17 +3,11 @@
 @font-face {font-family: rubik-regular; src: url(../fonts/rubic/Rubik-Regular.ttf);}
 @font-face {font-family: rubik-light; src: url(../fonts/rubic/Rubik-Light.ttf);}
 *:focus {outline: 0;}
-a:hover{text-decoration:none;color: #000000}
-h6{margin-top: 15px!important;margin-bottom: 0!important;font:18px/22px rubik-light;color: #000000!important}
-h3,h3>a,h3>a:hover	{text-transform: uppercase;font:25px/29px rubik-medium;color: #000000!important;padding-bottom: 39px!important;margin-top:  0!important;padding-top: 39px!important;margin-bottom: 0}
-h3>i{padding-right: 6px}
-h4{font:18px/22px rubik-medium;color: #000000;padding-bottom: 23px}
 
 .popper_section>h3>a,.popper_section>h3>a:hover{color: #000000}
 .title_section{padding-top:23%;padding-bottom: 168px  }
 .title_section>p>i{padding-right: 10px;}
 .title_section>p{font:25px/29px rubik-regular; color: #000000; padding-bottom: 24px; line-height: 25px; margin: 0; }
-h1{margin: 0;font:80px/100px rubik-medium;color: #000000;}
 /* #black_bg_section{padding: 0 8% 30px 8%; background: #000000 0% 0% no-repeat padding-box; opacity: 1;margin-top: -1px}  */
 .owl-carousel .item{background: transparent; }
 #demos .owl-carousel .item .item_img{width: 100%; height: 100%;}
@@ -35,12 +29,6 @@ h5:after {content: ""; width: 48px; position: absolute; right: 70px; margin-top:
 .menu_sticks>span:nth-child(1) {display: block; width: 20px; background: #000000; height: 4px; }
 .menu_sticks>span:nth-child(2) {display: block; width: 40px; background: #000000; height: 4px; }
 .menu_sticks>span:nth-child(3) {display: block; width: 30px; background: #000000; height: 4px; }
-.sidenav {height: 100%; width: 0; position: fixed; z-index: 2; padding-bottom: 15%;top: 0; left: 0; background-color: #000000; overflow-x: hidden; transition: 0.5s; padding-top: 20px; }
-.sidenav img{width: 150px;margin-left: 53px;margin-bottom: 20px;} 
-.sidenav a {padding: 0; margin: 12px 8px 12px 32px; text-decoration: none; font: 15px/19px rubik-regular; color: #000; display: block; transition: 0.3s; }
-.sidenav a:hover {color: #000; } 
-.sidenav .closebtn {position: absolute; top: 0; right: 0; font-size: 36px; margin-left: 50px; color: #29ABE2; }
-.sidenav hr{margin: 12px 8px 12px 32px;border:1px solid #29ABE2;width: 20px}
 .logout_link{width: 150px!important; margin-right: 15px !important;}
 .social_links a i{font-size: 35px; color: #29abe2;}
 .social_links a{margin: 0!important}
@@ -60,7 +48,8 @@ button.btn.btn-borderless {padding: 0; line-height: 1px; color: #000000; outline
 
 /*---------Media Queries---------*/
 @media (min-width: 451px) and (max-width: 991px){.footer_search_section .footer-searchbar{width: 75%}}
-@media screen and (max-width: 450px) {.sidenav {padding-top: 15px;} .sidenav a {font-size: 18px;} 	.footer_search_section .footer-searchbar{width: 65%}}
+@media screen and (max-width: 450px) {
+	.footer_search_section .footer-searchbar{width: 65%}}
 @media screen and (max-width: 615px){.sticky {position: fixed; top: 0; width: 100%; z-index: 3; background: #000;padding-right: 34px;} .sticky + .content {padding-top: 102px; } .title_section>p{font-size: 16px; padding-bottom: 0} h1{font-size: 30px; line-height: 30px;} .bri_n_teesh_title{width: 75%} .viedo_preview>i{font-size: 65px} .bri_n_teesh_title p{font-size: 16px;margin-bottom: 0} .pull-left.home_brand{text-align: center;} .pull-left.home_brand img{width: 70%} .pull-left.home_brand p{font-size: 16px;padding-right: 30px} .bri_n_teesh_title{float: left;} .title_section {padding-top: 0%!important; padding-bottom: 20%!important; } }
 @media only screen and (max-width: 991px){#home {padding: 2% 3% 0 3%!important} .sticky {position: fixed; top: 0;left: 0; width: 100%; z-index: 3; background: #000; padding: 2% 3% 0 3%!important} .sticky + .content {padding-top: 102px; } }
 @media (min-width: 616px) and (max-width: 767px){.bri_n_teesh_title{width: 75%} .title_section>p{font-size: 16px; padding-bottom: 0} h1{font: 40px/44px rubik-medium;line-height: 40px} .bri_n_teesh_title{width: 87%} .viedo_preview>i{font-size: 75px} .bri_n_teesh_title p{font-size: 18px;} .pull-left.home_brand{text-align: center;} .pull-left.home_brand img{width: 70%} .pull-left.home_brand p{font-size: 16px;padding-right: 30px} }
@@ -96,3 +85,4 @@ button.btn.btn-borderless {padding: 0; line-height: 1px; color: #000000; outline
 	top: -90px; right: 50px;
 	border-radius: 200px;
 }
+

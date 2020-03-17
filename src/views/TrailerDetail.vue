@@ -1,4 +1,237 @@
 <template>
+  
+    <div id="watch_preview_page">
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="col-xl-6">
+						<div class="watch_vedio_section">
+              <div v-show="!playerOptions.sources[0].src.isEmpty">
+                <video-player
+                  class="video-holder vjs-big-play-centered"
+                  width="100%"
+                  height="auto"
+                  id="player_id"
+                  ref="videoPlayer"
+                  :options="playerOptions"
+                  @ready="playerIsReady"
+                  @timeupdate="onPlayerTimeupdate($event)"
+                ></video-player>
+              </div>
+
+
+              <h2 class="d-none d-md-none d-sm-none d-lg-block d-xl-block" v-if="trailer">{{ trailer.title }}</h2>
+							<div class="list-inline video_content">
+								<div class="list-inline d-flex pull-left">
+									<img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle"  style="width: 46px;height: 46px;">
+                   <!-- <img 
+                    class="rounded-circle"
+                    :src="trailer != null ? trailer.channelImage : ''"
+                  /> -->
+									<h5><span v-if="trailer">{{ trailer.channelName }}</span><br><span class="sub_title d-block  d-sm-block d-xl-none d-lg-none">Artist/Band/Vlog</span></h5>
+								</div>
+
+								<div class="pull-right">
+									<div class="btn-group" role="group" aria-label="Basic example">
+            
+										<button :disabled="subscribeProcessing" :loading="subscribeProcessing" v-if="showSubscribeButton" @click="checkout" type="button" class="btn btn-per-month d-none d-xl-block d-lg-block" ><span v-if="channel">${{ channel.price }} </span>per month</button>
+										<a href="watch-Preview-mobile.html" class="btn-join-community d-block d-xl-none d-lg-none d-sm-block">Join</a>
+										<button type="button" class="btn btn-join-community d-none d-xl-block d-lg-block" data-toggle="modal" data-target="#joinCommunityModal">Join community</button>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+								<p > <span v-if="trailer">{{ trailer.description }}</span>
+									<a href="#collapse" class="nav-toggle ">Read Less</a>
+								</p>
+								<div id="collapse" class="content_text">
+								</div>
+							</div>
+
+          
+
+              <div v-if="showComments" class="chat_section d-none d-xl-block d-lg-block">
+							
+              	<h3><span>Comments</span></h3>
+                <div>
+                  <v-textarea
+                    solo
+                    label="Add a comment"
+                    rows="1"
+                    auto-grow
+                    v-model="commentText"
+                  ></v-textarea>
+                  <v-layout>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      class="white--text quick-sand-font-b"
+                      color="blue lighten-1"
+                      :disabled="disabelComment"
+                      @click="doComment"
+                      >Comment</v-btn
+                    >
+                  </v-layout>
+                </div>
+                <div v-if="!showComments">
+                  <div class="logincomment text-xs-center">
+                    <p>
+                      Please
+                      <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
+                        >sign in</router-link
+                      >to comment
+                    </p>
+                  </div>
+                </div>
+
+            
+
+
+                <template v-if="commentsList.length > 0">
+                  <div class="user_comment_section d-flex"  v-for="comment in commentsList"  v-bind:key="comment.commentId">
+                    <div class="user_name_comment">
+                      <ul class="list-unstyled">
+                        <li class="list-inline">
+                          <h3 class="pull-left">{{ comment.userName }}</h3>
+                          <div class="posted_time pull-right"><p>{{ comment.timeAgo }}</p></div>
+                          <div class="clearfix"></div>
+                        </li>
+                        <li><p>{{ comment.comment }}</p></li>
+                      </ul>
+                    </div>
+                  </div>
+                </template>
+
+                 <v-flex v-else text-xs-center>
+                  <div class="nocomment">
+                    <p>No comments yet, be the first</p>
+                  </div>
+                </v-flex>
+
+
+              </div>
+
+
+            </div>
+
+            
+
+
+
+					</div>     
+
+          <div class="col-xl-6">
+						<div class="row ">
+							<div class="col-xl-5 col-lg-5 ">
+								<div class="start_excluzeev_btn_section d-none d-xl-block d-lg-block">
+									<div class=" start_excluzeev_btn_description">
+										<p>Start excluzeev live now and interact with the fans. </p>
+										<br>
+										<p>Just a click away.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-7 col-lg-7">
+								<div class="d-none d-xl-block d-lg-block">
+									<button class="btn btn-start-excluzeev-live"><img src="assets/images/live-blue.png" style="width: 36px">&nbsp;&nbsp;Start Excluzeev Live</button>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+
+            <div class="related_video_section">
+							<ul class="list-unstyled">
+                <TrailerDetailVideoItem
+                v-for="trailer in catTrailersList"
+                v-bind:key="trailer.trailerId"
+                :trailer="trailer"
+              />
+                
+							
+							</ul>
+            </div>
+
+
+          </div>
+
+
+        </div>
+			</div>
+
+
+      <!-- Model for Join Community  -->
+		<div class="modal fade bd-example-modal-md" id="joinCommunityModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">Close</span>
+						</button>
+					</div>
+					<div class="modal-body text-center">
+						<br>
+						<br>
+						<h2>Join Community</h2>
+						<div class="clearfix"></div>
+						<p>Join Community and explore the exluzeev videos and intaract with the amazing people behind the community</p>
+						<div class="clearfix"></div>
+						<br>
+						<div class="community_section">
+							<div class="text-center img_title">
+								<div class="list-inline d-flex pull-left">
+									<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle"  style="width: 46px;height: 46px;">&nbsp;&nbsp; &nbsp;
+									<h3><span>Bri N Teesh</span></h3>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<br>
+
+							<form>
+								<div class="container ">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="input-group" style="width: 100%">
+												<div class="input-group-prepend">
+													<button class="btn btn-minus " id="minus-btn"><i class="fa fa-minus"></i></button>
+												</div>
+												<input type="number" id="months_input" class="form-control " value="1" min="1">
+												<div class="input-group-prepend">
+													<button class="btn btn-plus " id="plus-btn"><i class="fa fa-plus"></i></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<br>
+										<h4>22 Jan 2020 - 25 Apr 2020</h4>
+										<div class="clearfix"></div>
+										<br>
+										<h2>$10</h2>
+										<br>
+
+									</div>
+								</div>
+							</form>
+							<div class="clearfix"></div>
+						</div>
+						<button class="btn btn-join-via-stripe" >Let's join via Stripe</button>
+						<br><br>
+						<div class="note_section">
+							<p>NOTE: Price are in CAD(Canadian Dollars)</p>
+						</div>
+						<br><br><br><br><br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+		
+
+
+
+    </div> 
+   <!--
   <div class="home">
     <vue-headful
       :title="trailer.title"
@@ -25,7 +258,7 @@
             <div class="title-details--text max-1-lines quick-sand-font-b">
               {{ trailer.title }}
             </div>
-            <!--<div class="desc-details--text">{{ trailer.views }} views</div>-->
+            <!\--<div class="desc-details--text">{{ trailer.views }} views</div>--\>
           </v-layout>
           <v-spacer></v-spacer>
           <a>
@@ -50,13 +283,13 @@
         </v-layout>
         <v-divider></v-divider>
 
-        <!-- <div v-if="showSubscribeButton && showDonateText">
+        <!\-- <div v-if="showSubscribeButton && showDonateText">
           <v-progress-linear
             color="error"
             height="20"
             :value="(channel.targetFund * channel.currentFund) / 100"
           ></v-progress-linear>
-        </div>-->
+        </div>--\>
 
         <v-layout class="padding" justify-left fill-height>
           <div class="padding">
@@ -75,15 +308,12 @@
               </v-layout>
               <v-spacer></v-spacer>
             </v-layout>
-            <!--Description-->
             <div class="detail-description">
               <div>{{ trailer.description }}</div>
             </div>
           </v-flex>
         </v-layout>
 
-        <!-- Sub -->
-        <!--Subscribe and Donate Buttons-->
         <div>
           <v-layout row wrap>
             <v-btn
@@ -165,7 +395,6 @@
 
         <v-divider></v-divider>
 
-        <!--Comments Section-->
         <div class="comment-holder padding">
           <div v-if="showComments">
             <v-textarea
@@ -231,6 +460,8 @@
       <p class="text-xs-center" style="font-size: 20px;">Now Loading..</p>
     </v-container>
   </div>
+  -->
+
 </template>
 
 <script>
@@ -388,6 +619,7 @@ export default {
       player.ima.setAdBreakReadyListener(() => {
         // console.log("AdBreak");
       });
+      console.log("Player is ready");
     },
     async getLikes() {
       if (auth.currentUser == null) {
@@ -649,45 +881,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.main-holder {
-  align-items: flex-start;
-}
-.channel-image {
-  border-radius: 50%;
-  object-fit: cover;
-}
-.square {
-  width: 64px;
-  height: 64px;
-}
-.padding {
-  padding: 10px;
-}
-.like-holder {
-  padding: 10px;
-}
-.active {
-  color: #42a5f5;
-}
-.published--text {
-  color: rgba(17, 17, 17, 0.6);
-}
-.detail-description {
-}
-.linked-trailers {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.v-text-field__details {
-  display: none;
-}
-/*@media only screen and (min-width: 768px) {*/
-/*.video-holder {*/
-/*min-height: 50%;*/
-/*}*/
-/*.video-js {*/
-/*min-height: 50%;*/
-/*}*/
-/*}*/
+<style scoped >
+
 </style>

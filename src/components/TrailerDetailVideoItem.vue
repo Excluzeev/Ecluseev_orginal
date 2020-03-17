@@ -1,18 +1,27 @@
 <template>
+  
   <router-link class="" :to="'/' + getLinkTag + '/' + trailer.trailerId">
-    <v-layout class="all-bg padding-top" justify-left row>
-      <img :src="trailer.image" height="94" width="168" />
-      <div class="padding">
-        <div class="title--text max-2-lines quick-sand-font-b">
-          {{ trailer.title }}
-        </div>
-        <span class="desc--text">{{ trailer.channelName }}</span>
-        <div class="desc--text">
-          {{ trailer.timeAgo }}
-        </div>
-      </div>
-    </v-layout>
+  
+   
+    	<li>
+									<a href="#">
+										<div class="row">
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+                              <img :src="trailer.image" class="img-fluid" style="width: 100%;border-radius:10px;"/>
+											</div>
+											<div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+												<div class="video_title">
+													<h3><span> {{ trailer.title }}</span></h3>
+													<h4> {{ trailer.channelName }}</h4>
+													<p>{{ trailer.timeAgo }}</p>
+												</div>
+											</div>
+										</div>
+									</a>
+								</li>
+  
   </router-link>
+
 </template>
 
 <script>

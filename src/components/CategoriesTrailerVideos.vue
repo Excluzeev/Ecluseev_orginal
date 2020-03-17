@@ -33,7 +33,7 @@ export default {
     this.$store.dispatch("categories/fetchCategories").then(data => {
       this.categories = data;
     });
-    this.fetchCategoryTrailers("VGf1Xq2czICWnIHdg6Pz", "Comedy");
+    // this.fetchCategoryTrailers("VGf1Xq2czICWnIHdg6Pz", "Comedy");
   }
 };
 </script>

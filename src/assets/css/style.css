@@ -223,7 +223,7 @@ ul.navbar-nav.row-auto{
 	background-size: 100%;
 }
 .sidenav h5{text-transform: uppercase;color: #29ABE2;font:15px/19px rubik-medium;margin: 15px 8px 15px 32px;margin-top: 10px;margin-bottom: 10px;}
-.sidenav h5:after {content: ""; width: 48px; position: absolute; right: 70px; margin-top: 8px; height: 2px; background: #29abe2; display: inline-block; }
+.sidenav h5:after {content: ""; width: 48px; position: absolute; right: 120px; margin-top: 18px; height: 2px; background: #29abe2; display: inline-block; }
 
 button.btn.btn-borderless {padding: 0; line-height: 1px; color: #29abe2; outline: none; border: transparent; font-size: 35px; }
 .viedo_preview{position: relative;}
@@ -268,7 +268,7 @@ button.btn.btn-borderless {padding: 0; line-height: 1px; color: #29abe2; outline
 .menu_sticks>span:nth-child(1) {display: block; width: 20px; background: #29abe2; height: 4px; }
 .menu_sticks>span:nth-child(2) {display: block; width: 40px; background: #29abe2; height: 4px; }
 .menu_sticks>span:nth-child(3) {display: block; width: 30px; background: #29abe2; height: 4px; }
-.sidenav {height: 100%;padding-bottom: 65px ;width: 0; position: fixed; z-index: 2; top: 0; left: 0; background-color: #FFFFFF; overflow-x: hidden; transition: 0.5s; padding-top: 20px; }
+.sidenav {height: 100%;padding-bottom: 65px ;width: auto; position: fixed; z-index: 2; top: 0; left: 0; background-color: #FFFFFF; overflow-x: hidden; transition: 0.5s; padding-top: 20px; }
 .sidenav img{width: 150px;padding-bottom: 15px;margin-left: 30px} 
 .sidenav a {padding: 0; margin: 15px 8px 15px 32px; text-decoration: none; font: 15px/19px rubik-regular; color: #000; display: block; transition: 0.3s; }
 .sidenav a:hover {color: #000; } 
@@ -398,7 +398,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 	padding:15px 35px;
 	color: #29ABE2!important;
 	border:1px solid #FFFFFF;
-	height: 58px;
+	height: auto;
 	border-radius: 15px!important;
 	box-shadow: 6px 6px 20px #00000029;
 }
@@ -698,10 +698,10 @@ a.forgor_psw_link{margin-bottom: 20px;}
 
 /*-----Excluzieev Live----------*/
 #watch_preview_page .user_comment_section h3{padding-bottom: 20px;padding-top: 0}
-#watch_preview_page h3{padding-left: 0!important}
+#watch_preview_page h3{padding-left: 0!important;padding-top: 0 !important;}
 #watch_preview_page h3,
 #croud_funding_page h3,
-#excluzeev_live_page h3{padding-left: 15px; padding-top: 10px;color: #29ABE2;text-transform: capitalize;}
+#excluzeev_live_page h3{padding-left: 15px; padding-top: 10px;color: #29ABE2 !important;text-transform: capitalize;}
 #my_ernings_page .total_erning_section h3 span,
 #watch_preview_page h3 span,
 #excluzeev_live_page h3 span,
@@ -916,7 +916,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 	padding: 20px;
 	border-radius: 10px;
 	background-color: #fff;
-	color: #29ABE2;	
+	color: #29ABE2 !important;	
 	font:25px rubik-regular;
 	box-shadow: 3px 3px 10px #00000029;
 	outline: none;
