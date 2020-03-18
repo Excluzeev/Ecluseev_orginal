@@ -16,11 +16,14 @@
       </router-link>
 
       <div class="bottom-controls">
-        <v-btn v-if="showDelete"  flat color="red" @click="deleteTrailerDialog = true">Delete
-        </v-btn>
+       
+        <button v-if="showDelete" class="cbtn"  @click="deleteTrailerDialog = true">
+          <i style="color:white;" class="fa fa-trash" aria-hidden="true"></i>
+        </button>
 
-        <v-btn flat color="red" @click="openReportDialog(trailer.trailerId)">Report
-        </v-btn>
+        <button class="cbtn"  @click="openReportDialog(trailer.trailerId)">
+          <i style="color:white;" class="fa fa-flag" aria-hidden="true"></i>
+        </button>
 
       </div>
 
@@ -295,4 +298,10 @@ a {
     background-size: cover;
 
 }
+.bottom-controls .cbtn{
+  margin-left:10px;
+  margin-right:10px;
+
+}
+
 </style>

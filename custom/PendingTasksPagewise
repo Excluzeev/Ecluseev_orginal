@@ -1,0 +1,50 @@
+Home page
+
+    - Update the links in bottom menu etc .. cookie policy, My community
+    - Need to design pages for the following menus
+        My profile
+        Setting
+        Carrers
+        News
+        Contact support
+    - Signin with gmail and facebook
+    - Signup verification (Signup)
+    - Error highlight in form itself near by form inputs
+
+Previews page
+
+    - Change report name into flag icon
+    - Need to implement bootstrap popups for the following
+        
+        Delete preview, Report trailor
+
+    - Background banner needs to be added 
+
+    - Promote content creater (Need admin page to  configure this)
+    - Thumbail preview
+
+Watch preview
+
+    - Start excluzeev live design needs to be implemented 
+    - Confusion with features in watch preiview
+        Subscription
+        Donate 
+        Note: Joing community modal form has inputs for Donat or subscription?? 
+    - Connect to stripe functionailty needs to be implemented
+    - Player is not working
+
+    - Errors needs to be fixed
+
+        1.VIDEOJS: ERROR: (CODE:4 MEDIA_ERR_SRC_NOT_SUPPORTED) No compatible source was found for this media. MediaError
+        2.player.ima is not a function
+    
+    - Integrate stripe 
+
+
+My profile
+
+    - 
+
+My communities
+
+    - 

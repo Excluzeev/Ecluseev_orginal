@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="footer">
     <div class="footer_brand_section d-none d-xs-block  d-sm-none d-md-none d-lg-block d-xl-block">
 			<a class="navbar-brand" href="index.html"><img src="../assets/Images/logo.svg" draggable="false"></a>
 		</div>

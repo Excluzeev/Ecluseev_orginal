@@ -131,7 +131,7 @@
 							</div>
 							<div class="col-xl-7 col-lg-7">
 								<div class="d-none d-xl-block d-lg-block">
-									<button class="btn btn-start-excluzeev-live"><img src="assets/images/live-blue.png" style="width: 36px">&nbsp;&nbsp;Start Excluzeev Live</button>
+									<button class="btn btn-start-excluzeev-live"><img src="../assets/Images/live-blue.png" style="width: 36px">&nbsp;&nbsp;Start Excluzeev Live</button>
 								</div>
 							</div>
 						</div>

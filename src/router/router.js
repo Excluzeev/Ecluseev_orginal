@@ -69,7 +69,8 @@ const router = new VueRouter({
       name: "Previews",
       component: Previews,
       meta: {
-        showNav: true,
+        showNav: false,
+        isPreviewPage: true,
         title: "Excluzeev - Stream. Crowdfunding. Social Network"
       }
     },

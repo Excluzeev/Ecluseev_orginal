@@ -15,23 +15,40 @@
 						<div class="clearfix"></div>
 						<p>We’ll help you reclaim your glory. Just follow the instructions mentioned below.</p>
 
-						<form>
+              <form @submit.prevent="isHuman">
+
+              <div class="form-row" v-if="snackbar">
+								<div class="form-group col-md-12 non-specific-error-cont">
+                <span  class="non-specific-error" id="non-specific-error"  >{{toastText}}</span>
+								</div>
+							</div>
+
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<span class="head"></span>
 									<span class="body"></span>
-									<input type="name" class="form-control" id="userNameOrEmail" placeholder="Please enter email or username">
-									<div class="clearfix"></div>
+									<input type="email" class="form-control" v-model="email"   id="userNameOrEmail" placeholder="Please enter email or username">
+
+              		<div class="clearfix"></div>
 									<br>
 									<br>
 									<br>
-									<button class="btn btn-send-me-a-revive-link" >Send me a revive link</button>
+                     <vue-programmatic-invisible-google-recaptcha
+                  ref="invisibleRecaptcha1"
+                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
+                  elementId="'invisibleRecaptcha1'"
+                  badgePosition="'left'"
+                  :showBadgeMobile="false"
+                  :showBadgeDesktop="false"
+                  @recaptcha-callback="recaptchaCallback"
+                ></vue-programmatic-invisible-google-recaptcha>
+
+									<button class="btn btn-send-me-a-revive-link" type="submit" :loading="processing" :disabled="processing" @click="loader = 'loading4'">Send me a revive link</button>
 									<br><br><br><br>
 								</div>
 							</div>
-						</form>
 						<div class="clearfix"></div>
-
+              </form>
 					</div>
 
 				</div>
@@ -140,8 +157,7 @@ export default {
         }
       },
       snackbar: false,
-
-      toastText: "Login Success"
+      toastText: ""
     };
   },
   mixins: [RegisterStoreModule],
@@ -158,14 +174,16 @@ export default {
           .then(data => {
             if (data.error) {
               this.toastText =
-                "An password reset email has been sent to your email";
+                "An password reset email  been sent to your email";
               this.snackbar = true;
               this.processing = false;
             } else {
               this.toastText = data.message;
               this.snackbar = true;
               this.processing = true;
-              this.$router.push("/login");
+              // Go to home page and prompt for login
+              this.goLogin();
+              // this.$router.push("/login");
             }
           });
       } else {
@@ -174,11 +192,24 @@ export default {
         this.processing = false;
       }
     },
+
     goLogin() {
-      this.$router.back();
+      $("#signInModal").modal("hide"); // show the signup modal box
+      $("#forgotPasswordModal").modal("hide"); // Hide the signin modal box      
+      setTimeout(() => {
+        this.$router.push({ name: "Home" });
+        $("#signInModal").modal("show"); // show the signup modal box
+
+      }, 2000);
+
+
+      // this.$router.back();
     },
     recaptchaCallback(token) {
       this.processing = true;
+      this.doSendEmail(); // Send forgot password reset email without recaptch //FIXME
+      // Disabled for testing purpose
+      /*
       axios
         .post(
           "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
@@ -196,7 +227,9 @@ export default {
         })
         .catch(() => {
           this.processing = false;
+          this.showToast("Something went wrong");
         });
+        */
     },
     isHuman() {
       if (this.rules.email(this.email) != "Invalid e-mail.") {
@@ -213,5 +246,18 @@ export default {
 </script>
 
 <style scoped>
+.error-message{
+    font-size: 17px;
+    display: block;
+    color: #f00;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+
+}
+.non-specific-error-cont{
+    padding: 5px;
+    color: red;
+}
 
 </style>

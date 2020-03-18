@@ -1,5 +1,44 @@
 <template>
-  <div style="height:100%" class="blue lighten-1">
+  	<div class="modal-content forgot-password-after">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12 text-center">
+					<h2>Alrighty! <br>Set a password now.</h2>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="offset-xl-3 col-xl-6 offset-xl-3 offset-lg-2 col-lg-8 offset-lg-2 offset-sm-1 col-sm-10 offset-sm-1 text-center">
+					<p>We’ll help you reclaim your glory. Just follow the instructions mentioned below.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class=" offset-xl-3 col-xl-6 offset-xl-3 offset-lg-2 col-lg-8 offset-lg-2 offset-sm-1 col-sm-10 offset-sm-1 ">
+					<form>
+						<div class="form-row text-center">
+							<div class="form-group col-md-12 margin_bottom_none text-center">
+								<div class="form-group col-md-12" >
+									<span><i class="fa fa-lock"></i></span>
+									<input type="name" class="form-control" id="enterNewPassword" placeholder="Please enter a new password">
+								</div>
+								<div class="form-group col-md-12">
+									<span><i class="fa fa-lock"></i></span>
+									<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm the new password">
+								</div>
+								<br>
+								<br>
+								<div class="form-group col-md-12 text-center">
+									<button class="btn btn-windowSaveIt">Save it, I remember this</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <!-- <div style="height:100%" class="blue lighten-1">
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -53,7 +92,7 @@
         </v-layout>
       </v-container>
     </v-content>
-  </div>
+  </div> -->
 </template>
 
 <script>

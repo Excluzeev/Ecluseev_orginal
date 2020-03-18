@@ -2,6 +2,7 @@
   <!-- eslint-disable -->
   <div id="app">
     <EToolBar v-if="isNavBar"/>
+    <EToolBarPreview v-if="isPreviewsPage"/>
 
     <keep-alive>
       <v-content>
@@ -19,14 +20,19 @@
     <LoginModal />  
     <RegistrationModal />
     <ForgotPasswordModal />
+    
     <FooterComponent v-if="isNavBar"/>
+    <FooterComponentPreview v-if="isPreviewsPage"/>
+
 
   </div>
 </template>
 
 <script>
 import EToolBar from "./components/EToolBar";
+import EToolBarPreview from "./components/EToolBarPreview";
 import FooterComponent from "./components/FooterComponent";
+import FooterComponentPreview from "./components/FooterComponentPreview";
 import CookieLaw from "vue-cookie-law";
 import LoginModal from "./components/LoginModal";
 import ForgotPasswordModal from "./components/ForgotPasswordModal";
@@ -42,7 +48,9 @@ export default {
   title: "Excluzeev - Stream. Crowdfunding. Social Network",
   components: {
     FooterComponent,
+    FooterComponentPreview,
     EToolBar,
+    EToolBarPreview,
     CookieLaw,
     LoginModal,
     ForgotPasswordModal,
@@ -54,6 +62,9 @@ export default {
   computed: {
     isNavBar() {
       return this.$route.meta.showNav != false;
+    },
+    isPreviewsPage() {
+      return this.$route.meta.isPreviewPage == true ;
     }
   }
 };

@@ -30,29 +30,6 @@
 
       </div>
 
-    <!--
-    <v-layout text-xs wrap>
-      <v-flex xs12>
-        <div v-for="item in categoryTrailers" v-bind:key="item.catId">
-          <h2 class="quick-sand-font-b">{{ item.catName }}</h2>
-          <v-layout xs12 row wrap>
-            <v-flex
-              class="trailer-item"
-              xs12
-              sm4
-              md3
-              lg2
-              v-for="trailer in item.trailers"
-              v-bind:key="trailer.trailerId"
-            >
-              <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
-            </v-flex>
-          </v-layout>
-        </div>
-      </v-flex>
-    </v-layout>
-    <v-divider></v-divider>
-    -->
 
   </div>
 </template>
@@ -90,6 +67,5 @@ export default {
 </script>
 
 <style scoped>
-
 
 </style>

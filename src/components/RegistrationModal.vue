@@ -20,43 +20,57 @@
 						<p>Register to create or join communities, and to explore the popular and upcoming excluzeev communities and interact with the fans/stars.</p>
 
 						<form @submit.prevent="isHuman">
+							<div class="form-row " v-if="this.errors['error']">
+								<div class="form-group col-md-12 non-specific-error-cont">
+                <span  class="non-specific-error" id="non-specific-error"  >{{this.errors['error']}}</span>
+								</div>
+							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<span class="head"></span>
-									<span class="body"></span>
 									<input v-model="firstName"  type="name" class="form-control" id="firstName" placeholder="Please enter first name">
-								</div>
+									<span  class="error-message" id="firstname_err" v-if="this.errors['firstname']">{{this.errors['firstname']}}</span>
+              	</div>
 								<div class="form-group col-md-6">
-									<span class="head"></span>
-									<span class="body"></span>
+							
 									<input v-model="lastName"  type="name" class="form-control" id="lastName" placeholder="Please enter last name">
-								</div>
+									<span  class="error-message" id="lastname_err" v-if="this.errors['lastname']">{{this.errors['lastname']}}</span>
+						
+            		</div>
 
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<span><i class="fa fa-envelope"></i></span>
 									<input v-model="email"  type="email" class="form-control" id="email" placeholder="Please enter email address">
-								</div>
+									<span  class="error-message" id="email_err"  v-if="this.errors['email']">{{this.errors['email']}}</span>
+							
+              	</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<span><i class="fa fa-lock"></i></span>
 									<input v-model="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
-								</div>
+									<span  class="error-message" id="password_err"  v-if="this.errors['password']">{{this.errors['password']}}</span>
+							
+              	</div>
 								<div class="form-group col-md-6">
 									<span><i class="fa fa-lock"></i></span>
 									<input v-model="cPassword"  type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password">
-								</div>
+									<span  class="error-message" id="cpassword_err"  v-if="this.errors['cpassword']">{{this.errors['cpassword']}}</span>
+							
+              	</div>
 
 							</div>
-							<div class="form-row">
+							<div class="form-row terms-items-cont">
 
-    									  By clicking on “Sign Up” button, I agree to
-								<div class="form-group col-md-8 text-left">
+                <div class="terms-text">
+    									By clicking on “Sign Up” button, I agree to
 
-                      <input v-model="checkAll" type="checkbox" name="" id="" value="true">
-                        <a @click="showExcluzeevTerms">Terms</a>
+                </div>
+								<div class="form-group col-md-8 text-left terms-items">
+
+                    <input v-model="checkAll" type="checkbox" name="" id="" value="true">
+                    <a @click="showExcluzeevTerms">Terms</a>
                     <a @click="showPrivacyPolicy">Privacy Policy</a>
                     <a @click="showCallToActionTerms">Call to Action Terms</a>    
 
@@ -276,6 +290,7 @@ export default {
       titleDialog: "",
       componentDialog: null,
       checkAll:[],
+      errors:{},
       rules: {
         name: value => {
           const pattern = /^[a-zA-Z ]*$/;
@@ -314,30 +329,43 @@ export default {
         duration: 2500
       });
     },
+    resetErr(){
+      this.errors={};
+    },
     doSignUp() {
-      if (this.rules.email(this.email) == "Invalid e-mail.") {
-        this.showToast("Invalid Email");
-        this.processing = false;
-        return;
-      }
+      
+      console.log("Do signup called")
+      this.resetErr(); // Reset form validation errors
+      let errorFound=false;
+
       if (this.firstName.isEmpty || this.firstName == "") {
-        this.showToast("Invalid First Name");
+        this.errors['firstname']="Firstname is required";
+        errorFound=true;
         this.processing = false;
-        return;
       }
-      if (this.lastName.isEmpty || this.lastName == "") {
-        this.showToast("Invalid Last Name");
+       if (this.lastName.isEmpty || this.lastName == "") {
+        this.errors['lastname']="lastname is required";
+        errorFound=true;
         this.processing = false;
-        return;
       }
+      if (this.rules.email(this.email) == "Invalid e-mail.") {
+        this.errors['firstname']="Invalid email address";
+        errorFound=true;
+        this.processing = false;
+      }
+     
       if (this.password.isEmpty || this.password.length < 8) {
-        this.showToast("Password must be greater than 8 digits");
         this.processing = false;
-        return;
+        errorFound=true;
+        this.errors['password']="Password must be greater than 8 digits";
       }
       if (this.password != this.cPassword) {
-        this.showToast("Passwords doesn't match.");
         this.processing = false;
+        errorFound=true;
+        this.errors['cpassword']="Password doesn't match";
+      }
+
+      if(errorFound == true){
         return;
       }
 
@@ -350,7 +378,8 @@ export default {
         })
         .then(data => {
           if (data.error) {
-            this.showToast(data.message);
+            this.errors['error']=data.message;
+            // this.showToast(data.message);
             this.processing = false;
           } else {
             this.$store.dispatch("auth/checkUser").then(userRecord => {
@@ -358,7 +387,8 @@ export default {
                 this.showToast("Registration successful");
                 this.$router.push("/");
               } else {
-                this.showToast("Unknown error please try again.");
+                // this.showToast("Unknown error please try again.");
+                this.errors['error']="Unknown error please try again.";
                 this.processing = false;
               }
             });
@@ -366,7 +396,13 @@ export default {
         });
     },
     goLogin() {
-      this.$router.replace({ name: "Login" });
+      //this.$router.replace({ name: "Login" });
+      $("#signUpModal").modal("hide"); // Hide the signup modal box
+      setTimeout(() => {
+          this.$router.push({ name: "Home" });
+          $("#signInModal").modal("show"); // Show the signin modal box
+      }, 1000);
+
     },
     showPrivacyPolicy() {
       this.titleDialog = "Privacy Policy";
@@ -386,7 +422,7 @@ export default {
     recaptchaCallback(token) {
       this.processing = true;
       // Disabled for testing purpose
-      this.doSignUp(); // Signup without recaptcha
+      this.doSignUp(); // Signup without recaptcha //FIXME
 
       /*
       axios
@@ -413,33 +449,43 @@ export default {
         */
     },
     isHuman() {
-      if (this.rules.email(this.email) == "Invalid e-mail.") {
-        this.showToast("Invalid Email");
-        this.processing = false;
-        return;
-      }
+      this.resetErr(); // Reset form validation errors
+      let errorFound=false;
       if (this.firstName.isEmpty || this.firstName == "") {
-        this.showToast("Invalid First Name");
+        this.errors['firstname']="Firstname is required";
+        errorFound=true;
         this.processing = false;
-        return;
       }
-      if (this.lastName.isEmpty || this.lastName == "") {
-        this.showToast("Invalid Last Name");
+       if (this.lastName.isEmpty || this.lastName == "") {
+        this.errors['lastname']="lastname is required";
+        errorFound=true;
         this.processing = false;
-        return;
       }
+      if (this.rules.email(this.email) == "Invalid e-mail.") {
+        this.errors['firstname']="Invalid email address";
+        errorFound=true;
+        this.processing = false;
+      }
+     
       if (this.password.isEmpty || this.password.length < 8) {
-        this.showToast("Password must be greater than 8 digits");
         this.processing = false;
-        return;
+        errorFound=true;
+        this.errors['password']="Password must be greater than 8 digits";
       }
       if (this.password != this.cPassword) {
-        this.showToast("Passwords doesn't match.");
         this.processing = false;
-        return;
+        errorFound=true;
+        this.errors['cpassword']="Password doesn't match";
       }
 
-      this.$refs.invisibleRecaptcha2.execute();
+      if(errorFound== true){
+        console.log("Error occurred")
+        return;
+      }
+        console.log("Recaptcha requested")
+        this.$refs.invisibleRecaptcha2.execute();
+      
+
     }
   }
 };
@@ -476,5 +522,42 @@ export default {
 .quick-sand-font {
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
+}
+
+.terms-items-cont{
+  display: flex;
+  align-items: center;
+  padding-left:20px;
+}
+.terms-text{
+font-size: 17px;  
+}
+.terms-items{
+      padding: 0 !important;
+    margin: 0 !important;
+}
+.terms-items a{ 
+  font-size: 14px;
+  
+}
+.error-message{
+    font-size: 17px;
+    display: block;
+    color: #f00;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+
+}
+.non-specific-error-cont{
+    padding: 5px;
+    color: red;
+}
+.non-specific-error{
+
+}
+.btn-windowSignUp,.btn-windowSignUp:hover,.btn-windowSignUp:focus
+{
+  font-size: 23px;
 }
 </style>

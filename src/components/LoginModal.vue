@@ -15,6 +15,11 @@
 						<div class="clearfix"></div>
 						<p>Sign in to create or join communities, and to explore the popular and upcoming excluzeev communities and interact with the fans/stars.</p>
 
+              	<div class="form-row " v-if="this.errors['error']">
+								<div class="form-group col-md-12 non-specific-error-cont">
+                <span  class="non-specific-error" id="non-specific-error"  >{{this.errors['error']}}</span>
+								</div>
+							</div>
 							<div class="form-row">
 								<div class="form-group col-md-12 margin_bottom_none">
 									<div class="form-row margin_bottom_none">
@@ -24,23 +29,29 @@
 													<span class="head"></span>
 													<span class="body"></span>
 													<input type="name" class="form-control" id="userNameOrEmail" v-model="email" placeholder="Please enter email or username" >
-												</div>
+                          <span  class="error-message" id="email_err" v-if="this.errors['email']">{{this.errors['email']}}</span>
+
+                      	</div>
 												<div class="form-group col-md-12">
 													<span><i class="fa fa-lock"></i></span>
 													<input type="password" class="form-control" id="userPassword" v-model="password" placeholder="Please enter password" >
-												</div>
+																		<span  class="error-message" id="password_err" v-if="this.errors['password']">{{this.errors['password']}}</span>
+                  			</div>
 											</div>
 										</div>
 										<div class="form-group col-md-3 text-left">
                       
-											<button class="btn btn-windowSignIn"  @click="doLogin()">Sign in</button>
+											<button class="btn btn-windowSignIn" :loading="processing" :disabled="processing"  @click="doLogin()">Sign in</button>
 										</div>
 									</div>
 
 								</div>
 							</div>
 						<div class="clearfix"></div>
-						<a href="#" class="forgor_psw_link" data-toggle="modal" data-target="#forgotPasswordModal">Forgot password?</a><br><br>
+						<a href="#" class="forgor_psw_link" data-toggle="modal" data-target="#forgotPasswordModal" >Forgot password?</a><br><br>
+
+						<!-- <a href="#" class="forgor_psw_link" @click="goForgotPassword()">Forgot password?</a><br><br> -->
+
 						<div class="clearfix"></div>
 						<p>Or sign in with</p><br>
 						<div class="clearfix"></div>
@@ -51,7 +62,7 @@
 						<br>
 						<br>
 						<div class="clearfix"></div>
-						<p class="already-have-an-account">New to excluzeev? <a href="#">Create an account now!</a></p>
+						<p class="already-have-an-account">New to excluzeev? <a href="#" @click="goSignup()">Create an account now!</a></p>
 					</div>
 
 				</div>
@@ -96,7 +107,8 @@ export default {
         }
       },
       processing: false,
-      toastText: "Login Success"
+      toastText: "Login Success",
+      errors:{},
     };
   },
   components: {},
@@ -114,8 +126,35 @@ export default {
         duration: 2500
       });
     },
+    goSignup(){
+          $("#signInModal").modal("hide"); // Hide the signin modal box      
+      setTimeout(() => {
+          this.$router.push({ name: "Home" });
+        $("#signUpModal").modal("show"); // show the signup modal box
+
+      }, 1000);
+
+    },
     doLogin() {
       console.log("Clicked login");
+      this.errors={};
+      let errorFound=false;
+      if (!this.email) {
+        this.errors['email']="Email address is required";
+        errorFound=true;
+        this.processing = false;
+      }
+     
+      if (!this.password) {
+        this.processing = false;
+        errorFound=true;
+        this.errors['password']="Required password";
+      }
+
+      if(errorFound){
+        return;
+      }
+
       if (this.email && this.password ) {
         this.processing = true;
         this.$store
@@ -129,9 +168,11 @@ export default {
             if (newData.error) {
               this.processing = false;
               if (newData.code == "auth/user-not-found") {
-                this.showToast("User not found.");
+                // this.showToast("User not found.");
+                this.errors['error']="User not found";
               } else {
-                this.showToast("Email / Password is Invalid");
+                // this.showToast("Email / Password is Invalid");
+                this.errors['error']="Email / Password is Invalid";
               }
             } else {
               this.processing = false;
@@ -143,9 +184,9 @@ export default {
             }
             
           });
-      } else {
-        this.showToast("Invalid Email / Password");
-        this.processing = false;
+      } else{
+        this.errors['error']="Invalid email/password";
+        this.processing=false
       }
     },
     goRegistration() {
@@ -208,4 +249,20 @@ export default {
 </script>
 
 <style scoped>
+.error-message{
+    font-size: 17px;
+    display: block;
+    color: #f00;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+
+}
+.non-specific-error-cont{
+    padding: 5px;
+    color: red;
+}
+.non-specific-error{
+
+}
 </style>

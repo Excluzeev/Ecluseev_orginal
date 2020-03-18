@@ -1,0 +1,17 @@
+18/03/2020
+
+    - Integrate new design for previews page (Black theme) (DONE)
+
+    - Add error highlighter for form inputs (Signin/Signup)
+
+    - Integrate forgot password with new design (DONE)
+
+    - Add user profile icon, it should be shown only after the user has been logged in
+    - Add a dropdown menu bar with following menus, when the user clicks on user profile icon, it should display
+        
+        My profile
+        My crowd fundings
+        My earnings
+        Settings
+
+  

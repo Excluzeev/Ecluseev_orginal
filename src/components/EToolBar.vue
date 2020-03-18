@@ -9,11 +9,11 @@
 							<a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
 						</div>
             <template v-if="!showLogin">
-						<h5>Account</h5>
-						<a href="#">My Profile</a>
-					  <a href="#" @click="goToSubscriptions">Communities</a>
-						<a href="#"  @click="goLoginLive">Excluzeev Live</a>
-						<a href="#">Setting</a>
+						  <h5>Account</h5>
+						  <a href="#">My Profile</a>
+					    <a href="#" @click="goToSubscriptions">Communities</a>
+						  <a href="#"  @click="goLoginLive">Excluzeev Live</a>
+						  <a href="#">Setting</a>
             </template>
 						<h5>COMPANY</h5>
 						<a href="#" @click="showAboutUs">About</a>
@@ -39,18 +39,20 @@
 						<span></span>
 					</div>
 				</div>
-        
+
 				<div class="pull-left  home_brand ">
 					<a class="navbar-brand" href="/">
 						<img src="../assets/Images/logo.svg" draggable="false">
 					</a>
 				</div>
 
+
+
 				<div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
 					<ul class="navbar-nav row-auto">
-						<li class="nav-item color_fffffff">
+						<!-- <li class="nav-item color_fffffff">
 							<a class="nav-link color_fffffff" href="#" @click="showAboutUs">About Excluzeev</a>
-						</li>
+						</li> -->
 						<li class="nav-item color_fffffff search_group">
 							<div class="form-group has-search">
 								<span class="fa fa-search form-control-feedback color_fffffff"></span>
@@ -62,9 +64,36 @@
 
 							</div>
 						</li>
-						<li class="nav-item color_fffffff">
-							<a class="nav-link color_fffffff" href="#" data-toggle="modal" data-target="#forgotPasswordAfterLinkModal">Contact</a>
+						
+          
+               
+            <li  v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
+								<img src="../assets/Images/live.png"> Excluzeev Live
+							</button>
 						</li>
+						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
+						</li>
+						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
+						</li>
+						<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
+							<img src="../assets/Images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
+							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
+								<li class="dropdown-item" type="button"><a href="#">BRI N TEESH</a> </li>
+								<li class="dropdown-item" type="button"><a href="#">My profile</a></li>
+								<li class="dropdown-item" type="button"><a href="#">My crowd funding</a></li>
+								<li class="dropdown-item" type="button"><a href="#">My earnings</a></li>
+								<li class="dropdown-item" type="button"> <a href="#">Settings</a></li>
+								<li class="dropdown-item" type="button"> <a href="#"  @click="logout" >Signout</a></li>
+							</ul>
+						</li>
+						
+
+
+
+
 					</ul>
 				</div>
 				<div class="pull-right search_icon d-md-block d-xl-none d-lg-block">
@@ -77,9 +106,6 @@
           	<button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signInModal">Sign In</button>
 					</form>
 
-          <form class=" inline my-2 my-lg-0" v-if="!showLogin">
-          	<button  @click="logout" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Sign Out</button>
-					</form>
             
 				</div>
 			</nav>

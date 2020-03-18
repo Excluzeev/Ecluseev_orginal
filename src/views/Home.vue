@@ -1,4 +1,5 @@
 <template>
+
   <div class="home" :key="$route.fullPath">
     <div style="padding-top:25px"></div>
     <!--<FeaturedItem />-->
@@ -124,3 +125,4 @@ export default {
   }
 };
 </script>
+	 
