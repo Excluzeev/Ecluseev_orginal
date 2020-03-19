@@ -438,6 +438,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 	border:1px solid #FFFFFF;
 	height: auto;
 	border-radius: 15px!important;
+	margin-top: 10px;
 	box-shadow: 6px 6px 20px #00000029;
 }
 
@@ -581,7 +582,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 /*---------End------*/
 
 /*-----Create Community page CSS Start------*/
-#create_community_page{padding-top: 5%}
+#create_community_page{padding-top: 2%}
 #create_community_page p{line-height:25px; font:25px rubik-light; }
 #upload_videos_previews_page label, #upload_videos_previews_page label a,
 #create_community_page label,#create_community_page label a{font:1.5625rem rubik-light; }
@@ -652,7 +653,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 #uploadVideoFile{height: 200px!important;padding: 0}
 #upload_videos_previews_page>.fileUpload-input-control,
 #upload_videos_previews_page .form-control-file{width: 100%;border-radius: 4px;height: 200px}
-.create_community_page_title_section{padding-bottom: 5%;}
+.create_community_page_title_section{padding-bottom: 2%;}
 #upload_videos_previews_page .fileUpload-input{width: 100%}
 .fileUpload-input{position: relative;}
 .fileUpload-input span.bottom{
@@ -687,8 +688,8 @@ a.forgor_psw_link{margin-bottom: 20px;}
 	position: none;
 }
 #create_community_page .file_upload_btm_section{
-	position: absolute;
-	bottom: 5%;
+	/* position: absolute;
+	bottom: 5%; */
 }
 .tags label span,
 .vedioUpload-input label span{
@@ -976,6 +977,10 @@ a.forgor_psw_link{margin-bottom: 20px;}
 .nav-item.dropdown{
 	position: relative;
 }
+/* .dropleft{
+	position: fixed !important;
+    right: 31px;
+} */
 .dropleft .dropdown-menu,
 .dropdown-menu{
 	padding: 0;

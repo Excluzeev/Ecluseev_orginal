@@ -11,7 +11,7 @@
             <template v-if="!showLogin">
 						  <h5>Account</h5>
 						  <a href="#">My Profile</a>
-					    <a href="#" @click="goToSubscriptions">Communities</a>
+					    <a href="#" @click="goToCummunities">Communities</a>
 						  <a href="#"  @click="goLoginLive">Excluzeev Live</a>
 						  <a href="#">Setting</a>
             </template>
@@ -63,16 +63,29 @@
 							</div>
 						</li>
 
-            <li  v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
+            <!-- <li  v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
+							<button @click="goLoginLive" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
+								<img src="../assets/Images/live.png"> Excluzeev Live
+							</button>
+						</li>
+						<li v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
+							<button @click="goLoginCreate"  class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
+						</li>
+						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+							<button @click="goToCummunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
+						</li> -->
+
+            <!-- For testing -->
+            <li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+							<button @click="goLoginLive" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
 								<img src="../assets/Images/live.png"> Excluzeev Live
 							</button>
 						</li>
 						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
+							<button @click="goLoginCreate"  class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
 						</li>
 						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
+							<button @click="goToCummunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
 						</li>
 						<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
 							<img src="../assets/Images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
@@ -200,6 +213,9 @@ export default {
       } else {
         this.$router.push({ name: "CreateChannel" });
       }
+    },
+    goToCummunities() {
+      this.$router.push({ name: "Cummunities" });
     },
     goToSubscriptions() {
       this.$router.push({ name: "MySubscriptions" });

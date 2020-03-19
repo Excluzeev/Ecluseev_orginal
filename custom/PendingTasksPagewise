@@ -40,11 +40,67 @@ Watch preview
     
     - Integrate stripe 
 
+Create community/Channel
+
+    - Following inputs are missing in the design
+
+        Price
+        Thumbnail
+        Cover image
+        
+    - Design missing for tiers
+
+        When selecting the category "Call-To-Action". Tiers are showing that has the following inputs
+
+            Tier # Price
+            Tier # Description
+    
+    - Getting error (Unable to create channel)
+
+        {
+            "error": {
+                "code": 400,
+                "message": "Could not create object. Please ensure firebase-storage@system.gserviceaccount.com is set as an OWNER of this object.",
+                "status": "CREATE_OBJECT"
+            }
+        }
+
+Cummunities
+
+    - Description is not found in the channel object
+
+        categoryId:"bk58u0TPvgrqQ9xrQItV"
+        categoryName:"Artist / Band"
+        channelId:"0MXF0HsSTKQs696jmxbD"
+        channelType:"VOD"
+        coverImage:"https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F0MXF0HsSTKQs696jmxbD%2Fcover.jpg?alt=media&token=9057ce3c-5e59-4407-ba05-b0cefa556fbd"
+        createdBy:null
+        createdDate:Object
+        currentFund:0
+        expiry:""
+        image:"https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F0MXF0HsSTKQs696jmxbD%2Fthumbnail.jpg?alt=media&token=7d3a8e73-15ba-40c2-a35e-a75d0ae012f5"
+        percentage:0
+        price:"10"
+        subscriberCount:0
+        targetFund:null
+        tiers:Array[0]
+        title:"The life of Kastway"
+        userId:"uHyzvu4QrAY1EI9FAIobvMSWxAF2"
+
+
+    - Getting below error when trying to get image of the channel
+
+        {
+        "error": {
+            "code": 400,
+            "message": "Could not get object. Please ensure firebase-storage@system.gserviceaccount.com is set as an OWNER of this object.",
+            "status": "GET_OBJECT"
+        }
+        }
+
+    - Channel details page design is not available in the given html designs
 
 My profile
 
     - 
 
-My communities
-
-    - 

@@ -1,4 +1,328 @@
 <template>
+<div id="create_community_page">
+	<div class="container-fluid">
+			<div class="row">
+				<div class="col-xl-12">
+					<div class="create_community_page_title_section">
+						<h2>Create a community</h2>
+						<p>Add content, upload preview, connect stripe and go excluzeev!</p>
+					</div>
+				</div>
+			</div>
+			
+      <form @submit.prevent="doCreateChannel">
+			    <div class="row">
+
+				    <div class="col-xl-8">
+					    <div class="create_form_section">
+							  <div class="form-row">
+								  <div class="form-group col-md-6">
+									  <label for="name">Name of the community<i class="fa fa-info"></i></label>
+									  <input v-model="channelName" type="name" class="form-control" id="nameOfCommunity" aria-describedby="name" placeholder="Please enter a community name">
+                    <span  class="error-message" v-if="this.errors['channelName']">{{this.errors['channelName']}}</span>
+
+							  	</div>
+								  <div class="form-group col-md-6">
+									  <label for="Category">Category<i class="fa fa-info"></i></label>
+                
+								  	<select  v-on:change="onCategorySelected" v-model="categorySelected" class="form-control" id="selectCategory" placeholder="Choose a community category">
+									  	<option v-for="cat in categories" v-text="cat.name" v-bind:value="cat.id" v-bind:key="cat.id"></option>
+								  	</select>
+                    <span  class="error-message" v-if="this.errors['category']">{{this.errors['category']}}</span>
+
+							  	</div>
+								  <!-- <div class="form-group col-md-12">
+									<label for="description">Community’s short description<i class="fa fa-info"></i></label>
+									<textarea v-model="description" class="form-control" id="communityDescription" placeholder="Please type short description" rows="2" ></textarea>
+								  </div> -->
+
+                  <div v-if="this.selectedChannelType == 'VOD'" class="form-group col-md-12">
+								  	<label for="longdescription">Price $<i class="fa fa-info"></i></label>
+									  <input type="number" v-model="price" class="form-control" placeholder="Price" />
+                    <span  class="error-message" v-if="this.errors['price']">{{this.errors['price']}}</span>
+
+								  </div>
+
+                  <!-- Target fund if Channel Type is Crowdfunding -->
+                  <div v-if="this.selectedChannelType != 'VOD'" class="form-group col-md-12">
+									  <label for="longdescription">Target Fund<i class="fa fa-info"></i></label>
+									  <input type="number" v-model="targetFund" class="form-control" placeholder="Price" />
+                    <span  class="error-message" v-if="this.errors['targetFund']">{{this.errors['targetFund']}}</span>
+
+								  </div>
+              
+							
+                  <!-- Only if channelType is CrowdFunding -->
+                  <div v-if="this.selectedChannelType != 'VOD'" class="form-group col-md-12">
+									  <label for="longdescription">Expiry Date<i class="fa fa-info"></i></label>
+									  <input type="date" v-model="expiryDate" class="form-control" placeholder="Expiry date" />
+                     <span  class="error-message" v-if="this.errors['expiryDate']">{{this.errors['expiryDate']}}</span>
+
+								  </div>
+              
+                  <div class="form-group col-md-12">
+									  <label for="longdescription">Long description<i class="fa fa-info"></i></label>
+									  <textarea v-model="description" class="form-control" id="longDescription" placeholder="Please type long description" rows="5"></textarea>
+                    <span  class="error-message" v-if="this.errors['description']">{{this.errors['description']}}</span>
+
+								  </div>
+
+
+                  <div class="form-group col-md-12" v-if="this.errors['tier']">
+                      <span  class="error-message" >{{this.errors['tier']}}</span>
+                  </div>
+
+                  <div v-if="this.selectedChannelType != 'VOD'" class="tier1 form-group col-md-12" >
+                    <v-checkbox
+                      v-model="selectedTiers[0]"
+                      color="lighten-1"
+                      :value="selectedTiers[0]"
+                      label="Tier 1"
+                    >
+                    </v-checkbox>
+                    <!-- V-if tier 1 selected -->
+                    <div v-if="selectedTiers[0]">
+                      <!-- Tier 1 Price -->
+                  
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Tier 1 price $<i class="fa fa-info"></i></label>
+                        <input type="number" v-model="tierPrices[0]" class="form-control"  placeholder="Price" />
+                        <span  class="error-message" v-if="this.errors['tier1_price']">{{this.errors['tier1_price']}}</span>
+
+                      </div>
+
+                      <!-- Tier 1 Description -->
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Long description<i class="fa fa-info"></i></label>
+                        <textarea v-model="tierDescriptions[0]" class="form-control" id="longDescription" placeholder="Please type long description" rows="5"></textarea>
+                        <span  class="error-message" v-if="this.errors['tier1_desc']">{{this.errors['tier1_desc']}}</span>
+
+
+
+
+
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+
+                  <div v-if="this.selectedChannelType != 'VOD'" class="tier2 form-group col-md-12" >
+                    <v-checkbox
+                      v-model="selectedTiers[1]"
+                      color="lighten-1"
+                      :value="selectedTiers[1]"
+                      label="Tier 2"
+                    >
+                    </v-checkbox>
+                    <!-- V-if tier 2 selected -->
+                    <div v-if="selectedTiers[1]">
+                      <!-- Tier 2 Price -->
+                  
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Tier 2 price $<i class="fa fa-info"></i></label>
+                        <input type="number" v-model="tierPrices[1]" class="form-control"  placeholder="Price" />
+                                                <span  class="error-message" v-if="this.errors['tier2_price']">{{this.errors['tier2_price']}}</span>
+                      </div>
+
+                      <!-- Tier 2 Description -->
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Long description<i class="fa fa-info"></i></label>
+                        <textarea v-model="tierDescriptions[1]" class="form-control" id="longDescription" placeholder="Please type long description" rows="5"></textarea>
+                                             <span  class="error-message" v-if="this.errors['tier2_desc']">{{this.errors['tier2_desc']}}</span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+
+
+
+                  <div v-if="this.selectedChannelType != 'VOD'" class="tier3 form-group col-md-12" >
+                    <v-checkbox
+                      v-model="selectedTiers[2]"
+                      color="lighten-1"
+                      :value="selectedTiers[2]"
+                      label="Tier 3"
+                    >
+                    </v-checkbox>
+                    <!-- V-if tier 3 selected -->
+                    <div v-if="selectedTiers[2]">
+                      <!-- Tier 3 Price -->
+                  
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Tier 3 price $<i class="fa fa-info"></i></label>
+                        <input type="number" v-model="tierPrices[2]" class="form-control"  placeholder="Price" />
+                        <span  class="error-message" v-if="this.errors['tier3_price']">{{this.errors['tier3_price']}}</span>
+
+                      </div>
+
+                      <!-- Tier 3 Description -->
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Long description<i class="fa fa-info"></i></label>
+                        <textarea v-model="tierDescriptions[2]" class="form-control" id="longDescription" placeholder="Please type long description" rows="5"></textarea>
+                                   <span  class="error-message" v-if="this.errors['tier3_desc']">{{this.errors['tier3_desc']}}</span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+                  
+                  <div v-if="this.selectedChannelType != 'VOD'" class="tier1 form-group col-md-12" >
+                    <v-checkbox
+                      v-model="selectedTiers[3]"
+                      color="lighten-1"
+                      :value="selectedTiers[3]"
+                      label="Tier 4"
+                    >
+                    </v-checkbox>
+                    <!-- V-if tier 1 selected -->
+                    <div v-if="selectedTiers[3]">
+                      <!-- Tier 1 Price -->
+                  
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Tier 4 price $<i class="fa fa-info"></i></label>
+                        <input type="number" v-model="tierPrices[3]" class="form-control"  placeholder="Price" />
+                        <span  class="error-message" v-if="this.errors['tier4_price']">{{this.errors['tier4_price']}}</span>
+                      </div>
+
+                      <!-- Tier 4 Description -->
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Long description<i class="fa fa-info"></i></label>
+                        <textarea v-model="tierDescriptions[3]" class="form-control" id="longDescription" placeholder="Please type long description" rows="5"></textarea>
+                         <span  class="error-message" v-if="this.errors['tier4_desc']">{{this.errors['tier4_desc']}}</span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+                
+                  <div v-if="this.selectedChannelType != 'VOD'" class="tier1 form-group col-md-12" >
+                    <v-checkbox
+                      v-model="selectedTiers[4]"
+                      color="lighten-1"
+                      :value="selectedTiers[4]"
+                      label="Tier 5"
+                    >
+                    </v-checkbox>
+                    <!-- V-if tier 5 selected -->
+                    <div v-if="selectedTiers[4]">
+                      <!-- Tier 5 Price -->
+                  
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Tier 1 price $<i class="fa fa-info"></i></label>
+                        <input type="number" v-model="tierPrices[4]" class="form-control"  placeholder="Price" />
+                        <span  class="error-message" v-if="this.errors['tier5_price']">{{this.errors['tier5_price']}}</span>
+                      </div>
+
+                      <!-- Tier 5 Description -->
+                      <div class="form-group col-md-12">
+                        <label for="longdescription">Long description<i class="fa fa-info"></i></label>
+                        <textarea v-model="tierDescriptions[4]" class="form-control" id="longDescription" placeholder="Please type long description" rows="5"></textarea>
+                        <span  class="error-message" v-if="this.errors['tier5_desc']">{{this.errors['tier5_desc']}}</span>
+
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+                 
+							</div>
+						</div>
+
+				    </div>          
+
+					  <div class="col-xl-4 col-lg-6">
+
+              <div class="form-group col-md-12">
+              <!-- Thumbnail Upload Button -->
+                <upload-btn
+                  color="blue--text lighten-1"
+                  style="background-color: #fff !important;"
+                  class="white--text"
+                  title="Add Thumbnail"
+                  :fileChangedCallback="thumbnailChanged"
+                  accept="image/*"
+                  :uniqueId="unique"
+                  round
+                >
+                  <template slot="icon">
+                    <div style="padding-left:4px">
+                      <v-icon color="blue lighten-1">cloud_upload</v-icon>
+                    </div>
+                  </template>
+                </upload-btn>
+
+                <span  class="error-message" v-if="this.errors['thumbnailFile']">{{this.errors['thumbnailFile']}}</span>
+
+                <!-- Thumnail Image viewing -->
+                <v-layout padding justify-center>
+                  <img :src="thumbnail" height="150" v-if="thumbnail" />
+                </v-layout>
+
+              </div>
+              <div class="form-group col-md-12">
+                <!-- Cover Image Upload Button -->
+                <upload-btn
+                  color="blue--text lighten-1"
+                  style="background-color: #fff !important;"
+                  class="white--text"
+                  title="Add Cover Image"
+                  :fileChangedCallback="coverChanged"
+                  accept="image/*"
+                  :uniqueId="unique"
+                  round
+                >
+                  <template slot="icon">
+                    <div style="padding-left:4px">
+                      <v-icon color="blue lighten-1">cloud_upload</v-icon>
+                    </div>
+                  </template>
+                </upload-btn>
+                <span  class="error-message" v-if="this.errors['coverFile']">{{this.errors['coverFile']}}</span>
+                
+                <!-- Cover Image viewing -->
+                <v-layout padding justify-center>
+                  <img :src="cover" height="150" v-if="cover" />
+                </v-layout>
+
+              </div>
+						<!-- <div class="file_upload ">
+							<div class="file_upload_top_section">
+								<div class="form-group fileUpload-input ">
+									<label for="ProfilePicture">Profile Picture<i class="fa fa-info"></i></label>
+
+									<div class="upload-btn-wrapper">
+										<button class="btn btn-file-upload"><img src="../assets/Images/upload.png" style="width: auto;"> <br> Click to upload profile picture</button>
+										<input type="file" class="form-control-file rounded-circle" id="profilePicture" name="myfile">
+									</div>
+								</div>
+
+							</div> -->
+
+						  <div class="file_upload_btm_section">
+							  <div class="form-check circle-check">
+								<img src="../assets/Images/circle-check-icon.png" style="width: auto;">
+								<label class="form-check-label" for="defaultCheck1" style="font-size: 20px;">
+									By clicking the button “Continue” below I agree to the <a href="#"> Privacy policy, Content creator terms <span>&</span> Call to action terms.</a>
+								</label>
+				  			</div>
+
+                  <div class="form-group m-0" v-if="this.errors['error']">
+                      <span  class="error-message" >{{this.errors['error']}}</span>
+                  </div>
+          
+					  		<button loading="processing" :disabled="processing" @click="loader = 'loading4'" type="submit" class="btn btn-Continue">Continue</button>
+
+						  </div>
+					  </div>
+				</div>
+
+    </form>
+	</div>
+
+</div>
+  <!--
   <v-content>
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
@@ -9,7 +333,7 @@
             </v-toolbar>
             <v-card-text>
               <v-form class="blue--text lighten-1" @submit.prevent="doCreateChannel">
-                <!-- Channel Category -->
+                <\!-- Channel Category --\>
                 <v-select
                   v-model="categorySelected"
                   v-on:change="onCategorySelected"
@@ -19,7 +343,7 @@
                   item-value="id"
                   return-object
                 ></v-select>
-                <!-- Channel Name -->
+                <\!-- Channel Name --\>
                 <v-text-field
                   :name="this.selectedChannelType == 'VOD' ? 'Channel Name' : 'Title'"
                   :label="this.selectedChannelType == 'VOD' ? 'Channel Name' : 'Title'"
@@ -28,7 +352,7 @@
                   v-model="channelName"
                   :rules="[rules.required, rules.counter]"
                 ></v-text-field>
-                <!-- Channel Description -->
+                <\!-- Channel Description --\>
                 <v-textarea
                   class="blue--text"
                   name="Description"
@@ -36,7 +360,7 @@
                   v-model="description"
                   :rules="[rules.required]"
                 ></v-textarea>
-                <!-- Channel Price if Channel Type is VOD -->
+                <\!-- Channel Price if Channel Type is VOD --\>
                 <v-text-field
                   v-if="this.selectedChannelType == 'VOD'"
                   v-model="price"
@@ -48,7 +372,7 @@
                   prefix="$"
                   :rules="[rules.required, rules.priceCheck]"
                 ></v-text-field>
-                <!-- Target fund if Channel Type is Crowdfunding -->
+                <\!-- Target fund if Channel Type is Crowdfunding --\>
                 <v-text-field
                   v-if="this.selectedChannelType != 'VOD'"
                   v-model="targetFund"
@@ -57,11 +381,11 @@
                   type="number"
                   :rules="[rules.required]"
                 ></v-text-field>
-                <!-- Navigate to charages graph -->
-                <!-- <p>
+                <\!-- Navigate to charages graph --\>
+                <\!-- <p>
                   <a href="/excluzeev-charges" target="_blank">Learn more about pricing here.</a>
-                </p>-->
-                <!-- Only if channelType is CrowdFunding -->
+                </p>--\>
+                <\!-- Only if channelType is CrowdFunding --\>
                 <div v-if="this.selectedChannelType != 'VOD'">
                   <div class="calltoactionclass">
                     <v-dialog
@@ -88,7 +412,8 @@
                       </v-date-picker>
                     </v-dialog>
                   </div>
-                  <!-- Tier 1 -->
+                  
+                  <\!-- Tier 1 --\>
                   <div class="tier1">
                     <v-checkbox
                       v-model="selectedTiers[0]"
@@ -99,9 +424,9 @@
                         <div>Tier 1</div>
                       </template>
                     </v-checkbox>
-                    <!-- V-if tier 1 selected -->
+                    <\!-- V-if tier 1 selected --\>
                     <div v-if="selectedTiers[0]">
-                      <!-- Tier 1 Price -->
+                      <\!-- Tier 1 Price --\>
                       <v-text-field
                         v-model="tierPrices[0]"
                         label="Tier 1 Price"
@@ -111,7 +436,7 @@
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier 1 Description -->
+                      <\!-- Tier 1 Description --\>
                       <v-textarea
                         class="blue--text"
                         name="Tier 1 Description"
@@ -121,7 +446,7 @@
                       ></v-textarea>
                     </div>
                   </div>
-                  <!-- Tier 2 -->
+                  <\!-- Tier 2 --\>
                   <div class="tier2">
                     <v-checkbox
                       v-model="selectedTiers[1]"
@@ -132,9 +457,9 @@
                         <div>Tier 2</div>
                       </template>
                     </v-checkbox>
-                    <!-- V-if tier 2 selected -->
+                    <\!-- V-if tier 2 selected --\>
                     <div v-if="selectedTiers[1]">
-                      <!-- Tier 2 Price -->
+                      <\!-- Tier 2 Price --\>
                       <v-text-field
                         v-model="tierPrices[1]"
                         label="Tier 2 Price"
@@ -144,7 +469,7 @@
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier 2 Description -->
+                      <\!-- Tier 2 Description --\>
                       <v-textarea
                         class="blue--text"
                         name="Tier 2 Description"
@@ -154,7 +479,7 @@
                       ></v-textarea>
                     </div>
                   </div>
-                  <!-- Tier 3 -->
+                  <\!-- Tier 3 --\>
                   <div class="tier3">
                     <v-checkbox
                       v-model="selectedTiers[2]"
@@ -165,9 +490,9 @@
                         <div>Tier 3</div>
                       </template>
                     </v-checkbox>
-                    <!-- V-if tier 3 selected -->
+                    <\!-- V-if tier 3 selected --\>
                     <div v-if="selectedTiers[2]">
-                      <!-- Tier3 Price -->
+                      <\!-- Tier3 Price --\>
                       <v-text-field
                         v-model="tierPrices[2]"
                         label="Tier 3 Price"
@@ -177,7 +502,7 @@
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier 3 Description -->
+                      <\!-- Tier 3 Description --\>
                       <v-textarea
                         class="blue--text"
                         name="Tier 3 Description"
@@ -187,7 +512,7 @@
                       ></v-textarea>
                     </div>
                   </div>
-                  <!-- Tier 4 -->
+                  <\!-- Tier 4 --\>
                   <div class="tier4">
                     <v-checkbox
                       v-model="selectedTiers[3]"
@@ -198,9 +523,9 @@
                         <div>Tier 4</div>
                       </template>
                     </v-checkbox>
-                    <!-- V-if tier 4 selected -->
+                    <\!-- V-if tier 4 selected --\>
                     <div v-if="selectedTiers[3]">
-                      <!-- Tier4 Price -->
+                      <\!-- Tier4 Price --\>
                       <v-text-field
                         v-model="tierPrices[3]"
                         label="Tier 4 Price"
@@ -210,7 +535,7 @@
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier4 Description -->
+                      <\!-- Tier4 Description --\>
                       <v-textarea
                         class="blue--text"
                         name="Tier 4 Description"
@@ -220,7 +545,7 @@
                       ></v-textarea>
                     </div>
                   </div>
-                  <!-- Tier 5 -->
+                  <\!-- Tier 5 --\>
                   <div class="tier5">
                     <v-checkbox
                       v-model="selectedTiers[4]"
@@ -231,9 +556,9 @@
                         <div>Tier 5</div>
                       </template>
                     </v-checkbox>
-                    <!-- V-if tier 5 selected -->
+                    <\!-- V-if tier 5 selected --\>
                     <div v-if="selectedTiers[4]">
-                      <!-- Tier5 Price -->
+                      <\!-- Tier5 Price --\>
                       <v-text-field
                         v-model="tierPrices[4]"
                         label="Tier 5 Price"
@@ -243,7 +568,7 @@
                         prefix="$"
                         :rules="[rules.required]"
                       ></v-text-field>
-                      <!-- Tier4 Description -->
+                      <\!-- Tier4 Description --\>
                       <v-textarea
                         class="blue--text"
                         name="Tier 5 Description"
@@ -255,7 +580,7 @@
                   </div>
                 </div>
 
-                <!-- Thumbnail Upload Button -->
+                <\!-- Thumbnail Upload Button --\>
                 <upload-btn
                   color="blue--text lighten-1"
                   style="background-color: #fff !important;"
@@ -272,11 +597,11 @@
                     </div>
                   </template>
                 </upload-btn>
-                <!-- Thumnail Image viewing -->
+                <\!-- Thumnail Image viewing --\>
                 <v-layout padding justify-center>
                   <img :src="thumbnail" height="150" v-if="thumbnail" />
                 </v-layout>
-                <!-- Cover Image Upload Button -->
+                <\!-- Cover Image Upload Button --\>
                 <upload-btn
                   color="blue--text lighten-1"
                   style="background-color: #fff !important;"
@@ -293,13 +618,13 @@
                     </div>
                   </template>
                 </upload-btn>
-                <!-- Cover Image viewing -->
+                <\!-- Cover Image viewing --\>
                 <v-layout padding justify-center>
                   <img :src="cover" height="150" v-if="cover" />
                 </v-layout>
 
                 <div class="text-xs-center">
-                  <!-- Add Channel Button with loading -->
+                  <\!-- Add Channel Button with loading --\>
                   <v-btn
                     class="white--text"
                     color="blue lighten-1"
@@ -316,7 +641,7 @@
                     </template>
                   </v-btn>
                 </div>
-                <!-- Cancel Adding channel Button -->
+                <\!-- Cancel Adding channel Button --\>
                 <div class="text-xs-center">
                   <v-btn class="white--text" color="grey lighten-1" @click="$router.back()">Cancel</v-btn>
                 </div>
@@ -327,6 +652,7 @@
       </v-layout>
     </v-container>
   </v-content>
+  -->
 </template>
 
 <script>
@@ -377,7 +703,8 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
         }
-      }
+      },
+      errors:{},
     };
   },
   created() {
@@ -395,29 +722,55 @@ export default {
       this.coverFile = file;
       this.cover = URL.createObjectURL(this.coverFile);
     },
-    onCategorySelected(selected) {
-      if (selected.name == "Call-to-Action") {
-        this.selectedChannelType = "CrowdFunding";
-      } else {
-        this.selectedChannelType = "VOD";
+    fetchCategoryName(){
+
+      for(let i=0;i<this.categories.length;i++){
+        if(this.categories[i].id == this.categorySelected){
+          return this.categories[i]
+        }
       }
+
+      return false
+
+    },
+    onCategorySelected(selected) {
+      
+      selected=this.fetchCategoryName()
+      if(selected){ 
+
+        console.log("Selected name",selected.name);
+        if (selected.name == "Call-to-Action") {
+          this.selectedChannelType = "CrowdFunding";
+        } else {
+          this.selectedChannelType = "VOD";
+        }
+      }
+      
+      
     },
     async doCreateChannel() {
+      
+      this.errors={};
+      let errorFound=false;
+
       if (this.selectedChannelType != "VOD") {
         if (this.selectedTiers.indexOf(true) == -1) {
-          this.showToast("Please select atleast one tier");
+          // this.showToast("Please select atleast one tier");
+          this.errors['tier']="Please select atlease on tier";
           return;
         } else {
           for (let i = 0; i < this.selectedTiers.length; i++) {
             let tier = i + 1;
             if (this.selectedTiers[i]) {
               if (this.tierPrices[i] == null && this.tierPrices[i] < 1.0) {
-                this.showToast("Tier " + tier + " price cannot be lessthan 1");
-                return;
+                // this.showToast("Tier " + tier + " price cannot be lessthan 1");
+                this.errors['tier'+tier+"_price"] ="Tier " + tier + " price cannot be lessthan 1";
+                errorFound=true;
               }
               if (this.tierDescriptions[i] == "") {
-                this.showToast("Tier " + tier + " description cannot be empty");
-                return;
+                // this.showToast("Tier " + tier + " description cannot be empty");
+                this.errors['tier'+tier+"_desc"]="Tier " + tier + " description cannot be empty";
+                errorFound=true;
               }
             }
           }
@@ -425,42 +778,52 @@ export default {
       }
 
       if (this.categorySelected == null || this.categorySelected.isEmpty) {
-        this.showToast("Please select Channel Category");
-        return;
-      }
+        this.errors['category']="Please select Channel Category";
+        errorFound=true;
+       }
       if (this.channelName == "") {
-        this.showToast("Channel Name cannot be empty");
-        return;
+        this.errors['channelName']="Channel name cannot be empty";
+        errorFound=true;
       }
       if (this.description == "") {
-        this.showToast("Channel Description cannot be empty");
-        return;
+        // this.showToast("Channel Description cannot be empty");
+        this.errors['description']="Channel Description cannot be empty";
+        errorFound=true;
       }
 
       if (this.selectedChannelType == "VOD") {
         if (!(this.price >= 1.0)) {
-          this.showToast("Price cannot be less than 1 or greater than 10");
-          return;
+          this.errors['price']="Price cannot be less than 1 or greater than 10";
+          errorFound=true;
         }
       } else {
         if (this.targetFund <= 1) {
-          this.showToast("TargetFund  cannot be less than 1");
-          return;
+          this.errors['targetFund']="TargetFund  cannot be less than 1";
+          errorFound=true;
         }
         if (this.expiryDate == null) {
-          this.showToast("Please select end Date");
-          return;
+          this.errors['expiryDate']="Please select end Date";
+          errorFound=true;     
         }
       }
 
       if (this.thumbnailFile == null) {
-        this.showToast("Please select Thumbnail");
-        return;
+        this.errors['thumbnailFile']="Please upload Thumbnail image";
+        errorFound=true;
+
       }
 
       if (this.coverFile == null) {
-        this.showToast("Please select Cover");
-        return;
+        this.errors['coverFile']="Please upload Cover image";
+        errorFound=true;
+      }
+
+
+      if(errorFound){
+        this.processing = false;
+        this.$forceUpdate();
+        return false; // if error found
+
       }
 
       this.processing = true;
@@ -537,6 +900,7 @@ export default {
       try {
         await channelRef.set(channelData);
         this.showToast("Channel Created Successfully");
+        
         this.$router.push({
           name: "AddTrailer",
           params: {
@@ -544,7 +908,12 @@ export default {
           }
         });
       } catch (error) {
-        this.showToast("Channel Creation failed.");
+        // this.showToast("Channel Creation failed.");
+
+        this.errors['error']="Channel creation failed";
+        this.$forceUpdate();
+
+
       }
       this.processing = false;
     },
@@ -562,5 +931,18 @@ export default {
 <style scoped>
 .padding {
   padding: 10px;
+}
+
+.error-message{
+    font-size: 17px;
+    display: block;
+    color: #f00;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+
+}
+.form-check-label{
+  font-size:20px;
 }
 </style>

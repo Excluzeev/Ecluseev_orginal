@@ -5,6 +5,8 @@ import Previews from "../views/Previews.vue";
 import SignUpCC from "../views/SignUpCC.vue";
 import CreateChannel from "../views/CreateChannel.vue";
 import MyChannels from "../views/MyChannels.vue";
+import Cummunities from "../views/Cummunities.vue";
+
 import MyChannelDetails from "../views/MyChannelDetails.vue";
 import AddTrailer from "../views/AddTrailer.vue";
 import TrailerDetail from "../views/TrailerDetail";
@@ -174,6 +176,16 @@ const router = new VueRouter({
         noEntry: true,
         showNav: true,
         title: "Create a Channel"
+      }
+    },
+    {
+      path: "/cummunities",
+      name: "Cummunities",
+      component: Cummunities,
+      meta: {
+        noEntry: true,
+        showNav: true,
+        title: "Cummunities"
       }
     },
     {
