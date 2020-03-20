@@ -1,5 +1,132 @@
 <template>
   <div class="home">
+    <div id="excluzeev_live_page">
+      <div class="container-fluid">
+        
+        <div class="row">
+          <div class="inline-list"><a href="#">Communities</a>><a href="#">Bri N Teesh</a>><a href="#"></a>Start an excluzeev live</div>
+          <br>
+          <br>
+        </div>
+        
+        <div class="row">
+          <div class="col-xl-6">
+            <div class="watch_live_vedio_section">
+              <div class="list-inline ">
+                <div class="list-inline d-flex pull-left">
+                  <img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle"  style="width: 46px;height: 46px;">
+                  <!-- <img class="rounded-circle" :src="video != null ? video.channelImage : ''"   style="width: 46px;height: 46px;"> -->
+
+                  <h3 style="font-size:1em;">
+                    <span>
+                      BRI N TEESH
+                    <!-- {{ video.channelName }} -->
+                    </span>Started an excluzeev live...</h3>
+                </div>
+                <div class="pull-right">
+                  <button class="btn btn-end-live" :disabled="showEndLiveProgress" @click="confirmEndLive">End Live</button>
+                </div>
+              </div>
+              <div class="video_section">
+                <img src="../assets/Images/video-img.png" class="img-fluid" style="width: 100%">
+
+                <!-- <div v-show="!playerOptions.sources[0].src.isEmpty">
+                  <video-player
+                    class="video-holder vjs-big-play-centered"
+                    width="100%"
+                    height="auto"
+                    id="player_id"
+                    ref="videoPlayer"
+                    :options="playerOptions"
+                    @ready="playerIsReady"
+                    @timeupdate="onPlayerTimeupdate($event)"
+                  ></video-player>
+                </div> -->
+
+              </div>
+
+              <div class="description_section">
+                <h2>
+                  Introducing the whole new exciting travel plan for a traveler in Korea.
+
+                  <!-- {{ video.title }} -->
+                </h2>
+                <p>
+                  <!-- {{ video.description }} -->
+                  Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity.
+                  <!-- <a href="#collapse" class="nav-toggle ">Read Less</a> -->
+                </p>
+                <!-- <div id="collapse" class="content_text">
+                  <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p>
+                  <p> Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+					  <!-- <div v-if="!showComments" class="padding">
+              <div class="logincomment text-xs-center">
+                <p>
+                  Please
+                  <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">login</router-link>to chat
+                </p>
+              </div>
+            </div> -->
+            <!-- <LiveChat v-if="showComments" :videoId="this.video.videoId"/> -->
+            <LiveChat  :videoId="23231424"/>
+
+            <div class="trending_vedios_title">
+						  <h3 ><span>Trending videos</span></h3>
+					  </div>
+
+            <div class="related_video_section">
+              <ul class="list-unstyled">
+                <li>
+                  <a href="#">
+                    <div class="row">
+                      <div class="col-xl-6">
+                        <img src="../assets/Images/related-video.png" class="img-fluid" style="width: 100%">
+                      </div>
+                      <div class="col-xl-6">
+                        <div class="video_title">
+                          <h3><span>An amazing day in the land of potatoes</span></h3>
+                          <h4>BRI N TEESH</h4>
+                          <p>Watch a day spent in the whole garden of potatoes and some chips and fries in the best restaurant.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+
+          </div>
+
+        
+        </div>
+      
+      
+      
+      </div>
+
+    </div>
+
+     <v-dialog v-model="endLiveDialog" persistent max-width="320">
+      <v-card>
+        <v-card-title class="headline">Do you want to End Excluzeev Live?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click="endLiveDialog = false">Cancel</v-btn>
+          <v-btn color="green darken-1" flat @click="endLive">End</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    
+  </div>
+
+    <!--
     <v-layout class="main-holder" xs12 wrap>
       <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
         <div v-show="!playerOptions.sources[0].src.isEmpty">
@@ -42,6 +169,7 @@
           <div class="padding">
             <img class="channel-image square" :src="video != null ? video.channelImage : ''">
           </div>
+
           <v-flex class="padding">
             <v-layout align-center justify-left row>
               <v-layout align-left justify-left column fill-height>
@@ -51,7 +179,7 @@
               <v-spacer></v-spacer>
             </v-layout>
 
-            <!--Description-->
+            <\!--Description--\>
             <div class="detail-description">
               <div>{{ video.description }}</div>
             </div>
@@ -74,7 +202,7 @@
 
         <v-divider></v-divider>
 
-        <!--Stream Details Section-->
+        <\!--Stream Details Section--\>
         <div class="padding" v-if="shouldShowStartStream">
           <v-flex xs6>
             <div class="text-xs-center">
@@ -146,6 +274,8 @@
       </v-card>
     </v-dialog>
   </div>
+  -->
+
 </template>
 
 <script>
@@ -480,5 +610,8 @@ export default {
 }
 .v-text-field__details {
   display: none;
+}
+h3 {
+    font-size: -1.3125rem !important;
 }
 </style>

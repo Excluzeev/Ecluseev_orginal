@@ -7,6 +7,7 @@
           '%2Fcover.jpg?alt=media'
       "
       style="width: 100%; height: 150px; object-fit: cover;"
+      class="img-fluid"
     />
     <v-layout row wrap xs12 text-xs-center class="padding">
       <v-avatar :tile="tile" size="100px" color="grey lighten-4">
@@ -17,6 +18,7 @@
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"
+          class="img-fluid"
         />
       </v-avatar>
       <div class="channel-details padding">
@@ -29,7 +31,7 @@
           v-if="!channel.isDeleted"
           :to="{ name: 'AddTrailer', params: { channelData: channel } }"
         >
-          <v-btn color="primary" class="white--text quick-sand-font-b">
+          <v-btn  class="btn quick-sand-font-b">
             <v-icon left>add</v-icon>Add Preview
           </v-btn>
         </router-link>
@@ -37,7 +39,7 @@
           v-if="!channel.isDeleted && channel.channelType == 'VOD'"
           :to="{ name: 'AddVideo', params: { channelData: channel } }"
         >
-          <v-btn color="primary" class="white--text quick-sand-font-b">
+          <v-btn  class="btn quick-sand-font-b">
             <v-icon left>add</v-icon>Add Video
           </v-btn>
         </router-link>
@@ -45,19 +47,19 @@
           v-if="!channel.isDeleted"
           :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
         >
-          <v-btn color="primary" class="white--text quick-sand-font-b">
+          <v-btn  class="btn quick-sand-font-b">
             <v-icon left>add</v-icon>Excluzeev Live
           </v-btn>
         </router-link>
         <v-btn
-          color="primary"
-          class="white--text quick-sand-font-b"
+          
+          class="btn quick-sand-font-b"
           @click="getSubscribers"
         >Subscribers</v-btn>
         <v-btn
           v-if="!channel.isDeleted"
           color="red"
-          class="white--text quick-sand-font-b"
+          class="btn quick-sand-font-b"
           center
           @click="deleteDialog = true"
         >

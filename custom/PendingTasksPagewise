@@ -100,7 +100,23 @@ Cummunities
 
     - Channel details page design is not available in the given html designs
 
-My profile
+    it has 4 buttons
 
-    - 
+        Add preview
+        Add video
+        Excluzeev live
+        Subscribers
 
+    - Viewall button 
+
+Excluzeev Live
+
+    - Unable to excluzeev live due to below error
+
+        Access to XMLHttpRequest at 'https://us-central1-trenstop-2033f.cloudfunctions.net/processLiveVideo' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+    - Trending videos
+
+        This feature is not already exists??
+    
+    

@@ -1,5 +1,71 @@
 <template>
   <div id="live-chat">
+    <div class="chat_section">
+      <h3><span>CHAT</span></h3>
+
+
+
+      <div class="user_comment_section d-flex">
+
+        <!-- <div class="chat-message clearfix" v-if="liveChat.length == 0">
+          <h5>No Messages yet.</h5>
+        </div> -->
+       
+
+        <!-- <div v-if="liveChat.length != 0"> -->
+          <!-- <div v-for="chat in liveChat" v-bind:key="chat.chatId"> -->
+            <img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+            <div class="user_name_comment">
+              <ul class="list-unstyled">
+          
+                <li class="list-inline">
+          
+                  <h3 class="pull-left">
+                    Rick Patterson 
+                    <!-- {{ chat.userName }} -->
+                  </h3>
+                  <div class="posted_time pull-right"><p>
+                    5 hours ago
+                    <!-- {{ chat.time }}   -->
+                  </p></div>
+                  <div class="clearfix"></div>
+          
+                </li>
+                <li>
+                  <!-- <p>{{ chat.message }}</p> -->
+                  <p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p></li>
+              </ul>
+            </div>
+          <!-- </div> -->
+        <!-- </div> -->
+
+          
+      </div>
+    </div>
+    <!-- Chat section end -->
+    <div class="chat_messege_section">
+      <form @submit.prevent="postMessage">
+        
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button class="btn btn-user-img" type="button"><img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle " style="width: 25px;height: 25px;" ></button>
+          </div>
+          <input type="text" v-model="message" class="form-control" placeholder="Type to comment" id="messageInput" aria-label="" aria-describedby="basic-addon1">
+          <div class="input-group-append">
+            <button class="btn btn-send" type="button">Send</button>
+          </div>
+        </div>
+      
+      </form>
+
+    </div>
+
+
+
+
+  </div>
+  <!-- 
+  <div id="live-chat">
     <header class="clearfix">
       <h4 class="quick-sand-font-b">Live Chat</h4>
     </header>
@@ -26,14 +92,14 @@
 
                 <p>{{ chat.message }}</p>
               </div>
-              <!-- end chat-message-content -->
+              <!\-- end chat-message-content --\>
             </div>
-            <!-- end chat-message -->
+            <\!-- end chat-message --\>
 
             <hr />
           </div>
         </div>
-        <!-- end chat-history -->
+        <\!-- end chat-history --\>
       </div>
       <form @submit.prevent="postMessage">
         <fieldset>
@@ -48,8 +114,10 @@
         <p>Enter to send</p>
       </form>
     </div>
-    <!-- end chat -->
+    <\!-- end chat --\>
   </div>
+  -->
+
 </template>
 
 <script>
@@ -122,185 +190,5 @@ export default {
 </script>
 
 <style scoped>
-/* ---------- GENERAL ---------- */
 
-body {
-  background: #e9e9e9;
-  color: #9a9a9a;
-  font: 100%/1.5em "Droid Sans", sans-serif;
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-h4,
-h5 {
-  line-height: 1.5em;
-  margin: 0;
-}
-
-hr {
-  background: #e9e9e9;
-  border: 0;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 1px;
-  margin: 0;
-  min-height: 1px;
-}
-
-img {
-  border: 0;
-  display: block;
-  height: auto;
-  max-width: 100%;
-}
-
-input {
-  border: 0;
-  color: inherit;
-  font-family: inherit;
-  font-size: 100%;
-  line-height: normal;
-  margin: 0;
-}
-
-p {
-  margin: 0;
-}
-
-.clearfix {
-  *zoom: 1;
-} /* For IE 6/7 */
-.clearfix:before,
-.clearfix:after {
-  content: "";
-  display: table;
-}
-.clearfix:after {
-  clear: both;
-}
-
-/* ---------- LIVE-CHAT ---------- */
-
-#live-chat {
-  bottom: 0;
-  font-size: 12px;
-  right: 24px;
-  width: 100%;
-}
-
-#live-chat header {
-  background: #293239;
-  color: #fff;
-  cursor: pointer;
-  padding: 16px 24px;
-}
-
-#live-chat h4:before {
-  background: #1a8a34;
-  border-radius: 50%;
-  content: "";
-  display: inline-block;
-  height: 8px;
-  margin: 0 8px 0 0;
-  width: 8px;
-}
-
-#live-chat h4 {
-  font-size: 16px;
-}
-
-#live-chat h5 {
-  font-size: 14px;
-}
-
-#live-chat form {
-  padding: 24px;
-}
-
-#live-chat input[type="text"] {
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  padding: 8px;
-  outline: none;
-  width: 100%;
-  font-size: 14px;
-}
-
-.chat-message-counter {
-  background: #e62727;
-  border: 1px solid #fff;
-  border-radius: 50%;
-  display: none;
-  font-size: 12px;
-  font-weight: bold;
-  height: 28px;
-  left: 0;
-  line-height: 28px;
-  margin: -15px 0 0 -15px;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  width: 28px;
-}
-
-.chat-close {
-  background: #1b2126;
-  border-radius: 50%;
-  color: #fff;
-  display: block;
-  float: right;
-  font-size: 10px;
-  height: 16px;
-  line-height: 16px;
-  margin: 2px 0 0 0;
-  text-align: center;
-  width: 16px;
-}
-
-.chat {
-  background: #fff;
-}
-
-.chat-history {
-  height: 500px;
-  padding: 8px 24px;
-  overflow-y: scroll;
-}
-
-.chat-message {
-  margin: 16px 0;
-}
-
-.chat-message img {
-  border-radius: 50%;
-  float: left;
-}
-
-.chat-message-content {
-  margin-left: 56px;
-  font-size: 14px;
-}
-
-.chat-time {
-  float: right;
-  font-size: 10px;
-}
-
-.chat-feedback {
-  font-style: italic;
-  margin: 0 0 0 80px;
-}
-fieldset > input {
-  width: 100%;
-}
 </style>

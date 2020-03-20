@@ -1,4 +1,161 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+  <div id="create_community_page">
+  
+    <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="create_community_page_title_section">
+              <h2>Create an Excluzeev Live</h2>
+              <p>Start Excluzeev live!</p>
+            </div>
+          </div>
+        </div>
+   
+        <form @submit.prevent="doUploadVideo">
+
+			    <div class="row">
+				    <div class="col-xl-6">
+					    <div class="create_form_section">
+
+							  <div class="form-row">
+								  <div class="form-group col-md-12">
+									  <label for="name">Title<i class="fa fa-info"></i></label>
+									  <input v-model="videoTitle" type="name" class="form-control" id="" aria-describedby="title" placeholder="Title">
+                    <span  class="error-message" v-if="this.errors['title']">{{this.errors['title']}}</span>
+							  	</div>
+                </div>
+
+                <div class="form-row">
+								  <div class="form-group col-md-12">
+									  <label for="name">Description<i class="fa fa-info"></i></label>
+									  <textarea v-model="description"  class="form-control" id="" aria-describedby="description" placeholder="Description"></textarea>
+                    <span  class="error-message" v-if="this.errors['description']">{{this.errors['description']}}</span>
+							  	</div>
+                </div>
+
+                <div class="form-row" >
+                  <div class="form-group col-md-12">
+									  <label for="Category">Channel<i class="fa fa-info"></i></label>
+								  	<select   v-model="selectedChannel" class="form-control" id="selectedChannel" placeholder="Choose a channel">
+									  	<option v-for="ch in channelsList" v-text="ch.title" v-bind:value="ch.channelId" v-bind:key="ch.id"></option>
+								  	</select>
+                    <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span>
+							  	</div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6">
+              
+                <div class="form-row" >
+                  <div class="form-group col-md-8">
+                          
+                    <v-radio-group v-model="timePublish" :mandatory="true" row v-on:change="timeUpdate">
+                      <v-radio label="Now" value="now"></v-radio>
+                      <v-radio label="Schedule" value="later"></v-radio>
+                    </v-radio-group>
+
+                
+                    <!-- <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span> -->
+							  	</div>
+                </div>
+
+                
+
+                <div class="form-row"  v-if="showDateTime">
+                  <div class="form-group col-md-8">
+                      <v-flex>
+                    <v-dialog
+                      ref="datedialog"
+                      v-model="dateModal"
+                      :return-value.sync="date"
+                      persistent
+                      lazy
+                      full-width
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="date"
+                          label="Select Date"
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="dateModal = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs.datedialog.save(date)">OK</v-btn>
+                      </v-date-picker>
+                    </v-dialog>
+                  
+                  </v-flex>
+
+                
+                    <!-- <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span> -->
+							  	</div>
+              </div>
+
+              
+              <div class="form-row" v-if="showDateTime">
+                <div class="form-group col-md-8">
+
+                  <v-flex>
+                    <v-dialog
+                      ref="timedialog"
+                      v-model="timeModal"
+                      :return-value.sync="time"
+                      persistent
+                      lazy
+                      full-width
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="time"
+                          label="Select Time"
+                          prepend-icon="access_time"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-time-picker v-if="timeModal" v-model="time" full-width>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="timeModal = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs.timedialog.save(time)">OK</v-btn>
+                      </v-time-picker>
+                    </v-dialog>
+                  </v-flex>
+        
+        
+                  <!-- <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span> -->
+							  </div>
+              </div>
+
+                 <div class="form-row" >
+                <div class="form-group col-md-8">
+                    <button type="submit" class="btn btn-publish-video" :loading="processing" :disabled="processing" @click="loader = 'loading4'">Start Live</button>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+
+        </form>
+   
+    </div>
+ 
+  </div>
+			
+  <!-- 
   <v-content>
     <v-container fluid fill-height>
       <v-layout v-if="showAddLive" align-center justify-center>
@@ -40,6 +197,7 @@
                   <v-radio label="Now" value="now"></v-radio>
                   <v-radio label="Schedule" value="later"></v-radio>
                 </v-radio-group>
+
                 <v-layout class="date-time-holder" v-if="showDateTime">
                   <v-flex>
                     <v-dialog
@@ -114,6 +272,7 @@
                     <v-btn class="white--text" color="grey lighten-1" @click="$router.back()">Cancel</v-btn>
                   </v-flex>
                 </v-layout>
+
               </v-form>
             </v-card-text>
           </v-card>
@@ -165,6 +324,8 @@
       </v-layout>
     </v-container>
   </v-content>
+  -->
+
 </template>
 
 <script>
@@ -202,7 +363,8 @@ export default {
       videoId: "",
       rules: {
         required: value => !!value || "Required."
-      }
+      },
+      errors:{},
     };
   },
   mixins: [RegisterStoreModule],
@@ -234,14 +396,50 @@ export default {
         this.showDateTime = false;
       }
     },
-    async doUploadVideo() {
-      if (this.videoTitle == "") {
-        this.showToast("Title cannot be empty.");
-        return;
+    getChannelData(){
+      for(let i=0;i<this.channelsList.length;i++){
+        if(this.channelsList[i].channelId == this.selectedChannel){
+          return this.channelsList[i]
+        }
       }
+      return false
+    },
+    async doUploadVideo() {
+      
+      let errorFound=false;
+
+      if (this.videoTitle == "") {
+        this.errors['title']="Title cannot be empty";
+        errorFound=true;
+      }
+
       if (this.description == "") {
-        this.showToast("Description cannot be empty");
-        return;
+        this.errors['description']="Description cannot be empty";
+        errorFound=true;
+      }
+
+      if (this.selectedChannel ==null) {
+        this.errors['channel']="Please select a channel";
+        
+        errorFound=true;
+      }
+
+
+      if(errorFound){
+        
+        this.processing = false;
+        this.$forceUpdate();
+        return false; // if error found
+
+      }
+
+      let channelData=this.getChannelData()
+
+      if(channelData == false){
+        this.errors['channel']="Unable to fetch channel data"
+        this.processing = false;
+        this.$forceUpdate();
+        return false;
       }
 
       this.processing = true;
@@ -250,10 +448,15 @@ export default {
 
       let channelD;
       if (this.getChannel) {
-        channelD = this.selectedChannel;
+        
+        channelD = channelData;
       } else {
         channelD = this.channelData;
       }
+
+      // For testing
+      this.$router.replace("/live/" + videoId);
+      return
 
       let videoData = {
         videoId: videoId,
@@ -303,7 +506,7 @@ export default {
         })
         .catch(error => {
           this.processing = false;
-          // console.log(error);
+          console.log(error);
         });
     },
     copyStreamData(copyData) {
@@ -369,4 +572,14 @@ video {
 .video-holder {
   padding: 10px;
 }
+.error-message{
+    font-size: 17px;
+    display: block;
+    color: #f00;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+
+}
+
 </style>

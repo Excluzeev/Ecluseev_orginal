@@ -54,7 +54,7 @@
                     >
                     Manage
                     </router-link>
-										<button class="btn btn-remove pull-right">Remove</button>
+										<button class="btn btn-remove pull-right" @click="confirmDelete(channel.channelId)">Remove</button>
 									</div>
 								</div>
 							</div>
@@ -145,6 +145,25 @@
 
 
 		</div>
+
+    <v-layout row justify-center>
+      <v-dialog v-model="deleteDialog" persistent max-width="320">
+        <v-card>
+          <v-card-title class="headline">Do you want to delete the channel?</v-card-title>
+          <v-card-text>
+            Do you really want to delete the channel?
+            <br />Users will have a 30
+            days notice period.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary darken-1" flat @click="deleteDialog = false">Dont Delete</v-btn>
+            <v-btn color="primary darken-1" flat @click="deleteChannel">Delete</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+
   </div>
 
 </template>
@@ -164,6 +183,8 @@ export default {
     return {
       channelsList: [],
       subscriptionsList: [],
+      deleteDialog:false,
+      channel:null,
     };
   },
   mixins: [RegisterStoreModule],
@@ -175,6 +196,43 @@ export default {
   methods: {
      getExpiry(date) {
       return moment(date.toDate()).diff(Date.now(), "day");
+
+    },
+    getChannel(channelId){
+      for(let i=0;i<this.channelsList.length;i++){
+        let channel=this.channelsList[i]
+        if(channel.channelId == channelId){
+          return channel
+        }
+      }
+      return false
+    },
+    confirmDelete(channelId){
+      let channel=this.getChannel(channelId)
+      if(channel == false){
+        alert("Something went wrong!!")
+        return   
+      }
+
+      this.channel=channel
+      this.deleteDialog=true
+
+    },
+    async deleteChannel() {
+      let channelRef = fireStore
+        .collection(utils.channelsCollection)
+        .doc(this.channel.channelId);
+      // let channelDoc = await channelRef.get();
+      let delDate = new Date();
+      delDate.setMonth(delDate.getMonth() + 1);
+      let updateData = {
+        isDeleted: true,
+        delete: 0,
+        deleteOn: firebaseTimestamp.fromDate(delDate)
+      };
+      await channelRef.update(updateData);
+
+      this.$router.push({ name: "MyChannels" });
     }
 
    },
