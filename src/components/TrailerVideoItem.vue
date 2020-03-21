@@ -1,5 +1,7 @@
 <template>
   <div>
+
+    
       <router-link :to="'/' + getLinkTag + '/' + trailer.trailerId">
 
         <div class="item_img">

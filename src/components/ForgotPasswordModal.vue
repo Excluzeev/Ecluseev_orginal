@@ -33,7 +33,7 @@
 									<br>
 									<br>
 									<br>
-                     <vue-programmatic-invisible-google-recaptcha
+                     <!-- <vue-programmatic-invisible-google-recaptcha
                   ref="invisibleRecaptcha1"
                   sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
                   elementId="'invisibleRecaptcha1'"
@@ -41,7 +41,7 @@
                   :showBadgeMobile="false"
                   :showBadgeDesktop="false"
                   @recaptcha-callback="recaptchaCallback"
-                ></vue-programmatic-invisible-google-recaptcha>
+                ></vue-programmatic-invisible-google-recaptcha> -->
 
 									<button class="btn btn-send-me-a-revive-link" type="submit" :loading="processing" :disabled="processing" @click="loader = 'loading4'">Send me a revive link</button>
 									<br><br><br><br>

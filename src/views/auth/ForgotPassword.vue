@@ -21,7 +21,7 @@
                   :rules="[rules.required, rules.email]"
                 ></v-text-field>
 
-                <vue-programmatic-invisible-google-recaptcha
+                <!-- <vue-programmatic-invisible-google-recaptcha
                   ref="invisibleRecaptcha1"
                   sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
                   elementId="'invisibleRecaptcha1'"
@@ -29,7 +29,7 @@
                   showBadgeMobile="false"
                   showBadgeDesktop="false"
                   @recaptcha-callback="recaptchaCallback"
-                ></vue-programmatic-invisible-google-recaptcha>
+                ></vue-programmatic-invisible-google-recaptcha> -->
 
                 <div class="text-xs-center">
                   <v-btn

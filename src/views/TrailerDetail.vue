@@ -7,7 +7,32 @@
 					<div class="col-xl-6">
 						<div class="watch_vedio_section">
               <div v-show="!playerOptions.sources[0].src.isEmpty">
-                <video-player
+
+                <video id="example_video_1" class="video-js"
+                  controls preload="auto" width="640" height="264"
+                  data-setup='{"example_option":true}'>
+                </video>
+
+                <!-- <video
+                id="my-video"
+                class="video-js"
+                controls
+                preload="auto"
+                width="640"
+                height="264"
+                data-setup="{}"
+              >
+                <source src="https://stream.mux.com/WBNqLzM7tcxvTJWLhd01VlQguezFkAZuB.m3u8" type="application/x-mpegURL" />
+                <p class="vjs-no-js">
+                  To view this video please enable JavaScript, and consider upgrading to a
+                  web browser that
+                  <a href="https://videojs.com/html5-video-support/" target="_blank"
+                    >supports HTML5 video</a
+                  >
+                </p>
+              </video> -->
+      
+                <!-- <video-player
                   class="video-holder vjs-big-play-centered"
                   width="100%"
                   height="auto"
@@ -16,7 +41,9 @@
                   :options="playerOptions"
                   @ready="playerIsReady"
                   @timeupdate="onPlayerTimeupdate($event)"
-                ></video-player>
+                ></video-player> -->
+
+
               </div>
 
 
@@ -465,6 +492,8 @@
 </template>
 
 <script>
+
+
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import trailerModule from "../store/trailers/trailer";
 import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
@@ -501,6 +530,7 @@ export default {
       donate10Processing: false,
       commentsList: [],
       commentText: "",
+      playerObj:null,
       playerOptions: {
         overNative: true,
         controls: true,
@@ -512,9 +542,13 @@ export default {
         playbackRates: [0.7, 1.0, 1.5, 2.0],
         aspectRatio: "16:9",
         html5: { hls: { withCredentials: false } },
+        
         sources: [
+          
           {
-            withCredentials: false,
+            // type: "video/mp4",
+            // src: "",
+            // withCredentials: false,
             type: "application/x-mpegURL",
             src: ""
           }
@@ -547,8 +581,15 @@ export default {
     // console.log(
     //   "this is current player instance object " + this.$refs.videoPlayer.player
     // );
+
   },
   created() {
+
+    // To detach the attached video play
+    var oldPlayer = document.getElementById('example_video_1');
+    if(oldPlayer)
+      videojs(oldPlayer).dispose();
+
     this.registerStoreModule("trailers", trailerModule);
     this.$store
       .dispatch("trailers/fetchTrailer", {
@@ -577,7 +618,29 @@ export default {
           });
 
         this.playerOptions.sources[0].src = this.trailer.videoUrl;
+        console.log(this.trailer.videoUrl)
         this.playerOptions.poster = this.trailer.image;
+
+
+        // console.log("player options",this.playerOptions.sources[0].src)
+        let _vm=this
+        $(document).ready(function(){
+         
+         if(_vm.playerObj == null){
+             _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
+            // Player (this) is initialized and ready.
+            // console.log("Videjs ininitialized",_vm.playerOptions.sources[0].src)
+            
+              _vm.playerIsReady(this) // Onready 
+
+            });
+
+         }
+       
+
+      });
+
+
         let fUser = localStorage.getItem("fUser");
         let user = null;
         if (data != null) {

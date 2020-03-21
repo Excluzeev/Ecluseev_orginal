@@ -12,7 +12,7 @@ import store from "./store/index";
 import router from "./router/router";
 import "./registerServiceWorker";
 import titleMixin from "./mixins/titleMixin";
-import VueVideoPlayer from "vue-video-player";
+// import VueVideoPlayer from "vue-video-player";
 import "video.js/dist/video-js.css";
 import "vue-video-player/src/custom-theme.css";
 import "./assets/css/videojsnew.css";
@@ -46,15 +46,12 @@ Vue.component(
   VueProgrammaticInvisibleGoogleRecaptcha
 );
 
-Vue.loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js")
-  .then(() => {
-    // Script is loaded, do something
-    console.log("ima3 loaded");
-  })
-  .catch(() => {
-    // Failed to fetch script
-    console.log("ima3 load failed");
-  });
+
+
+
+
+
+
 
 Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
   .then(() => {
@@ -81,6 +78,48 @@ Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
   .catch(() => {
     console.log("bootstrapjs load failed");
   });
+
+  Vue.loadScript("https://vjs.zencdn.net/7.6.6/video.js")
+  .then(() => {
+    console.log("videojs loaded");
+  })
+  .catch(() => {
+    console.log("videojs failed");
+  });
+
+  Vue.loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js")
+  .then(() => {
+    // Script is loaded, do something
+    console.log("ima3 loaded");
+  })
+  .catch(() => {
+    // Failed to fetch script
+    console.log("ima3 load failed");
+  });
+
+  // Vue.loadScript("https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.6.5/videojs-contrib-ads.min.js")
+  // .then(() => {
+  //   // Script is loaded, do something
+  //   console.log("videojs ads loaded");
+  // })
+  // .catch(() => {
+  //   // Failed to fetch script
+  //   console.log("videjs ads failed");
+  // });
+
+  // Vue.loadScript("https://cdnjs.cloudflare.com/ajax/libs/videojs-ima/1.8.0/videojs.ima.min.js")
+  // .then(() => {
+  //   // Script is loaded, do something
+  //   console.log("videojs ads loaded");
+  // })
+  // .catch(() => {
+  //   // Failed to fetch script
+  //   console.log("videjs ads failed");
+  // });
+
+
+
+
 auth.onAuthStateChanged(user => {
   store.commit("setUser");
   store.commit("fetchUser", {
@@ -90,7 +129,8 @@ auth.onAuthStateChanged(user => {
 
 Vue.config.productionTip = false;
 
-Vue.use(VueVideoPlayer);
+// Vue.use(VueVideoPlayer);
+
 Vue.use(Toasted, {
   router
 });
