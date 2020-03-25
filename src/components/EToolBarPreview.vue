@@ -11,7 +11,7 @@
             <template v-if="!showLogin">
 						  <h5>Account</h5>
 						  <a href="#">My Profile</a>
-					    <a href="#" @click="goToCummunities">Communities</a>
+					    <a href="#" @click="goToCommunities">Communities</a>
 						  <a href="#"  @click="goLoginLive">Excluzeev Live</a>
 						  <a href="#">Setting</a>
             </template>
@@ -72,7 +72,7 @@
 							<button @click="goLoginCreate"  class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
 						</li>
 						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goToCummunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
+							<button @click="goToCommunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
 						</li> -->
 
             <!-- For testing -->
@@ -85,16 +85,42 @@
 							<button @click="goLoginCreate"  class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
 						</li>
 						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goToCummunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
+							<button @click="goToCommunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
 						</li>
 						<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
 							<img src="../assets/Images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
 							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
-								<li class="dropdown-item" type="button"><a href="#">BRI N TEESH</a> </li>
-								<li class="dropdown-item" type="button"><a href="#">My profile</a></li>
-								<li class="dropdown-item" type="button"><a href="#">My crowd funding</a></li>
-								<li class="dropdown-item" type="button"><a href="#">My earnings</a></li>
-								<li class="dropdown-item" type="button"> <a href="#">Settings</a></li>
+								<li class="dropdown-item" type="button" v-i                                                                 f="userData"><a href="#">{{userData.displayName}}</a> </li>
+
+                                                                <li class="dropdown-item" type="button">
+
+                                     <router-link  :to="{ name: 'MyProfile' }">
+                                      My profile
+                                     </router-link>
+                               </li>
+                                <li class="dropdown-item" type="button">
+
+                                     <router-link  :to="{ name: 'Crowd' }">
+                                      My crowd funding
+                                     </router-link>
+                               </li>
+
+                                <li class="dropdown-item" type="button">
+
+                                     <router-link  :to="{ name: 'MyEarnings' }">
+                                      My earnings
+                                     </router-link>
+                               </li>
+
+
+                                <li class="dropdown-item" type="button">
+
+                                     <router-link  :to="{ name: 'Settings' }">
+                                      Settings
+                                     </router-link>
+                               </li>
+
+
 								<li class="dropdown-item" type="button"> <a href="#"  @click="logout" >Signout</a></li>
 							</ul>
 						</li>
@@ -158,6 +184,8 @@ export default {
   },
   computed: {
     showLogin() {
+      this.userData=store.getters.getFUser;
+        
       return store.getters.getUser == null;
     },
     hideSignUpContentCreator() {
@@ -172,7 +200,8 @@ export default {
       dialogt: false,
       titleDialogt: "",
       componentDialogt: null,
-      sideNav: false
+      sideNav: false,
+      userData: store.getters.getUser,
     };
   },
   methods: {
@@ -214,8 +243,8 @@ export default {
         this.$router.push({ name: "CreateChannel" });
       }
     },
-    goToCummunities() {
-      this.$router.push({ name: "Cummunities" });
+    goToCommunities() {
+      this.$router.push({ name: "Communities" });
     },
     goToSubscriptions() {
       this.$router.push({ name: "MySubscriptions" });

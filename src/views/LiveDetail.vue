@@ -19,8 +19,8 @@
 
                   <h3 style="font-size:1em;">
                     <span>
-                      BRI N TEESH
-                    <!-- {{ video.channelName }} -->
+                    <!--  BRI N TEESH -->
+                     {{ video.channelName }}
                     </span>Started an excluzeev live...</h3>
                 </div>
                 <div class="pull-right">
@@ -28,9 +28,10 @@
                 </div>
               </div>
               <div class="video_section">
+                <!--
                 <img src="../assets/Images/video-img.png" class="img-fluid" style="width: 100%">
-
-                <!-- <div v-show="!playerOptions.sources[0].src.isEmpty">
+                -->
+                <div v-show="!playerOptions.sources[0].src.isEmpty">
                   <video-player
                     class="video-holder vjs-big-play-centered"
                     width="100%"
@@ -41,19 +42,22 @@
                     @ready="playerIsReady"
                     @timeupdate="onPlayerTimeupdate($event)"
                   ></video-player>
-                </div> -->
+                </div> 
 
               </div>
 
               <div class="description_section">
                 <h2>
+                  <!--
                   Introducing the whole new exciting travel plan for a traveler in Korea.
-
-                  <!-- {{ video.title }} -->
+                  -->
+                   {{ video.title }}
                 </h2>
                 <p>
-                  <!-- {{ video.description }} -->
+                   {{ video.description }}
+                   <!--
                   Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity.
+                  -->
                   <!-- <a href="#collapse" class="nav-toggle ">Read Less</a> -->
                 </p>
                 <!-- <div id="collapse" class="content_text">
@@ -65,17 +69,20 @@
           </div>
 
           <div class="col-xl-6">
-					  <!-- <div v-if="!showComments" class="padding">
+					  <div v-if="!showComments" class="padding">
               <div class="logincomment text-xs-center">
                 <p>
                   Please
                   <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">login</router-link>to chat
                 </p>
               </div>
-            </div> -->
-            <!-- <LiveChat v-if="showComments" :videoId="this.video.videoId"/> -->
+            </div> 
+            
+          
+            <LiveChat v-if="showComments" :videoId="this.video.videoId"/>
+            <!--
             <LiveChat  :videoId="23231424"/>
-
+            -->
             <div class="trending_vedios_title">
 						  <h3 ><span>Trending videos</span></h3>
 					  </div>

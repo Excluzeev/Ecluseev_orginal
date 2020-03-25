@@ -455,8 +455,8 @@ export default {
       }
 
       // For testing
-      this.$router.replace("/live/" + videoId);
-      return
+      //this.$router.replace("/live/" + videoId);
+      //return
 
       let videoData = {
         videoId: videoId,

@@ -5,7 +5,7 @@ import Previews from "../views/Previews.vue";
 import SignUpCC from "../views/SignUpCC.vue";
 import CreateChannel from "../views/CreateChannel.vue";
 import MyChannels from "../views/MyChannels.vue";
-import Cummunities from "../views/Cummunities.vue";
+import Communities from "../views/Communities.vue";
 
 import MyChannelDetails from "../views/MyChannelDetails.vue";
 import AddTrailer from "../views/AddTrailer.vue";
@@ -26,7 +26,11 @@ import AddLive from "../views/AddLive";
 import LiveDetail from "../views/LiveDetail";
 
 import Meta from "vue-meta";
-import DCrowd from "../views/DCrowd"; 
+import DCrowd from "../views/MyCrowdFundings";
+import MyEarnings from "../views/MyEarnings";
+import MyProfile from "../views/MyProfile";
+import Settings from "../views/Settings"; 
+
 import CrowdFundingTrailer from "../views/CrowdFundingTrailer";
 import CrowdFundingVideo from "../views/CrowdFundingVideo";
 import PrivacyPolicy from "../components/PrivacyPolicy";
@@ -126,6 +130,8 @@ const router = new VueRouter({
             name: "Home"
           });
         });
+
+
       }
     },
     {
@@ -179,13 +185,13 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/cummunities",
-      name: "Cummunities",
-      component: Cummunities,
+      path: "/communities",
+      name: "Communities",
+      component: Communities,
       meta: {
         noEntry: true,
         showNav: true,
-        title: "Cummunities"
+        title: "Communities"
       }
     },
     {
@@ -325,6 +331,37 @@ const router = new VueRouter({
         noEntry: false,
         showNav: true,
         title: "Crowd Funding"
+      }
+    },
+    {
+      path: "/my-earnings",
+      name: "MyEarnings",
+      component: MyEarnings,
+      meta: {
+        noEntry: false,
+        showNav: true,
+        title: "My Earnings"
+      }
+    },
+    {
+      path: "/my-profile",
+      name: "MyProfile",
+      component: MyProfile,
+      meta: {
+        noEntry: false,
+        showNav: true,
+        title: "My Profile"
+      }
+    },
+
+    {
+      path: "/settings",
+      name: "Settings",
+      component: Settings,
+      meta: {
+        noEntry: false,
+        showNav: true,
+        title: "Settings"
       }
     },
     {

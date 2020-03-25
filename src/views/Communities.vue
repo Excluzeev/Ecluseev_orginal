@@ -176,7 +176,7 @@ import utils from "../firebase/utils";
 import moment from "moment";
 
 export default {
-  name: "Cummunities",
+  name: "Communities",
   components: {
   },
   data: () => {

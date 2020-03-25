@@ -7,13 +7,13 @@
 
       <div class="user_comment_section d-flex">
 
-        <!-- <div class="chat-message clearfix" v-if="liveChat.length == 0">
+        <div class="chat-message clearfix" v-if="liveChat.length == 0">
           <h5>No Messages yet.</h5>
-        </div> -->
+        </div>
        
 
-        <!-- <div v-if="liveChat.length != 0"> -->
-          <!-- <div v-for="chat in liveChat" v-bind:key="chat.chatId"> -->
+        <div v-if="liveChat.length != 0"> 
+          <div v-for="chat in liveChat" v-bind:key="chat.chatId">
             <img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
             <div class="user_name_comment">
               <ul class="list-unstyled">
@@ -21,23 +21,23 @@
                 <li class="list-inline">
           
                   <h3 class="pull-left">
-                    Rick Patterson 
-                    <!-- {{ chat.userName }} -->
+                    <!-- Rick Patterson -->
+                    {{ chat.userName }} 
                   </h3>
                   <div class="posted_time pull-right"><p>
-                    5 hours ago
-                    <!-- {{ chat.time }}   -->
+                    <!-- 5 hours ago -->
+                    {{ chat.time }}   
                   </p></div>
                   <div class="clearfix"></div>
           
                 </li>
                 <li>
-                  <!-- <p>{{ chat.message }}</p> -->
-                  <p>Two best friends who navigate life in Los Angeles, Explore the world and travel to different exciting destinations, experience different cuisines, lifestyle, meet people, learn culture and spread the love and positivity. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Sem et tortor consequat id porta nibh.</p></li>
+                  <p>{{ chat.message }}</p>
+                </li>
               </ul>
             </div>
-          <!-- </div> -->
-        <!-- </div> -->
+          </div> 
+        </div>
 
           
       </div>
@@ -64,60 +64,7 @@
 
 
   </div>
-  <!-- 
-  <div id="live-chat">
-    <header class="clearfix">
-      <h4 class="quick-sand-font-b">Live Chat</h4>
-    </header>
-
-    <div class="chat">
-      <div class="chat-history" ref="chatHistory">
-        <div class="chat-message clearfix" v-if="liveChat.length == 0">
-          <h5>No Messages yet.</h5>
-        </div>
-        <div v-if="liveChat.length != 0">
-          <div v-for="chat in liveChat" v-bind:key="chat.chatId">
-            <div class="chat-message clearfix">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                alt=""
-                width="32"
-                height="32"
-              />
-
-              <div class="chat-message-content clearfix">
-                <span class="chat-time">{{ chat.time }}</span>
-
-                <h5 class="quick-sand-font">{{ chat.userName }}</h5>
-
-                <p>{{ chat.message }}</p>
-              </div>
-              <!\-- end chat-message-content --\>
-            </div>
-            <\!-- end chat-message --\>
-
-            <hr />
-          </div>
-        </div>
-        <\!-- end chat-history --\>
-      </div>
-      <form @submit.prevent="postMessage">
-        <fieldset>
-          <input
-            type="text"
-            placeholder="Type your message…"
-            autofocus
-            v-model="message"
-          />
-          <input type="hidden" />
-        </fieldset>
-        <p>Enter to send</p>
-      </form>
-    </div>
-    <\!-- end chat --\>
-  </div>
-  -->
-
+  
 </template>
 
 <script>
