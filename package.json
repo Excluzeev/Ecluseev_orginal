@@ -31,6 +31,7 @@
     "vue-cookie-law": "^1.10.0",
     "vue-datetime": "^1.0.0-beta.10",
     "vue-headful": "^2.0.1",
+    "vue-loading-overlay": "^3.3.2",
     "vue-meta": "^1.6.0",
     "vue-programmatic-invisible-google-recaptcha": "^2.0.1",
     "vue-recaptcha-v3": "^1.4.0",

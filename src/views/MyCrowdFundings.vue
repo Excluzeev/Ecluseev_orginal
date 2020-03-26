@@ -83,14 +83,23 @@
         <div class="col-xl-6">
 					
           <ul class="list-unstyled list-inline d-flex share_links d-none d-xl-block d-lg-block">
-						<li class="d-none d-xl-block d-lg-block"><a href="#"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;&nbsp;Copy profile link</a></li>
-						<li class="d-none d-xl-block d-lg-block"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Share via email</a></li>
-						<li class="d-none d-xl-block d-lg-block"><a href="#"><i class="fa fa-facebook"></i>&nbsp;&nbsp;Share via facebook</a></li>
+						<li class="d-none d-xl-block d-lg-block"><a href="javascript://" @click="copyUrl"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;&nbsp;Copy profile link</a></li>
+						<li class="d-none d-xl-block d-lg-block">
+
+                         <a class='share-btn share-btn-mail' v-bind:href='shareEmail' rel='nofollow' target='_blank' title='via email'>
+
+                            <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Share via email</a></li>
+
+
+						<li class="d-none d-xl-block d-lg-block">
+                            <a class='share-btn share-btn-facebook' v-bind:href='shareFbLink' rel='nofollow' target='_blank'>
+
+                           <i class="fa fa-facebook"></i>&nbsp;&nbsp;Share via facebook</a></li>
 					</ul>
 
 
           <div class="progressbar_section inline-list d-none d-xl-block d-lg-block">
-						<h3><span>Pledged of US${{ channel.targetFund }} goal</span></h3>
+						<h3><span>Pledged of ${{ channel.targetFund }} goal</span></h3>
 						<br>
 						<div class="clearfix"></div>
 						<div class="list-inline">
@@ -99,12 +108,12 @@
 
 								<div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"><span>{{(channel.currentFund / channel.targetFund) * 100}}%</span></div>
 							</div>
-							<h3 class="pull-right"><span>US$ {{ channel.currentFund }}</span></h3>
+							<h3 class="pull-right"><span>$ {{ channel.currentFund }}</span></h3>
 						</div>
 						<div class="clearfix"></div>
 					</div>
 					<div class="cad_title d-none d-xl-block d-lg-block"> 
-						<h3>More<span> US$ {{ channel.targetFund - channel.currentFund }} </span>to go</h3>
+						<h3>More<span> $ {{ channel.targetFund - channel.currentFund }} </span>to go</h3>
 					</div>
 					<br>
 					<p>Join your hand in reaching the goal</p>
@@ -195,6 +204,8 @@ export default {
       isNeutral: false,
       prevWhat: -2,
       playerObj: null,
+      shareFbLink:'',
+      shareEmail:''
     };
   },
   components: {},
@@ -216,13 +227,18 @@ export default {
   },
   created() {
 
+    // update share
+    this.shareFbLink="https://www.facebook.com/sharer/sharer.php?u="+window.location.href;
+    let body_msg="I have contributed to this event. url: "+window.location.href
+    this.shareEmail="mailto:?subject=Crowd Funding&amp;amp;body="+body_msg
     // For testing
     this.$route.params.videoId="0MO1VqbYgzVutXHZD1dX"
 
 
      // To detach the attached video play
     var oldPlayer = document.getElementById('example_video_1');
-    if(oldPlayer){
+    
+    if(oldPlayer != null){
       console.log("Old player",oldPlayer);
       videojs(oldPlayer).dispose();
     }
@@ -297,6 +313,18 @@ export default {
         
   },
   methods: {
+     copyUrl(){
+        
+          var dummy = document.createElement('input'),
+          text = window.location.href;
+          document.body.appendChild(dummy);
+          dummy.value = text;
+          dummy.select();
+          document.execCommand('copy');
+          document.body.removeChild(dummy);
+          alert('Link copied please open whatsup and paste to send');    
+
+     },
      getIsExpired(date) {
       console.log(date);
       if (date != null && date != undefined) {

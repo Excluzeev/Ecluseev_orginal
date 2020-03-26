@@ -77,16 +77,17 @@
 								</div>
                 
 								<div class="form-group col-md-4 text-right">
-                  <vue-programmatic-invisible-google-recaptcha
-                  ref="invisibleRecaptcha2"
-                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
-                  elementId="invisibleRecaptcha2"
-                  badgePosition="'left'"
-                  :showBadgeMobile="false"
-                  :showBadgeDesktop="false"
-                  @recaptcha-callback="recaptchaCallback"
-                ></vue-programmatic-invisible-google-recaptcha>
-
+                                <!-- 
+                                  <vue-programmatic-invisible-google-recaptcha
+                                  ref="invisibleRecaptcha1"
+                                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
+                                  elementId="invisibleRecaptcha1"
+                                  badgePosition="'left'"
+                                  :showBadgeMobile="false"
+                                  :showBadgeDesktop="false"
+                                  @recaptcha-callback="recaptchaCallback"
+                                ></vue-programmatic-invisible-google-recaptcha>
+                                -->
 									<button type="submit" class="btn btn-windowSignUp" :loading="processing" :disabled="processing">Sign Up</button>
 								</div>
 							</div>

@@ -170,10 +170,14 @@
 
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
+import store from "../store/index";
 import channelsModule from "../store/channels/channels";
+import subscriptionsModule from "../store/subscriptions/subscriptions";
+
 import { fireStore, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
 import moment from "moment";
+
 
 export default {
   name: "Communities",
@@ -255,6 +259,7 @@ export default {
         force: true
       });
     }
+
     this.$store.dispatch("subscriptions/getUserSubscriptions").then(data => {
       this.subscriptionsList = data;
     });

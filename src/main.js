@@ -28,6 +28,12 @@ import "videojs-ima/dist/videojs.ima.css";
 import "videojs-contrib-ads/dist/videojs-contrib-ads";
 import "videojs-contrib-ads/dist/videojs-contrib-ads.css";
 
+// Import component
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
+// Init plugin
+Vue.use(Loading);
 
 import {
   auth
@@ -39,6 +45,7 @@ import LoadScript from "vue-plugin-load-script";
 
 Vue.use(LoadScript);
 
+/*
 import VueProgrammaticInvisibleGoogleRecaptcha from "vue-programmatic-invisible-google-recaptcha";
 
 Vue.component(
@@ -47,7 +54,7 @@ Vue.component(
 );
 
 
-
+*/
 
 
 
@@ -55,10 +62,10 @@ Vue.component(
 
 Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
   .then(() => {
-    // console.log("recaptcha loaded");
+    console.log("recaptcha loaded");
   })
   .catch(() => {
-    // console.log("recaptcha load failed");
+    console.log("recaptcha load failed");
   });
 
 

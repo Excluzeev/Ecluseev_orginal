@@ -111,7 +111,7 @@
                                       My earnings
                                      </router-link>
                                </li>
-
+                                <!--
 
                                 <li class="dropdown-item" type="button">
 
@@ -120,6 +120,7 @@
                                      </router-link>
                                </li>
 
+                                -->
 
 								<li class="dropdown-item" type="button"> <a href="#"  @click="logout" >Signout</a></li>
 							</ul>

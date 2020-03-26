@@ -48,6 +48,9 @@ import ConnectStripe from "../views/ConnectStripe";
 // import SingleCategory from '.../views/SingleCategory';
 import SingleCategory from "../views/SingleCategory";
 
+
+
+
 Vue.use(Meta);
 
 Vue.use(VueRouter);
@@ -482,11 +485,41 @@ const router = new VueRouter({
   ]
 });
 
+let loader=null;
+
 router.beforeEach(async (to, from, next) => {
   const nearestWithTitle = to.matched
     .slice()
     .reverse()
     .find(r => r.meta && r.meta.title);
+
+
+  // Show progress spinner
+   // If this isn't an initial page load.
+  if (to.name) {
+
+      loader = Vue.$loading.show({
+          // Pass props by their camelCased names
+          canCancel: true, // default false
+          color: '#000000',
+          width: 64,
+          height: 64,
+          backgroundColor: '#ffffff',
+          opacity: 0.5,
+          zIndex: 999,
+          loader: "dots"
+        },{
+          // Pass slots by their names
+        });
+
+
+      setTimeout(() => {
+
+        // hide loader whenever you want
+        loader.hide();
+      }, 2000);
+  }
+
 
   if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
@@ -556,5 +589,17 @@ router.beforeEach(async (to, from, next) => {
     unsubscribe();
   }, 2000);
 });
+
+router.afterEach((to, from) => {
+
+      setTimeout(() => {
+
+        // hide loader whenever you want
+        loader.hide();
+      }, 2000);
+})
+
+
+
 
 export default router;

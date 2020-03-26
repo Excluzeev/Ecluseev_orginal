@@ -115,8 +115,34 @@ Excluzeev Live
 
         Access to XMLHttpRequest at 'https://us-central1-trenstop-2033f.cloudfunctions.net/processLiveVideo' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
-    - Trending videos
+    - Trending videos (No need)
 
         This feature is not already exists??
+
+My crowd fundings
+
+    - We need to write a firebase function to fetch the all the crowd funding videos of the logged in users
+     
+    - Design integrated
+        
+    - Existing workflow is different
+
+                                                        
+
+My earnings
+
+    - is this functionality already exists?
+
+    - withdraw amount?
+
+        withdraw amount from stripe account to bank account?
     
+
+My profile
     
+    - Design not available
+
+Settings
+
+    - Design not available
+ 

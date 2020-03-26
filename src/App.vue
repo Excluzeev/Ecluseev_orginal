@@ -1,6 +1,8 @@
 <template>
   <!-- eslint-disable -->
   <div id="app">
+
+
     <EToolBar v-if="isNavBar"/>
     <EToolBarPreview v-if="isPreviewsPage"/>
 
@@ -23,6 +25,8 @@
     
     <FooterComponent v-if="isNavBar"/>
     <FooterComponentPreview v-if="isPreviewsPage"/>
+
+
 
 
   </div>
@@ -57,7 +61,9 @@ export default {
     RegistrationModal
   },
   methods: {
-   
+        recaptchaCallback(){
+
+        } 
   },
   computed: {
     isNavBar() {

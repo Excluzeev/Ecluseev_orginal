@@ -59,12 +59,18 @@
 								</div>
 
 								<div class="pull-right">
-									<div class="btn-group" role="group" aria-label="Basic example">
+									<div class="btn-group" role="group"  v-if="showSubscribeButton">
             
-										<button :disabled="subscribeProcessing" :loading="subscribeProcessing" v-if="showSubscribeButton" @click="checkout" type="button" class="btn btn-per-month d-none d-xl-block d-lg-block" ><span v-if="channel">${{ channel.price }} </span>per month</button>
-										<a href="watch-Preview-mobile.html" class="btn-join-community d-block d-xl-none d-lg-none d-sm-block">Join</a>
+										<button  type="button" class="btn btn-per-month d-none d-xl-block d-lg-block" ata-toggle="modal" data-target="#joinCommunityModal"><span v-if="channel">${{ channel.price }} </span> per month</button>
 										<button type="button" class="btn btn-join-community d-none d-xl-block d-lg-block" data-toggle="modal" data-target="#joinCommunityModal">Join community</button>
 									</div>
+
+                                    <div class="btn-group" v-if="!showSubscribeButton">
+ 
+										<button  type="button" class="btn btn-per-month d-none d-xl-block d-lg-block" ata-toggle="modal" data-target="#joinCommunityModal"><span v-if="channel">${{ channel.price }} </span> per month</button>
+										<button type="button" class="btn btn-join-community d-none d-xl-block d-lg-block" data-toggle="modal" data-target="#joinCommunityModal">Unsubscribe</button>
+                                    </div>
+
 								</div>
 								<div class="clearfix"></div>
 								<p > <span v-if="trailer">{{ trailer.description }}</span>
@@ -158,7 +164,7 @@
 							</div>
 							<div class="col-xl-7 col-lg-7">
 								<div class="d-none d-xl-block d-lg-block">
-									<button class="btn btn-start-excluzeev-live"><img src="../assets/Images/live-blue.png" style="width: 36px">&nbsp;&nbsp;Start Excluzeev Live</button>
+									<button class="btn btn-start-excluzeev-live" @click="goLive"><img src="../assets/Images/live-blue.png" style="width: 36px">&nbsp;&nbsp;Start Excluzeev Live</button>
 								</div>
 							</div>
 						</div>
@@ -202,39 +208,21 @@
 						<p>Join Community and explore the exluzeev videos and intaract with the amazing people behind the community</p>
 						<div class="clearfix"></div>
 						<br>
-						<div class="community_section">
+						<div class="community_section" style="padding:0 !important;">
 							<div class="text-center img_title">
 								<div class="list-inline d-flex pull-left">
 									<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle"  style="width: 46px;height: 46px;">&nbsp;&nbsp; &nbsp;
-									<h3><span>Bri N Teesh</span></h3>
+									<h3><span v-if="trailer">{{ trailer.channelName }}</span></h3>
 								</div>
 							</div>
-							<div class="clearfix"></div>
-							<br>
 
+							<div class="clearfix"></div>
 							<form>
-								<div class="container ">
-									<div class="row">
-										<div class="col-sm-12">
-											<div class="input-group" style="width: 100%">
-												<div class="input-group-prepend">
-													<button class="btn btn-minus " id="minus-btn"><i class="fa fa-minus"></i></button>
-												</div>
-												<input type="number" id="months_input" class="form-control " value="1" min="1">
-												<div class="input-group-prepend">
-													<button class="btn btn-plus " id="plus-btn"><i class="fa fa-plus"></i></button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<br>
-										<h4>22 Jan 2020 - 25 Apr 2020</h4>
 										<div class="clearfix"></div>
 										<br>
-										<h2>$10</h2>
+										<h2>${{ channel.price }}</h2>
 										<br>
 
 									</div>
@@ -242,7 +230,7 @@
 							</form>
 							<div class="clearfix"></div>
 						</div>
-						<button class="btn btn-join-via-stripe" >Let's join via Stripe</button>
+						<button :disabled="subscribeProcessing" :loading="subscribeProcessing" v-if="showSubscribeButton" @click="checkout" class="btn btn-join-via-stripe" >Let's join via Stripe</button>
 						<br><br>
 						<div class="note_section">
 							<p>NOTE: Price are in CAD(Canadian Dollars)</p>
@@ -255,6 +243,18 @@
 		<!-- End -->
 		
 
+        <vue-stripe-checkout
+          ref="checkoutRef"
+          name="Payment Details"
+          description
+          currency="CAD"
+          :amount="channel.price * 100"
+          :allow-remember-me="false"
+          @done="done"
+          @opened="opened"
+          @closed="closed"
+          @canceled="canceled"
+        ></vue-stripe-checkout>
 
 
     </div> 
@@ -495,6 +495,7 @@
 
 
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
+import store from "../store/index";
 import trailerModule from "../store/trailers/trailer";
 import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
@@ -519,8 +520,8 @@ export default {
       showDonateField: false,
       donateAmount: 0,
       videoLoaded: false,
-      trailer: null,
-      channel: null,
+      trailer: {},
+      channel: {},
       catTrailersList: null,
       showSubscribeButton: false,
       showDonateText: false,
@@ -566,6 +567,11 @@ export default {
   },
   mixins: [RegisterStoreModule],
   computed: {
+
+     showLogin() {
+      return store.getters.getUser == null;
+    },
+
     player() {
       return this.$refs.videoPlayer.player;
     },
@@ -587,6 +593,7 @@ export default {
 
     // To detach the attached video play
     var oldPlayer = document.getElementById('example_video_1');
+    console.log("oldPlayer",oldPlayer)
     if(oldPlayer)
       videojs(oldPlayer).dispose();
 
@@ -627,18 +634,15 @@ export default {
         $(document).ready(function(){
          
          if(_vm.playerObj == null){
-             _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
-            // Player (this) is initialized and ready.
-            // console.log("Videjs ininitialized",_vm.playerOptions.sources[0].src)
-            
-              _vm.playerIsReady(this) // Onready 
+              _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
 
             });
-
          }
-       
 
-      });
+       
+         _vm.playerIsReady(this) // Onready 
+
+        });
 
 
         let fUser = localStorage.getItem("fUser");
@@ -667,8 +671,20 @@ export default {
       });
   },
   methods: {
+    goLive(){
+
+      if (this.showLogin) {
+        this.$router.push({ name: "Login" });
+      } else {
+        this.$router.push({ name: "AddExcluzeev" });
+      }
+
+        
+    },
+
     playerIsReady(player) {
       // TODO(Karthik): Modify the adTagUrl
+      
       let options = {
         id: player.id_,
         autoPlayAdBreaks: false,

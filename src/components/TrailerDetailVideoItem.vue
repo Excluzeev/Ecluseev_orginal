@@ -13,7 +13,7 @@
 												<div class="video_title">
 													<h3><span> {{ trailer.title }}</span></h3>
 													<h4> {{ trailer.channelName }}</h4>
-													<p>{{ trailer.timeAgo }}</p>
+													<p>{{ trailer.description }}</p>
 												</div>
 											</div>
 										</div>
