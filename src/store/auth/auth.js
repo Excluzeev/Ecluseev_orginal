@@ -1,7 +1,9 @@
 /* eslint-disable */
 import {
   fireStore,
-  auth
+  auth,
+  gprovider,
+  fprovider
 } from "../../firebase/init";
 import collections from "../../firebase/utils";
 import utils from "../../utility/utils";
@@ -33,6 +35,87 @@ export default {
           exists: userSnap.exists,
           data: userData
         });
+      });
+    },
+
+    signInFb: ({
+      state,
+      dispatch
+    }) => {
+      return new Promise(resolve => {
+        let errorData = {
+          error: false,
+          message: "Login Successful"
+        };
+
+        
+        auth
+          .signInWithPopup(fprovider)
+          .then(() => {
+            errorData = {
+              error: false,
+              message: "Login Successful"
+            };
+            dispatch('checkUser').then(userRecord => {
+              if (userRecord.exists) {
+                resolve(errorData);
+              } else {
+                errorData = {
+                  error: true,
+                  message: "User not found. Please register."
+                };
+                resolve(errorData);
+              }
+            });
+          })
+          .catch(error => {
+            errorData = {
+              code: error.code,
+              message: error.message,
+              error: true
+            };
+            resolve(errorData);
+          });
+      });
+    },
+    signInGmail: ({
+      state,
+      dispatch
+    }) => {
+      return new Promise(resolve => {
+        let errorData = {
+          error: false,
+          message: "Login Successful"
+        };
+
+        
+        auth
+          .signInWithPopup(gprovider)
+          .then(() => {
+            errorData = {
+              error: false,
+              message: "Login Successful"
+            };
+            dispatch('checkUser').then(userRecord => {
+              if (userRecord.exists) {
+                resolve(errorData);
+              } else {
+                errorData = {
+                  error: true,
+                  message: "User not found. Please register."
+                };
+                resolve(errorData);
+              }
+            });
+          })
+          .catch(error => {
+            errorData = {
+              code: error.code,
+              message: error.message,
+              error: true
+            };
+            resolve(errorData);
+          });
       });
     },
     loginUser: ({

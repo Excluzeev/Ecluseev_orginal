@@ -874,10 +874,14 @@ export default {
         expiry = firebaseTimestamp.fromDate(new Date(this.expiryDate));
       }
 
+      let selectedCat=this.fetchCategoryName()
+
+      console.log("Selected cat",selectedCat);
+      
       let channelData = {
         channelId: channelId,
-        categoryName: this.categorySelected.name,
-        categoryId: this.categorySelected.id,
+        categoryName: selectedCat.name,
+        categoryId: selectedCat.id,
         userId: auth.currentUser.uid,
         createdBy: auth.currentUser.displayName,
         channelType: this.selectedChannelType,
@@ -908,8 +912,10 @@ export default {
           }
         });
       } catch (error) {
-        // this.showToast("Channel Creation failed.");
 
+
+        console.log("Create channel failed",error);
+        //this.showToast("Channel Creation failed.");
         this.errors['error']="Channel creation failed";
         this.$forceUpdate();
 

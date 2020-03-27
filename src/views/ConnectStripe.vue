@@ -34,7 +34,7 @@ export default {
             uid: user.uid
           };
 
-          // console.log(data);
+          console.log(data);
 
           axios
             .post("https://excluzeev.com/connectS", data)

@@ -85,7 +85,6 @@
                 <div class="form-row">
                   <div class="custom-thumbnail-holder">
                     <v-checkbox
-                      v-bind:key="index"
                       style="margin-top: 0;     padding-top: 0;"
                       v-model="hasCustomThumbnail"
                       label="Upload Custom Thumbnail"

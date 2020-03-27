@@ -32,6 +32,10 @@ firebase
   });
 
 export const auth = firebase.auth();
+export const gprovider = new firebase.auth.GoogleAuthProvider();
+export const fprovider = new firebase.auth.FacebookAuthProvider();
+
+
 export const fireStore = firebase.firestore();
 export const storage = firebase.storage();
 export const publicStorage = firebase.app().storage("gs://trenstop-public");

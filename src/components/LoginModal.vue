@@ -36,7 +36,7 @@
 													<span><i class="fa fa-lock"></i></span>
 													<input type="password" class="form-control" id="userPassword" v-model="password" placeholder="Please enter password" >
 																		<span  class="error-message" id="password_err" v-if="this.errors['password']">{{this.errors['password']}}</span>
-                  			</div>
+                   			</div>
 											</div>
 										</div>
 										<div class="form-group col-md-3 text-left">
@@ -56,8 +56,8 @@
 						<p>Or sign in with</p><br>
 						<div class="clearfix"></div>
 						<div class="signIn-btns">
-							<a href="#" class="btn-signInWithGoogle"><img src="../assets/Images/google_icon.png">Google</a>
-							<a href="#" class="btn-signInWithFacebok"><img src="../assets/Images/facebook_icon.svg">Facebook</a>
+							<a href="javascript://" :loading="processing" :disabled="processing" @click="signInGmail" class="btn-signInWithGoogle"><img src="../assets/Images/google_icon.png">Google</a>
+							<a href="javascript://" :loading="processing" :disabled="processing" @click="signInFb" class="btn-signInWithFacebok"><img src="../assets/Images/facebook_icon.svg">Facebook</a>
 						</div>
 						<br>
 						<br>
@@ -73,6 +73,8 @@
 </template>
 
 <script>
+
+
   import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import authModule from "../store/auth/auth";
 import LicenseAgreement from "../components/LicenseAgreement";
@@ -133,6 +135,105 @@ export default {
         $("#signUpModal").modal("show"); // show the signup modal box
 
       }, 1000);
+
+    },
+
+    signInFb(){
+     
+       let loader = this.$loading.show({
+          // Pass props by their camelCased names
+          canCancel: true, // default false
+          color: '#000000',
+          width: 64,
+          height: 64,
+          backgroundColor: '#ffffff',
+          opacity: 0.5,
+          zIndex: 999,
+          loader: "dots"
+        },{
+          // Pass slots by their names
+        });
+ 
+      this.$store.dispatch("auth/signInFb")
+          .then(newData => {
+            //console.log("Res",newData);
+             
+            if (newData.error) {
+              this.processing = false;
+              if (newData.code == "auth/user-not-found") {
+                // this.showToast("User not found.");
+                this.errors['error']="User not found";
+              } else {
+                // this.showToast("Email / Password is Invalid");
+                this.errors['error']="Email / Password is Invalid";
+              }
+                
+              loader.hide();
+
+            } else {
+              this.processing = false;
+              this.showToast("Sign in successfully");
+              setTimeout(() => {
+
+                loader.hide();
+
+                $("#signInModal").modal("hide"); // Hide the signin modal box
+                this.$router.push({ name: "Home" });
+              }, 1000);
+                
+               
+            }
+                
+          });
+
+    },
+    signInGmail(){
+     
+       let loader = this.$loading.show({
+          // Pass props by their camelCased names
+          canCancel: true, // default false
+          color: '#000000',
+          width: 64,
+          height: 64,
+          backgroundColor: '#ffffff',
+          opacity: 0.5,
+          zIndex: 999,
+          loader: "dots"
+        },{
+          // Pass slots by their names
+        });
+ 
+      this.$store.dispatch("auth/signInGmail")
+          .then(newData => {
+            //console.log("Res",newData);
+             
+            if (newData.error) {
+              this.processing = false;
+              if (newData.code == "auth/user-not-found") {
+                // this.showToast("User not found.");
+                this.errors['error']="User not found";
+              } else {
+                // this.showToast("Email / Password is Invalid");
+                this.errors['error']="Email / Password is Invalid";
+              }
+                
+              loader.hide();
+
+            } else {
+              this.processing = false;
+              this.showToast("Sign in successfully");
+              setTimeout(() => {
+
+                loader.hide();
+
+                $("#signInModal").modal("hide"); // Hide the signin modal box
+                this.$router.push({ name: "Home" });
+              }, 1000);
+                
+               
+            }
+                
+          });
 
     },
     doLogin() {

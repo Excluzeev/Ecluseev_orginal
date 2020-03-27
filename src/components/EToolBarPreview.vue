@@ -63,7 +63,15 @@
 							</div>
 						</li>
 
-            <!-- <li  v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
+
+             <li  v-if="!hideSignUpContentCreator&!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+							<button @click="goLoginContentCreator" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
+								<img src="../assets/Images/live.png"> Become a Content Creator
+							</button>
+						</li>
+
+
+            <li  v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
 							<button @click="goLoginLive" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
 								<img src="../assets/Images/live.png"> Excluzeev Live
 							</button>
@@ -73,21 +81,11 @@
 						</li>
 						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
 							<button @click="goToCommunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
-						</li> -->
+						</li> 
 
-            <!-- For testing -->
-            <li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goLoginLive" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
-								<img src="../assets/Images/live.png"> Excluzeev Live
-							</button>
-						</li>
-						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goLoginCreate"  class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
-						</li>
-						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goToCommunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
-						</li>
-						<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
+            
+            
+            	<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
 							<img src="../assets/Images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
 							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
 								<li class="dropdown-item" type="button" v-i                                                                 f="userData"><a href="#">{{userData.displayName}}</a> </li>
@@ -98,19 +96,20 @@
                                       My profile
                                      </router-link>
                                </li>
-                                <li class="dropdown-item" type="button">
+                               	<li v-if="hideSignUpContentCreator" class="dropdown-item" type="button">
 
                                      <router-link  :to="{ name: 'Crowd' }">
                                       My crowd funding
                                      </router-link>
                                </li>
-
-                                <li class="dropdown-item" type="button">
+						
+                         		<li v-if="hideSignUpContentCreator" class="dropdown-item" type="button">
 
                                      <router-link  :to="{ name: 'MyEarnings' }">
                                       My earnings
                                      </router-link>
                                </li>
+
                                 <!--
 
                                 <li class="dropdown-item" type="button">

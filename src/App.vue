@@ -22,7 +22,8 @@
     <LoginModal />  
     <RegistrationModal />
     <ForgotPasswordModal />
-    
+    <BecomeCC />
+
     <FooterComponent v-if="isNavBar"/>
     <FooterComponentPreview v-if="isPreviewsPage"/>
 
@@ -41,6 +42,7 @@ import CookieLaw from "vue-cookie-law";
 import LoginModal from "./components/LoginModal";
 import ForgotPasswordModal from "./components/ForgotPasswordModal";
 import RegistrationModal from "./components/RegistrationModal";
+import BecomeCC from "./components/BecomeCC";
 
 
 export default {
@@ -58,7 +60,8 @@ export default {
     CookieLaw,
     LoginModal,
     ForgotPasswordModal,
-    RegistrationModal
+    RegistrationModal,
+    BecomeCC
   },
   methods: {
         recaptchaCallback(){

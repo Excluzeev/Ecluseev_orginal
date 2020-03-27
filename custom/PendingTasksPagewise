@@ -142,7 +142,10 @@ My profile
     
     - Design not available
 
-Settings
+Signin with Google and Facebook
 
-    - Design not available
- 
+    - Need to create App (App id and App secret) for excluzeev site
+
+    - Need to update the App id and App secret in Firebase facebook sign-in method configuration
+
+    
