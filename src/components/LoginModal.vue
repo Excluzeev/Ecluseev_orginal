@@ -15,11 +15,24 @@
 						<div class="clearfix"></div>
 						<p>Sign in to create or join communities, and to explore the popular and upcoming excluzeev communities and interact with the fans/stars.</p>
 
-              	<div class="form-row " v-if="this.errors['error']">
+              	           <div class="form-row " v-if="this.errors['error']">
 								<div class="form-group col-md-12 non-specific-error-cont">
                 <span  class="non-specific-error" id="non-specific-error"  >{{this.errors['error']}}</span>
 								</div>
+
+                                <div class="form-group col-md-12 text-center" v-if="showEmailVerifyLink">
+                                    <button class="btn btn-small btn-primary" @click="sendEmailVerificationEmail">Resend verfication email</button>
+                                </div>
 							</div>
+
+
+              	           <div class="form-row " v-if="this.showSucceedMsg">
+								<div class="form-group col-md-12 non-specific-message-cont">
+                                    <span  class="non-specific-message" id=""  >{{this.toastText}}</span>
+								</div>
+
+							</div>
+                            
 							<div class="form-row">
 								<div class="form-group col-md-12 margin_bottom_none">
 									<div class="form-row margin_bottom_none">
@@ -96,6 +109,7 @@ import axios from "axios";
 export default {
   data: () => {
     return {
+      showEmailVerifyLink: false,
       email: "",
       password: "",
       termsDialog: false,
@@ -110,6 +124,7 @@ export default {
       },
       processing: false,
       toastText: "Login Success",
+      showSucceedMsg:false,
       errors:{},
     };
   },
@@ -127,6 +142,35 @@ export default {
         position: "top-right",
         duration: 2500
       });
+    },
+    sendEmailVerificationEmail(){
+        this.errors={}
+        this.processing = true;
+        this.$store
+          .dispatch("auth/sendVerifyEmail")
+          .then(data => {
+            if (data.error) {
+              this.errors['error']=data.message
+              this.processing = false;
+              this.showSucceedMsg=false
+            } else {
+              this.showSucceedMsg=true
+              this.toastText="Verification email sent successully."
+               
+              /*
+              this.processing = false;
+              this.showToast("Sign in successfully");
+              setTimeout(() => {
+
+                $("#signInModal").modal("hide"); // Hide the signin modal box
+                this.$router.push({ name: "Home" });
+              }, 2000);
+
+              */
+            }
+          });
+
+
     },
     goSignup(){
           $("#signInModal").modal("hide"); // Hide the signin modal box      
@@ -271,11 +315,18 @@ export default {
               if (newData.code == "auth/user-not-found") {
                 // this.showToast("User not found.");
                 this.errors['error']="User not found";
-              } else {
+              }
+              else if(newData.isEmailVerified == false){
+                this.showEmailVerifyLink=true;
+                this.errors['error']="Account is not yet verified. We sent a verification email. If not yet received, click the below link to resend verification link to your email account.";
+              }
+              else {
                 // this.showToast("Email / Password is Invalid");
                 this.errors['error']="Email / Password is Invalid";
               }
             } else {
+
+
               this.processing = false;
               this.showToast("Sign in successfully");
               setTimeout(() => {
@@ -363,6 +414,11 @@ export default {
 .non-specific-error-cont{
     padding: 5px;
     color: red;
+}
+
+.non-specific-message-cont{
+    padding: 5px;
+    color: green;
 }
 .non-specific-error{
 

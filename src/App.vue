@@ -23,7 +23,6 @@
     <RegistrationModal ref="registerComp"/>
     <ForgotPasswordModal ref="forgotComp"/>
     <BecomeCC />
-
     <FooterComponent v-if="isNavBar"/>
     <FooterComponentPreview v-if="isPreviewsPage"/>
 
@@ -51,6 +50,8 @@ import LoginModal from "./components/LoginModal";
 import ForgotPasswordModal from "./components/ForgotPasswordModal";
 import RegistrationModal from "./components/RegistrationModal";
 import BecomeCC from "./components/BecomeCC";
+
+import { videoStorage, auth, firebaseTimestamp } from "./firebase/init";
 
 
 export default {

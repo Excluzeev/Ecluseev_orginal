@@ -138,8 +138,26 @@ export default {
               message: "Login Successful"
             };
             dispatch('checkUser').then(userRecord => {
+
+
+
               if (userRecord.exists) {
-                resolve(errorData);
+
+                let cuser=auth.currentUser
+
+                //console.log("user",cuser)
+                if(cuser.emailVerified == false){
+
+                    errorData = {
+                        error: true,
+                        message: "Email not verified",
+                        isEmailVerified: false
+                    };
+                    //auth.signOut();
+                    resolve(errorData);
+                }else{
+                    resolve(errorData);
+                }
               } else {
                 errorData = {
                   error: true,
@@ -203,7 +221,25 @@ export default {
             }
             dispatch('checkUser').then(userRecord => {
               if (userRecord.exists) {
-                resolve(errorData);
+
+                var user = auth.currentUser;
+
+                user.sendEmailVerification().then(function() {
+                   // Email sent.
+                   resolve(errorData);
+                }).catch(function(error) {
+                  // An error happened.
+
+                    errorData.code = error.code;
+                    errorData.error = true;
+                    errorData.message = "Unable to send verification email!!";
+                    
+                    resolve(errorData);
+                });
+
+
+
+
               } else {
                 errorData = {
                   error: true,
@@ -248,6 +284,38 @@ export default {
             resolve(data);
           });
       });
+    },
+    sendVerifyEmail: ({
+
+    }) => {
+
+      return new Promise(resolve => {
+
+            let data = {
+              error: false,
+              message: "Verfication Email Sent Successful."
+            };
+
+
+            var user = auth.currentUser;
+
+            user.sendEmailVerification().then(function() {
+              // Email sent.
+              resolve(data) 
+            }).catch(function(error) {
+              // An error happened.
+
+                data.code = error.code;
+                data.error = true;
+                data.message = "Unable to send verification email!!";
+                resolve(data);
+            });
+
+            
+
+      });
+        
+
     },
     signOut: () => {
       auth.signOut();

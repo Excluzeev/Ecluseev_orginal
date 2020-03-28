@@ -25,6 +25,12 @@
                 <span  class="non-specific-error" id="non-specific-error"  >{{this.errors['error']}}</span>
 								</div>
 							</div>
+
+							<div class="form-row " v-if="this.showInfo">
+								<div class="form-group col-md-12 non-specific-message-cont">
+                <span  class="non-specific-message" id=""  >{{this.toastText}}</span>
+								</div>
+							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<input v-model="firstName"  type="name" class="form-control" id="firstName" placeholder="Please enter first name">
@@ -313,7 +319,8 @@ export default {
         }
       },
       processing: false,
-      toastText: "Registration Success"
+      toastText: "Registration Success",
+      showInfo:false,
     };
   },
   mixins: [RegisterStoreModule],
@@ -385,8 +392,16 @@ export default {
           } else {
             this.$store.dispatch("auth/checkUser").then(userRecord => {
               if (userRecord.exists) {
-                this.showToast("Registration successful");
-                this.$router.push("/");
+
+                this.showInfo=true
+                this.toastText="A verification link sent to your email account. Please verify your email address."
+                
+                setTimeout(function(){
+                    $("#signUpModal").modal("hide"); // Hide the signin modal box
+                    this.showToast("Registration successful and verification email sent!!");
+                    this.$router.push("/");
+                },2000)
+
               } else {
                 // this.showToast("Unknown error please try again.");
                 this.errors['error']="Unknown error please try again.";
@@ -554,6 +569,11 @@ font-size: 17px;
 .non-specific-error-cont{
     padding: 5px;
     color: red;
+}
+
+.non-specific-message-cont{
+    padding: 5px;
+    color: green;
 }
 .non-specific-error{
 

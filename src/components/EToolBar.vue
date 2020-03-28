@@ -172,20 +172,24 @@
 				</div>
 			</nav>
 
-      <v-layout row justify-center>
-      <v-dialog v-model="dialogt" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-card>
-          <v-toolbar dark color="primary">
-            <v-btn icon dark @click="dialogt = false">
-              <v-icon>close</v-icon>
-            </v-btn>
-            <v-toolbar-title>{{ titleDialogt }}</v-toolbar-title>
-          </v-toolbar>
-          <component v-bind:is="componentDialogt"></component>
-        </v-card>
-      </v-dialog>
-    </v-layout>
-    
+              <v-layout row justify-center>
+              <v-dialog v-model="dialogt" fullscreen hide-overlay transition="dialog-bottom-transition">
+                <v-card>
+                  <v-toolbar dark color="primary">
+                    <v-btn icon dark @click="dialogt = false">
+                      <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>{{ titleDialogt }}</v-toolbar-title>
+                  </v-toolbar>
+                  <component v-bind:is="componentDialogt"></component>
+                </v-card>
+              </v-dialog>
+            </v-layout>
+   
+
+
+            
+ 
 		</div>
 
 </template>
@@ -360,6 +364,8 @@ export default {
       this.$router.push({ name: "HowTo" });
     }
   }
+
+
 };
 </script>
 
