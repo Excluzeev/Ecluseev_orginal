@@ -45,7 +45,8 @@ import LoadScript from "vue-plugin-load-script";
 
 Vue.use(LoadScript);
 
-/*
+
+
 import VueProgrammaticInvisibleGoogleRecaptcha from "vue-programmatic-invisible-google-recaptcha";
 
 Vue.component(
@@ -54,13 +55,12 @@ Vue.component(
 );
 
 
-*/
 
 
 
 
 
-Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
+  Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
   .then(() => {
     console.log("recaptcha loaded");
   })
@@ -104,26 +104,6 @@ Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
     console.log("ima3 load failed");
   });
 
-  // Vue.loadScript("https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.6.5/videojs-contrib-ads.min.js")
-  // .then(() => {
-  //   // Script is loaded, do something
-  //   console.log("videojs ads loaded");
-  // })
-  // .catch(() => {
-  //   // Failed to fetch script
-  //   console.log("videjs ads failed");
-  // });
-
-  // Vue.loadScript("https://cdnjs.cloudflare.com/ajax/libs/videojs-ima/1.8.0/videojs.ima.min.js")
-  // .then(() => {
-  //   // Script is loaded, do something
-  //   console.log("videojs ads loaded");
-  // })
-  // .catch(() => {
-  //   // Failed to fetch script
-  //   console.log("videjs ads failed");
-  // });
-
 
 
 
@@ -163,8 +143,11 @@ import vueHeadful from "vue-headful";
 
 Vue.component("vue-headful", vueHeadful);
 
+
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount("#app");
+
+

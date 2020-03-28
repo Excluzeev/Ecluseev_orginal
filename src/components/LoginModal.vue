@@ -339,7 +339,8 @@ export default {
         this.rules.required(this.password) != "Required."
       ) {
         this.processing = true;
-        this.$refs.invisibleRecaptcha1.execute();
+        this.$parent.executeRecaptcha('loginComp');
+
       } else {
         this.showToast("Invalid Email / Password");
         this.processing = false;

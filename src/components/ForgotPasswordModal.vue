@@ -33,15 +33,6 @@
 									<br>
 									<br>
 									<br>
-                     <!-- <vue-programmatic-invisible-google-recaptcha
-                  ref="invisibleRecaptcha1"
-                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
-                  elementId="'invisibleRecaptcha1'"
-                  badgePosition="'left'"
-                  :showBadgeMobile="false"
-                  :showBadgeDesktop="false"
-                  @recaptcha-callback="recaptchaCallback"
-                ></vue-programmatic-invisible-google-recaptcha> -->
 
 									<button class="btn btn-send-me-a-revive-link" type="submit" :loading="processing" :disabled="processing" @click="loader = 'loading4'">Send me a revive link</button>
 									<br><br><br><br>
@@ -58,73 +49,6 @@
 
 
 
- <!--
-  <div style="height:100%">
-    <v-container fluid fill-height>
-      <v-layout align-center justify-center>
-        <v-flex xs12 sm8 md4>
-          <v-card class="elevation-5 forgotpassword-holder text-xs-center">
-            <img
-              style="width: 30%;"
-              alt="Excluzeev
-            logo"
-              src="../../assets/excluzeev_bottom_text.png"
-            >
-
-            <v-card-text>
-              <v-form class="lighten-1" @submit.prevent="isHuman">
-                <v-text-field
-                  name="login"
-                  label="Email"
-                  type="text"
-                  v-model="email"
-                  :rules="[rules.required, rules.email]"
-                ></v-text-field>
-
-                <vue-programmatic-invisible-google-recaptcha
-                  ref="invisibleRecaptcha1"
-                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
-                  elementId="'invisibleRecaptcha1'"
-                  badgePosition="'left'"
-                  showBadgeMobile="false"
-                  showBadgeDesktop="false"
-                  @recaptcha-callback="recaptchaCallback"
-                ></vue-programmatic-invisible-google-recaptcha>
-
-                <div class="text-xs-center">
-                  <v-btn
-                    class="white--text"
-                    color="blue lighten-1"
-                    type="submit"
-                    :loading="processing"
-                    :disabled="processing"
-                    @click="loader = 'loading4'"
-                  >
-                    Reset Password
-                    <template v-slot:loader>
-                      <span class="custom-loader">
-                        <v-icon light>cached</v-icon>
-                      </span>
-                    </template>
-                  </v-btn>
-                </div>
-              </v-form>
-
-              <div class="padding"></div>
-              <div class="text-xs-center quick-sand-font">
-                Got the Password? &nbsp;
-                <a>
-                  <span class color="blue lighten-1" @click="goLogin">Log in</span>
-                </a>
-              </div>
-            </v-card-text>
-          </v-card>
-          <v-snackbar v-model="snackbar" bottom>{{ toastText }}</v-snackbar>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
-  -->
 </template>
 
 <script>
@@ -207,9 +131,9 @@ export default {
     },
     recaptchaCallback(token) {
       this.processing = true;
-      this.doSendEmail(); // Send forgot password reset email without recaptch //FIXME
+      //this.doSendEmail(); // Send forgot password reset email without recaptch //FIXME
       // Disabled for testing purpose
-      /*
+     
       axios
         .post(
           "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
@@ -218,6 +142,8 @@ export default {
           }
         )
         .then(response => {
+
+          console.log("Recaptcha verfication done");
           if (!response.data.error) {
             this.doSendEmail();
           } else {
@@ -229,11 +155,13 @@ export default {
           this.processing = false;
           this.showToast("Something went wrong");
         });
-        */
+        
     },
     isHuman() {
       if (this.rules.email(this.email) != "Invalid e-mail.") {
-        this.$refs.invisibleRecaptcha1.execute();
+
+        this.$parent.executeRecaptcha('forgotComp');
+
         this.processing = true;
       } else {
         this.toastText = "Invalid Email";

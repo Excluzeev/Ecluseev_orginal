@@ -19,16 +19,24 @@
       </div>
     </cookie-law>
 
-    <LoginModal />  
-    <RegistrationModal />
-    <ForgotPasswordModal />
+    <LoginModal ref="loginComp"/>  
+    <RegistrationModal ref="registerComp"/>
+    <ForgotPasswordModal ref="forgotComp"/>
     <BecomeCC />
 
     <FooterComponent v-if="isNavBar"/>
     <FooterComponentPreview v-if="isPreviewsPage"/>
 
 
-
+     <vue-programmatic-invisible-google-recaptcha
+                  ref="invisibleRecaptcha1"
+                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
+                  elementId="'invisibleRecaptcha1'"
+                  badgePosition="'left'"
+                  :showBadgeMobile="false"
+                  :showBadgeDesktop="true"
+                  @recaptcha-callback="recaptchaCallback"
+                ></vue-programmatic-invisible-google-recaptcha>
 
   </div>
 </template>
@@ -51,6 +59,11 @@ export default {
     title: "Excluzeev - Stream. Crowdfunding. Social Network",
     titleTemplate: "%s | Excluzeev"
   },
+  data: () => {
+    return{
+        fromComp:'',
+    };
+  },
   title: "Excluzeev - Stream. Crowdfunding. Social Network",
   components: {
     FooterComponent,
@@ -63,9 +76,28 @@ export default {
     RegistrationModal,
     BecomeCC
   },
+    
   methods: {
-        recaptchaCallback(){
-
+        recaptchaCallback(token) {
+            console.log("recaptchaCallback");
+    
+            if(this.fromComp == "forgotComp"){
+    
+                 this.$refs.forgotComp.recaptchaCallback(token);                
+            }
+            else if(this.fromComp == "registerComp"){
+           
+                 this.$refs.registerComp.recaptchaCallback(token);                
+            } 
+            else if(this.fromComp == "loginComp"){
+           
+                 this.$refs.loginComp.recaptchaCallback(token);                
+            } 
+        },
+        executeRecaptcha(name){
+            this.fromComp=name
+            console.log("From component",name)
+            this.$refs.invisibleRecaptcha1.execute();
         } 
   },
   computed: {

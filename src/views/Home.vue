@@ -1,8 +1,7 @@
 <template>
 
-  <div class="home" :key="$route.fullPath">
+    <div class="home" :key="$route.fullPath">
     <div style="padding-top:25px"></div>
-    <!--<FeaturedItem />-->
   		<div id="home">
 			<div class="container-fluid">
 				<div class="row">
@@ -115,6 +114,7 @@ export default {
     // }
   },
   async mounted() {
+    console.log("Home mounted",this.$route.query.done);
     if (this.$route.query.done) {
       await this.$store.commit("forceFetchUser", {
         user: auth.currentUser,

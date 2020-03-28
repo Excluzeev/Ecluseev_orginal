@@ -1063,7 +1063,7 @@ ul.dropdown-menu.list-unstyled:before {
 .watch_vedio_section .sub_title{color: #7d7d7d!important;font:14px rubik-regular;}
 
 
-.sideVideo {height: 100%;padding-bottom: 65px ;width: 0; position: fixed; z-index: 2; top: 0; left: 0; background-color: #000; overflow-x: hidden; transition: 0.5s; padding-top: 20px; background-image: url(); }
+.sideVideo {height: 100%;padding-bottom: 65px ;width: 0; position: fixed; z-index: 2; top: 0; left: 0; background-color: #000; overflow-x: hidden; transition: 0.5s; padding-top: 20px; }
 
 
 .sideVideo .closebtn {position: absolute; top: 0; left: 0; font-size: 36px; margin-top: 20px;margin-left: 15px; color: #FFFFFF; }

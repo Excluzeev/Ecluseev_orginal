@@ -423,9 +423,9 @@ export default {
     recaptchaCallback(token) {
       this.processing = true;
       // Disabled for testing purpose
-      this.doSignUp(); // Signup without recaptcha //FIXME
+      //this.doSignUp(); // Signup without recaptcha //FIXME
 
-      /*
+      
       axios
         .post(
           "https://us-central1-trenstop-2033f.cloudfunctions.net/checkCaptcha",
@@ -447,7 +447,7 @@ export default {
           this.showToast("Sign up Failed");
 
         });
-        */
+       
     },
     isHuman() {
       this.resetErr(); // Reset form validation errors
@@ -484,7 +484,8 @@ export default {
         return;
       }
         console.log("Recaptcha requested")
-        this.$refs.invisibleRecaptcha2.execute();
+        this.$parent.executeRecaptcha('registerComp');
+
       
 
     }
