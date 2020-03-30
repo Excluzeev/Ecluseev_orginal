@@ -1,140 +1,181 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex xs12 sm3 md2>
-        <div align="left">
-          <div class="padding">
-            <v-avatar tile="false" size="50px" color="grey lighten-4">
-              <img class="channel-image" :src="video != null ? video.channelImage : ''" />
-            </v-avatar>
+  <div id="croud_funding_page">
+		<div class="container-fluid">
+			<div class="row d-none d-xl-block d-lg-block">
+				<div class="col-12">
+					<div class="inline-list">
+						<br>
+						<a href="#">Communities</a><i class="fa fa-angle-right"></i><a href="#" v-if="video">{{ video.channelName }}</a><i class="fa fa-angle-right"></i><a href="#">Crowd Funding</a>
+						<br><br>
+					</div>
+				</div>
+			</div>
+
+
+      <div class="row">
+				<div class="col-xl-6">
+          <div class="watch_vedio_section">
+
+
+                        <div v-show="!playerOptions.sources[0].src.isEmpty">
+
+                            <video id="example_video_1" class="video-js"
+                              controls preload="auto" width="640" height="264"
+                              data-setup='{"example_option":true}'>
+                            </video>
+
+                        </div>
+						<h2 v-if="video">
+                            {{ video.title }}
+                        </h2>
+
+						<p v-if="video">
+                            {{ video.description }}
+						</p>
+
+                    <div class="chat_section">
+							<h3><span>Comments</span></h3>
+
+                            <div  v-if="commentsList.length > 0">
+                                        <div class="user_comment_section d-flex" v-for="comment in commentsList" v-bind:key="comment.commentId">
+                        <!--
+                                            <img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+    -->
+                                            <div class="user_name_comment">
+                                                <ul class="list-unstyled">
+                                                    <li class="list-inline">
+                                                        <h3 class="pull-left">{{ comment.userName }}</h3>
+                                                        <div class="posted_time pull-right"><p>{{ comment.timeAgo }}</p></div>
+                                                        <div class="clearfix"></div>
+                                                    </li>
+                                                    <li><p>{{ comment.comment }}</p></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    
+                            </div>
+
+                             <v-flex v-else text-xs-center>
+                                <div class="nocomment">
+                                  <p>No comments yet, be the first</p>
+                                </div>
+                              </v-flex>
+
+                            
+                        </div>
+
+            				<div class="chat_messege_section">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<button class="btn btn-user-img" type="button"><img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle " style="width: 25px;height: 25px;" ></button>
+								</div>
+								<input v-model="commentText" type="text" class="form-control" placeholder="Type to comment" id="messageInput" aria-label="" aria-describedby="basic-addon1">
+								<div class="input-group-append">
+									<button :disabled="disabelComment" class="btn btn-send" type="button" @click="doComment">Send</button>
+								</div>
+							</div>
+						</div>
+
           </div>
-          <div style="font-size:1.4rem" class="quick-sand-font-l">{{ video.channelName }}</div>
+
+
         </div>
-      </v-flex>
-      <v-flex xs12 sm9 md10>
-        <div align="left">
-          <div class="flex display-1 font-weight-normal">{{ video.title }}</div>
-          <div class="nav-c t1824">{{ video.description }}</div>
-        </div>
-      </v-flex>
-      <v-flex xs3></v-flex>
-    </v-layout>
-    <!-- <v-layout row> </v-layout> -->
-    <v-layout row wrap>
-      <v-flex xs12 md8>
-        <div v-show="!playerOptions.sources[0].src.isEmpty">
-          <video-player
-            class="video-holder vjs-big-play-centered"
-            width="100%"
-            height="auto"
-            id="player_id"
-            ref="videoPlayer"
-            :options="playerOptions"
-            @ready="playerIsReady"
-            @timeupdate="onPlayerTimeupdate($event)"
-          ></video-player>
-        </div>
-      </v-flex>
-      <v-flex>
-        <v-spacer></v-spacer>
-      </v-flex>
-      <v-flex xs12 md4>
-        <v-progress-linear
-          color="teal"
-          height="5"
-          :value="(channel.currentFund / channel.targetFund) * 100"
-        ></v-progress-linear>
-        <div align="left">
-          <div
-            style="font-size:1.4rem;"
-            class="flex display-1 font-weight-normal teal--text darken-2"
-          >US$ {{ channel.currentFund }}</div>
-          <p class="nav-c t1824">pledged of US$ {{ channel.targetFund }} goal</p>
-          <p
-            class="nav-c flex d-flex align-start display-1 font-weight-thin"
-          >{{ channel.subscriberCount }}</p>
-          <p class="nav-c t1824">contributors</p>
-          <!--<p class="nav-c flex d-flex align-start display-1 font-weight-thin">-->
-          <!--13-->
-          <!--</p>-->
-          <!--<p class="nav-c t1824">days to go</p>-->
-          <v-btn
-            block
-            class="quick-sand-font-b white--text"
-            color="teal"
-            @click="prepareSubscribe(25)"
-          >Donate 25$</v-btn>
-          <v-btn
-            block
-            class="quick-sand-font-b white--text"
-            color="teal"
-            @click="prepareSubscribe(50)"
-          >Donate 50$</v-btn>
-          <v-btn
-            block
-            class="quick-sand-font-b white--text"
-            color="teal"
-            @click="prepareSubscribe(100)"
-          >Donate 100$</v-btn>
-        </div>
-      </v-flex>
-    </v-layout>
-    <v-layout>
-      <!--Comments Section-->
-      <v-flex xs12>
-        <div class="comment-holder padding text-xs-left">
-          <div v-if="showComments">
-            <v-textarea solo label="Add a comment" rows="1" auto-grow v-model="commentText"></v-textarea>
-            <v-layout>
-              <v-spacer></v-spacer>
-              <v-btn
-                class="white--text quick-sand-font-b"
-                color="blue lighten-1"
-                :disabled="disabelComment"
-                @click="doComment"
-              >Comment</v-btn>
-            </v-layout>
-          </div>
-          <div v-if="!showComments">
-            <div class="logincomment text-xs-center">
-              <p>
-                Please
-                <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">sign in</router-link>to comment
-              </p>
-            </div>
-          </div>
-          <v-flex class="padding" v-if="commentsList.length > 0">
-            <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
-              <h4>{{ comment.userName }}</h4>
-              <div>{{ comment.comment }}</div>
-              <p class="grey--text">{{ comment.timeAgo }}</p>
-            </div>
-          </v-flex>
-          <v-flex v-else text-xs-center>
-            <div class="nocomment">
-              <p>No comments yet, be the first</p>
-            </div>
-          </v-flex>
-        </div>
-      </v-flex>
-    </v-layout>
-  </v-container>
+        <div class="col-xl-6">
+					
+          <ul class="list-unstyled list-inline d-flex share_links d-none d-xl-block d-lg-block">
+						<li class="d-none d-xl-block d-lg-block"><a href="javascript://" @click="copyUrl"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;&nbsp;Copy profile link</a></li>
+						<li class="d-none d-xl-block d-lg-block">
+
+                         <a class='share-btn share-btn-mail' v-bind:href='shareEmail' rel='nofollow' target='_blank' title='via email'>
+
+                            <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Share via email</a></li>
+
+
+						<li class="d-none d-xl-block d-lg-block">
+                            <a class='share-btn share-btn-facebook' v-bind:href='shareFbLink' rel='nofollow' target='_blank'>
+
+                           <i class="fa fa-facebook"></i>&nbsp;&nbsp;Share via facebook</a></li>
+					</ul>
+
+
+          <div class="progressbar_section inline-list d-none d-xl-block d-lg-block">
+						<h3><span>Pledged of ${{ channel.targetFund }} goal</span></h3>
+						<br>
+						<div class="clearfix"></div>
+						<div class="list-inline">
+							<div class="progress pull-left">
+
+
+								<div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"><span>{{(channel.currentFund / channel.targetFund) * 100}}%</span></div>
+							</div>
+							<h3 class="pull-right"><span>$ {{ channel.currentFund }}</span></h3>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="cad_title d-none d-xl-block d-lg-block"> 
+						<h3>More<span> $ {{ channel.targetFund - channel.currentFund }} </span>to go</h3>
+					</div>
+					<br>
+					<p>Join your hand in reaching the goal</p>
+
+                              <vue-stripe-checkout
+            ref="checkoutRef"
+            :name="'Payment Details'"
+            description
+            currency="CAD"
+            :amount="donateAmount * 100"
+            :allow-remember-me="false"
+            @done="done"
+            @opened="opened"
+            @closed="closed"
+            @canceled="canceled"
+          ></vue-stripe-checkout>
+
+                    <div class=" card_section" v-for="(tier,index) in channel.tiers" v-bind:key="index">
+						<div class="list-inline tile_btn"> 
+							<h3 class="pull-left"><span>{{tier.tier}} - ${{tier.price}}</span></h3>
+							<button class="btn btn-donate-now pull-right" @click="checkout(tier.price, tier.tier)" :disabled="getIsExpired(video.expiry)">Donate now</button>
+							<div class="clearfix"></div>
+						</div>
+
+						<p>{{tier.description}}</p>
+					</div>
+
+
+				</div>
+
+
+
+      </div>
+    </div>
+  </div>
+
 </template>
+
+
 
 <script>
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import videoModule from "../store/videos/video";
-import { fireStore, auth, firebaseTimestamp } from "../firebase/init";
+import { fireStore,auth, firebaseTimestamp } from "../firebase/init";
 import utils from "../firebase/utils";
 import axios from "axios";
 import moment from "moment";
 
-export default {
+export default 
+{
   name: "CrowdFundingVideo",
   data: () => {
     return {
-      video: null,
-      channel: null,
+
+      showSubscribeButton: false,
+      showDonateText: false,
+      isViewTriggered: false,
+      subscribeProcessing: false,
+      donateAmount: 0,
+      tierName: "",
+      video: {},
+      channel: {},
       showDonateText: true,
       commentsList: [],
       channelVideosList: [],
@@ -162,7 +203,10 @@ export default {
       isUserLiked: false,
       isUserDisLiked: false,
       isNeutral: false,
-      prevWhat: -2
+      prevWhat: -2,
+      playerObj: null,
+      shareFbLink:'',
+      shareEmail:''
     };
   },
   components: {},
@@ -183,12 +227,31 @@ export default {
     // console.log("this is current player instance object", this.player);
   },
   created() {
+
+    // update share
+    this.shareFbLink="https://www.facebook.com/sharer/sharer.php?u="+window.location.href;
+    let body_msg="I have contributed to this event. url: "+window.location.href
+    this.shareEmail="mailto:?subject=Crowd Funding&amp;amp;body="+body_msg
+    // For testing
+    //this.$route.params.videoId="0MO1VqbYgzVutXHZD1dX"
+
+
+     // To detach the attached video play
+    var oldPlayer = document.getElementById('example_video_1');
+    
+    if(oldPlayer != null){
+      console.log("Old player",oldPlayer);
+      videojs(oldPlayer).dispose();
+    }
+
     this.registerStoreModule("videos", videoModule);
     this.$store
       .dispatch("videos/fetchVideo", {
         videoId: this.$route.params.videoId
       })
       .then(vData => {
+
+        console.log("Vdata",vData);
         axios
           .post(
             "https://us-central1-trenstop-2033f.cloudfunctions.net/videoWebHook",
@@ -202,18 +265,38 @@ export default {
             this.video = vData;
             this.playerOptions.poster = this.video.image;
 
+
+          // console.log("player options",this.playerOptions.sources[0].src)
+            let _vm=this
+
+             if(_vm.playerObj == null){
+                 _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
+                // Player (this) is initialized and ready.
+                // console.log("Videjs ininitialized",_vm.playerOptions.sources[0].src)
+
+
+                });
+
+             }
+
+
+
+            
+            let channel_id=this.video.channelID
+            //let channel_id="0MUWTvM4I15ykTLx0Fx8"
+        
             this.$store
               .dispatch("videos/fetchChannel", {
-                channelId: this.video.channelId
+                channelId: channel_id
               })
               .then(data => {
                 this.channel = data;
-                this.showDonateText = data.channelType != "VOD";
+                this.showDonateText = data.channelType == "VOD";
               });
 
             this.$store
               .dispatch("videos/getUserChannelVideos", {
-                channelId: this.video.channelId
+                channelId: channel_id
               })
               .then(videosList => {
                 this.channelVideosList = videosList;
@@ -227,8 +310,52 @@ export default {
 
         this.getComments();
       });
+
+        
   },
   methods: {
+     copyUrl(){
+        
+          var dummy = document.createElement('input'),
+          text = window.location.href;
+          document.body.appendChild(dummy);
+          dummy.value = text;
+          dummy.select();
+          document.execCommand('copy');
+          document.body.removeChild(dummy);
+          alert('Link copied please open whatsup and paste to send');    
+
+     },
+     getIsExpired(date) {
+      console.log(date);
+      if (date != null && date != undefined) {
+        console.log(true);
+        return moment(date.toDate()).diff(Date.now()) <= 0;
+      } else {
+        console.log(false);
+        return false;
+      }
+    },
+        async sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
+    async checkout(donate, tierName) {
+      this.donateAmount = donate;
+      this.tierName = tierName;
+      await this.sleep(1000);
+      // token - is the token object
+      // args - is an object containing the billing and shipping address if enabled
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
+      // if (auth.currentUser.uid == "8tofk8UcabOsu89X04bOaMwvH2C3") {
+      //   this.prepareSubscribe(this.donateAmount, "demo_token");
+      // } else {
+      const { token, args } = await this.$refs.checkoutRef.open();
+      // }
+    },
+ 
     async getLikes() {
       if (auth.currentUser == null) {
         return;
@@ -332,6 +459,74 @@ export default {
           // console.log("Transaction failed: ", error);
         });
     },
+    done({ token, args }) {
+      // token - is the token object
+      // args - is an object containing the billing and shipping address if enabled
+      // do stuff...
+
+      this.prepareSubscribe(this.donateAmount, this.tierName, token);
+    },
+    opened() {
+      // do stuff
+      console.log("opened");
+    },
+    closed() {
+      // do stuff
+      console.log("Closed");
+    },
+    canceled() {
+      // do stuff
+      console.log("Canceled");
+    },
+        async prepareSubscribe(donate, tierName, token) {
+      if (auth.currentUser == null) {
+        this.$router.push({ name: "Login" });
+        return;
+      }
+      let prepareOptions = {
+        channelId: this.video.channelId,
+        channelName: this.video.channelName,
+        userId: auth.currentUser.uid,
+        isDesktop: true,
+        redirectTo: "https://excluzeev.com/my-subscriptions",
+        isDonate: true,
+        token: token.id
+      };
+      this.subscribeProcessing = true;
+      if (this.showDonateText) {
+        prepareOptions.donate = donate;
+        prepareOptions.tierName = tierName;
+      }
+
+      axios
+        .post(
+          "https://us-central1-trenstop-2033f.cloudfunctions.net/chargeAmount",
+          prepareOptions
+        )
+        .then(response => {
+          if (response.data.error) {
+            this.subscribeProcessing = false;
+            this.showToast("Payment Failed Please try later.");
+
+            window.location =
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentCanceled?subId=" +
+              response.data.subId +
+              "&donate=true" +
+              "&redirect=https://excluzeev.com/";
+          } else {
+            window.location =
+              "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentSuccess?subId=" +
+              response.data.subId +
+              "&donate=true" +
+              "&redirect=https://excluzeev.com/my-channels";
+          }
+        })
+        .catch(error => {
+          this.subscribeProcessing = false;
+          // console.log(error);
+        });
+    },
+
     onPlayerTimeupdate() {
       if (
         this.$refs.videoPlayer.player.currentTime() > 5 &&
@@ -398,8 +593,8 @@ export default {
         return;
       }
       let prepareOptions = {
-        channelId: this.trailer.channelId,
-        channelName: this.trailer.channelName,
+        channelId: this.video.channelId,
+        channelName: this.video.channelName,
         userId: auth.currentUser.uid,
         isDesktop: true,
         redirectTo: "https://excluzeev.com/my-channels",
@@ -434,4 +629,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+
+
+
+<style scoped>
+
+</style>

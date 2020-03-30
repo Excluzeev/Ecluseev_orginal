@@ -67,8 +67,7 @@
 
                                     <div class="btn-group" v-if="!showSubscribeButton">
  
-										<button  type="button" class="btn btn-per-month d-none d-xl-block d-lg-block" ata-toggle="modal" data-target="#joinCommunityModal"><span v-if="channel">${{ channel.price }} </span> per month</button>
-										<button type="button" class="btn btn-join-community d-none d-xl-block d-lg-block" data-toggle="modal" data-target="#joinCommunityModal">Unsubscribe</button>
+										<span v-if="channel">${{ channel.price }} </span>/Month
                                     </div>
 
 								</div>

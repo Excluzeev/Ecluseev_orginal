@@ -98,7 +98,7 @@
                                </li>
                                	<li v-if="hideSignUpContentCreator" class="dropdown-item" type="button">
 
-                                     <router-link  :to="{ name: 'Crowd' }">
+                                     <router-link  :to="{ name: 'MyCrowdFundings' }">
                                       My crowd funding
                                      </router-link>
                                </li>

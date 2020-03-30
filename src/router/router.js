@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Previews from "../views/Previews.vue";
-import SignUpCC from "../views/SignUpCC.vue";
 import CreateChannel from "../views/CreateChannel.vue";
 import MyChannels from "../views/MyChannels.vue";
 import Communities from "../views/Communities.vue";
@@ -21,12 +20,17 @@ import store from "../store/index";
 import AddVideo from "../views/AddVideo";
 import MySubscriptions from "../views/MySubscriptions";
 import SubscribedChannelDetails from "../views/SubscribedChannelDetails";
+
+import ChannelDetails from "../views/ChannelDetails";
+
+
 import VideoDetail from "../views/VideoDetail";
 import AddLive from "../views/AddLive";
 import LiveDetail from "../views/LiveDetail";
 
 import Meta from "vue-meta";
-import DCrowd from "../views/MyCrowdFundings";
+import CrowdFundings from "../views/MyCrowdFundings";
+
 import MyEarnings from "../views/MyEarnings";
 import MyProfile from "../views/MyProfile";
 import Settings from "../views/Settings"; 
@@ -166,16 +170,6 @@ const router = new VueRouter({
         noEntry: false,
         showNav: false,
         title: "Excluzeev Reset Password"
-      }
-    },
-    {
-      path: "/sign-up-cc",
-      name: "SignUpCC",
-      component: SignUpCC,
-      meta: {
-        noEntry: true,
-        showNav: true,
-        title: "Sign up as content creator"
       }
     },
     {
@@ -327,10 +321,26 @@ const router = new VueRouter({
         ...route.params
       })
     },
+
     {
-      path: "/crowd",
-      name: "Crowd",
-      component: DCrowd,
+      path: "/crowd-funding-channel/:channelId",
+      name: "ChannelDetails",
+      component: ChannelDetails,
+      meta: {
+        noEntry: true,
+        showNav: true,
+        title: "Channels Details"
+      },
+      props: route => ({
+        ...route.params
+      })
+    },
+
+
+    {
+      path: "/my-crowd-fundings",
+      name: "MyCrowdFundings",
+      component: CrowdFundings,
       meta: {
         noEntry: false,
         showNav: true,

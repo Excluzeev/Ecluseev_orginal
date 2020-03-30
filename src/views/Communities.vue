@@ -124,15 +124,15 @@
 				</div>
 			</div>
 
-      <div v-if="subscriptionsList.length <= 0" class="row text-xs-center">
+            <div v-if="subscriptionsList.length <= 0" class="row text-xs-center">
 				<div class=" offset-1  col-10 text-center">
 
-        <p>Join the communities to see them here</p>
+                    <p>Join the communities to see them here</p>
 				</div>
-      </div>
+            </div>
 
 
-      <div class="row ">
+            <div class="row ">
 				<div class="col-xl-12 text-center">
 					<button class="btn btn-view-all">View all</button>
 				</div>
@@ -145,6 +145,70 @@
 
 
 		</div>
+
+
+			<div class="row ">
+				<div class="col-xl-12 col-xs-12 col-sm-12 col-lg-12 col-md-12">
+					<h5>Crowd Fundings</h5>
+				</div>
+			</div>
+
+			<div class="row ">
+				
+        
+        <div class="col-xl-4 col-lg-6"  v-for="channel in crowdFundingchannels" v-bind:key="channel.channelId">
+					<div class="my_community_section inline">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="community_circle_image text-center">
+                  <img :src="channel.image" alt="avatar" class="rounded-circle img-fluid" v-if="!channel.isDeleted">
+                  <div v-if="channel.isDeleted" class="red">
+                    <div
+                      v-if="channel.isDeleted"
+                      class="white--text"
+                    >Deletes in {{ getExpiry(channel.deleteOn) }} days</div>
+                  </div>
+
+									<!-- <img src="../assets/Images/commu_image.png" class="rounded-circle img-fluid"> -->
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8">
+								<div class="">
+									<h5>{{ channel.title }}</h5>
+									<p>{{ channel.description }}</p>
+									<p>{{ channel.categoryName }}</p>
+                                    <p class="subscribers-count">{{ channel.views }} views</p>
+
+									<div class="inline-list">
+                                    <router-link
+                                      class="btn btn-manage pull-left"
+                                      :to="{
+                                        name: 'ChannelDetails',
+                                        params: { channelId: channel.channelId }
+                                      }"
+                                    >
+                                    View
+                                    </router-link>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+
+      <!--  -->
+
+      <div class="row ">
+				<div class="col-xl-12 text-center">
+					<button class="btn btn-view-all">View all</button>
+				</div>
+			</div>
+
+
 
     <v-layout row justify-center>
       <v-dialog v-model="deleteDialog" persistent max-width="320">
@@ -189,6 +253,7 @@ export default {
       subscriptionsList: [],
       deleteDialog:false,
       channel:null,
+      crowdFundingchannels:[],
     };
   },
   mixins: [RegisterStoreModule],
@@ -249,6 +314,12 @@ export default {
         force: true
       });
     }
+
+     this.$store.dispatch("channels/getCrowdFundingChannels").then(data => {
+          this.crowdFundingchannels = data;
+        });
+
+
     this.$store.dispatch("channels/getChannels").then(data => {
       this.channelsList = data;
     });

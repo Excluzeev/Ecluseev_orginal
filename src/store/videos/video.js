@@ -53,6 +53,44 @@ export default {
 
         resolve(videosList);
       });
-    }
+    },
+
+
+    getUserCrowdFundingChannels: ({ state }) => {
+      let userId = auth.currentUser.uid;
+      return new Promise(async resolve => {
+        let videosList = [];
+        let videosRef = fireStore
+            .collection(collections.channelsCollection)
+            .where("userId", "==", userId)
+            .where("categoryName", "==", "Call-to-Action")
+            
+        let videosQuerySnapshot = await videosRef.get();
+        videosQuerySnapshot.forEach(snapshot => {
+          videosList.push(utils.extractVideoData(snapshot));
+        });
+
+        resolve(videosList);
+      });
+    },
+    getUserCrowdFundingVideos: ({ state }) => {
+      let userId = auth.currentUser.uid;
+      return new Promise(async resolve => {
+        let videosList = [];
+        let videosRef = fireStore
+            .collection(collections.videosCollection)
+            .where("userId", "==", userId)
+            .where("categoryName", "==", "Call-to-Action")
+            
+        let videosQuerySnapshot = await videosRef.get();
+        videosQuerySnapshot.forEach(snapshot => {
+          videosList.push(utils.extractVideoData(snapshot));
+        });
+
+        resolve(videosList);
+      });
+    },
+        
+
   }
 };

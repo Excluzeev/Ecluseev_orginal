@@ -1,0 +1,13 @@
+Get balance
+
+    curl https://api.stripe.com/v1/balance  -u sk_live_ZgtcfZiN8x5AKZoLjNmoI10S00BIEktmru:     -G
+
+
+Get charges transactions
+
+
+    curl https://api.stripe.com/v1/charges   -u sk_live_TuTLy0SIuxO03X2CU8U0j0FZ00E4x0416R:   -d limit=3   -G
+
+Get payouts transactions
+
+    curl https://api.stripe.com/v1/payouts   -u sk_live_TuTLy0SIuxO03X2CU8U0j0FZ00E4x0416R:   -d limit=3   -G

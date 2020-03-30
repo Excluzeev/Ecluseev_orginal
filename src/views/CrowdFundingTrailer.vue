@@ -1,73 +1,125 @@
 <template>
-  <div>
-    <v-layout>
-      <vue-headful
-        :title="trailer.title"
-        :description="trailer.description"
-        :image="trailer.image"
-        :url="'https://excluzeev.com' + this.$route.path"
-      />
-      <v-layout class="main-holder" xs12 wrap v-if="videoLoaded">
-        <v-flex xs12 sm12 md8 lg8 class="video-holder padding">
-          <div v-show="!playerOptions.sources[0].src.isEmpty">
-            <video-player
-              class="video-holder vjs-big-play-centered"
-              width="100%"
-              height="auto"
-              id="player_id"
-              ref="videoPlayer"
-              :options="playerOptions"
-              @ready="playerIsReady"
-              @timeupdate="onPlayerTimeupdate($event)"
-            ></video-player>
+
+    <div id="croud_funding_page">
+		<div class="container-fluid">
+			<div class="row d-none d-xl-block d-lg-block">
+				<div class="col-12">
+					<div class="inline-list">
+						<br>
+						<a href="#">Communities</a><i class="fa fa-angle-right"></i><a href="#" v-if="trailer">{{ trailer.channelName }}</a><i class="fa fa-angle-right"></i><a href="#">Crowd Funding</a>
+						<br><br>
+					</div>
+				</div>
+			</div>
+
+
+      <div class="row">
+				<div class="col-xl-6">
+          <div class="watch_vedio_section">
+
+
+                        <div v-show="!playerOptions.sources[0].src.isEmpty">
+
+                            <video id="example_video_1" class="video-js"
+                              controls preload="auto" width="640" height="264"
+                              data-setup='{"example_option":true}'>
+                            </video>
+
+                        </div>
+						<h2 v-if="trailer">
+                            {{ trailer.title }}
+                        </h2>
+
+						<p v-if="trailer">
+                            {{ trailer.description }}
+						</p>
+
+                    <div class="chat_section">
+							<h3><span>Comments</span></h3>
+
+                            <div  v-if="commentsList.length > 0">
+                                        <div class="user_comment_section d-flex" v-for="comment in commentsList" v-bind:key="comment.commentId">
+                        <!--
+                                            <img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
+    -->
+                                            <div class="user_name_comment">
+                                                <ul class="list-unstyled">
+                                                    <li class="list-inline">
+                                                        <h3 class="pull-left">{{ comment.userName }}</h3>
+                                                        <div class="posted_time pull-right"><p>{{ comment.timeAgo }}</p></div>
+                                                        <div class="clearfix"></div>
+                                                    </li>
+                                                    <li><p>{{ comment.comment }}</p></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    
+                            </div>
+
+                             <v-flex v-else text-xs-center>
+                                <div class="nocomment">
+                                  <p>No comments yet, be the first</p>
+                                </div>
+                              </v-flex>
+
+                            
+                        </div>
+
+            				<div class="chat_messege_section">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<button class="btn btn-user-img" type="button"><img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle " style="width: 25px;height: 25px;" ></button>
+								</div>
+								<input v-model="commentText" type="text" class="form-control" placeholder="Type to comment" id="messageInput" aria-label="" aria-describedby="basic-addon1">
+								<div class="input-group-append">
+									<button :disabled="disabelComment" class="btn btn-send" type="button" @click="doComment">Send</button>
+								</div>
+							</div>
+						</div>
+
           </div>
-          <v-layout class="padding" align-center justify-left row fill-height>
-            <v-layout class="padding" align-left justify-left column fill-height>
-              <div class="title-details--text max-1-lines quick-sand-font-b">{{ trailer.title }}</div>
-              <div class="desc-details--text">{{ trailer.views }} views</div>
-              <div v-show="getIsExpired(trailer.expiry)" class="red--text">Expired</div>
-            </v-layout>
-            <v-spacer></v-spacer>
-            <a>
-              <div v-ripple class="like-holder" @click="updateWhat('like')">
-                <v-icon v-bind:class="{ active: isUserLiked }">thumb_up</v-icon>
-              </div>
-            </a>
-            <a>
-              <div v-ripple class="like-holder" @click="updateWhat('neutral')">
-                <v-icon v-bind:class="{ active: isNeutral }">sentiment_dissatisfied</v-icon>
-              </div>
-            </a>
-            <a>
-              <div v-ripple class="like-holder" @click="updateWhat('dislike')">
-                <v-icon v-bind:class="{ active: isUserDisLiked }">thumb_down</v-icon>
-              </div>
-            </a>
-          </v-layout>
-          <v-divider></v-divider>
 
-          <!-- <v-layout class="padding" justify-left fill-height>
-            <div class="padding">
-              <img class="channel-image square" :src="trailer != null ? trailer.channelImage : ''">
-            </div>
-            <v-flex class="padding">
-              <v-layout align-center justify-left row>
-                <v-layout align-left justify-left column fill-height>
-                  <h2 class="quick-sand-font-b">{{ trailer.channelName }}</h2>
-                  <span class="published--text">Published {{ trailer.timeAgo }}</span>
-                </v-layout>
-                <v-spacer></v-spacer>
-              </v-layout>
-              <div class="detail-description">
-                <div>{{ trailer.description }}</div>
-              </div>
-            </v-flex>
-          </v-layout>-->
 
-          <!-- Sub -->
-          <!--Subscribe and Donate Buttons-->
+        </div>
+        <div class="col-xl-6">
+					
+          <ul class="list-unstyled list-inline d-flex share_links d-none d-xl-block d-lg-block">
+						<li class="d-none d-xl-block d-lg-block"><a href="javascript://" @click="copyUrl"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;&nbsp;Copy profile link</a></li>
+						<li class="d-none d-xl-block d-lg-block">
 
-          <vue-stripe-checkout
+                         <a class='share-btn share-btn-mail' v-bind:href='shareEmail' rel='nofollow' target='_blank' title='via email'>
+
+                            <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;Share via email</a></li>
+
+
+						<li class="d-none d-xl-block d-lg-block">
+                            <a class='share-btn share-btn-facebook' v-bind:href='shareFbLink' rel='nofollow' target='_blank'>
+
+                           <i class="fa fa-facebook"></i>&nbsp;&nbsp;Share via facebook</a></li>
+					</ul>
+
+
+          <div class="progressbar_section inline-list d-none d-xl-block d-lg-block">
+						<h3><span>Pledged of ${{ channel.targetFund }} goal</span></h3>
+						<br>
+						<div class="clearfix"></div>
+						<div class="list-inline">
+							<div class="progress pull-left">
+
+
+								<div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"><span>{{(channel.currentFund / channel.targetFund) * 100}}%</span></div>
+							</div>
+							<h3 class="pull-right"><span>$ {{ channel.currentFund }}</span></h3>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="cad_title d-none d-xl-block d-lg-block"> 
+						<h3>More<span> $ {{ channel.targetFund - channel.currentFund }} </span>to go</h3>
+					</div>
+					<br>
+					<p>Join your hand in reaching the goal</p>
+
+                              <vue-stripe-checkout
             ref="checkoutRef"
             :name="'Payment Details'"
             description
@@ -80,123 +132,28 @@
             @canceled="canceled"
           ></vue-stripe-checkout>
 
-          <v-divider></v-divider>
+                    <div class=" card_section" v-for="(tier,index) in channel.tiers" v-bind:key="index">
+						<div class="list-inline tile_btn"> 
+							<h3 class="pull-left"><span>{{tier.tier}} - ${{tier.price}}</span></h3>
+							<button class="btn btn-donate-now pull-right" @click="checkout(tier.price, tier.tier)" :disabled="getIsExpired(trailer.expiry)">Donate now</button>
+							<div class="clearfix"></div>
+						</div>
 
-          <!-- Linear Progressbar -->
-          <v-progress-linear
-            color="teal"
-            height="15"
-            :value="(this.channel.currentFund / parseInt(this.channel.targetFund)) * 100"
-          ></v-progress-linear>
+						<p>{{tier.description}}</p>
+					</div>
 
-          <v-layout class="padding">
-            <v-flex>
-              <div align="left">
-                <div
-                  style="font-size:1.4rem;"
-                  class="flex display-1 font-weight-normal teal--text darken-2"
-                >CAD$ {{ channel.currentFund }}</div>
-                <p class="sub-text">pledged of CAD$ {{ channel.targetFund }} goal</p>
-              </div>
-            </v-flex>
-            <v-spacer></v-spacer>
-            <div>
-              <div
-                style="font-size:1.4rem;"
-                class="flex display-1 font-weight-normal teal--text darken-2"
-              >{{ channel.subscriberCount }}</div>
-              <!-- <p
-                class="nav-c flex d-flex align-start display-1 font-weight-thin"
-              >{{ channel.subscriberCount }}</p>-->
-              <p class="sub-text">contributors</p>
-            </div>
-          </v-layout>
 
-          <!--Comments Section-->
-          <div class="comment-holder padding">
-            <div v-if="showComments">
-              <v-textarea solo label="Add a comment" rows="1" auto-grow v-model="commentText"></v-textarea>
-              <v-layout>
-                <v-spacer></v-spacer>
-                <v-btn
-                  class="white--text quick-sand-font-b"
-                  color="blue lighten-1"
-                  :disabled="disabelComment"
-                  @click="doComment"
-                >Comment</v-btn>
-              </v-layout>
-            </div>
-            <div v-if="!showComments">
-              <div class="logincomment text-xs-center">
-                <p>
-                  Please
-                  <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">sign in</router-link>to comment
-                </p>
-              </div>
-            </div>
-            <v-flex class="padding" v-if="commentsList.length > 0">
-              <div class="comment" v-for="comment in commentsList" v-bind:key="comment.commentId">
-                <h4>{{ comment.userName }}</h4>
-                <div>{{ comment.comment }}</div>
-                <p class="grey--text">{{ comment.timeAgo }}</p>
-              </div>
-            </v-flex>
-            <v-flex v-else text-xs-center>
-              <div class="nocomment">
-                <p>No comments yet, be the first</p>
-              </div>
-            </v-flex>
-          </div>
-        </v-flex>
-        <v-flex xs12 sm12 md4 lg4 class="linked-trailers">
-          <div style="width: 100%;">
-            <!-- <h2 class="quick-sand-font-n" style="padding-top: 5px;">Related Trailers</h2>
-          <TrailerDetailVideoItem
-            v-for="trailer in catTrailersList"
-            v-bind:key="trailer.trailerId"
-            :trailer="trailer"
-            />-->
-            <h2 class="quick-sand-font-n" style="padding-top: 5px;">Donate</h2>
+				</div>
 
-            <div xs12 row wrap v-if="channel != null">
-              <v-expansion-panel
-                class="margin"
-                popout
-                xs12
-                v-for="(tier,index) in channel.tiers"
-                v-bind:key="index"
-              >
-                <v-expansion-panel-content>
-                  <template v-slot:header class="card-shadow">
-                    <div class="headline">Join {{tier.tier}}</div>
-                  </template>
-                  <v-card color class>
-                    <v-card-title primary-title>
-                      <div>
-                        <span>{{tier.description}}</span>
-                      </div>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-btn
-                        :disabled="getIsExpired(trailer.expiry)"
-                        block
-                        class="quick-sand-font-b white--text"
-                        color="teal"
-                        @click="checkout(tier.price, tier.tier)"
-                      >{{tier.tier}} - {{tier.price}}$</v-btn>
-                    </v-card-text>
-                  </v-card>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </div>
-          </div>
-        </v-flex>
-      </v-layout>
-      <v-container v-else style="padding: 20px;">
-        <p class="text-xs-center" style="font-size: 20px;">Now Loading..</p>
-      </v-container>
-    </v-layout>
+
+
+      </div>
+    </div>
   </div>
+
+  
+
+  
 </template>
 
 <script>
@@ -212,8 +169,8 @@ export default {
   name: "CrowdFundingTrailer",
   data: () => {
     return {
-      trailer: null,
-      channel: null,
+      trailer: {},
+      channel: {},
       videoLoaded: false,
       catTrailersList: null,
       showSubscribeButton: false,
@@ -249,7 +206,9 @@ export default {
       isUserLiked: false,
       isUserDisLiked: false,
       isNeutral: false,
-      prevWhat: -2
+      prevWhat: -2,
+      shareFbLink:'',
+      shareEmail:''
     };
   },
   components: {
@@ -274,6 +233,22 @@ export default {
     // );
   },
   created() {
+
+       // update share
+    this.shareFbLink="https://www.facebook.com/sharer/sharer.php?u="+window.location.href;
+    let body_msg="I have contributed to this event. url: "+window.location.href
+    this.shareEmail="mailto:?subject=Crowd Funding&amp;amp;body="+body_msg
+
+         // To detach the attached video play
+    var oldPlayer = document.getElementById('example_video_1');
+
+    if(oldPlayer != null){
+      console.log("Old player",oldPlayer);
+      videojs(oldPlayer).dispose();
+    }
+
+
+
     this.registerStoreModule("trailers", trailerModule);
     this.$store
       .dispatch("trailers/fetchTrailer", {
@@ -301,6 +276,27 @@ export default {
 
         this.playerOptions.sources[0].src = this.trailer.videoUrl;
         this.playerOptions.poster = this.trailer.image;
+
+
+
+          // console.log("player options",this.playerOptions.sources[0].src)
+            let _vm=this
+
+             if(_vm.playerObj == null){
+                 _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
+                // Player (this) is initialized and ready.
+                // console.log("Videjs ininitialized",_vm.playerOptions.sources[0].src)
+
+
+                });
+
+             }
+
+
+
+
+
+
         let fUser = localStorage.getItem("fUser");
         let user = null;
         if (data != null) {
@@ -329,6 +325,18 @@ export default {
       });
   },
   methods: {
+     copyUrl(){
+          var dummy = document.createElement('input'),
+          text = window.location.href;
+          document.body.appendChild(dummy);
+          dummy.value = text;
+          dummy.select();
+          document.execCommand('copy');
+          document.body.removeChild(dummy);
+          alert('Link copied please open whatsup and paste to send');
+
+     },
+    
     getIsExpired(date) {
       console.log(date);
       if (date != null && date != undefined) {

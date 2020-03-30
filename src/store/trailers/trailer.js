@@ -1,4 +1,5 @@
 import {
+  auth,
   fireStore
 } from "../../firebase/init";
 import collections from "../../firebase/utils";
@@ -72,6 +73,36 @@ export default {
           });
       });
     },
+
+    getUserCrowdFundingTrailers: ({
+      state,
+      commit
+    }) => {
+      return new Promise((resolve, reject) => {
+
+        let userId = auth.currentUser.uid;
+        console.log("Fetch crowdfund trailors",userId)
+        fireStore
+          .collection(collections.trailerCollection)
+          //.where("userId", "==", userId)              //FIXME
+          .where("categoryName", "==", "Call-to-Action") 
+          .orderBy("createdDate", "desc")
+          .get()
+          .then(querySnapshot => {
+            let trailers = [];
+            querySnapshot.forEach(doc => {
+
+
+             
+              trailers.push(utils.extractTrailerData(doc));
+            });
+            resolve(trailers);
+          });
+      });
+    },
+
+
+
     fetchCategoryTrailersTop10: ({
       state,
       commit
