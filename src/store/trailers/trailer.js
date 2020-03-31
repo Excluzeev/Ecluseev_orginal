@@ -84,7 +84,7 @@ export default {
         console.log("Fetch crowdfund trailors",userId)
         fireStore
           .collection(collections.trailerCollection)
-          //.where("userId", "==", userId)              //FIXME
+          .where("userId", "==", userId)            
           .where("categoryName", "==", "Call-to-Action") 
           .orderBy("createdDate", "desc")
           .get()

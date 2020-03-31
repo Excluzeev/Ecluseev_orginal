@@ -59,7 +59,6 @@ Vue.component(
 
 
 
-
   Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
   .then(() => {
     console.log("recaptcha loaded");

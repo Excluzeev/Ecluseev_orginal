@@ -67,7 +67,6 @@
 						
           
                
-
             <li  v-if="!hideSignUpContentCreator&!showLogin" class="nav-item d-none d-lg-block d-lg-block">
 
               	<button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#becomeCCModal">
@@ -91,7 +90,7 @@
 						</li> 
 
             <!-- For testing -->
-            <!--
+            <!-- 
             <li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
 							<button @click="goLoginLive" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
 								<img src="../assets/Images/live.png"> Excluzeev Live
@@ -103,14 +102,14 @@
 						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
 							<button @click="goToCommunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
 						</li>
-                -->
-            
+               
+            -->
 						<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
 							<img src="../assets/Images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
 							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
 
 
-								<li class="dropdown-item" type="button" v-if="userData"><a href="#">{{userData.displayName}}</a> </li>
+								<li class="dropdown-item" type="button" v-if="userData"><a href="#">{{userName}}</a> </li>
 
                          		<li class="dropdown-item" type="button">
 
@@ -216,6 +215,10 @@ export default {
   computed: {
     showLogin() {
       this.userData=store.getters.getUser;
+      let fuserData=store.getters.getFUser;
+      if(fuserData)
+        this.userName=fuserData.firstName+" "+fuserData.lastName
+
       return store.getters.getUser == null;
     },
     hideSignUpContentCreator() {
@@ -232,7 +235,7 @@ export default {
       componentDialogt: null,
       sideNav: false,
       userData: store.getters.getUser,
-
+      userName:"",
     };
   },
   methods: {

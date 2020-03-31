@@ -315,14 +315,14 @@ export default {
       });
     }
 
-     this.$store.dispatch("channels/getCrowdFundingChannels").then(data => {
+        this.$store.dispatch("channels/getCrowdFundingChannels").then(data => {
           this.crowdFundingchannels = data;
         });
 
 
-    this.$store.dispatch("channels/getChannels").then(data => {
-      this.channelsList = data;
-    });
+        this.$store.dispatch("channels/getChannels").then(data => {
+          this.channelsList = data;
+        });
 
         if (this.$route.query.done) {
       await this.$store.commit("forceFetchUser", {
