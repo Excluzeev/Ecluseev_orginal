@@ -9,6 +9,7 @@ export default {
   getters: {},
   mutations: {},
   actions: {
+    
 
     getTotalEarnings: ({ state },{channelId}) => {
       return new Promise(async resolve => {

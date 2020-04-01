@@ -2,6 +2,8 @@
 	<div id="my_ernings_page">
 
 		<div class="container-fluid">
+
+            
 			<div class="row">
 				<div class="col-xl-12 ">
 					<div class="list-inline my_ernings_title_section d-xl-none d-none d-lg-block d-xl-block">
@@ -18,20 +20,17 @@
                             </div>
 						</div>
 						<div class="pull-right total_erning_section">
-							<h3><span>Total earnings $ {{overallEarning}}</span></h3>
+							<h3><span>Total earnings </span><span style="color:green;">$ {{overallEarning}}</span></h3>
 
-                            <button type="button" class="btn btn-withdraw-amount" data-toggle="modal" data-target="#withdrawAmountModal">
-                                Withdraw amount
-                            </button>
 						</div>
 						<div class="clearfix"></div>
 					</div>	
 				</div>
 			</div>
 			<div class="row">
-
+            
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-               
+                 
                 </div> 
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tab_content_panel">
 					<div class="tab-content " id="v-pills-tabContent">
@@ -74,7 +73,71 @@
 					</div>
 				</div>
 			</div>
-			
+
+
+			<div class="row">
+				<div class="col-xl-12 ">
+					<div class="list-inline my_ernings_title_section d-xl-none d-none d-lg-block d-xl-block">
+						<div class="pull-left">
+                            <h3 class="s-balance">
+							Stripe Account Balance : <span style="color:green"> {{stripeAccountBalance}} {{stripeAccountBalanceCurrency}}</span>
+                            </h3>
+						</div>
+						<div class="pull-right total_erning_section">
+
+                            <button type="button" class="btn btn-withdraw-amount" data-toggle="modal" data-target="#withdrawAmountModal">
+                                Withdraw amount
+                            </button>
+						</div>
+						<div class="clearfix"></div>
+					</div>	
+				</div>
+			</div>
+			<div class="row">
+            
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                 
+                </div> 
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tab_content_panel">
+					<div class="tab-content " id="v-pills-tabContent">
+						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+							<div class="pull-right table_price d-xl-none d-none d-lg-block d-xl-block">
+							</div>
+							<table class="table table-borderless" id="dataTable">
+								<thead>
+									<tr>
+										<th scope="col"><h3><span>Date</span></h3></th>
+										<th scope="col"><h3><span>Amount</span></h3></th>
+										<th scope="col"><h3><span>Description</span></h3></th>
+										<th scope="col"><h3><span>Status</span></h3></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="payout in payouts">
+										<td v-text="payout.arrival_date"></td>
+										<td > {{payout.amount}} {{payout.currency}}</td>
+										<td v-text="payout.description">
+
+                                        </td>
+										<td v-text="payout.status"></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center">
+								<button class="btn btn-load-more" @click="loadMore">Load more</button>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+						<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+						
+					</div>
+				</div>
+			</div>
+
+            		
+
+
+	
 		</div>
 
         <!-- The Modal -->
@@ -144,6 +207,10 @@ import axios from "axios";
           selChannelId:"",
           currentLimit: 5,  
           overallEarning: 0,
+          charges:[],
+          payouts:[],
+          stripeAccountBalance:0,
+          stripeAccountBalanceCurrency:"",
         };
       },
 
@@ -239,6 +306,8 @@ import axios from "axios";
             }
   
         });
+
+
         
       let prepareOptions = {
         stripeId: this.userData.stripeId 
@@ -251,10 +320,18 @@ import axios from "axios";
         )
         .then(response => {
           if (response.data.error) {
-            console.log("Error",response.data)
+               alert("Something went wrong!")
           } else {
-
             console.log("response",response.data)
+            let respData=response.data
+
+            this.stripeAccountBalance=respData.balanceObj.available[0].amount
+            this.stripeAccountBalanceCurrency=respData.balanceObj.available[0].currency
+            
+            this.charges=respData.charges.data
+            this.payouts=respData.payouts.data
+              
+            
           }
         })
         .catch(error => {
@@ -279,5 +356,8 @@ import axios from "axios";
     }
     .tab-content{
         border-radius:22px 22px 22px 22px;
+    }
+    .s-balance{
+        color:#666;
     }
 </style>
