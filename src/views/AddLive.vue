@@ -4,12 +4,19 @@
     <div class="container-fluid" v-if="showAddLive" >
 
         <div class="row">
-          <div class="col-xl-12">
+          <div class="col-xl-8">
             <div class="create_community_page_title_section">
               <h2>Create an Excluzeev Live</h2>
               <p>Start Excluzeev live!</p>
             </div>
           </div>
+        
+           <div class="col-xl-4">
+
+                <a class="pull-right btn btn-publish-video btn-need-help" href="/howto" title="Don't you know how to start excluzeev live?? click this button.">
+                Need help  <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </a>
+           </div>
         </div>
    
 
@@ -173,10 +180,25 @@
                         <div class="col-xl-6">
                             <div class="create_form_section">
 
-                                  <div class="form-row">
-                                      <div class="form-group col-md-12">
+                                  <div class="form-group  mb-3 mt-3 col-md-12">
+
                                           <label for="name">Stream URL</label>
-                                          <input value="rtmp://live.mux.com/app/" @click:append="copyStreamData('streamUrl')" type="text" class="form-control" id="streamUrl" placeholder="Strem URL">
+                                  </div>
+
+                                  <div class="form-row">
+                                      <div class="input-group-append col-md-12">
+
+
+                                          <input value="rtmp://live.mux.com/app/" type="text" class="form-control" id="streamUrl" placeholder="Strem URL">
+
+
+                                          <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2" @click="copyStreamData('streamUrl')">
+                                                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                                </span>
+                                          </div>
+
+
                                     </div>
                                  </div>
                             </div>
@@ -187,13 +209,27 @@
 
 
                     <div class="row">
-                        <div class="col-xl-6">
+                        <div class="col-xl-6 mb-3">
                             <div class="create_form_section">
 
-                                  <div class="form-row">
-                                      <div class="form-group col-md-12">
-                                          <label for="name">Stream Key</i></label>
-                                          <input :value="streamKey" @click="showKey = !showKey" :type="showKey ? 'text' : 'password'" class="form-control" id="streamKey" placeholder="Strem key">
+                                  <div class="form-group mb-3 mt-3 col-md-12">
+                                   <label for="name">Stream Key</i></label>
+                                  </div>
+                                   <div class="form-row">
+                                      <div class="input-group-append col-md-12">
+                                          <input :append-icon="showKey ? 'visibility' : 'visibility_off'" :value="streamKey" :type="showKey ? 'text' : 'password'" class="form-control" id="streamKey" placeholder="Strem key">
+
+
+                                          <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2" @click="showKey = !showKey">
+
+                                                  <i v-if="showKey" data-v-af25453a="" aria-hidden="true" class="fa fa-eye"></i>  
+                                                    
+                                                  <i v-else class="fa fa-eye-slash" aria-hidden="true"></i>
+                                                </span>
+                                          </div>
+
+
                                     </div>
                                  </div>
                             </div>
@@ -541,6 +577,7 @@ export default {
       }
 
       // For testing
+      //videoId="0MLBvswptlrIIyCnJfmf"
       //this.$router.replace("/live/" + videoId);
       //return
 
@@ -630,6 +667,8 @@ export default {
               this.$router.replace("/live/" + this.videoId);
             } else {
               this.showToast("Please start your stream");
+
+              this.$router.replace("/live/" + this.videoId);
             }
           }
           this.checkingStream = false;
@@ -667,5 +706,13 @@ video {
     padding-top: 5px;
 
 }
-
+.form-control{
+    margin-top: 0 !important;
+}
+.input-group-text{
+    cursor:pointer;
+}
+.btn-need-help{
+    padding:5px;
+}
 </style>

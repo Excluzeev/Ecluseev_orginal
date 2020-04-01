@@ -52,7 +52,7 @@
           </div>
           <input type="text" v-model="message" class="form-control" placeholder="Type to comment" id="messageInput" aria-label="" aria-describedby="basic-addon1">
           <div class="input-group-append">
-            <button class="btn btn-send" type="button">Send</button>
+            <button class="btn btn-send" type="submit">Send</button>
           </div>
         </div>
       
@@ -107,9 +107,10 @@ export default {
   },
   methods: {
     async postMessage() {
+      console.log("Chat messge send clicked")
       let msg = this.message;
       let chatId = utils.generateId();
-
+      console.log("VideoId",this.videoId)
       let chatRef = fireStore
         .collection("videos")
         .doc(this.videoId)

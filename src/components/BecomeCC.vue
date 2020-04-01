@@ -154,17 +154,17 @@ export default {
       this.processing = true;
 
       // FIXME it should be configurable from admin page
+
       // change those to live
-      // let connect_client_id="ca_F90HyKuBsdziUICmQ5bW9gSQCY9lMmaY"
-
-      // window.location = "https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write"
+      let connect_client_id="ca_F90HyKuBsdziUICmQ5bW9gSQCY9lMmaY"
+      window.location = "https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write"
       
-      //  window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write");
+      //window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write");
 
-      //Test client id
-      let connect_client_id="ca_GzADHaaSfUXPGBeRcNzqOS5eHZFoCiQd"
-      // To open in new window
-      window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write");
+      //Test dev client id
+      //let connect_client_id="ca_GzADHaaSfUXPGBeRcNzqOS5eHZFoCiQd"
+      //To open in new window
+      //window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write");
 
 
       // this.$store

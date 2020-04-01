@@ -9,8 +9,7 @@
               <div v-show="!playerOptions.sources[0].src.isEmpty">
 
                 <video id="example_video_1" class="video-js"
-                  controls preload="auto" width="640" height="264"
-                  data-setup='{"example_option":true}'>
+                  controls preload="auto" width="640" height="264">
                 </video>
 
                 <!-- <video
@@ -50,11 +49,7 @@
               <h2 class="d-none d-md-none d-sm-none d-lg-block d-xl-block" v-if="trailer">{{ trailer.title }}</h2>
 							<div class="list-inline video_content">
 								<div class="list-inline d-flex pull-left">
-									<img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle"  style="width: 46px;height: 46px;">
-                   <!-- <img 
-                    class="rounded-circle"
-                    :src="trailer != null ? trailer.channelImage : ''"
-                  /> -->
+									<img :src="trailer != null ? trailer.channelImage : ''" class="rounded-circle"  style="width: 46px;height: 46px;">
 									<h5><span v-if="trailer">{{ trailer.channelName }}</span><br><span class="sub_title d-block  d-sm-block d-xl-none d-lg-none">Artist/Band/Vlog</span></h5>
 								</div>
 

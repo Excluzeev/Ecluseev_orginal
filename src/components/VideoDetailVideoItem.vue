@@ -1,17 +1,26 @@
 <template>
-  <router-link
-          class="" :to="'/' + getLinkTag + '/' + video.videoId">
-    <v-layout class="all-bg padding-top" justify-left row>
-      <img :src="video.image" height="94" width="168" />
-      <div class="padding">
-        <div class="title--text max-2-lines quick-sand-font-b">{{ video.title }}</div>
-        <span class="desc--text">{{ video.channelName }}</span>
-        <div class="desc--text">
-          {{ video.timeAgo }}
+
+
+  <router-link class="" :to="'/' + getLinkTag + '/' + video.videoId">
+    <li>
+    <div class="row">
+        <div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+    <img :src="video.image" class="img-fluid" style="width: 100%;border-radius:10px;"/>
         </div>
-      </div>
-    </v-layout>
+        <div class="col-xl-6 col-xs-6 col-sm-6 col-6 col-md-6">
+            <div class="video_title">
+                <h3><span> {{ video.title }}</span></h3>
+                <h4> {{ video.channelName }}</h4>
+                <p>{{ video.description }}</p>
+            </div>
+        </div>
+    </div>
+    </li>
+
   </router-link>
+
+
+
 </template>
 
 <script>

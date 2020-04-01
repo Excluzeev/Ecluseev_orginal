@@ -66,7 +66,6 @@
 						</li>
 						
           
-               
             <li  v-if="!hideSignUpContentCreator&!showLogin" class="nav-item d-none d-lg-block d-lg-block">
 
               	<button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#becomeCCModal">
@@ -88,7 +87,6 @@
 						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
 							<button @click="goToCommunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
 						</li> 
-
             <!-- For testing -->
             <!-- 
             <li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">

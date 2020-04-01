@@ -5,13 +5,12 @@
       <h1 style="padding-top: 10px;padding-bottom: 10px;">How To</h1>
       <div v-for="(how, index) in hows" v-bind:key="index">
         <h2 style="padding-top: 10px;padding-bottom: 10px;">{{how.title}}</h2>
-        <video-player
-          class="video-holder vjs-big-play-centered"
-          width="100%"
-          height="auto"
-          :id="index"
-          :options="playersOptions[index]"
-        ></video-player>
+    
+                 <video v-bind:id="'video_player_'+index" class="video-js" controls preload="auto" width="100%" >
+                    </video>
+
+
+
         <p style="padding-top: 10px;padding-bottom: 10px;">{{how.description}}</p>
       </div>
     </v-container>
@@ -65,8 +64,53 @@ export default {
           poster: ""
         };
         this.playersOptions.push(option);
+
+
+
         this.hows.push(how);
       }
+
+       let loader = this.$loading.show({
+          // Pass props by their camelCased names
+          canCancel: true, // default false
+          color: '#000000',
+          width: 64,
+          height: 64,
+          backgroundColor: '#ffffff',
+          opacity: 0.5,
+          zIndex: 999,
+          loader: "dots"
+        },{
+          // Pass slots by their names
+        });
+
+      let _vm=this
+      setTimeout(function(){
+          for (i = 0; i < allHows.docs.length; i++) {
+
+                // To detach the attached video play
+                
+                var oldPlayer = document.getElementById('video_player_'+i);
+                //if(oldPlayer)
+                //  videojs(oldPlayer).dispose();
+
+
+
+                console.log("oldPlayer",oldPlayer,'video_player_'+i)
+
+                if(oldPlayer){
+                    videojs("video_player_"+i,_vm.playersOptions[i], function(){
+
+                        //console.log("Attached")
+
+                    });
+                }
+
+
+            }
+
+            loader.hide();
+        },2000);
       // console.log(this.playersOptions[0]);
     }
   }

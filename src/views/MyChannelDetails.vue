@@ -173,7 +173,7 @@ export default {
       tile: false,
       trailersList: [],
       videosList: [],
-      channel: null,
+      channel: {},
       channelId: "",
       dialog: false,
       subscribersList: [],

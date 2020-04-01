@@ -131,12 +131,12 @@ My crowd fundings
 
 My earnings
 
-    - is this functionality already exists?
 
-    - withdraw amount?
+    - withdraw amount
 
-        withdraw amount from stripe account to bank account?
-    
+             StatusCodeError: 400 - {"error":{"code":"not_allowed_on_standard_account","doc_url":"https://stripe.com/docs/error-codes/not-allowed-on-standard-account","message":"Cannot create payouts on behalf of a Standard connected account.","type":"invalid_request_error"}}
+
+     
 
 My profile
     
@@ -148,4 +148,5 @@ Signin with Google and Facebook
 
     - Need to update the App id and App secret in Firebase facebook sign-in method configuration
 
-    
+   
+ 
