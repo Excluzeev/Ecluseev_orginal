@@ -41,6 +41,7 @@ export default {
       categoryName
     }) => {
       return new Promise((resolve, reject) => {
+        
         let catTrailers = {
           catId: categoryId,
           catName: categoryName
@@ -64,15 +65,40 @@ export default {
             querySnapshot.forEach(doc => {
               trailers.push(utils.extractTrailerData(doc));
             });
-            if (trailers.length > 0) {
               catTrailers["trailers"] = trailers;
-              resolve(catTrailers);
-            } else {
-              reject();
-            }
+
+            resolve(catTrailers);
+          });
+         
+      });
+    },
+
+
+    getPromotedTrailers: ({
+      state,
+      commit
+    }) => {
+      return new Promise((resolve, reject) => {
+
+        fireStore
+          .collection(collections.trailerCollection)
+          .orderBy("createdDate", "desc")
+          .limit(5)
+          .get()
+          .then(querySnapshot => {
+            let trailers = [];
+            querySnapshot.forEach(doc => {
+
+
+             
+              trailers.push(utils.extractTrailerData(doc));
+            });
+            resolve(trailers);
           });
       });
     },
+
+
 
     getUserCrowdFundingTrailers: ({
       state,

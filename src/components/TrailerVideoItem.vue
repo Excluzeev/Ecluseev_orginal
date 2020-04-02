@@ -29,38 +29,6 @@
 
       </div>
 
-
-<!--         
-    <div class="modal" id="reportModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Select Reasons</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-                <form>
-                  <div class="row" v-for="(reason, index) in reasons">
-                      <div class="col-lg-6">
-                      <label v-text="reason"></label>
-                      </div>
-                      <div class="col-lg-6">
-                      <input style="height:auto;width:auto;" type="checkbox" class="form-control" v-bind:key="index"  v-model="reportReasons" value="reason" >
-                      </div>
-                  </div>
-                </form>
-                
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" @click="updateAndCloseReportDialog">Report</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <v-dialog v-model="deleteTrailerDialog" max-width="320">
       <v-card>
         <v-card-title class="headline">Delete the Preview?</v-card-title>
@@ -77,8 +45,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <v-dialog v-model="reportDialog" scrollable max-width="300px">
+    
+     <v-dialog v-model="reportDialog" scrollable max-width="300px">
       <v-card>
         <v-card-title>Select Reasons</v-card-title>
         <v-divider></v-divider>
@@ -99,7 +67,6 @@
               <v-text-field v-model="otherReason" label="Reason"></v-text-field>
             </v-flex>
           </v-container>
-          <!-- </v-checkbox-group> -->
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -109,61 +76,7 @@
       </v-card>
     </v-dialog>
   
-     
   </div>
-  <!--
-  <v-flex>
-    <v-card elevation="0" class="all-bg">
-      <router-link :to="'/' + getLinkTag + '/' + trailer.trailerId">
-        <v-flex>
-          <v-menu open-on-hover>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                fab
-                small
-                absolute
-                right
-                v-on="on"
-                style="background-color:transparent;box-shadow:0px 0px 0px 0px;"
-              >
-                <v-icon style="padding: 10px;">more_vert</v-icon>
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-tile @click="openReportDialog(trailer.trailerId)">
-                <v-list-tile-title>Report</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-          <v-img
-            :src="trailer.hasCustomThumbnail ? trailer.customThumbnail :  trailer.image"
-            height="118px"
-          ></v-img>
-        </v-flex>
-        <div class="padding">
-          <v-layout row>
-            <div class="title--text max-2-lines quick-sand-font-n">{{ trailer.title }}</div>
-          </v-layout>
-          <span class="desc--text">{{ trailer.channelName }}</span>
-          <div class="desc--text">{{ trailer.timeAgo }}</div>
-
-          <div class="red--text" v-show="getIsExpired(trailer.expiry)">
-            <p danger>Expired</p>
-          </div>
-        </div>
-      </router-link>
-
-
-      <v-card-actions v-if="showDelete">
-        <v-btn flat color="red" @click="deleteTrailerDialog = true">
-          <v-icon left>delete</v-icon>Delete
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-
-    v-flex>
-  -->
 </template>
 
 <script>
@@ -198,11 +111,12 @@ export default {
   },
   computed: {
     showDelete() {
-      console.log(this.trailer);
+      //console.log("trailer",this.trailer);
       if (auth.currentUser == null) return false;
       else return this.trailer.userId == auth.currentUser.uid;
     },
     getLinkTag() {
+
       return this.trailer.channelType == "CrowdFunding" ? "crowd" : "trailer";
     }
   },

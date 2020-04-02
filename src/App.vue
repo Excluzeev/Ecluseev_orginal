@@ -8,7 +8,7 @@
 
     <keep-alive>
       <v-content>
-        <router-view :key="$route.fullPath"></router-view>
+        <router-view :key="$route.path"></router-view>
       </v-content>
     </keep-alive>
     
@@ -77,7 +77,6 @@ export default {
     RegistrationModal,
     BecomeCC
   },
-    
   methods: {
         recaptchaCallback(token) {
             console.log("recaptchaCallback");
@@ -108,7 +107,7 @@ export default {
     isPreviewsPage() {
       return this.$route.meta.isPreviewPage == true ;
     }
-  }
+  },
 };
 
 

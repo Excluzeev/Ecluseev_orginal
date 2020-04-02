@@ -63,7 +63,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
-  fallback: false,
+  fallback: true,
   scrollBehavior: () => ({
     y: 0
   }),
@@ -504,7 +504,7 @@ router.beforeEach(async (to, from, next) => {
     .reverse()
     .find(r => r.meta && r.meta.title);
 
-
+    console.log("before EAch",to.name)
   // Show progress spinner
    // If this isn't an initial page load.
   if (to.name) {
@@ -531,7 +531,7 @@ router.beforeEach(async (to, from, next) => {
       }, 2000);
   }
 
-
+  
   if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
   // if (from.path == to.path) {
@@ -554,6 +554,7 @@ router.beforeEach(async (to, from, next) => {
   //   next();
   // } else {
 
+  
   var unsubscribe = auth.onAuthStateChanged(
     user => {
       if (to.meta.noEntry == true) {
@@ -596,9 +597,14 @@ router.beforeEach(async (to, from, next) => {
       });
     }
   );
+    
   setTimeout(() => {
     unsubscribe();
   }, 2000);
+  
+
+ next();
+
 });
 
 router.afterEach((to, from) => {

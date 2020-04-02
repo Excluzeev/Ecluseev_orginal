@@ -88,7 +88,7 @@
             	<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
 							<img src="../assets/Images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
 							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
-								<li class="dropdown-item" type="button" v-i                                                                 f="userData"><a href="#">{{userData.displayName}}</a> </li>
+								<li class="dropdown-item" type="button" v-if="userData"><a href="#">{{userData.displayName}}</a> </li>
 
                                                                 <li class="dropdown-item" type="button">
 
@@ -201,7 +201,7 @@ export default {
       titleDialogt: "",
       componentDialogt: null,
       sideNav: false,
-      userData: store.getters.getUser,
+      userData: {},
     };
   },
   methods: {

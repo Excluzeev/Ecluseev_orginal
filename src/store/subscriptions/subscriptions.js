@@ -17,7 +17,7 @@ export default {
         //console.log("Earnings Channel id ",channelId)
         let channelsRef = fireStore
           .collection(collections.subscribersCollection)
-          //.where("channelId", "==", channelId)
+          .where("channelId", "==", channelId)
             
         let channelsQuerySnapshot = await channelsRef.get();
         channelsQuerySnapshot.forEach(snapshot => {
@@ -44,7 +44,7 @@ export default {
         console.log("Channel id,limit: ",channelId,limit)
         let channelsRef = fireStore
           .collection(collections.subscribersCollection)
-          //.where("channelId", "==", channelId)
+          .where("channelId", "==", channelId)
           .limit(limit)
             
         let channelsQuerySnapshot = await channelsRef.get();

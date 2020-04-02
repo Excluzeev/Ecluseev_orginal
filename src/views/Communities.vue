@@ -75,7 +75,7 @@
 			</div>
 
 			<div class="row ">
-				<div class="col-xl-12 col-xs-12 col-sm-12 col-lg-12 col-md-12"><h5>Join communities</h5></div>
+				<div class="col-xl-12 col-xs-12 col-sm-12 col-lg-12 col-md-12"><h5>Joined communities</h5></div>
 			</div>
 
 			<div class="row" v-for="subscription in subscriptionsList" v-bind:key="subscription.channelId">
@@ -265,7 +265,6 @@ export default {
   methods: {
      getExpiry(date) {
       return moment(date.toDate()).diff(Date.now(), "day");
-
     },
     getChannel(channelId){
       for(let i=0;i<this.channelsList.length;i++){

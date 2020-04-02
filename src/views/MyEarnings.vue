@@ -403,7 +403,7 @@ import axios from "axios";
             currency: this.payoutCurrency.toLowerCase()
           };
 
-          console.log("options",prepareOptions)
+          //console.log("options",prepareOptions)
         if (this.payoutAmount < 1 ) {
             this.errors['payoutAmount']="Payout amount should not be less than 1";
             errorFound=true;
@@ -429,8 +429,11 @@ import axios from "axios";
             )
             .then(response => {
               if (response.data.error) {
+                   console.log("errr",response.data.message)
 
-                   this.errorMsg=response.data.error.message        
+                   let emessage=response.data.message
+
+                   this.errorMsg=emessage   
                    this.showError=true
                    this.processing=false
 

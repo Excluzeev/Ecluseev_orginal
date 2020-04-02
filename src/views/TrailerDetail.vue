@@ -205,7 +205,8 @@
 						<div class="community_section" style="padding:0 !important;">
 							<div class="text-center img_title">
 								<div class="list-inline d-flex pull-left">
-									<img src="assets/Images/Copy of Bri N Teesh.png" class="rounded-circle"  style="width: 46px;height: 46px;">&nbsp;&nbsp; &nbsp;
+                                                                        <img :src="trailer != null ? trailer.channelImage : ''" class="rounded-circle"  style="width: 46px;height: 46px;">
+
 									<h3><span v-if="trailer">{{ trailer.channelName }}</span></h3>
 								</div>
 							</div>
@@ -216,7 +217,7 @@
 									<div class="form-group col-md-12">
 										<div class="clearfix"></div>
 										<br>
-										<h2>${{ channel.price }}</h2>
+										<h2 class="m-0 p-0">${{ channel.price }}</h2>
 										<br>
 
 									</div>
@@ -502,9 +503,10 @@ import "videojs-ima/dist/videojs.ima.css";
 import Vue from "vue";
 import VueStripeCheckout from "vue-stripe-checkout";
 
-// Vue.use(VueStripeCheckout, "pk_test_cf1l5xJI5WKEBPCKbYRRKnLB00FKzaOcN5");
+//FIXME it should not be hard coded, need to add this in admin configuration
+Vue.use(VueStripeCheckout, "pk_test_cf1l5xJI5WKEBPCKbYRRKnLB00FKzaOcN5");
 
-Vue.use(VueStripeCheckout, "pk_live_s20gmEBa8ovLkyFvYBSWMxDJ00LGR5TSeG");
+//Vue.use(VueStripeCheckout, "pk_live_s20gmEBa8ovLkyFvYBSWMxDJ00LGR5TSeG");
 
 export default {
   name: "TrailerDetails",
@@ -529,7 +531,7 @@ export default {
       playerOptions: {
         overNative: true,
         controls: true,
-        autoplay: true,
+        autoplay: false, //FIXME for testing purpose
         errorDisplay: false,
         preload: "auto",
         techOrder: ["html5"],
@@ -619,7 +621,7 @@ export default {
           });
 
         this.playerOptions.sources[0].src = this.trailer.videoUrl;
-        console.log(this.trailer.videoUrl)
+        //console.log(this.trailer.videoUrl)
         this.playerOptions.poster = this.trailer.image;
 
 
@@ -767,6 +769,10 @@ export default {
       }
     },
     async prepareSubscribe(donate, token) {
+
+      //console.log("Called prepare subscribe")
+
+      //FIXME here the redirect url shoud be configurable from admin dashboard
       if (auth.currentUser == null) {
         this.$router.push({ name: "Login" });
         return;
@@ -784,7 +790,7 @@ export default {
       if (this.showDonateField) {
         prepareOptions.donate = donate;
       }
-
+      
       axios
         .post(
           "https://us-central1-trenstop-2033f.cloudfunctions.net/chargeAmount",
@@ -811,7 +817,7 @@ export default {
         })
         .catch(error => {
           this.subscribeProcessing = false;
-          // console.log(error);
+          console.log(error);
         });
     },
     showToast(msg) {

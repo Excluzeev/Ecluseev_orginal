@@ -122,7 +122,6 @@ export default {
     PrivacyPolicy
   },
   created() {
-    console.log("Created");
   },
   methods: {
     doSignUpContentCreator() {

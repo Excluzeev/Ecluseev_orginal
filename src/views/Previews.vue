@@ -1,27 +1,59 @@
 <template>
   <div class="home" :key="$route.fullPath">
+
+     <!-- Promote content creaters slider start -->
+        
+
+ 
 	  <div id="home">
-	  	<div class="container-fluid">
-	  	<section class="title_section">
-			<p class="channel_type"><i class="fa fa-tripadvisor" aria-hidden="true"></i>Artist/Band/Vlog</p>
-				<div class="bri_n_teesh_title">
-					<h1 class="h1">BRI N TEESH</h1>
-					<p class="content_provider_tittle">Two best friends who navigate life in Los Angeles.</p>
-				</div>
-				<div class="viedo_preview d-xs-block d-lg-none d-md-none ">
-					<i class="fa fa-play-circle" aria-hidden="true"></i>
-				</div>
-			<div class="inline d-none d-xs-none d-md-block d-lg-block">
-				<button class="btn watch_preview-btn my-2 my-sm-0 btn_radius color_fffffff" type="button"><i class="fa fa-play" aria-hidden="true"></i>&nbsp; &nbsp;Watch preview</button>
-				<button class="btn join_the_community-btn my-2 my-sm-0 btn_radius color_fffffff" type="button">Join the community</button>
-			</div>
-			
-		</section>
-	  	</div>
-	  </div>
-  	<div id="black_bg_section">
+        
+
+              <div class="owl-carousel owl-theme" id="cc-owl-carousel">
+
+                <div class="item" v-for="cc in promotedTrailers" v-bind:key="cc.channelId">
+
+                        <img v-if="cc.hasCustomThumbnail" :src="cc.customThumbnail">
+                        <img v-else :src="cc.image"/>
+
+                        <div class="container-fluid banner-controls">
+                            <section class="title_section">
+                                <p class="channel_type"><i class="fa fa-tripadvisor" aria-hidden="true"></i>{{cc.categoryName}}</p>
+                                    <div class="bri_n_teesh_title">
+                                        <h1 class="h1">{{cc.title}}</h1>
+                                        <p class="content_provider_tittle">Two best friends who navigate life in Los Angeles.</p>
+                                    </div>
+                                    <div class="viedo_preview d-xs-block d-lg-none d-md-none ">
+                                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                                    </div>
+                                <div class="inline d-none d-xs-none d-md-block d-lg-block">
+
+                                     <router-link :to="'/trailer/'+cc.trailerId">
+
+                                        <button class="btn watch_preview-btn my-2 my-sm-0 btn_radius color_fffffff" type="button"><i class="fa fa-play" aria-hidden="true"></i>&nbsp; &nbsp;Watch preview</button>
+                                    </router-link>
+
+                                     <router-link :to="'/trailer/'+cc.trailerId">
+                                        <button class="btn join_the_community-btn my-2 my-sm-0 btn_radius color_fffffff" type="button">Join the community</button>  
+                                    </router-link>
+                                </div>
+                            
+                            </section>
+                        </div>
+                 </div>
+
+
+            </div>
+
+       </div>
+
+
+
+     <!-- Promote content creaters slider end -->
+    
+
+      <div id="black_bg_section">
 	 	<CategoriesTrailerVideos />
-  	</div>
+  	  </div>
   </div>
 </template>
 
@@ -32,6 +64,9 @@
 // @ is an alias to /src
 // import FeaturedItem from "../components/FeaturedItem";
 import CategoriesTrailerVideos from "../components/CategoriesTrailerVideos";
+import RegisterStoreModule from "../mixins/RegisterStoreModule";
+import store from "../store/index";
+import trailersModule from "../store/trailers/trailer";
 
 export default {
   name: "Previews",
@@ -40,8 +75,17 @@ export default {
   },
   data: () => {
     return {
+        promotedTrailers:[],
     };
   },
+  mixins: [RegisterStoreModule],
+  created() {
+    this.registerStoreModule("trailers", trailersModule);
+
+  },
+ computed: {
+  },
+
   methods: {
   },
   async mounted() {
@@ -51,6 +95,10 @@ export default {
     //     force: true
     //   });
 	// }
+
+
+
+
 	
 	   $("#search_btn").click(function(){
 		  	$("#search_btn").hide("slow");
@@ -68,52 +116,40 @@ export default {
 		
 		let owl_carousel = require('owl.carousel');
 		window.fn = owl_carousel;
+        
+       // Get promoted trailers
 
-			$(document).ready(function() {
-				console.log("Here I am")
-				setTimeout(function(){
-					console.log("Loaded previews js",$('.owl-carousel').length)
-					$('.owl-carousel').owlCarousel({
-						loop: false, // Do not make it as loop, if there is only one video then it will create muliple carousel items for same video
-						margin: 10,
-						responsiveClass: true,
-						// stagePadding: 50,
-						nav: true,
-						navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
-						responsive: {
-							0: {
-								items: 1,
-								nav: true,
-								margin:20
-							},
-							600: {
-								items: 2,
-								nav: true,
-								margin:20
-							},
-							1000: {
-								items: 3,
-								nav: true,
-								margin:20
-							},
-							1400: {
-								items: 4,
-								nav: true,
-								loop: false,
-								margin: 40
-							},
-							1923: {
-								items: 6,
-								nav: true,
-								loop: false,
-								margin: 40
-							}
-						}
-					});
+         this.$store.dispatch("trailers/getPromotedTrailers").then(data => {
+          
+            this.promotedTrailers = data;
 
-				},3000);
-			});
 
+            this.$nextTick(function(){
+
+                    console.log("CC carousel loaded",$("#cc-owl-carousel"));
+                    $("#cc-owl-carousel").owlCarousel({
+                      loop: true, 
+                      navigation : true, // Show next and prev buttons
+                      slideSpeed : 300,
+                      paginationSpeed : 400,
+                      items : 1,
+                      stagePadding: 0,
+                      margin:50, 
+                      itemsDesktop : false,
+                      itemsDesktopSmall : false,
+                      itemsTablet: false,
+                      itemsMobile : false,
+                      nav: true,
+                      autoplay:true,
+                      autoplayTimeout:3000,
+ 
+                  });
+        });
+
+
+
+        });
+        
   }
 };
 
@@ -132,8 +168,10 @@ export default {
 @import '../assets/owlcarousel/css/docs.theme.min.css';
 @import '../assets/owlcarousel/css/owl.carousel.min.css';
 @import '../assets/owlcarousel/css/owl.theme.default.min.css';
-	
-#home{padding: 2% 3% 0 8%; background-size: 100%; opacity: 1; background: linear-gradient(180deg, #000000E6 0%, #000000BD 8%, #00000000 17%, #00000000 80%, #0000004B 90%, #000000 100%), linear-gradient(18deg, #2598C9E8 10%,transparent, transparent),url(../assets/Images/home_bg.png) 0% 0% no-repeat; background-size:cover; background-repeat: no-repeat; }
+
+
+#home{padding:0; background-size: 100%; opacity: 1; background: linear-gradient(180deg, #000000E6 0%, #000000BD 8%, #00000000 17%, #00000000 80%, #0000004B 90%, #000000 100%), linear-gradient(18deg, #2598C9E8 10%,transparent, transparent); background-size:cover; background-repeat: no-repeat; }
+
 
 .navbar{padding-left: 0;padding-right: 0;width: 100% }
 .btn_radius{border-radius: 22px; }
@@ -168,14 +206,29 @@ ul.navbar-nav.row-auto{margin-top: }
 .create-account-btn{margin-right: 10px;background-color: #29ABE2;border-color: #29ABE2}
 .create-account-btn:focus{border-color: #29ABE2}
 .popper_section>h3>a,.popper_section>h3>a:hover{color: #fff}
-.title_section{padding-top:23%;padding-bottom: 168px  }
+.title_section{padding-top:23%;}
 .title_section>p>i{padding-right: 10px;}
 .channel_type{font:25px/29px rubik-regular !important; color: #FFFFFF !important; padding-bottom: 24px; line-height: 25px !important; margin: 0; }
-.h1{margin: 0;font:80px/100px rubik-medium;color: #FFFFFF;}
+.h1{margin: 0;font:30px/40px rubik-medium;color: #FFFFFF;}
 #black_bg_section{padding: 0 8% 30px 8%; background: #000000 0% 0% no-repeat padding-box; opacity: 1;margin-top: -1px} 
+
+
 .owl-carousel .item{background: transparent; }
-#demos .owl-carousel .item .item_img{width: 100%; height: 100%;}
-#demos .owl-carousel{margin: 0!important }
+
+
+.owl-carousel-1 .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.owl-carousel-1 {margin: 0!important }
+
+.owl-carousel-1 .owl-item{
+    width:100%;
+}
+
+
 button.owl-prev,button.owl-next{position: absolute; top: 20%; font-size: 0px!important; background: transparent; color: #fff!important; opacity: 1!important; outline: none; margin: 0; padding: 0; }
 button.owl-prev{left: -60px;}
 button.owl-next{right: -60px;}
@@ -224,5 +277,11 @@ button.btn.btn-borderless {padding: 0; line-height: 1px; color: #fff; outline: n
 
 
 
+
+.banner-controls{
+    position: absolute;
+    top: 0;
+    left: 53px;
+}
 
 </style>
