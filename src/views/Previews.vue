@@ -10,29 +10,33 @@
 
               <div class="owl-carousel owl-theme" id="cc-owl-carousel">
 
-                <div class="item" v-for="cc in promotedTrailers" v-bind:key="cc.channelId">
+                <div class="item" v-for="banner in promotedBanners" v-bind:key="banner.id">
 
-                        <img v-if="cc.hasCustomThumbnail" :src="cc.customThumbnail">
-                        <img v-else :src="cc.image"/>
+                        <img :src="banner.image" style="height:540px;"/>
+                        
+                        <div v-if="banner.isTrailer" class="container-fluid banner-controls">
+                            <section class="title_section" v-if="banner.trailer">
+                                <p class="channel_type"><i class="fa fa-tripadvisor" aria-hidden="true"></i>{{banner.trailer.categoryName}}</p>
 
-                        <div class="container-fluid banner-controls">
-                            <section class="title_section">
-                                <p class="channel_type"><i class="fa fa-tripadvisor" aria-hidden="true"></i>{{cc.categoryName}}</p>
+                        
                                     <div class="bri_n_teesh_title">
-                                        <h1 class="h1">{{cc.title}}</h1>
+                                        <h1 class="h1">{{banner.trailer.title}}</h1>
+                                        <!--
                                         <p class="content_provider_tittle">Two best friends who navigate life in Los Angeles.</p>
+                                        -->
                                     </div>
                                     <div class="viedo_preview d-xs-block d-lg-none d-md-none ">
                                         <i class="fa fa-play-circle" aria-hidden="true"></i>
                                     </div>
+                                    
                                 <div class="inline d-none d-xs-none d-md-block d-lg-block">
 
-                                     <router-link :to="'/trailer/'+cc.trailerId">
+                                     <router-link :to="'/trailer/'+banner.trailerId">
 
                                         <button class="btn watch_preview-btn my-2 my-sm-0 btn_radius color_fffffff" type="button"><i class="fa fa-play" aria-hidden="true"></i>&nbsp; &nbsp;Watch preview</button>
                                     </router-link>
 
-                                     <router-link :to="'/trailer/'+cc.trailerId">
+                                     <router-link :to="'/trailer/'+banner.trailerId">
                                         <button class="btn join_the_community-btn my-2 my-sm-0 btn_radius color_fffffff" type="button">Join the community</button>  
                                     </router-link>
                                 </div>
@@ -67,6 +71,7 @@ import CategoriesTrailerVideos from "../components/CategoriesTrailerVideos";
 import RegisterStoreModule from "../mixins/RegisterStoreModule";
 import store from "../store/index";
 import trailersModule from "../store/trailers/trailer";
+import channelsModule from "../store/channels/channels";
 
 export default {
   name: "Previews",
@@ -75,12 +80,14 @@ export default {
   },
   data: () => {
     return {
-        promotedTrailers:[],
+        promotedBanners:[],
     };
   },
   mixins: [RegisterStoreModule],
   created() {
     this.registerStoreModule("trailers", trailersModule);
+    this.registerStoreModule("channels", channelsModule);
+
 
   },
  computed: {
@@ -118,10 +125,9 @@ export default {
 		window.fn = owl_carousel;
         
        // Get promoted trailers
+       this.$store.dispatch("channels/getActivePromotedBanners").then(data => {
 
-         this.$store.dispatch("trailers/getPromotedTrailers").then(data => {
-          
-            this.promotedTrailers = data;
+                this.promotedBanners=data
 
 
             this.$nextTick(function(){
@@ -172,6 +178,12 @@ export default {
 
 #home{padding:0; background-size: 100%; opacity: 1; background: linear-gradient(180deg, #000000E6 0%, #000000BD 8%, #00000000 17%, #00000000 80%, #0000004B 90%, #000000 100%), linear-gradient(18deg, #2598C9E8 10%,transparent, transparent); background-size:cover; background-repeat: no-repeat; }
 
+
+#home{
+
+    height:540px;
+
+}
 
 .navbar{padding-left: 0;padding-right: 0;width: 100% }
 .btn_radius{border-radius: 22px; }

@@ -9,6 +9,70 @@ export default {
     getters: {},
     mutations: {},
     actions: {
+        getActivePromotedBanners: ({ state }) => {
+            return new Promise(async resolve => {
+                let bannersList = [];
+                let bannersRef = fireStore
+                    .collection(collections.bannersCollection)
+                    .where("isActive", "==", true);
+
+                try {
+                    let bannersQuerySnapshot = await bannersRef.get();
+                        bannersQuerySnapshot.forEach(snapshot => {
+                        
+                        let bdata=snapshot.data()
+                        bdata["trailer"]=null
+                        if(bdata.isTrailer){
+
+                             fireStore
+                              .collection(collections.trailerCollection)
+                              .doc(bdata.trailerId)
+                              .get()
+                              .then(documentSnapshot => {
+
+                                bdata["trailer"]=utils.extractTrailerData(documentSnapshot);
+
+                                bannersList.push(bdata);
+
+                              });
+
+                           
+    
+    
+                        }else{
+            
+                            bannersList.push(bdata);
+
+                        }
+                    });
+                } catch (e) {
+                    console.error(e)
+                }
+
+
+                resolve(bannersList);
+            });
+        },
+
+        getAllPromotedBanners: ({ state }) => {
+            return new Promise(async resolve => {
+                let bannersList = [];
+                let bannersRef = fireStore
+                    .collection(collections.bannersCollection)
+
+                try {
+                    let bannersQuerySnapshot = await bannersRef.get();
+                        bannersQuerySnapshot.forEach(snapshot => {
+                        bannersList.push(snapshot.data());
+                    });
+                } catch (e) {
+                    console.error(e)
+                }
+
+
+                resolve(bannersList);
+            });
+        },
         getChannels: ({ state }) => {
             let fUser = localStorage.getItem("fUser") != null ? JSON.parse(localStorage.getItem("fUser")) : null;
             let userId = fUser.uid;
