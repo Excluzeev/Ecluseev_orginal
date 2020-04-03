@@ -2,7 +2,6 @@
   <!-- eslint-disable -->
   <div id="app">
 
-
     <EToolBar v-if="isNavBar"/>
     <EToolBarPreview v-if="isPreviewsPage"/>
 
@@ -102,6 +101,7 @@ export default {
   },
   computed: {
     isNavBar() {
+        
       return this.$route.meta.showNav != false;
     },
     isPreviewsPage() {

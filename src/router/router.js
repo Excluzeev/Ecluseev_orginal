@@ -35,6 +35,10 @@ import MyEarnings from "../views/MyEarnings";
 import MyProfile from "../views/MyProfile";
 import Settings from "../views/Settings"; 
 
+/* Admin routes */
+import AdminLogin from "../views/AdminLogin"; 
+import AdminHome from "../views/AdminHome"; 
+
 import CrowdFundingTrailer from "../views/CrowdFundingTrailer";
 import CrowdFundingVideo from "../views/CrowdFundingVideo";
 import PrivacyPolicy from "../components/PrivacyPolicy";
@@ -63,7 +67,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
-  fallback: true,
+  fallback:false,
   scrollBehavior: () => ({
     y: 0
   }),
@@ -369,6 +373,30 @@ const router = new VueRouter({
     },
 
     {
+      path: "/admin-login",
+      name: "AdminLogin",
+      component: AdminLogin,
+      meta: {
+        noEntry: false,
+        showNav: false,
+        title: "Admin Login"
+      }
+    },
+
+
+    {
+      path: "/admin-home",
+      name: "AdminHome",
+      component: AdminHome,
+      meta: {
+        noEntry: false,
+        showNav: false,
+        title: "Admin Home"
+      }
+    },
+
+
+    {
       path: "/settings",
       name: "Settings",
       component: Settings,
@@ -504,7 +532,7 @@ router.beforeEach(async (to, from, next) => {
     .reverse()
     .find(r => r.meta && r.meta.title);
 
-    console.log("before EAch",to.name)
+   console.log("before EAch",to.name)
   // Show progress spinner
    // If this isn't an initial page load.
   if (to.name) {
