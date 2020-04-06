@@ -41,7 +41,7 @@ export default {
             .then(async response => {
               // console.log(response);
               if (response.data.error) {
-                this.showToast(response.data.message);
+                this.showToast("data error",response.data.message);
                 this.$router.push({ name: "Home", params: { done: true } });
               } else {
                 this.showToast(response.data.message);
@@ -50,13 +50,13 @@ export default {
                   force: true
                 });
                 this.$router.push({
-                  name: "MyChannels",
+                  name: "Communities",
                   params: { done: true }
                 });
               }
             })
             .catch(error => {
-              this.showToast("Connecting Failed.");
+              this.showToast("Connecting Failed.",error);
               this.$router.push({ name: "Home", params: { done: true } });
               console.log(error);
             });

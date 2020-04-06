@@ -843,6 +843,7 @@ export default {
         .child("channels")
         .child(channelId)
         .child("cover.jpg");
+
       let thumbnailUrl = "";
       let coverUrl = "";
       try {

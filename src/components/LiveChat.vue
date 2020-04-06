@@ -5,7 +5,7 @@
 
 
 
-      <div class="user_comment_section d-flex">
+      <div class="user_comment_section d-flex" ref="chatHistory">
 
         <div class="chat-message clearfix" v-if="liveChat.length == 0">
           <h5>No Messages yet.</h5>
@@ -100,6 +100,7 @@ export default {
           });
         });
         this.liveChat = chats;
+        //console.log("chats",chats)
         setTimeout(() => {
           this.$refs.chatHistory.scrollTop = this.$refs.chatHistory.scrollHeight;
         }, 1000);

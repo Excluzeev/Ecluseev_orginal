@@ -18,39 +18,43 @@ export default {
 
                 try {
                     let bannersQuerySnapshot = await bannersRef.get();
-                        bannersQuerySnapshot.forEach(snapshot => {
-                        
+                       
+                        for(var i in bannersQuerySnapshot.docs){
+ 
+                        let snapshot=bannersQuerySnapshot.docs[i]
                         let bdata=snapshot.data()
                         bdata["trailer"]=null
                         if(bdata.isTrailer){
-
-                             fireStore
+                        
+                        }else{
+                            bdata.trailerId="0"
+                        }
+                             let documentSnapshot=await fireStore
                               .collection(collections.trailerCollection)
                               .doc(bdata.trailerId)
                               .get()
-                              .then(documentSnapshot => {
 
+
+                            //console.log("Doc",documentSnapshot)
+
+                            if(documentSnapshot._document){
                                 bdata["trailer"]=utils.extractTrailerData(documentSnapshot);
+                            }
 
-                                bannersList.push(bdata);
-
-                              });
-
-                           
-    
-    
-                        }else{
-            
                             bannersList.push(bdata);
+                           
 
                         }
-                    });
+
+                    console.log("Banners",bannersList)
+
+                     resolve(bannersList);
+                    
                 } catch (e) {
-                    console.error(e)
+                    console.error("Error on getting banners",e)
                 }
 
 
-                resolve(bannersList);
             });
         },
 

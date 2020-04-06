@@ -797,6 +797,10 @@ export default {
           prepareOptions
         )
         .then(response => {
+
+           console.log("response data",response.data)
+
+
           if (response.data.error) {
             this.subscribeProcessing = false;
             this.showToast("Payment Failed Please try later.");

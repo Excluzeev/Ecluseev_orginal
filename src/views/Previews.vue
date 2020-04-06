@@ -21,9 +21,7 @@
                         
                                     <div class="bri_n_teesh_title">
                                         <h1 class="h1">{{banner.trailer.title}}</h1>
-                                        <!--
-                                        <p class="content_provider_tittle">Two best friends who navigate life in Los Angeles.</p>
-                                        -->
+                                        <p></p>
                                     </div>
                                     <div class="viedo_preview d-xs-block d-lg-none d-md-none ">
                                         <i class="fa fa-play-circle" aria-hidden="true"></i>
@@ -43,6 +41,8 @@
                             
                             </section>
                         </div>
+
+                       
                  </div>
 
 
@@ -125,22 +125,22 @@ export default {
 		window.fn = owl_carousel;
         
        // Get promoted trailers
-       this.$store.dispatch("channels/getActivePromotedBanners").then(data => {
+       let data=await this.$store.dispatch("channels/getActivePromotedBanners").then(data => {
 
                 this.promotedBanners=data
+                console.log("Proanners: ",data)
 
+                this.$nextTick( () => {
 
-            this.$nextTick(function(){
-
-                    console.log("CC carousel loaded",$("#cc-owl-carousel"));
-                    $("#cc-owl-carousel").owlCarousel({
-                      loop: true, 
+                console.log("CC carousel loaded")
+                 $("#cc-owl-carousel").owlCarousel({
+                      loop: true,
                       navigation : true, // Show next and prev buttons
                       slideSpeed : 300,
                       paginationSpeed : 400,
                       items : 1,
                       stagePadding: 0,
-                      margin:50, 
+                      margin:50,
                       itemsDesktop : false,
                       itemsDesktopSmall : false,
                       itemsTablet: false,
@@ -148,13 +148,15 @@ export default {
                       nav: true,
                       autoplay:true,
                       autoplayTimeout:3000,
- 
+
                   });
+
+            });
+
         });
+    
 
 
-
-        });
         
   }
 };

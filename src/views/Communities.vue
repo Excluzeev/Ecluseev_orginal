@@ -54,7 +54,7 @@
                     >
                     Manage
                     </router-link>
-										<button class="btn btn-remove pull-right" @click="confirmDelete(channel.channelId)">Remove</button>
+										<button v-if="!channel.isDeleted" class="btn btn-remove pull-right" @click="confirmDelete(channel.channelId)">Remove</button>
 									</div>
 								</div>
 							</div>
@@ -300,7 +300,7 @@ export default {
       };
       await channelRef.update(updateData);
 
-      this.$router.push({ name: "MyChannels" });
+      this.$router.push({ name: "Communities" });
     }
 
    },
