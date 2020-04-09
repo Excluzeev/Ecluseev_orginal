@@ -504,9 +504,9 @@ import Vue from "vue";
 import VueStripeCheckout from "vue-stripe-checkout";
 
 //FIXME it should not be hard coded, need to add this in admin configuration
-Vue.use(VueStripeCheckout, "pk_test_cf1l5xJI5WKEBPCKbYRRKnLB00FKzaOcN5");
+//Vue.use(VueStripeCheckout, "pk_test_cf1l5xJI5WKEBPCKbYRRKnLB00FKzaOcN5");
 
-//Vue.use(VueStripeCheckout, "pk_live_s20gmEBa8ovLkyFvYBSWMxDJ00LGR5TSeG");
+Vue.use(VueStripeCheckout, "pk_live_s20gmEBa8ovLkyFvYBSWMxDJ00LGR5TSeG");
 
 export default {
   name: "TrailerDetails",
@@ -531,7 +531,7 @@ export default {
       playerOptions: {
         overNative: true,
         controls: true,
-        autoplay: false, //FIXME for testing purpose
+        autoplay: true, //FIXME for testing purpose
         errorDisplay: false,
         preload: "auto",
         techOrder: ["html5"],

@@ -145,7 +145,7 @@
 
                 console.log("Current page",page)
                 this.currentPage=page
-            
+                 
             },
             logout(){
             // Do the logout stuffs

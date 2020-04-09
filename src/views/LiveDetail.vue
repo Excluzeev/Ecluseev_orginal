@@ -31,7 +31,7 @@
               </div>
               <div class="video_section">
                 <div v-show="!playerOptions.sources[0].src.isEmpty">
-                    <video id="example_video_1" class="video-js" controls preload="auto" width="100%" height="auto">
+                    <video id="example_video_1" class="video-js" controls preload="auto" width="100%">
                     </video>
 
 
@@ -148,6 +148,7 @@ import utils from "../firebase/utils";
 import axios from "axios";
 import LiveChat from "../components/LiveChat";
 import moment from "moment";
+import store from "../store/index";
 
 export default {
   name: "LiveSingle",
@@ -201,8 +202,11 @@ export default {
       return this.$refs.videoPlayer.player;
     },
     showComments() {
-      auth.onAuthStateChanged(user => {});
-      return auth.currentUser != null;
+
+      console.log("User",store.getters.getUser)
+      return store.getters.getUser != null;
+
+
     }
   },
   mounted() {

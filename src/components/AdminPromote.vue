@@ -3,6 +3,8 @@
     <div>
     
          <p class="page-title">Banners</p>
+    
+
          <div class="pull-right m-2">
           <button class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#bannerModal" id="add">Add new banner</button>
 
@@ -212,7 +214,7 @@
 
               <!-- Modal footer -->
               <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"  :loading="processing" :disabled="processing" @click="loader = 'loading4'">Proceed</button>
+                    <button type="submit" class="btn btn-primary"  :loading="processing" :disabled="processing" @click="deleteBanner">Proceed</button>
               </div>
 
             </div>
@@ -410,6 +412,7 @@ export default {
           this.bannerId=id
           $("#deleteConfirmModal").show()
 
+
        },
        resetFormData(){
 
@@ -423,8 +426,32 @@ export default {
 
 
        },
-       delete(id){
+       async deleteBanner(){
         // Delete the selected banner
+         
+         console.log("Confirmed delete",this.bannerId)
+
+         let bannerRef = fireStore
+            .collection(utils.bannersCollection)
+            .doc(this.bannerId);
+             
+             try {
+                await bannerRef.delete();
+                alert("Banner deleted successfully");
+                
+                this.$store.dispatch("channels/getAllPromotedBanners").then(data => {
+    
+                    this.promotedBanners=data
+
+                });
+
+              } catch (error) {
+                alert("Unable to delete the banner!!");
+                console.log("Unable to add banner details: "+error)
+              }
+
+          $("#deleteConfirmModal").hide()
+
        },
        fillFormData(id){
 

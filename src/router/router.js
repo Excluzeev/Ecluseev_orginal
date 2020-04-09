@@ -3,8 +3,8 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Previews from "../views/Previews.vue";
 import CreateChannel from "../views/CreateChannel.vue";
-import MyChannels from "../views/MyChannels.vue";
 import Communities from "../views/Communities.vue";
+import MyChannels from "../views/Communities.vue";
 
 import MyChannelDetails from "../views/MyChannelDetails.vue";
 import AddTrailer from "../views/AddTrailer.vue";

@@ -82,31 +82,64 @@ export default {
     };
   },
   mounted() {
-    fireStore
-      .collection("videos")
-      .doc(this.videoId)
-      .collection("chat")
-      .orderBy("createdAt")
-      .limit(100)
-      .onSnapshot(querySnapshot => {
-        let chats = [];
-        querySnapshot.forEach(function(doc) {
-          let d = doc.data();
-          chats.push({
-            message: d.message,
-            time: moment(d.createdAt.toDate()).fromNow(),
-            userName: d.userName,
-            chatId: d.chatId
-          });
-        });
-        this.liveChat = chats;
-        //console.log("chats",chats)
-        setTimeout(() => {
-          this.$refs.chatHistory.scrollTop = this.$refs.chatHistory.scrollHeight;
-        }, 1000);
-      });
+    
+    var chatInterval=setInterval(() => {
+        
+        if(this.videoId){   
+            console.log("Updating chats") 
+            this.updateChats()
+
+            
+            var killId = setTimeout(function() {
+              for (var i = killId; i > 0; i--) clearInterval(i)
+            }, 3000);
+
+
+        }
+ 
+       }, 1000);
+    
   },
   methods: {
+
+    updateChats(){
+
+
+
+        
+        console.log("VideoID",this.videoId)
+        if(this.videoId){
+            fireStore
+              .collection("videos")
+              .doc(this.videoId)
+              .collection("chat")
+              .orderBy("createdAt")
+              .limit(100)
+              .onSnapshot(querySnapshot => {
+                let chats = [];
+                querySnapshot.forEach(function(doc) {
+                  let d = doc.data();
+                  chats.push({
+                    message: d.message,
+                    time: moment(d.createdAt.toDate()).fromNow(),
+                    userName: d.userName,
+                    chatId: d.chatId
+                  });
+                });
+                this.liveChat = chats;
+                //console.log("chats",chats)
+                try{
+                    this.$refs.chatHistory.scrollTop = this.$refs.chatHistory.scrollHeight;
+
+                }catch(err){
+
+                }
+
+              });
+        }
+
+
+    },
     async postMessage() {
       console.log("Chat messge send clicked")
       let msg = this.message;
@@ -132,7 +165,11 @@ export default {
       };
       await chatRef.set(chatData);
       this.message = "";
-      this.$refs.chatHistory.scrollTop = this.$refs.chatHistory.scrollHeight;
+
+        try{
+            this.$refs.chatHistory.scrollTop = this.$refs.chatHistory.scrollHeight;
+        }catch(err){
+        }
     }
   }
 };

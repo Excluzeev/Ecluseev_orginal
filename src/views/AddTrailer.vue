@@ -5,7 +5,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12">
-					<p><a href="#">My account</a>&nbsp;<i class="fa fa-angle-right"></i><a href="#">Bri N Teesh</a>&nbsp;<i class="fa fa-angle-right"></i><a href="#">Upload a video</a>
+					<p><a href="#">My account</a>&nbsp;<i class="fa fa-angle-right"></i><a href="#">{{channelData.title}}</a>&nbsp;<i class="fa fa-angle-right"></i><a href="#">Upload a video</a>
 					</p>
 					
 				</div>
@@ -43,39 +43,53 @@
               
               
                   </div>
+                   
 
                   <span  class="error-message" v-if="this.errors['video']">{{this.errors['video']}}</span>
 
                 </div>
-                <!-- Video preview -->
-                <!-- <div class=" form-group " v-if="videoFile != null">
-                  <video controls>
-                    <source :src="videoUrl" type="video/mp4" />Your browser does not support HTML5 video.
-                  </video>
-                </div> -->
 
-                <div class="form-group ">
-                  <label for="name">Title</label>
 
-                  <input v-model="title"  type="name" class="form-control" id="videoTitle" aria-describedby="name" placeholder="Please enter a title for the video">
-                  <span  class="error-message" v-if="this.errors['title']">{{this.errors['title']}}</span>
+                <div class="create_form_section">
+                    <div class="form-group ">
+                      <label for="name">Title</label>
 
-                </div>
-                <div class="form-group tags">
-                  <label for="name">Tags<i class="fa fa-info"></i><span>Add at least 5 tags</span></label>
-                  <input type="name" class="form-control" id="tagsname" aria-describedby="name" placeholder="Tags here">
-                  <span  class="error-message" v-if="this.errors['tags']">{{this.errors['tags']}}</span>
-                  
+                      <input v-model="title"  type="name" class="form-control" id="videoTitle" aria-describedby="name" placeholder="Please enter a title for the video">
+                      <span  class="error-message" v-if="this.errors['title']">{{this.errors['title']}}</span>
+
+                    </div>
+
                 </div>
               </div>
             </div>
           </div>
           <div class="col-xl-7 col-lg-7 col-12">
+
+            
+                <div class="create_form_section">
+                    <div class="form-group tags">
+                      <label for="name">Tags<i class="fa fa-info"></i><span>Add at least 5 tags</span></label>
+                      <input type="name" class="form-control" id="tagsname" aria-describedby="name" placeholder="Tags here">
+                      <span  class="error-message" v-if="this.errors['tags']">{{this.errors['tags']}}</span>
+                      
+
+                    </div>
+                </div>
+
+            <div class="create_form_section">
+                <!-- Video preview -->
+                <div class=" form-group " v-if="videoFile != null">
+                  <video controls>
+                    <source :src="videoUrl" type="video/mp4" />Your browser does not support HTML5 video.
+                  </video>
+                </div>
+
+            </div>
             <div class="create_form_section">
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="longdescription">Long description<i class="fa fa-info"></i></label>
-                  <textarea v-model="description" class="form-control" id="longDescription" placeholder="Please type long description" rows="11"></textarea>
+                  <textarea v-model="description" class="form-control" id="longDescription" placeholder="Please type long description" rows="3"></textarea>
                   <span  class="error-message" v-if="this.errors['description']">{{this.errors['description']}}</span>
 
                 </div>
@@ -128,7 +142,7 @@
                       I agree to the <a href="#"> Privacy policy, Content creator terms <span>&</span> Call to action terms.</a>
                     </label>
                   </div>
-                  <button type="submit" class="btn btn-publish-video">Publish video now</button>
+                  <button type="submit" class="btn btn-publish-video" :loading="processing" :disabled="processing" @click="loader = 'loading4'">Publish video now</button>
                 </div>
             </div>
           </div>
@@ -289,7 +303,7 @@ export default {
       this.customThumbnailUrl = URL.createObjectURL(this.customThumbnailFile);
     },
     async doUploadTrailer() {
-      
+      console.log("Started uploading") 
       this.errors={}
 
       let errorFound=false;

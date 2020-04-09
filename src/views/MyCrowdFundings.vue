@@ -20,7 +20,7 @@
 				</div>
 			</div>
 
-			<div class="row ">
+			<div class="row" v-if="trailers.length != 0">
                 <div class="col-xl-4 col-lg-6"  v-for="trailer in trailers" v-bind:key="trailer.trailerId">
 
                               <router-link :to="'/crowd/' + trailer.trailerId">
@@ -39,10 +39,20 @@
 
 
 
-	        </div>
+	            </div>
 
 
         </div>
+
+
+            <div class="row" v-else>
+
+                <div class="col-xl-12 col-lg-12 text-center">
+                    <p>
+                    You have no crowd fundings!!!
+                    </p>
+                </div>
+            </div>
 
 
 
