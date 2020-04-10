@@ -1,4 +1,11 @@
 <template>
+
+      <div>
+
+         <p class="page-title">Dashboard</p>
+
+
+      </div>
   
 </template>
 

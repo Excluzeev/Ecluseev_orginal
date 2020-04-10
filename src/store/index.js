@@ -158,6 +158,31 @@ export default new Vuex.Store({
         }
       });
     },
+    
+    fetchSettings: async ({ state }, { key }) => {
+      return new Promise(async resolve => {
+        let settings =null;
+        let settingsRef = fireStore.collection(
+          collections.settingsCollection
+        ).limit(1);
+        try {
+          let settingsQuerySnapshot = await settingsRef.get();
+          settingsQuerySnapshot.forEach(snapShot => {
+            
+            settings=snapShot.data();
+            
+
+          });
+
+            resolve(settings[key])
+        } catch (error) {
+          resolve(settings);
+        }
+      });
+    },
+
+
+
     deleteVideo: async ({
       state,
       commit

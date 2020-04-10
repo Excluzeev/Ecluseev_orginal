@@ -97,6 +97,8 @@
           <div id='mainContent'>
                 
                 <Promote v-if="currentPage == 'promote'" />
+
+                <Settings v-if="currentPage == 'settings'" />
   
           </div> <!-- main Content  -->
         </main>
@@ -116,6 +118,9 @@
 <script>
 
     import Promote from "../components/AdminPromote";
+
+    import Settings from "../components/AdminSettings";
+
     import RegisterStoreModule from "../mixins/RegisterStoreModule";
     import store from "../store/index";
     import trailersModule from "../store/trailers/trailer";
@@ -123,12 +128,13 @@
     export default {
         name: "AdminHome",
         components: {
-            Promote 
+            Promote,
+            Settings 
         },
         data: () => {
     
             return {
-                currentPage: "promote",
+                currentPage: "settings",
             };
     
         },

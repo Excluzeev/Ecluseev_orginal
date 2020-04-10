@@ -84,7 +84,10 @@ export default {
   methods: {
   },
   async mounted() {
-    console.log("Home mounted",this.$route.query.done);
+
+    console.log("env",process.env)
+
+    //console.log("Home mounted",this.$route.query.done);
     if (this.$route.query.done) {
       await this.$store.commit("forceFetchUser", {
         user: auth.currentUser,

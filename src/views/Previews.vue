@@ -12,6 +12,8 @@
 
                 <div class="item" v-for="banner in promotedBanners" v-bind:key="banner.id">
 
+                     <router-link :to="'/trailer/'+banner.trailerId" v-if="banner.isTrailer">
+
                         <img :src="banner.image" style="height:540px;"/>
                         
                         <div v-if="banner.isTrailer" class="container-fluid banner-controls">
@@ -42,6 +44,7 @@
                             </section>
                         </div>
 
+                    </router-link>
                        
                  </div>
 
@@ -123,7 +126,23 @@ export default {
 		
 		let owl_carousel = require('owl.carousel');
 		window.fn = owl_carousel;
-        
+       
+        let loader = this.$loading.show({
+          // Pass props by their camelCased names
+          canCancel: true, // default false
+          color: '#000000',
+          width: 64,
+          height: 64,
+          backgroundColor: '#ffffff',
+          opacity: 0.5,
+          zIndex: 999,
+          loader: "dots"
+        },{
+          // Pass slots by their names
+        });
+
+
+ 
        // Get promoted trailers
        let data=await this.$store.dispatch("channels/getActivePromotedBanners").then(data => {
 
@@ -136,7 +155,7 @@ export default {
                  $("#cc-owl-carousel").owlCarousel({
                       loop: true,
                       navigation : true, // Show next and prev buttons
-                      slideSpeed : 300,
+                      slideSpeed : 100,
                       paginationSpeed : 400,
                       items : 1,
                       stagePadding: 0,
@@ -147,9 +166,12 @@ export default {
                       itemsMobile : false,
                       nav: true,
                       autoplay:true,
-                      autoplayTimeout:3000,
+                      //autoplayTimeout:1000,
 
                   });
+    
+
+                loader.hide()   // To hide the loader
 
             });
 

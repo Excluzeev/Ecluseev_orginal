@@ -198,7 +198,8 @@ export default {
       priceDonate: null,
       rules: {
         required: value => !!value || "Required."
-      }
+      },
+      siteUrl:"",
     };
   },
   mixins: [RegisterStoreModule],
@@ -338,7 +339,7 @@ export default {
         channelName: this.trailer.channelName,
         userId: auth.currentUser.uid,
         isDesktop: true,
-        redirectTo: "https://excluzeev.com/my-channels",
+        redirectTo: this.siteUrl+"/my-channels",
         isDonate: true,
         token: token.id
       };
@@ -361,13 +362,13 @@ export default {
               "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentCanceled?subId=" +
               response.data.subId +
               "&donate=true" +
-              "&redirect=https://excluzeev.com/";
+              "&redirect="+this.siteUrl;
           } else {
             window.location =
               "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentSuccess?subId=" +
               response.data.subId +
               "&donate=true" +
-              "&redirect=https://excluzeev.com/my-channels";
+              "&redirect="+this.siteUrl+"/my-channels";
           }
         })
         .catch(error => {
@@ -377,6 +378,16 @@ export default {
   },
   mounted() {
     this.loadChannel();
+
+    
+      // Fetch site base url
+    this.$store.dispatch("fetchSettings",{key: 'site_base_url'}).then(url => {
+
+        this.siteUrl=url
+
+    });
+
+
   },
   props: []
 };

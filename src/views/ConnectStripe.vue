@@ -37,7 +37,7 @@ export default {
           console.log(data);
 
           axios
-            .post("https://excluzeev.com/connectS", data)
+            .post("https://excluzeev.com/connectS", data)       //FIXME, need to check the current production live code
             .then(async response => {
               // console.log(response);
               if (response.data.error) {

@@ -9,6 +9,7 @@ export default {
   categoriesCollection: "categories",
   channelsCollection: "channels",
   bannersCollection: "banners",
+  settingsCollection: "siteSettings",
   howToCollection: "howto",
   generateId: () => {
     // Modeled after base64 web-safe chars, but ordered by ASCII.

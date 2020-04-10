@@ -2,6 +2,10 @@ import Vue from "vue";
 import "./plugins/vuetify";
 
 
+
+
+
+
 import  jQuery from "jquery";
 window.jQuery = jQuery
 window.$ = jQuery
