@@ -215,7 +215,8 @@ export default {
     },
     goLoginContentCreator() {
       if (this.showLogin) {
-        this.$router.push({ name: "Login" });
+
+        this.$root.$emit('openLoginForm');
         return;
       }
       if (!this.hideSignUpContentCreator) {
@@ -231,14 +232,16 @@ export default {
     },
     goLoginLive() {
       if (this.showLogin) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
       } else {
         this.$router.push({ name: "AddExcluzeev" });
       }
     },
     goLoginCreate() {
       if (this.showLogin) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
       } else {
         this.$router.push({ name: "CreateChannel" });
       }

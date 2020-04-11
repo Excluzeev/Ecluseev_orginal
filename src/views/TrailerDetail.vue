@@ -65,6 +65,7 @@
 										<span v-if="channel">${{ channel.price }} </span>/Month
                                     </div>
 
+
 								</div>
 								<div class="clearfix"></div>
 								<p > <span v-if="trailer">{{ trailer.description }}</span>
@@ -102,9 +103,10 @@
                   <div class="logincomment text-xs-center">
                     <p>
                       Please
-                      <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
-                        >sign in</router-link
-                      >to comment
+
+                      <a href="javascript://" class="quick-sand-font-b" @click="showLoginForm">sign in</a>
+
+                      to comment
                     </p>
                   </div>
                 </div>
@@ -202,6 +204,16 @@
 						<p>Join Community and explore the exluzeev videos and intaract with the amazing people behind the community</p>
 						<div class="clearfix"></div>
 						<br>
+
+                                                 <div v-if="showError" class="row text-center error-message">
+                            <div class="col-lg-12">
+                                {{ errorMsg }}
+                            </div>
+
+                         </div>
+
+
+
 						<div class="community_section" style="padding:0 !important;">
 							<div class="text-center img_title">
 								<div class="list-inline d-flex pull-left">
@@ -225,6 +237,7 @@
 							</form>
 							<div class="clearfix"></div>
 						</div>
+                        <v-progress-circular v-if="subscribeProcessing" indeterminate color="primary"></v-progress-circular>
 						<button :disabled="subscribeProcessing" :loading="subscribeProcessing" v-if="showSubscribeButton" @click="checkout" class="btn btn-join-via-stripe" >Let's join via Stripe</button>
 						<br><br>
 						<div class="note_section">
@@ -275,12 +288,7 @@ import "videojs-ima/dist/videojs.ima.css";
 import Vue from "vue";
 import VueStripeCheckout from "vue-stripe-checkout";
 
-
-const STRIPE_KEY="pk_test_cf1l5xJI5WKEBPCKbYRRKnLB00FKzaOcN5";  // TEST
-
-//const STRIPE_KEY="pk_live_s20gmEBa8ovLkyFvYBSWMxDJ00LGR5TSeG"; //LIVE
-
-Vue.use(VueStripeCheckout,STRIPE_KEY);
+Vue.use(VueStripeCheckout);
 
 
 export default {
@@ -334,6 +342,9 @@ export default {
       isNeutral: false,
       prevWhat: -2,
       siteUrl: "",
+      errorMsg:"",
+      showError: false,
+      showLoginButton: false,
     };
   },
   components: {
@@ -371,6 +382,35 @@ export default {
 
     });
 
+  
+     fireStore
+            .collection(utils.settingsCollection)
+        .limit(1)
+        .get()
+        .then(querySnapshot =>{
+
+          querySnapshot.forEach(snapShot => {
+
+            let settings=snapShot.data()
+
+            if(settings.is_stripe_live){
+
+                this.spublickey=settings.stripe_live_public_key
+
+            }else{
+
+
+                this.spublickey=settings.stripe_test_public_key
+            }
+
+
+          });
+
+
+        });
+
+
+  
 
   },
   created() {
@@ -442,7 +482,11 @@ export default {
           this.showSubscribeButton = !user.subscribedChannels.includes(
             this.trailer.channelId
           );
-        } else {
+        }else if(user == null){
+          
+          this.showLoginButton=true;
+          this.showSubscribeButton = false;
+        }else{
           this.showSubscribeButton = true;
         }
 
@@ -455,10 +499,17 @@ export default {
       });
   },
   methods: {
+
+    showLoginForm(){
+
+        this.$root.$emit('openLoginForm');
+    
+    },
     goLive(){
 
       if (this.showLogin) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
       } else {
         this.$router.push({ name: "AddExcluzeev" });
       }
@@ -507,7 +558,8 @@ export default {
     },
     async updateWhat(newWhat) {
       if (auth.currentUser == null) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
         return;
       }
       let what = 0;
@@ -560,9 +612,8 @@ export default {
 
       //console.log("Called prepare subscribe")
 
-      //FIXME here the redirect url shoud be configurable from admin dashboard
       if (auth.currentUser == null) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
         return;
       }
       let prepareOptions = {
@@ -591,6 +642,11 @@ export default {
 
           if (response.data.error) {
             this.subscribeProcessing = false;
+
+            this.errorMsg="Payment failed please try later!!"
+            this.showError=true
+
+            /*
             this.showToast("Payment Failed Please try later.");
             window.location =
               "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentCanceled?subId=" +
@@ -598,6 +654,9 @@ export default {
               "&donate=" +
               this.showDonateField +
               "&redirect="+this.siteUrl; 
+            */
+
+
           } else {
             window.location =
               "https://us-central1-trenstop-2033f.cloudfunctions.net/pagePaymentSuccess?subId=" +
@@ -610,6 +669,10 @@ export default {
         .catch(error => {
           this.subscribeProcessing = false;
           console.log(error);
+
+          this.errorMsg="Payment failed please try later: "+error
+          this.showError=true
+
         });
     },
     showToast(msg) {
@@ -713,7 +776,8 @@ export default {
     },
     async checkout() {
       if (auth.currentUser == null) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
         return;
       }
       // token - is the token object
@@ -754,5 +818,16 @@ export default {
 </script>
 
 <style scoped >
+
+    .error-message{
+    font-size: 17px;
+    display: block;
+    color: #f00;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+
+}
+
 
 </style>

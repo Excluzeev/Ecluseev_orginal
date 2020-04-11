@@ -153,10 +153,10 @@ export default {
                         message: "Email not verified",
                         isEmailVerified: false
                     };
-                    //auth.signOut();
                     resolve(errorData);
                 }else{
                     resolve(errorData);
+
                 }
               } else {
                 errorData = {
@@ -173,6 +173,8 @@ export default {
               message: error.message,
               error: true
             };
+
+            auth.signOut();
             resolve(errorData);
           });
       });

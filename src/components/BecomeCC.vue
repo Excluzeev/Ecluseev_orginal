@@ -155,7 +155,11 @@ export default {
       // FIXME it should be configurable from admin page
 
       // change those to live
-      let connect_client_id="ca_F90HyKuBsdziUICmQ5bW9gSQCY9lMmaY"
+      //let connect_client_id="ca_F90HyKuBsdziUICmQ5bW9gSQCY9lMmaY"
+
+      let connect_client_id="ca_F90HDO14vD97St5ir3scNmlL8b2DXiD1"
+
+     
       window.location = "https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write"
       
       //window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write");

@@ -105,9 +105,8 @@
                   <div class="logincomment text-xs-center">
                     <p>
                       Please
-                      <router-link :to="{ name: 'Login' }" class="quick-sand-font-b"
-                        >sign in</router-link
-                      >to comment
+                      <a href="javascript://" class="quick-sand-font-b" @click="showLoginForm">sign in</a>
+                    to comment
                     </p>
                   </div>
                 </div>
@@ -392,11 +391,18 @@ export default {
       });
   },
   methods: {
+    
+       showLoginForm(){
+    
+        this.$root.$emit('openLoginForm');
+
+    },
 
         goLive(){
 
       if (this.showLogin) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
       } else {
         this.$router.push({ name: "AddExcluzeev" });
       }

@@ -79,7 +79,8 @@
               <div class="logincomment text-xs-center">
                 <p>
                   Please
-                  <router-link :to="{ name: 'Login' }" class="quick-sand-font-b">login</router-link>to chat
+                  <a href="javascript://" class="quick-sand-font-b" @click="showLoginForm">sign in</a>
+
                 </p>
               </div>
             </div> 
@@ -299,6 +300,12 @@ export default {
       });
   },
   methods: {
+
+    showLoginForm(){
+
+        this.$root.$emit('openLoginForm');
+
+    },
     async createStreamNow() {
       let videoData = {
         videoId: this.video.videoId

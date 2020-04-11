@@ -358,7 +358,8 @@ export default
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
       if (auth.currentUser == null) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
         return;
       }
       // if (auth.currentUser.uid == "8tofk8UcabOsu89X04bOaMwvH2C3") {
@@ -492,7 +493,8 @@ export default
     },
         async prepareSubscribe(donate, tierName, token) {
       if (auth.currentUser == null) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
         return;
       }
       let prepareOptions = {
@@ -601,7 +603,8 @@ export default
     },
     async prepareSubscribe(donate) {
       if (auth.currentUser == null) {
-        this.$router.push({ name: "Login" });
+        this.$root.$emit('openLoginForm');
+
         return;
       }
       let prepareOptions = {

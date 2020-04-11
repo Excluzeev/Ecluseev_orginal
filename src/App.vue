@@ -76,6 +76,18 @@ export default {
     RegistrationModal,
     BecomeCC
   },
+  mounted(){
+
+     this.$root.$on('openLoginForm',()=>{
+
+          $("#signInModal").modal("show"); // Show the signin modal box
+
+    });
+
+   // this.$root.$emit('openLoginForm');
+
+    
+  },
   methods: {
         recaptchaCallback(token) {
             console.log("recaptchaCallback");

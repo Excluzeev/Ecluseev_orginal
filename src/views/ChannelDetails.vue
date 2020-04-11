@@ -243,7 +243,9 @@ export default {
     },
     async prepareSubscribe(donate, token) {
       if (auth.currentUser == null) {
-        this.$router.push({ name: "Login" });
+
+        this.$root.$emit('openLoginForm');
+
         return;
       }
       let prepareOptions = {

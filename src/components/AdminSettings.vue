@@ -229,7 +229,7 @@ export default {
             .collection(utils.settingsCollection)
             .doc(this.settings_id)
 
-	console.log("settings",settingsRef)	
+	            //console.log("settings",settingsRef)	
 
               try {
                 await settingsRef.set(this.settings);

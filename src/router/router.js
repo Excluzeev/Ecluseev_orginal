@@ -9,10 +9,7 @@ import MyChannels from "../views/Communities.vue";
 import MyChannelDetails from "../views/MyChannelDetails.vue";
 import AddTrailer from "../views/AddTrailer.vue";
 import TrailerDetail from "../views/TrailerDetail";
-import Login from "../views/auth/Login";
-import Registration from "../views/auth/Registration";
-import ForgotPassword from "../views/auth/ForgotPassword";
-import ResetPassword from "../views/auth/ResetPassword";
+
 import {
   auth
 } from "../firebase/init";
@@ -22,7 +19,6 @@ import MySubscriptions from "../views/MySubscriptions";
 import SubscribedChannelDetails from "../views/SubscribedChannelDetails";
 
 import ChannelDetails from "../views/ChannelDetails";
-
 
 import VideoDetail from "../views/VideoDetail";
 import AddLive from "../views/AddLive";
@@ -124,16 +120,6 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/login",
-      name: "Login",
-      component: Login,
-      meta: {
-        noEntry: false,
-        showNav: false,
-        title: "Excluzeev Login"
-      }
-    },
-    {
       path: "/logout",
       name: "Logout",
       beforeEnter(to, from, next) {
@@ -144,36 +130,6 @@ const router = new VueRouter({
         });
 
 
-      }
-    },
-    {
-      path: "/registration",
-      name: "Registration",
-      component: Registration,
-      meta: {
-        title: "Excluzeev Registration",
-        noEntry: false,
-        showNav: false
-      }
-    },
-    {
-      path: "/forgot-password",
-      name: "ForgotPassword",
-      component: ForgotPassword,
-      meta: {
-        noEntry: false,
-        showNav: false,
-        title: "Excluzeev Forgot Password"
-      }
-    },
-    {
-      path: "/reset-password",
-      name: "ResetPassword",
-      component: ResetPassword,
-      meta: {
-        noEntry: false,
-        showNav: false,
-        title: "Excluzeev Reset Password"
       }
     },
     {
