@@ -37,7 +37,7 @@ export default {
           console.log(data);
           //https://excluzeev.com/connectS -old end point
           axios
-            .post("https://us-central1-trenstop-2033f.cloudfunctions.net/connectStripe", data)       //FIXME, need to check the current production live code
+            .post("https://us-central1-trenstop-2033f.cloudfunctions.net/connectStripe", data)       
             .then(async response => {
               // console.log(response);
               if (response.data.error) {

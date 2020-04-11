@@ -118,18 +118,19 @@
 					<br>
 					<p>Join your hand in reaching the goal</p>
 
-                              <vue-stripe-checkout
-            ref="checkoutRef"
-            :name="'Payment Details'"
-            description
-            currency="CAD"
-            :amount="donateAmount * 100"
-            :allow-remember-me="false"
-            @done="done"
-            @opened="opened"
-            @closed="closed"
-            @canceled="canceled"
-          ></vue-stripe-checkout>
+                      <vue-stripe-checkout
+                        :publishable-key="spublickey"
+                        ref="checkoutRef"
+                        :name="'Payment Details'"
+                        description
+                        currency="CAD"
+                        :amount="donateAmount * 100"
+                        :allow-remember-me="false"
+                        @done="done"
+                        @opened="opened"
+                        @closed="closed"
+                        @canceled="canceled"
+                      ></vue-stripe-checkout>
 
                     <div class=" card_section" v-for="(tier,index) in channel.tiers" v-bind:key="index">
 						<div class="list-inline tile_btn"> 
@@ -167,7 +168,7 @@ export default
   name: "CrowdFundingVideo",
   data: () => {
     return {
-
+      spublickey:"",
       showSubscribeButton: false,
       showDonateText: false,
       isViewTriggered: false,
@@ -235,6 +236,33 @@ export default
 
     });
 
+         fireStore
+            .collection(utils.settingsCollection)
+        .limit(1)
+        .get()
+        .then(querySnapshot =>{
+
+          querySnapshot.forEach(snapShot => {
+
+            let settings=snapShot.data()
+
+            if(settings.is_stripe_live){
+
+                this.spublickey=settings.stripe_live_public_key
+
+            }else{
+
+
+                this.spublickey=settings.stripe_test_public_key
+            }
+
+
+          });
+
+
+        });
+
+  
 
 
   },

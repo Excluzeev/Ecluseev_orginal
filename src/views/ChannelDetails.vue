@@ -118,6 +118,7 @@
       </v-dialog>
     </v-layout>
     <vue-stripe-checkout
+      :publishable-key="spublickey"
       ref="checkoutRef"
       :name="'Payment Details'"
       description
@@ -149,6 +150,7 @@ export default {
   },
   data: () => {
     return {
+      spublickey:"",
       tile: false,
       processing: false,
       dialog: false,
@@ -300,6 +302,40 @@ export default {
         this.siteUrl=url
 
     });
+
+
+
+       fireStore
+            .collection(utils.settingsCollection)
+        .limit(1)
+        .get()
+        .then(querySnapshot =>{
+
+          querySnapshot.forEach(snapShot => {
+
+            let settings=snapShot.data()
+
+            if(settings.is_stripe_live){
+
+                this.spublickey=settings.stripe_live_public_key
+
+            }else{
+
+
+                this.spublickey=settings.stripe_test_public_key
+            }
+
+
+          });
+
+
+        });
+
+
+
+
+
+
 
 
 

@@ -119,7 +119,8 @@
 					<br>
 					<p>Join your hand in reaching the goal</p>
 
-                              <vue-stripe-checkout
+            <vue-stripe-checkout
+            :publishable-key="spublickey"
             ref="checkoutRef"
             :name="'Payment Details'"
             description
@@ -169,6 +170,7 @@ export default {
   name: "CrowdFundingTrailer",
   data: () => {
     return {
+      spublickey:"",
       trailer: {},
       channel: {},
       videoLoaded: false,
@@ -240,6 +242,36 @@ export default {
         this.siteUrl=url
 
     });
+
+
+      fireStore
+            .collection(utils.settingsCollection)
+        .limit(1)
+        .get()
+        .then(querySnapshot =>{
+
+          querySnapshot.forEach(snapShot => {
+
+            let settings=snapShot.data()
+
+            if(settings.is_stripe_live){
+
+                this.spublickey=settings.stripe_live_public_key
+
+            }else{
+
+
+                this.spublickey=settings.stripe_test_public_key
+            }
+
+
+          });
+
+
+        });
+
+
+
 
 
   },
