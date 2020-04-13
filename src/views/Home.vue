@@ -12,9 +12,9 @@
 						<p>A platform where content creators feature and monetize their exclusive content.</p>
 						<div class="inline-list">
 							<router-link :to="{ name: 'Previews' }" class="">
-							<button class="btn btn-explore-previews btn_radius color_fffffff">Explore Previews</button>							
+							    <button class="btn btn-explore-previews btn_radius color_fffffff">Explore Previews</button>							
 							</router-link>
-							<button class="btn btn-learn-more ">Learn More</button>
+							<button class="mt-1 btn btn-learn-more">Learn More</button>
 						</div>
 					</div>
 				</div>
@@ -53,7 +53,17 @@
 					<div class="list-inline curious_section ">
 						<div class="curious_title_top">
 							<h3>Curious?</h3>
-							<div class="list-inline title_btn_inline "><h4>Let’s</h4><button class="btn btn-lts-start">Start</button><h4>a community now!</h4></div>
+							<div class="list-inline title_btn_inline "><h4>Let’s</h4>
+
+
+							<router-link :to="{ name: 'CreateChannel' }" class="">
+
+                                <button class="btn btn-lts-start">
+                                        Start
+                                </button>
+							</router-link>
+
+                            <h4>a community now!</h4></div>
 							<p>It takes less than a minute to upload your first video</p>
 						</div>
 					</div>

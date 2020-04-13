@@ -23,27 +23,15 @@ export default {
  
                         let snapshot=bannersQuerySnapshot.docs[i]
                         let bdata=snapshot.data()
-                        bdata["trailer"]=null
                         if(bdata.isTrailer){
                         
                         }else{
                             bdata.trailerId="0"
                         }
-                             let documentSnapshot=await fireStore
-                              .collection(collections.trailerCollection)
-                              .doc(bdata.trailerId)
-                              .get()
 
-
-                            //console.log("Doc",documentSnapshot)
-
-                            if(documentSnapshot._document){
-                                bdata["trailer"]=utils.extractTrailerData(documentSnapshot);
-                            }
-
-                            bannersList.push(bdata);
+                        bannersList.push(bdata);
                            
-
+                        
                         }
 
                     console.log("Banners",bannersList)

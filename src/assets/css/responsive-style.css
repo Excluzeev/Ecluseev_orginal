@@ -54,3 +54,103 @@ img{width: 100%}
     padding-top: 0;
 }
 }
+
+
+
+
+
+
+
+/* Updated responsive*/
+
+@media (min-width: 551px) and (max-width: 767px){
+
+    
+}
+
+@media (min-width: 768px) and (max-width: 991px){
+
+
+}
+
+
+@media only screen and (max-width: 767px){
+
+    .fb-login-icon,.gm-login-icon{
+        height: 25px !important;
+        width: auto;
+
+    }
+    .btn-signInWithGoogle, .btn-signInWithFacebok{
+        padding:5px;
+    }
+
+
+
+    .btn-signInWithGoogle img, .btn-signInWithFacebok img{
+        padding-right:2px;
+    }
+
+    .modal-body h2{
+        font-size:2rem;
+        line-height:10px;
+    }
+
+    .btn-windowSignIn{
+    
+       padding: 16px;
+
+    }
+
+    .already-have-an-account{
+        padding-top:0px;
+    }
+
+    .already-have-an-account a{
+        
+        font-size:1.2rem;
+        
+    }
+
+    #signin-cont{
+
+        text-align: center !important;
+
+    }
+
+    .register-logo{
+        width:50%;
+    }
+
+    #signUpModal .modal-content h2 {
+        float:none;
+    }
+    /* To hide the prev and next buttons in owlCarousels */
+    #cc-owl-carousel .owl-nav{
+        display:none;
+    }
+}	
+
+@media only screen and (max-width: 550px){
+
+
+    .register-logo{
+        width:50%;
+    }
+}
+
+@media only screen and (max-width: 991px){
+
+    #watch_preview_page p {
+
+        color:black;
+
+    }
+
+}
+
+
+@media (min-width: 992px) and (max-width: 1439px){
+
+}
+

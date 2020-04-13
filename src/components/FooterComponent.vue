@@ -63,18 +63,28 @@
 		<div class="footer_menu_section  d-xs-block d-lg-none d-xl-none d-md-block">
 			<nav class="navbar fixed-bottom navbar-light bg-faded">
 				<div class="pull-left">
-					<a class="" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+					<a class="" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 				</div>
 				<div class="text-center row-auto footer-searchbar">
 					<div class="form-group has-search">
 						<span class="fa fa-search form-control-feedback color_fffffff"></span>
-						<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+
+                          <form @submit.prevent="searchPreviews" style="margin:0;">
+
+
+						<input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+
+                        </form>
+
+
 					</div>
 					<!-- <a class="" href="#"><i class="fa fa-users" aria-hidden="true"></i></a> -->
 				</div>
+                <!--
 				<div class="pull-right">
 					<a class="" href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
 				</div>
+                -->
 			</nav>
 		</div>
   </div>
@@ -192,10 +202,19 @@ export default {
       terms: false,
       dialog: false,
       titleDialog: "",
-      componentDialog: null
+      componentDialog: null,
+      query:"",
     };
   },
   methods: {
+
+       searchPreviews() {
+      this.sideNav = false;
+      this.$router.push({
+        name: "SearchPreviews",
+        params: { query: this.query }
+      });
+    },
      openCookiePolicy: function() {
       window.open("https://excluzeev.com/cookie-policy", "_blank");
     },

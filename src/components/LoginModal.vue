@@ -52,7 +52,7 @@
                    			</div>
 											</div>
 										</div>
-										<div class="form-group col-md-3 text-left">
+										<div class="form-group col-md-3 text-left" id="signin-cont">
                       
 											<button class="btn btn-windowSignIn" :loading="processing" :disabled="processing"  @click="doLogin()">Sign in</button>
 										</div>
@@ -69,8 +69,8 @@
 						<p>Or sign in with</p><br>
 						<div class="clearfix"></div>
 						<div class="signIn-btns">
-							<a href="javascript://" :loading="processing" :disabled="processing" @click="signInGmail" class="btn-signInWithGoogle"><img src="../assets/Images/google_icon.png">Google</a>
-							<a href="javascript://" :loading="processing" :disabled="processing" @click="signInFb" class="btn-signInWithFacebok"><img src="../assets/Images/facebook_icon.svg">Facebook</a>
+							<a href="javascript://" :loading="processing" :disabled="processing" @click="signInGmail" class="btn-signInWithGoogle"><img src="../assets/Images/google_icon.png" class="gm-login-icon">Google</a>
+							<a href="javascript://" :loading="processing" :disabled="processing" @click="signInFb" class="btn-signInWithFacebok"><img src="../assets/Images/facebook_icon.svg" class="fb-login-icon">Facebook</a>
 						</div>
 						<br>
 						<br>
@@ -277,11 +277,15 @@ export default {
                
             }
                 
-          });
+          })
+        .catch(err => {
+
+            console.log("Error",err)
+        });
 
     },
     doLogin() {
-      console.log("Clicked login");
+      //console.log("Clicked login");
       this.errors={};
       let errorFound=false;
       if (!this.email) {
@@ -402,25 +406,28 @@ export default {
 </script>
 
 <style scoped>
-.error-message{
-    font-size: 17px;
-    display: block;
-    color: #f00;
-    text-align: left;
-    padding-left: 10px;
-    padding-top: 5px;
+    .error-message{
+        font-size: 17px;
+        display: block;
+        color: #f00;
+        text-align: left;
+        padding-left: 10px;
+        padding-top: 5px;
 
-}
-.non-specific-error-cont{
-    padding: 5px;
-    color: red;
-}
+    }
+    .non-specific-error-cont{
+        padding: 5px;
+        color: red;
+    }
 
-.non-specific-message-cont{
-    padding: 5px;
-    color: green;
-}
-.non-specific-error{
+    .non-specific-message-cont{
+        padding: 5px;
+        color: green;
+    }
+    .non-specific-error{
 
-}
+    }
+
+    
+
 </style>

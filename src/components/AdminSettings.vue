@@ -50,23 +50,46 @@
                   <div class="form-group">
                     <label >Stripe Test Public key</label>
                     <input type="text" class="form-control" placeholder="Stripe Test public key" name="stripe_test_public_key" v-model="settings.stripe_test_public_key">
-
-		    <span  class="error-message" v-if="this.errors['stripe_test_public_key']">{{this.errors['stripe_test_public_key']}}</span>
+		            <span  class="error-message" v-if="this.errors['stripe_test_public_key']">{{this.errors['stripe_test_public_key']}}</span>
                   </div>
 
                   <div class="form-group">
                     <label >Stripe Test Secret key</label>
                     <input type="text" class="form-control" placeholder="Stripe Test secret key" name="stripe_test_secret_key" v-model="settings.stripe_test_secret_key">
 
-		    <span  class="error-message" v-if="this.errors['stripe_test_secret_key']">{{this.errors['stripe_test_secret_key']}}</span>
+        		    <span  class="error-message" v-if="this.errors['stripe_test_secret_key']">{{this.errors['stripe_test_secret_key']}}</span>
+
                   </div>
 
-                  <div class="checkbox checkbox-circle checkbox-info peers ai-c mB-15">
-                    <input type="checkbox" name="is_stripe_live" class="peer" v-model="settings.is_stripe_live">
-                    <label for="inputCall1" class=" peers peer-greed js-sb ai-c">
-                      <span class="peer peer-greed">Live Mode</span>
-                    </label>
+
+                   
+                  <div class="form-group">
+                    <label >Stripe Live client ID</label>
+                    <input type="text" class="form-control" placeholder="Stripe Live Client ID" name="stripe_live_client_id" v-model="settings.stripe_live_client_id">
+		            <span  class="error-message" v-if="this.errors['stripe_live_client_id']">{{this.errors['stripe_live_client_id']}}</span>
                   </div>
+
+                  <div class="form-group">
+                    <label >Stripe Test client ID</label>
+                    <input type="text" class="form-control" placeholder="Stripe Test Client ID" name="stripe_test_client_id" v-model="settings.stripe_test_client_id">
+
+        		    <span  class="error-message" v-if="this.errors['stripe_test_client_id']">{{this.errors['stripe_test_client_id']}}</span>
+                  </div>
+
+
+
+
+                  <div class="form-group">
+
+                    <label>Live Mode</label>
+                    <select classs="form-control" v-model="settings.is_stripe_live">
+                        <option value=true>yes</option>
+                        <option value=false>No</option>
+
+                    </select>
+                  </div>
+
+
                   <button type="submit" class="btn btn-primary" :disabled="processing">Save</button>
 
             </div>
@@ -82,9 +105,20 @@
                     <label>Auto slider interval(milliseconds)</label>
                     <input type="number" min=100 max=2000 class="form-control" placeholder="" name="slider_interval" v-model="settings.auto_slider_interval">
 
-			
-		    <span  class="error-message" v-if="this.errors['auto_slider_interval']">{{this.errors['auto_slider_interval']}}</span>
+		
+            		    <span  class="error-message" v-if="this.errors['auto_slider_interval']">{{this.errors['auto_slider_interval']}}</span>
 
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <label>Auto slider</label>
+                    <select classs="form-control" v-model="settings.is_auto_slider_enabled">
+                        <option value=true>yes</option>
+                        <option value=false>No</option>
+
+                    </select>
                   </div>
 
 
@@ -139,6 +173,9 @@ export default {
 		stripe_live_secret_key: "",
 		stripe_test_public_key: "",
 		stripe_test_secret_key: "",
+
+		stripe_live_client_id: "",
+		stripe_test_client_id: "",
 
 	},
         
@@ -203,6 +240,25 @@ export default {
 		errorFound=true;
 	
 	}	
+
+	if(this.settings.is_stripe_live && this.settings.stripe_live_client_id == ""){
+
+		this.errors["stripe_live_client_id"]="It is required"
+
+		errorFound=true;
+	
+	}	
+
+
+	if(this.settings.is_stripe_live != true && this.settings.stripe_test_client_id == ""){
+
+		this.errors["stripe_test_client_id"]="It is required"
+
+		errorFound=true;
+	
+	}	
+
+
 
 	if(this.settings.site_base_url == ""){
 

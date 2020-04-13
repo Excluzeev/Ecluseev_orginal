@@ -63,7 +63,7 @@
 		<div class="footer_menu_section  d-xs-block d-lg-none d-xl-none d-md-block">
 			<nav class="navbar fixed-bottom navbar-light bg-faded">
 				<div class="pull-left">
-					<a class="" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+					<a class="" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 				</div>
 				<div class="text-center row-auto footer-searchbar">
 					<div class="form-group has-search">

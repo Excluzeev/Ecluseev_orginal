@@ -766,7 +766,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 #watch_preview_page .footer_brand_section{padding-top: 40px;}
 #watch_preview_page h2,
 #croud_funding_page h2,
-#excluzeev_live_page .description_section h2{font:40px rubik-medium;color: #294D5D;margin: 30px 0}
+#excluzeev_live_page .description_section h2{font:25px rubik-medium;color: #294D5D;margin: 30px 0}
 #excluzeev_live_page .trending_vedios_title h3{padding: 25px 0}
 #croud_funding_page .chat_section,
 #excluzeev_live_page .chat_section{padding-top: 8%;}
@@ -788,7 +788,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 #excluzeev_live_page .user_name_comment p{color: #294D5D;font: 18px rubik-regular;line-height: 22px;}
 #watch_preview_page .related_video_section h4,
 #croud_funding_page .related_video_section h4,
-#excluzeev_live_page .related_video_section h4{font:18px rubik-bold;color: #294D5D;padding: 20px 0;margin-bottom: 0;line-height: 22px;}
+#excluzeev_live_page .related_video_section h4{font:18px rubik-bold;color: #294D5D;padding: 0px 0;margin-bottom: 0;line-height: 22px;}
 #croud_funding_page .related_video_section p,
 #excluzeev_live_page .related_video_section p{color: #393939;font:18px rubik-regular;margin-bottom: 0}
 
@@ -1256,8 +1256,8 @@ header .search .search-input:focus {
 	#watch_preview_page p{color: #fff;font-size: 14px;margin-bottom:  0}
 	#watch_preview_page .related_video_section h3,
 	#watch_preview_page .related_video_section h3 span
-	{color: #FFFFFF!important; font:16px rubik-light;line-height: 20px;padding-top: 0!important}
-	#watch_preview_page .related_video_section h4{font:13px rubik-light;padding: 5px 0;color: #fff}
+	{color: black !important; font:16px rubik-light;line-height: 20px;padding-top: 0!important}
+	#watch_preview_page .related_video_section h4{font:13px rubik-light;padding: 5px 0;color: black;}
 	#home{
 		background-image: url(../mobile-bg-images/home-landing-Page_mobile_bg.png);
 	}
@@ -1397,3 +1397,28 @@ header .search .search-input:focus {
 			font-size: 30px;
 		}
 	}
+
+
+/* Updated ux*/
+
+#watch_preview_page p{
+
+    margin-top:10px;
+
+}
+
+#excluzeev_live_page .related_video_section h3, #watch_preview_page .related_video_section h3{
+
+    line-height: 1.1;
+    font-size: 1.5rem;
+    padding-bottom:5px;
+}
+.related_video_section .video_title p{
+
+    max-height: 100px !important;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.related_video_section ul{
+    margin-left:0rem;
+}

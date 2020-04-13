@@ -5,7 +5,7 @@
         <div class="form-row text-center m-1">
             <div class="col-lg-2"></div>
             <div class="col-lg-8 profile-bg">
-                 <img src="../assets/Images/commu_image.png" class="rounded-circle" alt="Cinque Terre">  
+                 <img src="../assets/Images/default_user_profile.png" class="rounded-circle" alt="Cinque Terre">  
             </div>
 
             <div class="col-lg-2"></div>

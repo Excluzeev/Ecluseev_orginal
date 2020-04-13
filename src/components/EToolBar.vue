@@ -8,13 +8,52 @@
 							<img src="../assets/Images/menu_logo.png">
 							<a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
 						</div>
-            <template v-if="!showLogin">
-						  <h5>Account</h5>
-						  <a href="#">My Profile</a>
-					    <a href="#" @click="goToCommunities">Communities</a>
-						  <a href="#"  @click="goLoginLive">Excluzeev Live</a>
-						  <a href="#">Setting</a>
-            </template>
+
+
+                        <template v-if="showLogin">
+
+
+
+                              <h5>Account</h5>
+
+                              <a href="javascript://" data-toggle="modal" data-target="#signUpModal">Create an Account</a>
+                              <a href="javascript://" data-toggle="modal" data-target="#signInModal">Login</a>
+
+
+
+
+
+                        </template>
+                        <template v-if="!showLogin">
+                              <h5>Account</h5>
+
+                              <a href="javascript://" v-if="!hideSignUpContentCreator&!showLogin" @click="goLoginContentCreator">Become Content creator</a>
+                              <a href="javascript://" v-if="!showLogin" @click="goToCommunities">Communities</a>
+
+
+
+                              <template v-if="hideSignUpContentCreator">
+
+                                <a href="javascript://"  @click="goLoginCreate">Create Community</a>
+
+                                <a href="javascript://" @click="goLoginLive">Excluzeev Live</a>
+
+                                    
+                                    <router-link  :to="{ name: 'MyProfile' }">
+                                          My profile
+                                         </router-link>
+                                  <router-link  :to="{ name: 'MyCrowdFundings' }">
+                                          My crowd funding
+                                         </router-link>
+
+
+                                  <router-link  :to="{ name: 'MyEarnings' }">
+                                          My earnings
+                                  </router-link>
+                              </template>
+
+                        </template>
+
 						<h5>COMPANY</h5>
 						<a href="#" @click="showAboutUs">About</a>
 						<a href="#">Careers</a>
@@ -28,9 +67,12 @@
 						<a v-if="!showLogin" href="#" @click="logout">Logout</a>
 						<hr class="logout_link">
 						<ul class="list-unstyled inline-list social_links">
-							<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-							<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            
+                            <li><a href="https://www.instagram.com/excluzeev/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.twitter.com/excluzeev/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.facebook.com/excluzeev" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+
+
 						</ul>
 					</div>
 					<div class="menu_sticks" @click="sideNav = !sideNav">
@@ -66,17 +108,17 @@
 						</li>
 						
           
-            <li  v-if="!hideSignUpContentCreator&!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+                        <li  v-if="!hideSignUpContentCreator&!showLogin" class="nav-item d-none d-lg-block d-lg-block">
 
-              	<button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#becomeCCModal">
-								<img src="../assets/Images/live.png"> Become a Content Creator
+              	        <button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#becomeCCModal">
+						  		<img src="../assets/Images/live.png"> Become a Content Creator
                 
-                </button>
+                        </button>
 
 						</li>
 
 
-            <li  v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
+                        <li  v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
 							<button @click="goLoginLive" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
 								<img src="../assets/Images/live.png"> Excluzeev Live
 							</button>
@@ -103,7 +145,7 @@
                
             -->
 						<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
-							<img src="../assets/Images/commu_image.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
+							<img src="../assets/Images/default_user_profile.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
 							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
 
 
@@ -239,12 +281,28 @@ export default {
   methods: {
     
     logout() {
-      this.$router.push("/logout");
-      this.$toasted.show("Sign out successful", {
-        theme: "outline",
-        position: "top-right",
-        duration: 2000
-      });
+
+        try{
+
+            this.$store.dispatch("signOut").then(() => {
+
+                this.$router.push({ name: "Home" });
+             
+                //console.log("Signout successful")
+
+               this.$toasted.show("Sign out successful", {
+                theme: "outline",
+                position: "top-right",
+                duration: 2000
+              });
+
+            });
+
+
+          }catch(err){
+            console.log("Error: ",err)
+          }
+
 
 
     },

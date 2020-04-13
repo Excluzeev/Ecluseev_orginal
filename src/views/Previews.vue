@@ -76,6 +76,10 @@ import store from "../store/index";
 import trailersModule from "../store/trailers/trailer";
 import channelsModule from "../store/channels/channels";
 
+import { auth, fireStore, firebaseTimestamp } from "../firebase/init";
+import utils from "../firebase/utils";
+
+
 export default {
   name: "Previews",
   components: {
@@ -84,6 +88,9 @@ export default {
   data: () => {
     return {
         promotedBanners:[],
+        is_auto_slider_enabled: false,
+        auto_slider_interval: 300,
+        
     };
   },
   mixins: [RegisterStoreModule],
@@ -99,6 +106,8 @@ export default {
   methods: {
   },
   async mounted() {
+
+
     // if (this.$route.query.done) {
     //   await this.$store.commit("forceFetchUser", {
     //     user: auth.currentUser,
@@ -106,6 +115,39 @@ export default {
     //   });
 	// }
 
+
+      fireStore
+            .collection(utils.settingsCollection)
+        .limit(1)
+        .get()
+        .then(querySnapshot =>{
+
+          querySnapshot.forEach(snapShot => {
+
+            let settings=snapShot.data()
+
+            if(settings.is_auto_slider_enabled == "true"){
+                this.is_auto_slider_enabled=true
+            }
+
+            else if(settings.is_auto_slider_enabled == "false"){
+
+
+                this.is_auto_slider_enabled=false
+            
+            }else{
+            
+
+                this.is_auto_slider_enabled=settings.is_auto_slider_enabled
+
+            }
+            this.auto_slider_interval=settings.auto_slider_interval
+
+
+          });
+
+
+        });
 
 
 
@@ -155,7 +197,7 @@ export default {
                  $("#cc-owl-carousel").owlCarousel({
                       loop: true,
                       navigation : true, // Show next and prev buttons
-                      slideSpeed : 100,
+                      slideSpeed : this.auto_slider_interval,
                       paginationSpeed : 400,
                       items : 1,
                       stagePadding: 0,
@@ -165,7 +207,7 @@ export default {
                       itemsTablet: false,
                       itemsMobile : false,
                       nav: true,
-                      autoplay:true,
+                      autoplay:this.is_auto_slider_enabled,
                       //autoplayTimeout:1000,
 
                   });
@@ -264,11 +306,14 @@ ul.navbar-nav.row-auto{margin-top: }
     width:100%;
 }
 
+/*
 
 button.owl-prev,button.owl-next{position: absolute; top: 20%; font-size: 0px!important; background: transparent; color: #fff!important; opacity: 1!important; outline: none; margin: 0; padding: 0; }
 button.owl-prev{left: -60px;}
 button.owl-next{right: -60px;}
 button.owl-prev span, button.owl-next span{font-size: 100px; opacity: 1; }
+
+*/
 .owl-theme .owl-nav [class*=owl-]:hover,.owl-theme .owl-nav [class*=owl-] {background: transparent!important; color: #FFF; text-decoration: none; }
 .item>p>i{color: #29ABE2}
 .large-12.columnss{width: 100%}

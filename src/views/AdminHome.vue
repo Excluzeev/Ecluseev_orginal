@@ -1,6 +1,6 @@
 <template>
 
-   <div id="adminHome">
+   <div id="adminHome" class="app">
       <!-- #Left Sidebar ==================== -->
       <div class="sidebar">
         <div class="sidebar-inner">
@@ -8,7 +8,7 @@
           <div class="sidebar-logo">
             <div class="peers ai-c fxw-nw">
               <div class="peer peer-greed">
-                <a class="sidebar-link td-n" href="index.html">
+                <a class="sidebar-link td-n" href="/admin-home">
                   <div class="peers ai-c fxw-nw">
                     <div class="peer">
                       <div class="logo">
@@ -20,7 +20,7 @@
               </div>
               <div class="peer">
                 <div class="mobile-toggle sidebar-toggle">
-                  <a href="" class="td-n">
+                  <a href="javascript://" class="td-n">
                     <i class="ti-arrow-circle-left"></i>
                   </a>
                 </div>
@@ -99,6 +99,10 @@
                 <Promote v-if="currentPage == 'promote'" />
 
                 <Settings v-if="currentPage == 'settings'" />
+
+
+                <Dashboard v-if="currentPage == 'dashboard'" />
+
   
           </div> <!-- main Content  -->
         </main>
@@ -118,7 +122,7 @@
 <script>
 
     import Promote from "../components/AdminPromote";
-
+    import Dashboard from "../components/AdminDashboard";
     import Settings from "../components/AdminSettings";
 
     import RegisterStoreModule from "../mixins/RegisterStoreModule";
@@ -129,7 +133,8 @@
         name: "AdminHome",
         components: {
             Promote,
-            Settings 
+            Settings,
+            Dashboard
         },
         data: () => {
     
@@ -147,6 +152,7 @@
         },
         methods: {
 
+        
             openPage(page){
 
                 console.log("Current page",page)
@@ -154,11 +160,44 @@
                  
             },
             logout(){
-            // Do the logout stuffs
+
+              try{
+
+                this.$store.dispatch("signOut").then(() => {
+
+                    this.$router.push({ name: "AdminLogin" });
+                // console.log("Signout successful")                    
+
+                   this.$toasted.show("Sign out successful", {
+                    theme: "outline",
+                    position: "top-right",
+                    duration: 2000
+                  });
+
+                });
+
+
+              }catch(err){
+                console.log("Error: ",err)
+              }
+
             }       
          
         },
         mounted (){
+
+          // ٍSidebar Toggle
+          $('.sidebar-toggle').on('click', e => {
+            $('.app').toggleClass('is-collapsed');
+
+
+            $('.header').toggleClass('sidebar-active');
+            
+
+            e.preventDefault();
+          });
+
+
     
         }
     };
@@ -169,4 +208,9 @@
         @import "../assets/admin/css/adminstyle.css";
 
 
+    .sidebar-active{
+        width: 84%;
+        margin-left: 16%;
+    }
+    
 </style>

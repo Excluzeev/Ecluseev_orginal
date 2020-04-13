@@ -220,4 +220,16 @@ a {
 
 }
 
+.item_img{
+
+    padding: 1px;
+    background: white;
+    border-radius: 24px;
+
+}
+.item_img img{
+
+
+    border-radius: 24px;
+}
 </style>

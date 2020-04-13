@@ -90,6 +90,11 @@
 </template>
 
 <script>
+
+import { auth, fireStore, firebaseTimestamp } from "../firebase/init";
+import utils from "../firebase/utils";
+
+
 import PrivacyPolicy from "./PrivacyPolicy";
 import ContentCreator from "./ContentCreator";
 import LicenseAgreement from "./LicenseAgreement";
@@ -116,12 +121,35 @@ export default {
       },
       processing: false,
       errors:{},
+      clientId:"",
     };
   },
   components: {
     PrivacyPolicy
   },
   created() {
+  },
+  mounted(){
+
+     fireStore
+         .collection(utils.settingsCollection)
+        .limit(1)
+        .get()
+        .then(querySnapshot =>{
+          querySnapshot.forEach(snapShot => {
+            let settings=snapShot.data()
+            if(settings.is_stripe_live){
+                this.clientId=settings.stripe_live_client_id
+            }else{
+                this.clientId=settings.stripe_test_client_id
+            }
+          });
+
+        });
+
+    
+
+
   },
   methods: {
     doSignUpContentCreator() {
@@ -153,23 +181,13 @@ export default {
       this.processing = true;
 
       // FIXME it should be configurable from admin page
-
       // change those to live
       //let connect_client_id="ca_F90HyKuBsdziUICmQ5bW9gSQCY9lMmaY"
+      //let connect_client_id="ca_F90HDO14vD97St5ir3scNmlL8b2DXiD1"
 
-      let connect_client_id="ca_F90HDO14vD97St5ir3scNmlL8b2DXiD1"
-
-     
-      window.location = "https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write"
       
-      //window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write");
-
-      //Test dev client id
-      //let connect_client_id="ca_GzADHaaSfUXPGBeRcNzqOS5eHZFoCiQd"
-      //To open in new window
-
-      //window.location = "https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write"
-      //window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+connect_client_id+"&scope=read_write");
+      window.location = "https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+this.clientId+"&scope=read_write"
+      
 
 
       // this.$store

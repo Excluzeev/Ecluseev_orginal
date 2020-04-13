@@ -9,8 +9,9 @@
                 <span style="color:grey;">({{item.trailers.length}})</span>
                 </h3>
 			  </div>
+              <!--
 			  <div class="pull-right d-md-none d-lg-none d-xs-block"><h3><a href="#">View All</a></h3></div>
-	
+	          -->
         <section id="popper_section_carosel">
           <div class="row">
             <div class="large-12 columns col-md-12 col-lg-12 col-xs-12 col-sm-12">

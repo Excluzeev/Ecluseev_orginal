@@ -288,7 +288,9 @@ export default {
         });
 
         $(document).on("click", "#edit", function(event){
-    
+
+            _vm.resetState()
+             
             let ele=event.target
             console.log(ele)
             let id=$(ele).attr("data-id")
@@ -299,6 +301,13 @@ export default {
   },
   methods: {
 
+    resetState(){
+
+        this.errors=[];
+        this.infoMsg="";
+        this.errormsg="";
+
+    },
 
       onImageSelected(file) {
       
@@ -332,12 +341,36 @@ export default {
               errorFound=true;
           }
 
+
+
+           let trailer=null;            
+           if(this.bannerTrailerId){
+          
+            let documentSnapshot=await fireStore
+              .collection(utils.trailerCollection)
+              .doc(this.bannerTrailerId)
+              .get()
+
+
+            
+            //console.log("Doc",documentSnapshot.data())
+
+            if(documentSnapshot._document){
+                trailer=documentSnapshot.data();
+            }else{
+               this.errors["trailerId"]="Trailer not found";
+               errorFound=true;
+            }
+        
+           }
+
           if(errorFound){
             this.processing=false;
               this.$forceUpdate();
             return false; // if error found
 
           }
+
 
 
            let bannerId=""
@@ -383,8 +416,8 @@ export default {
                 isActive: this.bannerIsActive,
                 isTrailer: this.bannerIsTrailer,
                 trailerId: this.bannerTrailerId,
-                url: this.bannerUrl        
-                
+                url: this.bannerUrl,  
+                trailer: trailer
             }
 
          let bannerRef = fireStore

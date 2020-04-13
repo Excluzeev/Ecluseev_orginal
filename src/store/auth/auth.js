@@ -83,12 +83,14 @@ export default {
       dispatch
     }) => {
       return new Promise(resolve => {
+
         let errorData = {
           error: false,
           message: "Login Successful"
         };
 
         
+        //console.log("Signin via gmail")
         auth
           .signInWithPopup(gprovider)
           .then(() => {
@@ -97,6 +99,8 @@ export default {
               message: "Login Successful"
             };
             dispatch('checkUser').then(userRecord => {
+
+              //console.log("userRecord",userRecord)
               if (userRecord.exists) {
                 resolve(errorData);
               } else {
@@ -320,7 +324,12 @@ export default {
 
     },
     signOut: () => {
-      auth.signOut();
+      try{
+          console.log("Going to signout");
+          auth.signOut();
+      }catch(err){
+        console.log("Error",err)
+      }
     }
   }
 };

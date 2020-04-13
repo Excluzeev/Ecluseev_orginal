@@ -132,6 +132,26 @@ const router = new VueRouter({
 
       }
     },
+
+    {
+      path: "/admin-logout",
+      name: "AdminLogout",
+      beforeEnter(to, from, next) {
+
+        store.dispatch("signOut").then(() => {
+          next({
+            name: "AdminLogin"
+          });
+        })
+        .catch(err => {
+           console.log("Exception; ",err)
+        })
+
+
+      }
+    },
+
+
     {
       path: "/create-channel",
       name: "CreateChannel",
@@ -345,7 +365,8 @@ const router = new VueRouter({
       name: "AdminHome",
       component: AdminHome,
       meta: {
-        noEntry: false,
+        isAdminPage: true,
+        noEntry: true,
         showNav: false,
         title: "Admin Home"
       }
@@ -542,19 +563,44 @@ router.beforeEach(async (to, from, next) => {
   var unsubscribe = auth.onAuthStateChanged(
     user => {
       if (to.meta.noEntry == true) {
+
+
+
         if (user == null) {
-          // console.log("force redirect");
+
           next(false);
+
+
+        if(to.meta.isAdminPage){
+
+
+          next({
+            name: "AdminLogin",
+            replace: true
+          });
+                    
+        }else{
+          // console.log("force redirect");
           // this.$router.push({ name: "Login" });
           next({
             name: "Home",
             replace: true
           });
-          location.reload();
+
+         //location.reload();
+
+        }
+
+
+
+
         } else {
           next();
         }
       } else {
+
+        
+
         // console.log(to.path);
         if (
           user &&
@@ -569,8 +615,28 @@ router.beforeEach(async (to, from, next) => {
           });
           location.reload();
         } else {
-          next();
-        }
+
+          if(to.meta.isAdminPage){
+    
+
+            if(user.isAdmin){
+
+                next();
+
+            }else{
+                  next({
+                    name: "Home",
+                    replace: true
+                  });
+            }
+                        
+
+          }else{
+            next();
+          }
+
+         
+       }
       }
     },
     error => {

@@ -13,7 +13,7 @@
 						<div class="inline-list text-center">
 							<h2>Join</h2>
 							<div class="modal-title_section">
-								<img src="../assets/Images/logo_window.svg"><sup>TM</sup>
+								<img src="../assets/Images/logo_window.svg" class="register-logo"><sup>TM</sup>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -83,17 +83,6 @@
 								</div>
                 
 								<div class="form-group col-md-4 text-right">
-                                <!-- 
-                                  <vue-programmatic-invisible-google-recaptcha
-                                  ref="invisibleRecaptcha1"
-                                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
-                                  elementId="invisibleRecaptcha1"
-                                  badgePosition="'left'"
-                                  :showBadgeMobile="false"
-                                  :showBadgeDesktop="false"
-                                  @recaptcha-callback="recaptchaCallback"
-                                ></vue-programmatic-invisible-google-recaptcha>
-                                -->
 									<button type="submit" class="btn btn-windowSignUp" :loading="processing" :disabled="processing">Sign Up</button>
 								</div>
 							</div>
@@ -125,155 +114,6 @@
 		<!-- End -->
 		
 		
-
-<!--
-  <div style="height:100%" class>
-    <v-container text-xs-center fill-height>
-      <v-layout align-center row wrap justify-center>
-        <v-flex xs12 sm8 md6>
-          <v-card class="elevation-5 signup-holder text-xs-center">
-            <img
-              style="width: 30%;"
-              alt="Excluzeev
-            logo"
-              src="../../assets/excluzeev_bottom_text.png"
-            />
-            <div class="signup-text quick-sand-font">Sign up</div>
-            <div class="signup-continue-text">Continue to Excluzeev</div>
-            <v-card-text>
-              <v-form class="lighten-1" @submit.prevent="isHuman">
-                <v-layout row>
-                  <v-text-field
-                    style="margin-right: 5px;"
-                    name="firstname"
-                    label="FirstName"
-                    type="text"
-                    v-model="firstName"
-                    :rules="[rules.required, rules.name]"
-                  ></v-text-field>
-                  <v-text-field
-                    style="margin-left: 5px;"
-                    name="lastname"
-                    label="LastName"
-                    type="text"
-                    v-model="lastName"
-                    :rules="[rules.required, rules.name]"
-                  ></v-text-field>
-                </v-layout>
-                <v-text-field
-                  name="login"
-                  label="Email"
-                  type="text"
-                  v-model="email"
-                  :rules="[rules.required, rules.email]"
-                ></v-text-field>
-                <v-layout row>
-                  <v-text-field
-                    style="margin-right: 5px;"
-                    id="password"
-                    name="password"
-                    label="Password"
-                    type="password"
-                    v-model="password"
-                    :rules="[rules.required, rules.password]"
-                  ></v-text-field>
-                  <v-text-field
-                    style="margin-left: 5px;"
-                    id="cpassword"
-                    name="cpassword"
-                    label="Confirm Password"
-                    type="password"
-                    v-model="cPassword"
-                    :rules="[rules.required, rules.password]"
-                  ></v-text-field>
-                </v-layout>
-
-                <v-layout row>
-                  <v-checkbox v-model="checkAll" color="blue lighten-1" value="true">
-                    <template v-slot:label>
-                      <div>
-                        Agree to &nbsp;
-                        <a @click="showExcluzeevTerms">Terms</a>,&nbsp;
-                        <a @click="showPrivacyPolicy" v-on="on">Privacy Policy</a>,&nbsp;
-                        <a @click="showCallToActionTerms" v-on="on">Call to Action Terms</a>&nbsp;
-                      </div>
-                    </template>
-                  </v-checkbox>
-                </v-layout>
-
-                <div class="text-xs-left grey--text" style="font-size: 12px"></div>
-
-                <vue-programmatic-invisible-google-recaptcha
-                  ref="invisibleRecaptcha2"
-                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
-                  elementId="invisibleRecaptcha2"
-                  badgePosition="'left'"
-                  showBadgeMobile="false"
-                  showBadgeDesktop="false"
-                  @recaptcha-callback="recaptchaCallback"
-                ></vue-programmatic-invisible-google-recaptcha>
-
-                <div class="text-xs-right quick-sand-font-b" style="padding: 0px;">
-                  <v-btn
-                    class="white--text quick-sand-font-b"
-                    color="blue lighten-1"
-                    type="submit"
-                    :loading="processing"
-                    :disabled="processing"
-                    @click="loader = 'loading4'"
-                  >
-                    Sign up
-                    <template v-slot:loader>
-                      <span class="custom-loader">
-                        <v-icon light>cached</v-icon>
-                      </span>
-                    </template>
-                  </v-btn>
-                </div>
-              </v-form>
-              <div class="padding"></div>
-              <div class="text-xs-left quick-sand-font">
-                Have an account? &nbsp;
-                <a>
-                  <span class color="blue lighten-1" @click="goLogin">Sign in</span>
-                </a>
-              </div>
-            </v-card-text>
-          </v-card>
-          <div
-            class="text-xs-right"
-            style="padding-right: 20px;padding-top: 10px;font-weight: bolder;"
-          >
-            <strong>By creating account you agree to &nbsp;&nbsp;</strong>
-            <a @click="showExcluzeevTerms">Terms</a>
-
-            <a @click="showPrivacyPolicy" style="padding-left: 20px;">Privacy</a>
-            <a @click="showCallToActionTerms" style="padding-left: 20px;">Call to Action Terms</a>
-
-            <a
-              href="mailto:support@excluzeev.com?subject=Need%20Help"
-              style="padding-left: 20px;"
-            >Help</a>
-          </div>
-        </v-flex>
-      </v-layout>
-      <!\-- <v-snackbar v-model="snackbar" bottom>
-        {{ toastText }}
-      </v-snackbar>--\>
-    </v-container>
-    <v-dialog v-model="termsDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card>
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="termsDialog = false">
-            <v-icon>close</v-icon>
-          </v-btn>
-          <v-toolbar-title>{{ titleDialog }}</v-toolbar-title>
-        </v-toolbar>
-        <component v-bind:is="componentDialog"></component>
-      </v-card>
-    </v-dialog>
-  </div>
-  -->
 </template>
 
 <script>
@@ -296,7 +136,7 @@ export default {
       termsDialog: false,
       titleDialog: "",
       componentDialog: null,
-      checkAll:[],
+      checkAll:false,
       errors:{},
       rules: {
         name: value => {
@@ -371,6 +211,12 @@ export default {
         this.processing = false;
         errorFound=true;
         this.errors['cpassword']="Password doesn't match";
+      }
+
+      if (this.checkAll == false) {
+        this.processing = false;
+        errorFound=true;
+        this.errors['error']="Please Agree to our terms and policies!!";
       }
 
       if(errorFound == true){
