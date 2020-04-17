@@ -1,8 +1,8 @@
 <template>
   
 		 <!-- Modal for sign in -->
-		<div class="modal fade bd-example-modal-xl" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		<div class="modal fade bd-example-modal-lg" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
@@ -15,20 +15,20 @@
 						<div class="clearfix"></div>
 						<p>Sign in to create or join communities, and to explore the popular and upcoming excluzeev communities and interact with the fans/stars.</p>
 
-              	           <div class="form-row " v-if="this.errors['error']">
+              <div class="form-row " v-if="this.errors['error']">
 								<div class="form-group col-md-12 non-specific-error-cont">
                 <span  class="non-specific-error" id="non-specific-error"  >{{this.errors['error']}}</span>
 								</div>
 
-                                <div class="form-group col-md-12 text-center" v-if="showEmailVerifyLink">
-                                    <button class="btn btn-small btn-primary" @click="sendEmailVerificationEmail">Resend verfication email</button>
-                                </div>
+                <div class="form-group col-md-12 text-center" v-if="showEmailVerifyLink">
+                    <button class="btn btn-small btn-primary" @click="sendEmailVerificationEmail">Resend verfication email</button>
+                </div>
 							</div>
 
 
-              	           <div class="form-row " v-if="this.showSucceedMsg">
+              <div class="form-row " v-if="this.showSucceedMsg">
 								<div class="form-group col-md-12 non-specific-message-cont">
-                                    <span  class="non-specific-message" id=""  >{{this.toastText}}</span>
+                  <span  class="non-specific-message" id=""  >{{this.toastText}}</span>
 								</div>
 
 							</div>
@@ -36,7 +36,7 @@
 							<div class="form-row">
 								<div class="form-group col-md-12 margin_bottom_none">
 									<div class="form-row margin_bottom_none">
-										<div class="form-group col-md-9 margin_bottom_none">
+										<div class="form-group col-lg-9 col-sm-12 margin_bottom_none">
 											<div class="form-row margin_bottom_none">
 												<div class="form-group col-md-12" >
 													<span class="head"></span>
@@ -52,7 +52,7 @@
                    			</div>
 											</div>
 										</div>
-										<div class="form-group col-md-3 text-left" id="signin-cont">
+										<div class="form-group col-lg-3 col-sm-12 text-left" id="signin-cont">
                       
 											<button class="btn btn-windowSignIn" :loading="processing" :disabled="processing"  @click="doLogin()">Sign in</button>
 										</div>

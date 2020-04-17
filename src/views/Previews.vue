@@ -5,7 +5,7 @@
         
 
  
-	  <div id="home">
+    <div id="home">
         
 
               <div class="owl-carousel owl-theme" id="cc-owl-carousel">
@@ -14,11 +14,11 @@
 
                      <router-link :to="'/trailer/'+banner.trailerId" v-if="banner.isTrailer">
 
-                        <img :src="banner.image" style="height:540px;"/>
+                        <img :src="banner.image" style=""/>
                         
                         <div v-if="banner.isTrailer" class="container-fluid banner-controls">
                             <section class="title_section" v-if="banner.trailer">
-                                <p class="channel_type"><i class="fa fa-tripadvisor" aria-hidden="true"></i>{{banner.trailer.categoryName}}</p>
+                                <p class="channel_type" style="margin-bottom:0"><i class="fa fa-tripadvisor" aria-hidden="true"></i>{{banner.trailer.categoryName}}</p>
 
                         
                                     <div class="bri_n_teesh_title">
@@ -50,7 +50,7 @@
 
 
             </div>
-
+<div class="clearfix"></div>
        </div>
 
 
@@ -59,14 +59,14 @@
     
 
       <div id="black_bg_section">
-	 	<CategoriesTrailerVideos />
-  	  </div>
+    <CategoriesTrailerVideos />
+      </div>
   </div>
 </template>
 
 <script>
 
-	
+  
 
 // @ is an alias to /src
 // import FeaturedItem from "../components/FeaturedItem";
@@ -83,7 +83,7 @@ import utils from "../firebase/utils";
 export default {
   name: "Previews",
   components: {
-	CategoriesTrailerVideos,
+  CategoriesTrailerVideos,
   },
   data: () => {
     return {
@@ -113,7 +113,7 @@ export default {
     //     user: auth.currentUser,
     //     force: true
     //   });
-	// }
+  // }
 
 
       fireStore
@@ -151,23 +151,23 @@ export default {
 
 
 
-	
-	   $("#search_btn").click(function(){
-		  	$("#search_btn").hide("slow");
-		  	$(".footer_search_section").show("slow");
-		  	$(".footer_search_section").slideDown("slow");
-		  	$(".footer_menu_section_icons").hide("slow");
-		});
+  
+     $("#search_btn").click(function(){
+        $("#search_btn").hide("slow");
+        $(".footer_search_section").show("slow");
+        $(".footer_search_section").slideDown("slow");
+        $(".footer_menu_section_icons").hide("slow");
+    });
 
-		$(".footer_search_section i.fa.fa-angle-down, .footer_search_section a").click(function(){
-			$("#search_btn").show("slow");
-			$(".footer_search_section").hide("slow");
-		  	$(".footer_search_section").slideUp("slow");
-		  	$(".footer_menu_section_icons").show("slow");
-		});
-		
-		let owl_carousel = require('owl.carousel');
-		window.fn = owl_carousel;
+    $(".footer_search_section i.fa.fa-angle-down, .footer_search_section a").click(function(){
+      $("#search_btn").show("slow");
+      $(".footer_search_section").hide("slow");
+        $(".footer_search_section").slideUp("slow");
+        $(".footer_menu_section_icons").show("slow");
+    });
+    
+    let owl_carousel = require('owl.carousel');
+    window.fn = owl_carousel;
        
         let loader = this.$loading.show({
           // Pass props by their camelCased names
@@ -232,8 +232,8 @@ export default {
 
 </script>
 
-	
-	
+  
+  
 
 <style scoped>
 
@@ -247,7 +247,7 @@ export default {
 
 #home{
 
-    height:540px;
+    /*height:540px;*/
 
 }
 
@@ -284,7 +284,7 @@ ul.navbar-nav.row-auto{margin-top: }
 .create-account-btn{margin-right: 10px;background-color: #29ABE2;border-color: #29ABE2}
 .create-account-btn:focus{border-color: #29ABE2}
 .popper_section>h3>a,.popper_section>h3>a:hover{color: #fff}
-.title_section{padding-top:23%;}
+
 .title_section>p>i{padding-right: 10px;}
 .channel_type{font:25px/29px rubik-regular !important; color: #FFFFFF !important; padding-bottom: 24px; line-height: 25px !important; margin: 0; }
 .h1{margin: 0;font:30px/40px rubik-medium;color: #FFFFFF;}
@@ -347,7 +347,7 @@ h5:after {content: ""; width: 48px; position: absolute; right: 70px; margin-top:
 .social_links li:nth-child(1){margin-left: 0}
 .social_links li{margin-left: 35px;}
 button.btn.btn-borderless {padding: 0; line-height: 1px; color: #fff; outline: none; border: transparent; font-size: 35px; }
-.viedo_preview{position: relative;}
+.viedo_preview{display:none}
 .viedo_preview>i{font-size: 100px;color: #FFFFFF}
 .owl-nav i{font-size: 50px!important;}
 .column, .columns{padding-right: 0;padding-left: 0}
@@ -357,12 +357,32 @@ button.btn.btn-borderless {padding: 0; line-height: 1px; color: #fff; outline: n
 .col-md-4 ,.col-sm-4 ,.col-lg-4 ,.col-xl-2{padding-left: 0}
 
 
-
+.owl-carousel .owl-item img{position:relative}
 
 .banner-controls{
     position: absolute;
-    top: 0;
+    bottom: 50px;
     left: 53px;
 }
+@media screen and (max-width: 615px){
+.title_section>p {
+    font-size: 16px;
+    padding-bottom: 0;
+}
+.channel_type,
+.h1{font-size:14px;line-height:18px;}
+.banner-controls {
+    bottom: 15px;
+    left: 15px;
+    width: auto;
+}
+.viedo_preview>i{font-size:35px}
+#home p, #curious_section p, #how-does-it-works-section p{font-size:16px!important;line-height:18px;}
 
+}
+@media only screen and (max-width:991px){
+  .container{margin-bottom:50px;width:100%;max-width:100%!important;}
+  #black_bg_section{padding:0 1% 30px 1%!important}
+
+}
 </style>

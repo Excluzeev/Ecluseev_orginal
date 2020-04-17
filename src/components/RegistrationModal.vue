@@ -11,9 +11,10 @@
 					</div>
 					<div class="modal-body text-center">
 						<div class="inline-list text-center">
-							<h2>Join</h2>
+							<!--<h2>Join</h2>-->
 							<div class="modal-title_section">
-								<img src="../assets/Images/logo_window.svg" class="register-logo"><sup>TM</sup>
+								<img src="../assets/Images/logo_window.png" class="register-logo img-fluid">
+                <!--<sup>TM</sup>-->
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -33,11 +34,14 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
+                <span class="head"></span>
+                          <span class="body"></span>
 									<input v-model="firstName"  type="name" class="form-control" id="firstName" placeholder="Please enter first name">
 									<span  class="error-message" id="firstname_err" v-if="this.errors['firstname']">{{this.errors['firstname']}}</span>
               	</div>
 								<div class="form-group col-md-6">
-							
+							<span class="head"></span>
+                          <span class="body"></span>
 									<input v-model="lastName"  type="name" class="form-control" id="lastName" placeholder="Please enter last name">
 									<span  class="error-message" id="lastname_err" v-if="this.errors['lastname']">{{this.errors['lastname']}}</span>
 						
@@ -70,19 +74,19 @@
 							<div class="form-row terms-items-cont">
 
                 <div class="terms-text">
-    									By clicking on “Sign Up” button, I agree to
+    									<p>By clicking on “Sign Up” button, I agree to</p>
 
                 </div>
-								<div class="form-group col-md-8 text-left terms-items">
-
-                    <input v-model="checkAll" type="checkbox" name="" id="" value="true">
-                    <a @click="showExcluzeevTerms">Terms</a>
-                    <a @click="showPrivacyPolicy">Privacy Policy</a>
-                    <a @click="showCallToActionTerms">Call to Action Terms</a>    
-
+								<div class="form-group col-md-6 col-sm-6 col-xs-12 text-left terms-items">
+                  <label>
+                      <input v-model="checkAll" type="checkbox" name="" id="" value="true">
+                      <a @click="showExcluzeevTerms">Terms</a>
+                      <a @click="showPrivacyPolicy">Privacy Policy</a>
+                      <a @click="showCallToActionTerms">Call to Action Terms</a>    
+                  </label>
 								</div>
                 
-								<div class="form-group col-md-4 text-right">
+								<div class="form-group col-md-6 col-sm-6 col-xs-12  signup-btn-section">
 									<button type="submit" class="btn btn-windowSignUp" :loading="processing" :disabled="processing">Sign Up</button>
 								</div>
 							</div>

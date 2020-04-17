@@ -159,6 +159,7 @@
 
     .profile-bg{
         background: #f7f7f7;
+        padding:25px;
     }
     .profile-actions{
         padding-top:10px;
@@ -169,5 +170,8 @@
         color: green;
         font-size: 21px;
 
+    }
+    @media only screen and (max-width:767px){
+      .data-value{font-size:21px!important;padding:10px}
     }
 </style>

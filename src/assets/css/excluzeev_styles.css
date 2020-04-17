@@ -10,7 +10,7 @@ h6{margin-top: 15px!important;margin-bottom: 0!important;font:18px/22px rubik-li
 h3,h3>a,h3>a:hover	{text-transform: uppercase;font:25px/29px rubik-medium;color: #FFFFFF!important;padding-bottom: 39px!important;margin-top:  0!important;padding-top: 39px!important;margin-bottom: 0}
 h3>i{padding-right: 6px}
 h4{font:18px/22px rubik-medium;color: #FFFFFF;padding-bottom: 23px}
-.form-control:focus,.signIn-btn:focus,.btn:focus{border-color: inherit;-webkit-box-shadow: none; box-shadow: none; }
+.form-control:focus,.signIn-btn:focus,.btn:focus{border-color: inherit;-webkit-box-shadow: none; box-shadow: none;-moz-box-shadow: none; }
 #home{padding: 2% 3% 0 8%; background-size: 100%; opacity: 1; background: linear-gradient(180deg, #000000E6 0%, #000000BD 8%, #00000000 17%, #00000000 80%, #0000004B 90%, #000000 100%), linear-gradient(18deg, #2598C9E8 10%,transparent, transparent),url(../Images/home_bg.png) 0% 0% no-repeat; background-size:cover; background-repeat: no-repeat; }
 .navbar{padding-left: 0;padding-right: 0;width: 100% }
 .btn_radius{border-radius: 22px; }
@@ -126,6 +126,8 @@ button.btn.btn-borderless {padding: 0; line-height: 1px; color: #fff; outline: n
 	color: #000;
 	    border: 0px solid #fff;
     box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
 }
 .footer_search_section .has-search .form-control-feedback{
 	color: #000;
@@ -159,6 +161,8 @@ button.btn.btn-borderless {padding: 0; line-height: 1px; color: #fff; outline: n
 .cloudshadow, .cloudshadow:after, .cloudshadow:before {
     margin: 0;
     box-shadow: 0 0 25px #2c3e50;
+    -moz-box-shadow: 0 0 25px #2c3e50;
+    -webkit-box-shadow: 0 0 25px #2c3e50;
     z-index: -99;
 }
 .cloud:after, .cloudshadow:after {

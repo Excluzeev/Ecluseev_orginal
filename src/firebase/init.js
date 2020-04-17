@@ -1,9 +1,10 @@
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
+import firebase from '@firebase/app';
+import '@firebase/firestore';
 import "firebase/auth";
-import "firebase/firestore";
+// import "firebase/firestore";
 import "firebase/database";
 import "firebase/storage";
-
 const config = {
   apiKey: "AIzaSyBaaaA4ABqwDHINyDwx0bDM40hXs8p5Fcs",
   authDomain: "trenstop-2033f.firebaseapp.com",

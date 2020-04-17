@@ -116,3 +116,12 @@ export default {
   }
 };
 </script>
+<style>
+.HowTo{margin-bottom:50px;}
+@media only screen and (max-width:767px){
+  .HowTo h2{font-size:18px;}
+}
+@media only screen  (max-width:767px) and (min-width:768px){
+  .HowTo h2{font-size:32px;}
+}
+</style>

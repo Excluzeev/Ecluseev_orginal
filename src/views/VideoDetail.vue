@@ -610,4 +610,5 @@ export default {
 .v-text-field__details {
   display: none;
 }
+.video-js{width:100%}
 </style>

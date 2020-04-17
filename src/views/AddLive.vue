@@ -1,116 +1,99 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <div id="create_community_page">
+  <div id="create_community_page" class="createCommunityPage">
   
     <div class="container-fluid" v-if="showAddLive" >
 
         <div class="row">
-          <div class="col-xl-8">
-            <div class="create_community_page_title_section">
-              <h2>Create an Excluzeev Live</h2>
+          <div class="col-sm-8">
+            <div class="create_community_page_title_section text-left">
+              <h2 style="text-align:left">Create an Excluzeev Live</h2>
               <p>Start Excluzeev live!</p>
             </div>
-          </div>
+          </div> 
         
-           <div class="col-xl-4">
+          <div class="col-sm-4">
 
-                <a class="pull-right btn btn-publish-video btn-need-help" href="/howto" title="Don't you know how to start excluzeev live?? click this button.">
-                Need help  <i class="fa fa-question-circle" aria-hidden="true"></i>
-                </a>
-           </div>
+            <a class="pull-right btn btn-publish-video btn-need-help" href="/howto" title="Don't you know how to start excluzeev live?? click this button.">
+              Need help  <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
    
 
             <form @submit.prevent="doUploadVideo">
-
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="create_form_section">
-
-                                  <div class="form-row">
-                                      <div class="form-group col-md-12">
-                                          <label for="name">Title<i class="fa fa-info"></i></label>
-                                          <input v-model="videoTitle" type="name" class="form-control" id="" aria-describedby="title" placeholder="Title">
-                        <span  class="error-message" v-if="this.errors['title']">{{this.errors['title']}}</span>
-                                    </div>
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="create_form_section">
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label for="name">Title<i class="fa fa-info"></i></label>
+                            <input v-model="videoTitle" type="name" class="form-control" id="" aria-describedby="title" placeholder="Title">
+                            <span  class="error-message" v-if="this.errors['title']">{{this.errors['title']}}</span>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label for="name">Description<i class="fa fa-info"></i></label>
+                            <textarea v-model="description"  class="form-control" id="" aria-describedby="description" placeholder="Description"></textarea>
+                            <span  class="error-message" v-if="this.errors['description']">{{this.errors['description']}}</span>
+                          </div>
+                        </div>
+                        <div class="form-row" >
+                          <div class="form-group col-md-12">
+                            <label for="Category">Channel<i class="fa fa-info"></i></label>
+                              <select   v-model="selectedChannel" class="form-control" id="selectedChannel" placeholder="Choose a channel">
+                                <option v-for="ch in channelsList" v-text="ch.title" v-bind:value="ch.channelId" v-bind:key="ch.id"></option>
+                              </select>
+                            <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div class="form-row">
-                                      <div class="form-group col-md-12">
-                                          <label for="name">Description<i class="fa fa-info"></i></label>
-                                          <textarea v-model="description"  class="form-control" id="" aria-describedby="description" placeholder="Description"></textarea>
-                        <span  class="error-message" v-if="this.errors['description']">{{this.errors['description']}}</span>
-                                    </div>
-                    </div>
-
-                    <div class="form-row" >
-                      <div class="form-group col-md-12">
-                                          <label for="Category">Channel<i class="fa fa-info"></i></label>
-                                        <select   v-model="selectedChannel" class="form-control" id="selectedChannel" placeholder="Choose a channel">
-                                            <option v-for="ch in channelsList" v-text="ch.title" v-bind:value="ch.channelId" v-bind:key="ch.id"></option>
-                                        </select>
-                        <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span>
-                                    </div>
-                    </div>
-
-                  </div>
-                </div>
-
-                <div class="col-xl-6 col-lg-6">
-                  
-                    <div class="form-row" >
-                      <div class="form-group col-md-8">
-                              
-                        <v-radio-group v-model="timePublish" :mandatory="true" row v-on:change="timeUpdate">
-                          <v-radio label="Now" value="now"></v-radio>
-                          <v-radio label="Schedule" value="later"></v-radio>
-                        </v-radio-group>
-
-                    
-                        <!-- <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span> -->
-                                    </div>
-                    </div>
-
-                    
-
-                    <div class="form-row"  v-if="showDateTime">
-                      <div class="form-group col-md-8">
+                    <div class="col-sm-6 ">
+                      <div class="form-row" >
+                        <div class="form-group col-md-12">
+                          <v-radio-group v-model="timePublish" :mandatory="true" row v-on:change="timeUpdate">
+                            <v-radio label="Now" value="now"></v-radio>
+                            <v-radio label="Schedule" value="later"></v-radio>
+                          </v-radio-group>
+                          <!-- <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span> -->
+                        </div>
+                      </div>
+                      <div class="form-row"  v-if="showDateTime">
+                        <div class="form-group col-md-12">
                           <v-flex>
-                        <v-dialog
-                          ref="datedialog"
-                          v-model="dateModal"
-                          :return-value.sync="date"
-                          persistent
-                          lazy
-                          full-width
-                          width="290px"
-                        >
-                          <template v-slot:activator="{ on }">
-                            <v-text-field
-                              v-model="date"
-                              label="Select Date"
-                              prepend-icon="event"
-                              readonly
-                              v-on="on"
-                            ></v-text-field>
-                          </template>
-                          <v-date-picker v-model="date" scrollable>
-                            <v-spacer></v-spacer>
-                            <v-btn flat color="primary" @click="dateModal = false">Cancel</v-btn>
-                            <v-btn flat color="primary" @click="$refs.datedialog.save(date)">OK</v-btn>
-                          </v-date-picker>
-                        </v-dialog>
-                      
-                      </v-flex>
-
-                    
-                        <!-- <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span> -->
-                                    </div>
+                            <v-dialog
+                              ref="datedialog"
+                              v-model="dateModal"
+                              :return-value.sync="date"
+                              persistent
+                              lazy
+                              full-width
+                              width="290px"
+                            >
+                            <template v-slot:activator="{ on }">
+                              <v-text-field
+                                v-model="date"
+                                label="Select Date"
+                                prepend-icon="event"
+                                readonly
+                                v-on="on"
+                                >
+                              </v-text-field>
+                            </template>
+                            <v-date-picker v-model="date" scrollable>
+                              <v-spacer></v-spacer>
+                              <v-btn flat color="primary" @click="dateModal = false">Cancel</v-btn>
+                              <v-btn flat color="primary" @click="$refs.datedialog.save(date)">OK</v-btn>
+                            </v-date-picker>
+                          </v-dialog>
+                        </v-flex>
+                        <!-- <span  class="error-message"  v-if="this.errors['channel']">{{this.errors['channel']}}</span> -->
+                      </div>
                   </div>
-
-                  
                   <div class="form-row" v-if="showDateTime">
-                    <div class="form-group col-md-8">
-
+                    <div class="form-group col-md-12">
                       <v-flex>
                         <v-dialog
                           ref="timedialog"
@@ -121,91 +104,67 @@
                           full-width
                           width="290px"
                         >
-                          <template v-slot:activator="{ on }">
-                            <v-text-field
-                              v-model="time"
-                              label="Select Time"
-                              prepend-icon="access_time"
-                              readonly
-                              v-on="on"
-                            ></v-text-field>
-                          </template>
-                          <v-time-picker v-if="timeModal" v-model="time" full-width>
-                            <v-spacer></v-spacer>
-                            <v-btn flat color="primary" @click="timeModal = false">Cancel</v-btn>
-                            <v-btn flat color="primary" @click="$refs.timedialog.save(time)">OK</v-btn>
+                        <template v-slot:activator="{ on }">
+                          <v-text-field
+                            v-model="time"
+                            label="Select Time"
+                            prepend-icon="access_time"
+                            readonly
+                            v-on="on"
+                            >
+                          </v-text-field>
+                        </template>
+                        <v-time-picker v-if="timeModal" v-model="time" full-width>
+                          <v-spacer></v-spacer>
+                          <v-btn flat color="primary" @click="timeModal = false">Cancel</v-btn>
+                          <v-btn flat color="primary" @click="$refs.timedialog.save(time)">OK</v-btn>
                           </v-time-picker>
                         </v-dialog>
                       </v-flex>
-            
-            
                       <!-- <span  class="error-message" v-if="this.errors['channel']">{{this.errors['channel']}}</span> -->
-                                  </div>
-                  </div>
-
-                     <div class="form-row" >
-                    <div class="form-group col-md-8">
-                        <button type="submit" class="btn btn-publish-video" :loading="processing" :disabled="processing" @click="loader = 'loading4'">Start Live</button>
-
                     </div>
                   </div>
-
+                  <div class="form-row" >
+                    <div class="form-group col-md-12 startLiveBtn">
+                        <button type="submit" class="btn btn-publish-video" :loading="processing" :disabled="processing" @click="loader = 'loading4'">Start Live</button>
+                    </div>
+                    <br><br>
+                  </div>
                 </div>
-
               </div>
-
-
-
-
             </form>
-   
-    </div>
+          </div>
 
-    <div class="container-fluid" v-if="showLiveDetails" >
-
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="create_community_page_title_section">
-              <h2>Create an Excluzeev Live</h2>
-              <p>Start Excluzeev live!</p>
+          <div class="container-fluid" v-if="showLiveDetails" >
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="create_community_page_title_section">
+                <h2>Create an Excluzeev Live</h2>
+                <p>Start Excluzeev live!</p>
+              </div>
             </div>
           </div>
-        </div>
-   
-
-
             <form>
+              <div class="row">
+                <div class="col-xl-6">
+                    <div class="create_form_section">
+                      <div class="form-group  mb-3 mt-3 col-md-12">
+                        <label for="name">Stream URL</label>
+                      </div>
 
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="create_form_section">
-
-                                  <div class="form-group  mb-3 mt-3 col-md-12">
-
-                                          <label for="name">Stream URL</label>
-                                  </div>
-
-                                  <div class="form-row">
-                                      <div class="input-group-append col-md-12">
-
-
-                                          <input value="rtmp://live.mux.com/app/" type="text" class="form-control" id="streamUrl" placeholder="Strem URL">
-
-
-                                          <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2" @click="copyStreamData('streamUrl')">
-                                                    <i class="fa fa-clipboard" aria-hidden="true"></i>
-                                                </span>
-                                          </div>
-
-
-                                    </div>
-                                 </div>
+                      <div class="form-row">
+                        <div class="input-group-append col-md-12">
+                          <input value="rtmp://live.mux.com/app/" type="text" class="form-control" id="streamUrl" placeholder="Strem URL">
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2" @click="copyStreamData('streamUrl')">
+                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                              </span>
                             </div>
-                        </div>
-
-
-                    </div>
+                          </div>
+                       </div>
+                  </div>
+              </div>
+            </div>
 
 
                     <div class="row">
@@ -331,7 +290,7 @@
                       <template v-slot:activator="{ on }">
                         <v-text-field
                           v-model="date"
-                          label="Select Date"
+                          place-holder="Select Date"
                           prepend-icon="event"
                           readonly
                           v-on="on"
@@ -715,4 +674,10 @@ video {
 .btn-need-help{
     padding:5px;
 }
+.btn-publish-video{min-width:150px;}
+@media only screen and (max-width: 767px){
+  #create_community_page h2 { font-size:23px!important;}
+  .startLiveBtn{text-align:center!important;}
+}
+.createCommunityPage{margin-bottom:60px;}
 </style>

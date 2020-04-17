@@ -43,7 +43,7 @@
                                             <img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
     -->
                                             <div class="user_name_comment">
-                                                <ul class="list-unstyled">
+                                                <ul class="list-unstyled" >
                                                     <li class="list-inline">
                                                         <h3 class="pull-left">{{ comment.userName }}</h3>
                                                         <div class="posted_time pull-right"><p>{{ comment.timeAgo }}</p></div>
@@ -83,7 +83,7 @@
         </div>
         <div class="col-xl-6">
 					
-          <ul class="list-unstyled list-inline d-flex share_links d-none d-xl-block d-lg-block">
+          <ul class="list-unstyled list-inline d-flex share_links d-none d-xl-block d-lg-block" style="margin-left:0!important">
 						<li class="d-none d-xl-block d-lg-block"><a href="javascript://" @click="copyUrl"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;&nbsp;Copy profile link</a></li>
 						<li class="d-none d-xl-block d-lg-block">
 
@@ -99,7 +99,7 @@
 					</ul>
 
 
-          <div class="progressbar_section inline-list d-none d-xl-block d-lg-block">
+          <div class="progressbar_section inline-list d-none d-xl-block d-lg-block" style="margin-left:0">
 						<h3><span>Pledged of ${{ channel.targetFund }} goal</span></h3>
 						<br>
 						<div class="clearfix"></div>
@@ -665,6 +665,7 @@ export default {
 </script>
 
 <style scoped>
+.video-js{width:100%}
 .margin {
   margin: 5px 2px;
 }
@@ -707,4 +708,15 @@ export default {
 .sub-text {
   font-size: 14px;
 }
+.share_links li{padding:10px 0}
+#croud_funding_page{margin-bottom:50px}
+@media only screen and (max-width:991px){
+  #croud_funding_page .btn-donate-now{font-size:16px;}
+  #croud_funding_page p{font-size:14px;}
+}
+@media only screen and (max-width:767px){
+  #croud_funding_page p{font-size:14px;}
+}
+.user_name_comment,
+#croud_funding_page ul{margin-left:0!important}
 </style>

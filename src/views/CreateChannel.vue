@@ -13,7 +13,7 @@
       <form @submit.prevent="doCreateChannel">
 			    <div class="row">
 
-				    <div class="col-xl-8">
+				    <div class=" col-md-8">
 					    <div class="create_form_section">
 							  <div class="form-row">
 								  <div class="form-group col-md-6">
@@ -232,10 +232,11 @@
 
 				    </div>          
 
-					  <div class="col-xl-4 col-lg-6">
+					  <div class="col-md-4 ">
 
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-12 ">
               <!-- Thumbnail Upload Button -->
+              <div class="upload-one">
                 <upload-btn
                   color="blue--text lighten-1"
                   style="background-color: #fff !important;"
@@ -259,10 +260,11 @@
                 <v-layout padding justify-center>
                   <img :src="thumbnail" height="150" v-if="thumbnail" />
                 </v-layout>
-
+                </div>
               </div>
               <div class="form-group col-md-12">
                 <!-- Cover Image Upload Button -->
+                <div class="upload-one">
                 <upload-btn
                   color="blue--text lighten-1"
                   style="background-color: #fff !important;"
@@ -285,7 +287,7 @@
                 <v-layout padding justify-center>
                   <img :src="cover" height="150" v-if="cover" />
                 </v-layout>
-
+                </div>
               </div>
 						<!-- <div class="file_upload ">
 							<div class="file_upload_top_section">
@@ -300,25 +302,34 @@
 
 							</div> -->
 
-						  <div class="file_upload_btm_section">
-							  <div class="form-check circle-check">
-								<img src="../assets/Images/circle-check-icon.png" style="width: auto;">
-								<label class="form-check-label" for="defaultCheck1" style="font-size: 20px;">
-									By clicking the button “Continue” below I agree to the <a href="#"> Privacy policy, Content creator terms <span>&</span> Call to action terms.</a>
-								</label>
-				  			</div>
-
-                  <div class="form-group m-0" v-if="this.errors['error']">
-                      <span  class="error-message" >{{this.errors['error']}}</span>
-                  </div>
-          
-					  		<button loading="processing" :disabled="processing" @click="loader = 'loading4'" type="submit" class="btn btn-Continue">Continue</button>
-
-						  </div>
+						  
 					  </div>
-				</div>
+				<div class="offset-xl-2 col-xl-8 col-xs-12  offset-xs-0">
+        <br>
+        <div class="row">
+          <div class="col-sm-9 form-group">
+            <div class="file_upload_btm_section">
+              <div class="form-check circle-check">
+                <img src="../assets/Images/circle-check-icon.png" style="width: auto;">
+                <label class="form-check-label" for="defaultCheck1" style="font-size: 20px;">
+                  By clicking the button “Continue” below I agree to the <a href="#"> Privacy policy, Content creator terms <span>&</span> Call to action terms.</a>
+                </label>
+              </div>
 
-    </form>
+              <div class="form-group m-0" v-if="this.errors['error']">
+                  <span  class="error-message" >{{this.errors['error']}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 form-group btnContinue">
+            <button loading="processing" :disabled="processing" @click="loader = 'loading4'" type="submit" class="btn btn-Continue">Continue</button>
+          </div>
+        </div>
+        </div>
+        </div>
+        <br>
+        <br>
+      </form>
 	</div>
 
 </div>

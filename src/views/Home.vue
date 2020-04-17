@@ -6,7 +6,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="offset-xl-2 col-xl-8 offset-xl-2  offset-md-1  col-md-10 offset-md-1 offset-lg-1 col-lg-10  offset-lg-1 text-center">
-						<h1 class="inline-list"><img src="../assets/Images/home_logo.png"><span>den</span></h1>
+						<h1 class="inline-list"><img src="../assets/Images/home_logo.png"><!--<span>den</span>--></h1>
 						<h4>of</h4>
 						<h2>Content Creators</h2>
 						<p>A platform where content creators feature and monetize their exclusive content.</p>
@@ -49,12 +49,11 @@
 		<div id="curious_section">
 			<div class="container-fluid">
 			<div class="row">
-				<div class="offset-xl-3 col-xl-6 offset-xl-3 offset-lg-2 col-lg-8">
+				<div class="offset-xl-2 col-xl-8  offset-lg-1 col-lg-9 col-md-12">
 					<div class="list-inline curious_section ">
 						<div class="curious_title_top">
 							<h3>Curious?</h3>
 							<div class="list-inline title_btn_inline "><h4>Let’s</h4>
-
 
 							<router-link :to="{ name: 'CreateChannel' }" class="">
 

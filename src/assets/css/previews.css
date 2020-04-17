@@ -59,6 +59,8 @@ button.btn.btn-borderless {padding: 0; line-height: 1px; color: #000000; outline
 .cloudshadow, .cloudshadow:after, .cloudshadow:before {
     margin: 0;
     box-shadow: 0 0 25px #2c3e50;
+    -webkit-box-shadow: 0 0 25px #2c3e50;
+    -moz-box-shadow: 0 0 25px #2c3e50;
     z-index: -99;
 }
 .cloud:after, .cloudshadow:after {
