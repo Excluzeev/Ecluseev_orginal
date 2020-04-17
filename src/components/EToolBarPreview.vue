@@ -49,7 +49,7 @@
 						<a href="#" @click="showFAQs">FAQ</a>
 						<h5>LEAGAL</h5>
 						<hr>
-						<a v-if="!showLogin" href="#" @click="logout">Logout</a>
+						<a v-if="!showLogin" href="javascript://" @click="logout">Logout</a>
 						<hr class="logout_link">
 						<ul class="list-unstyled inline-list social_links">
 
@@ -147,7 +147,7 @@
 
                                 -->
 
-								<li class="dropdown-item" type="button"> <a href="#"  @click="logout" >Signout</a></li>
+								<li class="dropdown-item" type="button"> <a href="javascript://"  @click="logout" >Signout</a></li>
 							</ul>
 						</li>
 						
@@ -232,12 +232,26 @@ export default {
   },
   methods: {
     logout() {
-      this.$router.push("/logout");
-      this.$toasted.show("Sign out successful", {
-        theme: "outline",
-        position: "top-right",
-        duration: 2000
-      });
+		try{
+
+            this.$store.dispatch("signOut").then(() => {
+
+                this.$router.push({ name: "Previews" });
+
+                //console.log("Signout successful")
+
+               this.$toasted.show("Sign out successful", {
+                theme: "outline",
+                position: "top-right",
+                duration: 2000
+              });
+
+            });
+
+
+          }catch(err){
+            console.log("Error: ",err)
+          }
     },
     goLoginContentCreator() {
       if (this.showLogin) {

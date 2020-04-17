@@ -84,6 +84,13 @@ export default {
 
     });
 
+    this.$root.$on('openSignupCCForm',()=>{
+
+          $("#becomeCCModal").modal("show"); // Show the signin modal box
+
+    });
+
+
    // this.$root.$emit('openLoginForm');
 
     

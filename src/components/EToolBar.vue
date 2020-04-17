@@ -180,13 +180,14 @@
                                 -->
 
 								<li class="dropdown-item" type="button"> 
-
+									<!--
                                      <router-link  :to="{ name: 'Logout' }">
                                       Signout
                                      </router-link>
-                                    <!--
-                                    <a href="#"  @click="logout" >Signout</a>
-                                    -->
+                                     -->
+
+                                    <a href="javascript://"  @click="logout" >Signout</a>
+
                                     </li>
 							</ul>
 						</li>
