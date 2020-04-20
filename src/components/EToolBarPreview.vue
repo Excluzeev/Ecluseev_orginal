@@ -1,44 +1,24 @@
 <template>
-  
-		<div class="nav_section homepage-nav">
-			<nav class="nav-home navbar-expand-lg navbar " id="nav">
-				<div class="pull-left d-md-block d-xl-none d-lg-none">
-					<div id="mySidenav" class="sidenav" v-show="sideNav">
-						<div class="inline-list ">
-							<img src="../assets/Images/menu_logo.png">
-							<a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
-						</div>
-
-                           <template v-if="!showLogin">
-                              <h5>Account</h5>
-
-                              <a href="javascript://" v-if="!hideSignUpContentCreator&!showLogin" @click="goLoginContentCreator">Become Content creator</a>
-                              <a href="javascript://" v-if="!showLogin" @click="goToCommunities">Communities</a>
-
-
-
-                              <template v-if="hideSignUpContentCreator">
-
-                                <a href="javascript://"  @click="goLoginCreate">Create Community</a>
-
-                                <a href="javascript://" @click="goLoginLive">Excluzeev Live</a>
-
-
-                                    <router-link  :to="{ name: 'MyProfile' }">
-                                          My profile
-                                         </router-link>
-                                  <router-link  :to="{ name: 'MyCrowdFundings' }">
-                                          My crowd funding
-                                         </router-link>
-
-
-                                  <router-link  :to="{ name: 'MyEarnings' }">
-                                          My earnings
-                                  </router-link>
-                              </template>
-
-                        </template>
-
+	<div class="nav_section homepage-nav">
+		<nav class="nav-home navbar-expand-lg navbar " id="nav">
+			<div class="pull-left d-md-block d-xl-none d-lg-none">
+				<div id="mySidenav" class="sidenav" v-show="sideNav">
+					<div class="inline-list ">
+						<img src="../assets/Images/menu_logo.png">
+						<a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
+					</div>
+          <template v-if="!showLogin">
+            <h5>Account</h5>
+            <a href="javascript://" v-if="!hideSignUpContentCreator&!showLogin" @click="goLoginContentCreator">Become Content creator</a>
+            <a href="javascript://" v-if="!showLogin" @click="goToCommunities">Communities</a>
+              <template v-if="hideSignUpContentCreator">
+                <a href="javascript://"  @click="goLoginCreate">Create Community</a>
+                <a href="javascript://" @click="goLoginLive">Excluzeev Live</a>
+                <router-link  :to="{ name: 'MyProfile' }"> My profile </router-link>
+                <router-link  :to="{ name: 'MyCrowdFundings' }"> My crowd funding </router-link>
+                <router-link  :to="{ name: 'MyEarnings' }"> My earnings </router-link>
+              </template>
+            </template>
 						<h5>COMPANY</h5>
 						<a href="#" @click="showAboutUs">About</a>
 						<a href="#">Careers</a>
@@ -52,11 +32,9 @@
 						<a v-if="!showLogin" href="#" @click="logout">Logout</a>
 						<hr class="logout_link">
 						<ul class="list-unstyled inline-list social_links">
-
-                                  <li><a href="https://www.instagram.com/excluzeev/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li><a href="https://www.twitter.com/excluzeev/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            <li><a href="https://www.facebook.com/excluzeev" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-
+              <li><a href="https://www.instagram.com/excluzeev/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+              <li><a href="https://www.twitter.com/excluzeev/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              <li><a href="https://www.facebook.com/excluzeev" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 						</ul>
 					</div>
 					<div class="menu_sticks" @click="sideNav = !sideNav">
@@ -74,87 +52,67 @@
 
 				<div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
 					<ul class="navbar-nav row-auto">
-						<!-- <li class="nav-item color_fffffff">
-							<a class="nav-link color_fffffff" href="#" @click="showAboutUs">About Excluzeev</a>
-						</li> -->
+						
 						<li class="nav-item color_fffffff search_group">
 							<div class="form-group has-search">
 								<span class="fa fa-search form-control-feedback color_fffffff"></span>
-                        <form @submit.prevent="searchPreviews" style="margin:0;">
+                <form @submit.prevent="searchPreviews" style="margin:0;">
                           
-                          	<input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
-
-                        </form>
-
+                  <input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+                </form>
 							</div>
 						</li>
+            </ul>
+				</div>
+				<div class="pull-right ">
+        <ul class="navbar-nav">
 
-
-             <li  v-if="!hideSignUpContentCreator&!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goLoginContentCreator" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
-								<img src="../assets/Images/live.png"> Become a Content Creator
-							</button>
-						</li>
-
+					<li class="search_icon d-md-block d-xl-none d-lg-block">
+            <button class="btn btn-borderless search_btn ">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </li>
+          <li  v-if="!hideSignUpContentCreator&!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+              <button @click="goLoginContentCreator" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
+                <img src="../assets/Images/live.png"> Become a Content Creator
+              </button>
+            </li> 
 
             <li  v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goLoginLive" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
-								<img src="../assets/Images/live.png"> Excluzeev Live
-							</button>
-						</li>
-						<li v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goLoginCreate"  class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
-						</li>
-						<li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
-							<button @click="goToCommunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
-						</li> 
+              <button @click="goLoginLive" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >
+                <img src="../assets/Images/live.png"> Excluzeev Live
+              </button>
+            </li>
+            <li v-if="hideSignUpContentCreator" class="nav-item d-none d-lg-block d-lg-block">
+              <button @click="goLoginCreate"  class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >+ Create a community</button>
+            </li>
+            <li v-if="!showLogin" class="nav-item d-none d-lg-block d-lg-block">
+              <button @click="goToCommunities" class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" >Communities</button>
+            </li> 
+            <li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
+              <img src="../assets/Images/default_user_profile_white.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px;background-color:white;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
+              <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
+                <li class="dropdown-item" type="button" v-if="userData">
+                  <a href="#">{{userData.displayName}}</a> 
+                </li>
+                <li class="dropdown-item" type="button">
+                  <router-link  :to="{ name: 'MyProfile' }"> My profile </router-link>
+                </li>
+                <li v-if="hideSignUpContentCreator" class="dropdown-item" type="button">
+                  <router-link  :to="{ name: 'MyCrowdFundings' }"> My crowd funding </router-link>
+                </li>
+                <li v-if="hideSignUpContentCreator" class="dropdown-item" type="button">
+                  <router-link  :to="{ name: 'MyEarnings' }"> My earnings </router-link>
+                </li>
 
+                <!-- <li class="dropdown-item" type="button">
+                  <router-link  :to="{ name: 'Settings' }"> Settings </router-link>
+                </li> -->
+                <li class="dropdown-item" type="button"> <a href="#"  @click="logout" >Signout</a></li>
+              </ul>
+            </li>
             
-            
-            	<li v-if="!showLogin" class="nav-item dropdown dropleft d-none d-lg-block d-lg-block">
-							<img src="../assets/Images/default_user_profile_white.png" class="rounded-circle dropdown-toggle" role="button" style="width: 40px;height: 40px;background-color:white;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
-							<ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownMenuLink">
-								<li class="dropdown-item" type="button" v-if="userData"><a href="#">{{userData.displayName}}</a> </li>
-
-                                                                <li class="dropdown-item" type="button">
-
-                                     <router-link  :to="{ name: 'MyProfile' }">
-                                      My profile
-                                     </router-link>
-                               </li>
-                               	<li v-if="hideSignUpContentCreator" class="dropdown-item" type="button">
-
-                                     <router-link  :to="{ name: 'MyCrowdFundings' }">
-                                      My crowd funding
-                                     </router-link>
-                               </li>
-						
-                         		<li v-if="hideSignUpContentCreator" class="dropdown-item" type="button">
-
-                                     <router-link  :to="{ name: 'MyEarnings' }">
-                                      My earnings
-                                     </router-link>
-                               </li>
-
-                                <!--
-
-                                <li class="dropdown-item" type="button">
-
-                                     <router-link  :to="{ name: 'Settings' }">
-                                      Settings
-                                     </router-link>
-                               </li>
-
-                                -->
-
-								<li class="dropdown-item" type="button"> <a href="#"  @click="logout" >Signout</a></li>
-							</ul>
-						</li>
-						
-					</ul>
-				</div>
-				<div class="pull-right search_icon d-md-block d-xl-none d-lg-block">
-					<button class="btn btn-borderless search_btn "><i class="fa fa-search" aria-hidden="true"></i></button>
+          </ul>
 				</div>
 				<div class="pull-right d-none d-lg-block d-lg-block">
 
@@ -183,10 +141,7 @@
         </v-card>
       </v-dialog>
     </v-layout>
-    
-		</div>
-
-    
+	</div>
 </template>
 
 <script>

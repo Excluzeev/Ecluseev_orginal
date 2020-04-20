@@ -1,24 +1,24 @@
 <template>
-  <v-container>
+  <v-container style="margin-bottom:50px;">
     <img
-      :src="
-        'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-          channelId +
-          '%2Fcover.jpg?alt=media'
-      "
-      style="width: 100%; height: 150px; object-fit: cover;"
-      class="img-fluid"
+    :src="
+    'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
+    channelId +
+    '%2Fcover.jpg?alt=media'
+    "
+    style="width: 100%; height: 150px; object-fit: 100%;"
+    class="img-fluid"
     />
     <v-layout row wrap xs12 text-xs-center class="padding">
       <v-avatar :tile="tile" size="100px" color="grey lighten-4">
         <img
-          :src="
-            'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-              channel.channelId +
-              '%2Fthumbnail.jpg?alt=media'
-          "
-          alt="avatar"
-          class="img-fluid"
+        :src="
+        'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
+        channel.channelId +
+        '%2Fthumbnail.jpg?alt=media'
+        "
+        alt="avatar"
+        class="img-fluid"
         />
       </v-avatar>
       <div class="channel-details padding">
@@ -26,225 +26,226 @@
         <p class="subscribers-count">{{ channel.subscriberCount }} Subscribers</p>
       </div>
       <v-spacer></v-spacer>
-      <div>
+      <div class="action-items">
+      
         <router-link
-          v-if="!channel.isDeleted"
-          :to="{ name: 'AddTrailer', params: { channelData: channel } }"
-        >
+            v-if="!channel.isDeleted"
+            :to="{ name: 'AddTrailer', params: { channelData: channel } }"
+          >
           <v-btn  class="btn quick-sand-font-b">
             <v-icon left>add</v-icon>Add Preview
           </v-btn>
         </router-link>
-        <router-link
-          v-if="!channel.isDeleted && channel.channelType == 'VOD'"
-          :to="{ name: 'AddVideo', params: { channelData: channel } }"
+      <router-link
+      v-if="!channel.isDeleted && channel.channelType == 'VOD'"
+      :to="{ name: 'AddVideo', params: { channelData: channel } }"
+      >
+      <v-btn  class="btn quick-sand-font-b">
+        <v-icon left>add</v-icon>Add Video
+      </v-btn>
+    </router-link>
+    <router-link
+    v-if="!channel.isDeleted"
+    :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
+    >
+    <v-btn  class="btn quick-sand-font-b">
+      <v-icon left>add</v-icon>Excluzeev Live
+    </v-btn>
+  </router-link>
+  <v-btn
+  
+  class="btn quick-sand-font-b"
+  @click="getSubscribers"
+  >Subscribers</v-btn>
+  <v-btn
+  v-if="!channel.isDeleted"
+  color="red"
+  class="btn quick-sand-font-b"
+  center
+  @click="deleteDialog = true"
+  >
+  <v-icon left>delete</v-icon>Remove
+</v-btn>
+</div>
+</v-layout>
+<div v-if="!(trailersList.length == 0)">
+  <h1 class="quick-sand-font-b">Preview</h1>
+  <br />
+  <v-layout xs12 row wrap>
+    <v-flex
+    class="trailer-item"
+    xs12
+    sm4
+    md3
+    lg2
+    v-for="trailer in trailersList"
+    v-bind:key="trailer.trailerId"
+    >
+    <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted" />
+  </v-flex>
+</v-layout>
+</div>
+<div class="padding"></div>
+<div v-if="!(videosList.length == 0)">
+  <h1 class="quick-sand-font-b">Videos</h1>
+  <br />
+  <v-layout xs12 row wrap>
+    <v-flex
+    class="video-item"
+    xs12
+    sm4
+    md3
+    lg2
+    v-for="video in videosList"
+    v-bind:key="video.videoId"
+    >
+    <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted" />
+  </v-flex>
+</v-layout>
+</div>
+<!--<v-layout>-->
+  <v-dialog v-model="dialog">
+    <v-card>
+      <v-card-title class="headline grey lighten-2" primary-title>Subscribers List</v-card-title>
+      <v-list two-line v-if="!subscriberLoading && !subscriberEmpty">
+        <v-list-tile
+        v-for="(subscriber) in subscribersList"
+        v-bind:key="subscriber.subscriptionId"
         >
-          <v-btn  class="btn quick-sand-font-b">
-            <v-icon left>add</v-icon>Add Video
-          </v-btn>
-        </router-link>
-        <router-link
-          v-if="!channel.isDeleted"
-          :to="{ name: 'AddExcluzeev', params: { channelData: channel } }"
-        >
-          <v-btn  class="btn quick-sand-font-b">
-            <v-icon left>add</v-icon>Excluzeev Live
-          </v-btn>
-        </router-link>
-        <v-btn
-          
-          class="btn quick-sand-font-b"
-          @click="getSubscribers"
-        >Subscribers</v-btn>
-        <v-btn
-          v-if="!channel.isDeleted"
-          color="red"
-          class="btn quick-sand-font-b"
-          center
-          @click="deleteDialog = true"
-        >
-          <v-icon left>delete</v-icon>Remove
-        </v-btn>
-      </div>
-    </v-layout>
-    <div v-if="!(trailersList.length == 0)">
-      <h1 class="quick-sand-font-b">Preview</h1>
-      <br />
-      <v-layout xs12 row wrap>
-        <v-flex
-          class="trailer-item"
-          xs12
-          sm4
-          md3
-          lg2
-          v-for="trailer in trailersList"
-          v-bind:key="trailer.trailerId"
-        >
-          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted" />
-        </v-flex>
-      </v-layout>
-    </div>
-    <div class="padding"></div>
-    <div v-if="!(videosList.length == 0)">
-      <h1 class="quick-sand-font-b">Videos</h1>
-      <br />
-      <v-layout xs12 row wrap>
-        <v-flex
-          class="video-item"
-          xs12
-          sm4
-          md3
-          lg2
-          v-for="video in videosList"
-          v-bind:key="video.videoId"
-        >
-          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted" />
-        </v-flex>
-      </v-layout>
-    </div>
-    <!--<v-layout>-->
-    <v-dialog v-model="dialog">
-      <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>Subscribers List</v-card-title>
-        <v-list two-line v-if="!subscriberLoading && !subscriberEmpty">
-          <v-list-tile
-            v-for="(subscriber) in subscribersList"
-            v-bind:key="subscriber.subscriptionId"
-          >
-            <!--<v-divider v-if="index != 0" :key="index"></v-divider>-->
-            <v-list-tile-content>
-              <v-list-tile-title>{{ subscriber.email }} ( {{ subscriber.userName }} )</v-list-tile-title>
-              <v-list-tile-sub-title>
-                <b>{{subscriber.tierName}}</b>
-                - {{ subscriber.daysLeft }}
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+        <!--<v-divider v-if="index != 0" :key="index"></v-divider>-->
+        <v-list-tile-content>
+          <v-list-tile-title>{{ subscriber.email }} ( {{ subscriber.userName }} )</v-list-tile-title>
+          <v-list-tile-sub-title>
+            <b>{{subscriber.tierName}}</b>
+            - {{ subscriber.daysLeft }}
+          </v-list-tile-sub-title>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
 
-        <v-card-text v-if="subscriberEmpty">No Subscribers yet.</v-card-text>
+    <v-card-text v-if="subscriberEmpty">No Subscribers yet.</v-card-text>
 
-        <v-progress-circular v-if="subscriberLoading" indeterminate color="primary"></v-progress-circular>
+    <v-progress-circular v-if="subscriberLoading" indeterminate color="primary"></v-progress-circular>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="dialog = false">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <!--</v-layout>-->
-    <v-layout row justify-center>
-      <v-dialog v-model="deleteDialog" persistent max-width="320">
-        <v-card>
-          <v-card-title class="headline">Do you want to delete the channel?</v-card-title>
-          <v-card-text>
-            Do you really want to delete the channel?
-            <br />Users will have a 30
-            days notice period.
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary darken-1" flat @click="deleteDialog = false">Dont Delete</v-btn>
-            <v-btn color="primary darken-1" flat @click="deleteChannel">Delete</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-layout>
-  </v-container>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="primary" flat @click="dialog = false">Close</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
+<!--</v-layout>-->
+<v-layout row justify-center>
+  <v-dialog v-model="deleteDialog" persistent max-width="320">
+    <v-card>
+      <v-card-title class="headline">Do you want to delete the channel?</v-card-title>
+      <v-card-text>
+        Do you really want to delete the channel?
+        <br />Users will have a 30
+        days notice period.
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="primary darken-1" flat @click="deleteDialog = false">Dont Delete</v-btn>
+        <v-btn color="primary darken-1" flat @click="deleteChannel">Delete</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</v-layout>
+</v-container>
 </template>
 
 <script>
-import TrailerVideoItem from "../components/TrailerVideoItem";
-import VideosVideoItem from "../components/VideosVideoItem";
-import RegisterStoreModule from "../mixins/RegisterStoreModule";
-import channelsModule from "../store/channels/channels";
-import { fireStore, firebaseTimestamp } from "../firebase/init";
-import utils from "../firebase/utils";
-import moment from "moment";
+  import TrailerVideoItem from "../components/TrailerVideoItem";
+  import VideosVideoItem from "../components/VideosVideoItem";
+  import RegisterStoreModule from "../mixins/RegisterStoreModule";
+  import channelsModule from "../store/channels/channels";
+  import { fireStore, firebaseTimestamp } from "../firebase/init";
+  import utils from "../firebase/utils";
+  import moment from "moment";
 
-export default {
-  name: "MyChannelDetails",
-  components: {
-    TrailerVideoItem,
-    VideosVideoItem
-  },
-  data: () => {
-    return {
-      tile: false,
-      trailersList: [],
-      videosList: [],
-      channel: {},
-      channelId: "",
-      dialog: false,
-      subscribersList: [],
-      subscriberLoading: true,
-      subscriberEmpty: false,
-      deleteDialog: false
-    };
-  },
-  mixins: [RegisterStoreModule],
-  created() {
-    this.registerStoreModule("channels", channelsModule);
-  },
-  methods: {
-    async getSubscribers() {
-      this.dialog = true;
-      if (this.subscribersList.length > 0) {
-        this.subscriberLoading = false;
-        return;
-      }
-      let querySnapshot = await fireStore
+  export default {
+    name: "MyChannelDetails",
+    components: {
+      TrailerVideoItem,
+      VideosVideoItem
+    },
+    data: () => {
+      return {
+        tile: false,
+        trailersList: [],
+        videosList: [],
+        channel: {},
+        channelId: "",
+        dialog: false,
+        subscribersList: [],
+        subscriberLoading: true,
+        subscriberEmpty: false,
+        deleteDialog: false
+      };
+    },
+    mixins: [RegisterStoreModule],
+    created() {
+      this.registerStoreModule("channels", channelsModule);
+    },
+    methods: {
+      async getSubscribers() {
+        this.dialog = true;
+        if (this.subscribersList.length > 0) {
+          this.subscriberLoading = false;
+          return;
+        }
+        let querySnapshot = await fireStore
         .collection(utils.subscribersCollection)
         .where("isActive", "==", true)
         .where("channelId", "==", this.channel.channelId)
         .get();
-      let subscribers = [];
-      querySnapshot.forEach(snap => {
-        let data = snap.data();
-        let days = moment(data.expiryDate.toDate()).diff(moment(), "days");
+        let subscribers = [];
+        querySnapshot.forEach(snap => {
+          let data = snap.data();
+          let days = moment(data.expiryDate.toDate()).diff(moment(), "days");
 
-        if (days < 0) {
-          data.daysLeft = "Expired";
-        } else {
-          data.daysLeft =
+          if (days < 0) {
+            data.daysLeft = "Expired";
+          } else {
+            data.daysLeft =
             moment(data.expiryDate.toDate()).diff(moment(), "days") +
             " Days Left";
-        }
+          }
 
-        subscribers.push(data);
-      });
-      this.subscribersList = subscribers;
-      this.subscriberLoading = false;
-      if (this.subscribersList.length == 0) {
-        this.subscriberEmpty = true;
-      }
-    },
-    onVideoDeleted() {
-      this.loadVideosData();
-    },
-    onTrailerDeleted() {
-      this.loadTrailersData();
-    },
-    loadTrailersData() {
-      this.$store
+          subscribers.push(data);
+        });
+        this.subscribersList = subscribers;
+        this.subscriberLoading = false;
+        if (this.subscribersList.length == 0) {
+          this.subscriberEmpty = true;
+        }
+      },
+      onVideoDeleted() {
+        this.loadVideosData();
+      },
+      onTrailerDeleted() {
+        this.loadTrailersData();
+      },
+      loadTrailersData() {
+        this.$store
         .dispatch("channels/getUserChannelTrailers", {
           channelId: this.channel.channelId
         })
         .then(data => {
           this.trailersList = data;
         });
-    },
-    loadVideosData() {
-      this.$store
+      },
+      loadVideosData() {
+        this.$store
         .dispatch("channels/getUserChannelVideos", {
           channelId: this.channel.channelId
         })
         .then(data => {
           this.videosList = data;
         });
-    },
-    async deleteChannel() {
-      let channelRef = fireStore
+      },
+      async deleteChannel() {
+        let channelRef = fireStore
         .collection(utils.channelsCollection)
         .doc(this.channel.channelId);
       // let channelDoc = await channelRef.get();
@@ -263,9 +264,9 @@ export default {
   async mounted() {
     this.channelId = this.$route.params.channelId;
     let channelDoc = await fireStore
-      .collection(utils.channelsCollection)
-      .doc(this.$route.params.channelId)
-      .get();
+    .collection(utils.channelsCollection)
+    .doc(this.$route.params.channelId)
+    .get();
     this.channel = channelDoc.data();
     this.loadTrailersData();
 
@@ -275,14 +276,17 @@ export default {
 </script>
 
 <style scoped>
-.channel-details {
-  align-self: center;
-  text-align: start;
-}
-.padding {
-  padding: 10px;
-}
-.subscribers-count {
-  color: gray;
-}
+  .channel-details {
+    align-self: center;
+    text-align: start;
+  }
+  .padding {
+    padding: 10px;
+  }
+  .subscribers-count {
+    color: gray;
+  }
+  @media only scree and (max-width:767px){
+    .grey.lighten-4{width:80px!important;height:80px!important;}
+  }
 </style>

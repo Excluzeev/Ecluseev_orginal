@@ -1,28 +1,27 @@
 <template>
-  
-		 <!-- Modal for sign in -->
-		<div class="modal fade bd-example-modal-xl" id="becomeCCModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">Close</span>
-						</button>
-					</div>
+	<!-- Modal for sign in -->
+	<div class="modal fade bd-example-modal-md" id="becomeCCModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">Close</span>
+					</button>
+				</div>
 					<div class="modal-body">
-						<h2 class="h2">Sign up as Content Creator</h2>
-
-              	<div class="form-row " v-if="this.errors['error']">
-								<div class="form-group col-md-12 non-specific-error-cont">
-                <span  class="non-specific-error" id="non-specific-error"  >{{this.errors['error']}}</span>
-								</div>
-							</div>
+						<h2 class="h2 text-center" >Sign up as Content Creator</h2>
+            	<div class="form-row " v-if="this.errors['error']">
+    						<div class="form-group col-md-12 non-specific-error-cont">
+                  <span  class="non-specific-error" id="non-specific-error"  >{{this.errors['error']}}</span>
+    					  </div>
+    				  </div>
               <form @submit.prevent="doSignUpContentCreator">
+                <br>
                 <div class="form-row">
                   <div class="form-group col-md-12 margin_bottom_none">
                     <div class="form-row margin_bottom_none">
-                      <div class="form-group col-md-9 margin_bottom_none">
+                      <div class="form-group col-md-12 margin_bottom_none">
                         <div class="form-row margin_bottom_none">
                           
                           <div class="form-group col-md-12" >
@@ -46,15 +45,9 @@
                           <span  class="error-message" v-if="this.errors['term3']">{{this.errors['term3']}}</span>
                           </div>
 
-
-
-
-                        
-
-
                         </div>
                       </div>
-                      <div class="form-group col-md-3 text-left">
+                      <div class="form-group col-md-12 text-center">
                         
                         <button class="btn btn-windowSignIn" :loading="processing" :disabled="processing"  @click="loader = 'loading4'">Connect Stripe</button>
                       </div>
@@ -275,8 +268,23 @@ export default {
 }
 .h2{
   padding: 0 !important;
-  line-height: 0;
+  line-height: 1;
   margin-bottom: 0;
 
+}
+#becomeCCModal .btn-windowSignIn, 
+#becomeCCModal .btn-windowSignIn:hover,
+#becomeCCModal .btn-windowSignIn:focus{
+  padding:15px 20px;
+}
+@media only screen and (min-width: 992px){
+  #becomeCCModal h2{font-size:30px;}
+}
+@media only screen and (max-width: 991px){
+  #becomeCCModal h2{font-size:26px;}
+}
+@media only screen and (max-width: 440px){
+  #becomeCCModal a{font-size:16px;}
+  #becomeCCModal h2{font-size:22px;}
 }
 </style>

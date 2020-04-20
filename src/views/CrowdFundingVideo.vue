@@ -38,9 +38,7 @@
 
                             <div  v-if="commentsList.length > 0">
                                         <div class="user_comment_section d-flex" v-for="comment in commentsList" v-bind:key="comment.commentId">
-                        <!--
-                                            <img src="../assets/Images/Copy of Bri N Teesh.png" class="rounded-circle img-fluid pull-left" style="width: 25px;height: 25px;" >
-    -->
+              
                                             <div class="user_name_comment">
                                                 <ul class="list-unstyled">
                                                     <li class="list-inline">

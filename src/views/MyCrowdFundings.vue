@@ -1,18 +1,16 @@
 <template>
-<div id="communities" class="communities">
-		<div class="container-fluid d-none d-lg-block d-xl-block">
-
-             <div class="row ">
-                <div class="col-xl-12">
-                    <br>
-                    <br>
-                    <h2>Crowd Fundings</h2>
-                    <p>Here you’ll find all the crowd fundings</p>
-                    <br>
-                    <br>
-                </div>
-            </div>
-
+  <div id="communities" class="communities">
+		<div class="container-fluid ">
+      <div class="row ">
+        <div class="col-xl-12">
+          <br>
+          <br>
+          <h2>Crowd Fundings</h2>
+          <p>Here you’ll find all the crowd fundings</p>
+          <br>
+          <br>
+        </div>
+      </div>
 
 			<div class="row ">
 				<div class="col-xl-12 col-xs-12 col-sm-12 col-lg-12 col-md-12">
@@ -21,42 +19,28 @@
 			</div>
 
 			<div class="row" v-if="trailers.length != 0">
-                <div class="col-xl-4 col-lg-6"  v-for="trailer in trailers" v-bind:key="trailer.trailerId">
+        <div class="col-xl-4 col-lg-6"  v-for="trailer in trailers" v-bind:key="trailer.trailerId">
 
-                              <router-link :to="'/crowd/' + trailer.trailerId">
-                            <div class="item_img">
-                              <img height="118px" v-bind:src="trailer.hasCustomThumbnail ? trailer.customThumbnail :  trailer.image" class="img-fluid" >
-                            </div>
-                            <h6>{{ trailer.title }}</h6>
-                            <p>{{ trailer.channelName }}</p>
-                            <p><i class="fa fa-tripadvisor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ trailer.timeAgo }}</p>
-
-                             <div class="red--text" v-show="getIsExpired(trailer.expiry)">
-                                <p danger>Expired</p>
-                             </div>
-
-                          </router-link>
-
-
-
-	            </div>
-
-
-        </div>
-
-
-            <div class="row" v-else>
-
-                <div class="col-xl-12 col-lg-12 text-center">
-                    <p>
-                    You have no crowd fundings!!!
-                    </p>
-                </div>
+          <router-link :to="'/crowd/' + trailer.trailerId">
+            <div class="item_img">
+              <img height="118px" v-bind:src="trailer.hasCustomThumbnail ? trailer.customThumbnail :  trailer.image" class="img-fluid" >
             </div>
+            <h6>{{ trailer.title }}</h6>
+            <p>{{ trailer.channelName }}</p>
+            <p><i class="fa fa-tripadvisor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ trailer.timeAgo }}</p>
 
+             <div class="red--text" v-show="getIsExpired(trailer.expiry)">
+                <p danger>Expired</p>
+             </div>
+          </router-link>
+	      </div>
+      </div>
 
-
-
+      <div class="row" v-else>
+        <div class="col-xl-12 col-lg-12 text-center">
+            <p> You have no crowd fundings!!! </p>
+        </div>
+      </div>
 
 		</div>
 
@@ -116,29 +100,26 @@ export default {
    },
   async mounted() {
 
-         
-      
+   if (this.$route.query.done) {
+      await this.$store.commit("forceFetchUser", {
+        user: auth.currentUser,
+        force: true
+      });
+    }
+    this.$store.dispatch("videos/getUserCrowdFundingChannels").then(data => {
+      this.channelsList = data;
+    });
 
-       if (this.$route.query.done) {
-          await this.$store.commit("forceFetchUser", {
-            user: auth.currentUser,
-            force: true
-          });
-        }
-        this.$store.dispatch("videos/getUserCrowdFundingChannels").then(data => {
-          this.channelsList = data;
-        });
+    this.$store.dispatch("trailers/getUserCrowdFundingTrailers").then(data => {
+      this.trailers = data;
+    });
 
-        this.$store.dispatch("trailers/getUserCrowdFundingTrailers").then(data => {
-          this.trailers = data;
-        });
-
-        if (this.$route.query.done) {
-          await this.$store.commit("forceFetchUser", {
-            user: auth.currentUser,
-            force: true
-          });
-        }
+    if (this.$route.query.done) {
+      await this.$store.commit("forceFetchUser", {
+        user: auth.currentUser,
+        force: true
+      });
+    }
 
 
 
@@ -147,5 +128,7 @@ export default {
 </script>
 
 <style scoped>
-
+  @media only screen and (max-width:991px){
+    .communities h2{font-size:30px;}
+  }
 </style>

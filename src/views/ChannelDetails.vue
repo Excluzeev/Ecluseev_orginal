@@ -22,10 +22,7 @@
       <div class="channel-details padding">
         <h2 class="quick-sand-font-b">{{ channel.title }}</h2>
         <p class="subscribers-count">
-          {{
-          channel.views == undefined ? 0 : channel.views
-          }}
-          Views
+          {{channel.views == undefined ? 0 : channel.views }} Views
         </p>
       </div>
       <v-spacer></v-spacer>

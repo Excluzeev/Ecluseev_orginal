@@ -723,9 +723,9 @@ a.forgor_psw_link{margin-bottom: 20px;}
 	overflow: hidden;
 
 }
-.file_upload{position: relative;height: 100%}	
+.file_upload{position: relative;}	
 .file_upload_top_section{
-	position: absolute;
+	/*position: absolute;*/
 	top: 0;
 }
 #upload_videos_previews_page .file_upload_btm_section{
@@ -737,7 +737,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 }
 .tags label span,
 .vedioUpload-input label span{
-	font:18px rubik-regular;
+	font:11px rubik-regular;
 	color: #294D5D;
 	padding-left: 8px;
 }
@@ -953,11 +953,11 @@ a.forgor_psw_link{margin-bottom: 20px;}
 #my_ernings_page .total_erning_section h3{padding: 20px 0;}
 #my_ernings_page .my_ernings_title_section p{font:25px rubik-light; color: #294D5D;}
 #my_ernings_page .footer_brand_section{padding-top: 40px;}
-.tab-content{
+.tabs_section{
 	background-color: #FFFFFF;
-	box-shadow: 0px 0px 20px #00000029;
-	-webkit-box-shadow: 0px 0px 20px #00000029;
-	-moz-box-shadow: 0px 0px 20px #00000029;
+	box-shadow: -3px 20px 22px #00000029;
+	-webkit-box-shadow: -3px 20px 22px #00000029;
+	-moz-box-shadow: -3px 20px 22px #00000029;
 	border-radius: 0 22px 22px 22px;
 }
 .left_tabs_panel .nav-link.active{
@@ -982,7 +982,12 @@ a.forgor_psw_link{margin-bottom: 20px;}
 	text-transform: capitalize;
 }
 .table_owner a.nav-link{font: 18px rubik-regular;color: #29ABE2}
-#my_ernings_page .table_price {padding: 20px 8% 20px 0}
+#my_ernings_page .table_price {
+    padding: 0;
+    position: absolute;
+    right: 25px;
+    top: -35px;
+}
 #my_ernings_page table{text-align: center;}
 #my_ernings_page table td{
 	font:18px rubik-regular;
@@ -1049,7 +1054,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 .dropdown-menu{
 	padding: 0;
 	top: 137%;
-	right: -150%;
+	right: -35px;
 	margin: 0 auto;
 	border-radius: 22px;
 	box-shadow: 6px 6px 20px #00000029;
@@ -1072,7 +1077,7 @@ ul.dropdown-menu.list-unstyled:before {
 	width: 10px;
 	margin: 0 auto;
 	left: 0;
-	right: -60px;
+	right: -156px;
 	z-index: 3;
 	border: 20px solid transparent;
 	top: -40px;
@@ -1298,7 +1303,7 @@ header .search .search-input:focus {
 	#create_community_page label, 
 	#create_community_page label a{font-size: 16px}
 	.btn-Continue{padding: 10px;}
-.tags label span, .vedioUpload-input label span{font-size: 12px;}
+.tags label span, .vedioUpload-input label span{font-size: 11px;}
 #upload_videos_previews_page .fileUpload-input,
 #upload_videos_previews_page .form-group, #create_community_page .form-group{text-align: left;}
 
@@ -1437,7 +1442,7 @@ header .search .search-input:focus {
 		    color: #294D5D;
 		}
 		#communities h5{font:20px rubik-medium;margin-bottom: 10px;margin-top: 5px}
-	#communities p{font:16px rubik-regular;margin-bottom: 0}
+	#communities p{font:16px rubik-regular;margin-bottom: 10px}
 	.community_row_section{padding: 15px 0;border-bottom: 1px solid #29abe2;    margin: 0;
     width: 100%;}
 	.community_row_section:last-child{border-bottom:0;}
@@ -1549,3 +1554,46 @@ header .search .search-input:focus {
 	z-index: 1;
 }
 .v-input__control input{min-height: 56px}
+.v-btn.upload-btn-hover.v-btn--round.primary.upload-btn,
+#upload_videos_previews_page .upload-btn label{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 100px;
+    text-transform: initial;
+    border-radius: inherit;
+}
+
+@media only screen and (max-width: 991px){
+	.grey.lighten-4{width: 50px!important;height: 50px!important}
+	.grey.lighten-4 img{width: 100%!important;}
+	.channel-details p{font-size: 14px}
+	h2.quick-sand-font-b{font-size: 16px;}
+	textarea,
+	textarea:focus
+	input::placeholder,
+	textarea::placeholder,
+	input::-webkit-input-placeholder,
+	textarea::-webkit-input-placeholder,
+	input:-ms-input-placeholder,
+	select:-ms-input-placeholder{
+		font-size: 1px;
+	}
+}
+@media only screen and (max-width: 440px){
+	.theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat){font-size: 12px;padding: }
+}
+.action-items button{
+	background-color: #FFFFFF;
+	padding: 10px;
+	font-size: 16px;
+
+}
+.action-items a{min-height: 50px;padding: 0}
+.theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat){
+	background-color: #FFFFFF;border: 1px solid #FFFFFF;
+	height: 50px;border-radius: 15px;color: #29ABE2;
+	line-height: 30px
+}
+.theme--light.red{color: #FFFFFF!important}
+.headline{font-size: 18px!important;}
