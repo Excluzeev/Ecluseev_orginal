@@ -55,12 +55,12 @@
 							<h3>Curious?</h3>
 							<div class="list-inline title_btn_inline "><h4>Let’s</h4>
 
-							<router-link :to="{ name: 'CreateChannel' }" class="">
 
-                                <button class="btn btn-lts-start">
+
+                                <button @click="startCommunity" class="btn btn-lts-start">
                                         Start
                                 </button>
-							</router-link>
+
 
                             <h4>a community now!</h4></div>
 							<p>It takes less than a minute to upload your first video</p>
@@ -80,7 +80,7 @@
 
 <script>
 
-
+import store from "../store/index";
 
 export default {
   name: "Home",
@@ -90,11 +90,39 @@ export default {
     return {
     };
   },
+	computed:{
+
+    showLogin() {
+      return store.getters.getUser == null;
+    },
+    hideSignUpContentCreator() {
+      return store.getters.getFUser != null
+        ? store.getters.getFUser.isContentCreator
+        : false;
+    }
+
+
+  },
   methods: {
+    startCommunity() {
+
+		//if user not even logged in
+		if (this.showLogin) {
+			this.$root.$emit('openLoginForm');
+		}
+		// if the user logged in but not a content creator
+		else if (this.hideSignUpContentCreator) {
+			this.$router.push({name: "CreateChannel"});
+		} else {
+
+			this.$root.$emit('openSignupCCForm');
+		}
+
+	}
   },
   async mounted() {
 
-    console.log("env",process.env)
+    //console.log("env",process.env)
 
     //console.log("Home mounted",this.$route.query.done);
     if (this.$route.query.done) {

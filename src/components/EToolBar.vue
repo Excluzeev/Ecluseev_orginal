@@ -7,6 +7,7 @@
 						<img src="../assets/Images/menu_logo.png">
 						<a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
 					</div>
+
           <template v-if="showLogin">
             <h5>Account</h5>
             <a href="javascript://" data-toggle="modal" data-target="#signUpModal">Create an Account</a>
@@ -49,7 +50,34 @@
               <a href="https://www.facebook.com/excluzeev" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i>
               </a>
             </li>
-					</ul>
+          </ul>
+				</div>
+
+				<div class="pull-left  home_brand ">
+					<a class="navbar-brand" href="/">
+						<img src="../assets/Images/logo.svg" draggable="false">
+					</a>
+				</div>
+
+
+
+				<div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
+					<ul class="navbar-nav row-auto">
+	
+						<li class="nav-item color_fffffff search_group">
+							<div class="form-group has-search">
+								<span class="fa fa-search form-control-feedback color_fffffff"></span>
+                        <form @submit.prevent="searchPreviews" style="margin:0;">
+                          
+                          	<input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+
+                        </form>
+
+							</div>
+						</li>
+						
+          </ul>
+                        
 				</div>
 				<div class="menu_sticks" @click="sideNav = !sideNav">
 					<span></span>
