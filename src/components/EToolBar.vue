@@ -35,7 +35,7 @@
 					<a href="#" @click="showFAQs">FAQ</a>
 					<h5>LEAGAL</h5>
 					<hr>
-					<a v-if="!showLogin" href="#" @click="logout">Logout</a>
+					<a v-if="!showLogin" href="javascript://" @click="logout">Logout</a>
 					<hr class="logout_link">
 					<ul class="list-unstyled inline-list social_links">
             <li>
@@ -165,8 +165,7 @@
                         <router-link  :to="{ name: 'Settings' }"> Settings </router-link>
                 </li> -->
                 <li class="dropdown-item" type="button">
-                  <router-link  :to="{ name: 'Logout' }"> Signout </router-link>
-                    <!-- <a href="#"  @click="logout" >Signout</a> --> 
+		 <a href="javascript://"  @click="logout" >Signout</a>
                 </li>
             </ul>
           </li>

@@ -108,7 +108,9 @@
                 <!-- <li class="dropdown-item" type="button">
                   <router-link  :to="{ name: 'Settings' }"> Settings </router-link>
                 </li> -->
-                <li class="dropdown-item" type="button"> <a href="#"  @click="logout" >Signout</a></li>
+                <li class="dropdown-item" type="button"> 
+			<a href="javascript://"  @click="logout" >Signout</a>
+		</li>
               </ul>
             </li>
             
