@@ -369,6 +369,7 @@ export default {
     }
   },
   mounted() {
+
     // console.log(
     //   "this is current player instance object " + this.$refs.videoPlayer.player
     // );
@@ -415,11 +416,8 @@ export default {
   },
   created() {
 
-    // To detach the attached video play
-    var oldPlayer = document.getElementById('example_video_1');
-    console.log("oldPlayer",oldPlayer)
-    if(oldPlayer)
-      videojs(oldPlayer).dispose();
+
+
 
     this.registerStoreModule("trailers", trailerModule);
     this.$store
@@ -456,9 +454,21 @@ export default {
         // console.log("player options",this.playerOptions.sources[0].src)
         let _vm=this
         $(document).ready(function(){
-         
+			//
+        	// // To detach the attached video play
+			// var oldPlayer = document.getElementById('example_video_1');
+			// console.log("oldPlayer",oldPlayer,_vm.playerObj)
+			// if(oldPlayer){
+			// 	console.log("destroyed the old plyer")
+			// 	videojs(oldPlayer).dispose();
+			// }
+
          if(_vm.playerObj == null){
-              _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
+
+         	let player = document.getElementById('example_video_1');
+         	console.log("Plyer element",player)
+
+         	_vm.playerObj=videojs(player,_vm.playerOptions, function(){
 
             });
          }
@@ -528,11 +538,13 @@ export default {
         adTagUrl:
           "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&cust_params=sample_ar%3Dpremidpostpod%26deployment%3Dgmf-js&cmsid=496&vid=short_onecue&correlator="
       };
+      /*
       player.ima(options);
 
       player.ima.setAdBreakReadyListener(() => {
         // console.log("AdBreak");
       });
+      */
       console.log("Player is ready");
     },
     async getLikes() {

@@ -9,39 +9,9 @@
 						<div class="watch_vedio_section">
               <div v-show="!playerOptions.sources[0].src.isEmpty">
 
-                <video id="example_video_1" class="video-js"
+                <video id="video_player" class="video-js"
                   controls preload="auto" width="100%" height="264">
                 </video>
-
-                <!-- <video
-                id="my-video"
-                class="video-js"
-                controls
-                preload="auto"
-                width="640"
-                height="264"
-                data-setup="{}"
-              >
-                <source src="https://stream.mux.com/WBNqLzM7tcxvTJWLhd01VlQguezFkAZuB.m3u8" type="application/x-mpegURL" />
-                <p class="vjs-no-js">
-                  To view this video please enable JavaScript, and consider upgrading to a
-                  web browser that
-                  <a href="https://videojs.com/html5-video-support/" target="_blank"
-                    >supports HTML5 video</a
-                  >
-                </p>
-              </video> -->
-      
-                <!-- <video-player
-                  class="video-holder vjs-big-play-centered"
-                  width="100%"
-                  height="auto"
-                  id="player_id"
-                  ref="videoPlayer"
-                  :options="playerOptions"
-                  @ready="playerIsReady"
-                  @timeupdate="onPlayerTimeupdate($event)"
-                ></video-player> -->
 
 
               </div>
@@ -71,7 +41,7 @@
 								</div>
 								<div class="clearfix"></div>
 								<p > <span v-if="video">{{ video.description }}</span>
-									<a href="#collapse" class="nav-toggle ">Read Less</a>
+<!--									<a href="#collapse" class="nav-toggle "></a>-->
 								</p>
 								<div id="collapse" class="content_text">
 								</div>
@@ -307,18 +277,20 @@ export default {
       return this.commentText == "";
     },
     showComments() {
-      auth.onAuthStateChanged(user => {});
+    	// console.log("Show comments",auth.currentUser)
+       auth.onAuthStateChanged(user => {});
+
       return auth.currentUser != null;
     }
   },
   mounted() {},
   created() {
 
-    // To detach the attached video play
-    var oldPlayer = document.getElementById('example_video_1');
-    console.log("oldPlayer",oldPlayer)
-    if(oldPlayer)
-      videojs(oldPlayer).dispose();
+    // // To detach the attached video play
+    // var oldPlayer = document.getElementById('video_player');
+    // // console.log("oldPlayer",oldPlayer)
+    // if(oldPlayer)
+    //   videojs(oldPlayer).dispose();
     
 
 
@@ -359,7 +331,9 @@ export default {
             $(document).ready(function(){
 
              if(_vm.playerObj == null){
-                  _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
+				   let player = document.getElementById('video_player');
+				   console.log("Plyer element",player)
+                  _vm.playerObj=videojs(player,_vm.playerOptions, function(){
 
                 });
              }
@@ -372,17 +346,18 @@ export default {
 
 
 
-
+			// console.log("Video channel id",this.video.channelId)
             this.$store
               .dispatch("videos/getUserChannelVideos", {
                 channelId: this.video.channelId
               })
               .then(videosList => {
+              	// console.log("Chnnel videos list",videosList)
                 this.channelVideosList = videosList;
               });
           })
           .catch(error => {
-            // console.log(error);
+            console.log(error);
           });
 
         this.getLikes();
@@ -391,6 +366,27 @@ export default {
       });
   },
   methods: {
+
+  	playerIsReady(player) {
+      // TODO(Karthik): Modify the adTagUrl
+
+      let options = {
+        id: player.id_,
+        autoPlayAdBreaks: false,
+        showCountdown: true,
+        showControlsForJSAds: false,
+        adTagUrl:
+          "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&cust_params=sample_ar%3Dpremidpostpod%26deployment%3Dgmf-js&cmsid=496&vid=short_onecue&correlator="
+      };
+      /*
+      player.ima(options);
+
+      player.ima.setAdBreakReadyListener(() => {
+        // console.log("AdBreak");
+      });
+      */
+      // console.log("Player is ready");
+    },
     
        showLoginForm(){
     

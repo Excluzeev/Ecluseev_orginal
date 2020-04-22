@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="channel != null">
+  <v-container v-if="channel">
     <img
       :src="
         'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
@@ -8,8 +8,8 @@
       "
       style="width: 100%; height: 150px; object-fit: cover;"
     >
-    <v-layout row wrap xs12 text-xs-center class="padding">
-      <v-avatar :tile="tile" size="100px" color="grey lighten-4">
+    <v-layout row wrap xs12 text-xs-center class="padding" >
+      <v-avatar :tile="tile" size="100px" color="grey lighten-4" v-if="subscription != null">
         <img
           :src="
             'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
@@ -62,7 +62,7 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
+          <TrailerVideoItem :trailer="trailer" />
         </v-flex>
       </v-layout>
     </div>
@@ -211,10 +211,17 @@ export default {
   },
   computed: {
     getExpiryToNow() {
-      return (
+      console.log("Expiry date",this.subscription);
+
+      try{
+        return (
         moment(this.subscription.expiryDate.toDate()).diff(new Date(), "days") +
         " Days Left"
-      );
+          );
+      }catch(err){
+        return "No expiry";
+      }
+
     }
   },
   methods: {
@@ -291,6 +298,7 @@ export default {
       this.processing = false;
     },
     async loadChannel() {
+      console.log("Loading channel data",this.$route.params)
       this.subscriptionId = this.$route.params.subscriptionId;
       let channelDoc = await fireStore
         .collection(utils.channelsCollection)
@@ -308,6 +316,7 @@ export default {
       this.loadTrailersData();
 
       this.loadVideosData();
+      console.log("Load channel done");
     },
     showDonatePop() {
       this.donateDialog = true;
@@ -379,8 +388,12 @@ export default {
         });
     }
   },
+  beforeMount() {
+       console.log("Before anything");
+       this.loadChannel();
+  },
   mounted() {
-    this.loadChannel();
+
 
     
       // Fetch site base url
