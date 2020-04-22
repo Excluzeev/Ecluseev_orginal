@@ -15,8 +15,8 @@
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>ACCOUNT</h4>
-						<a href="#" v-if="showLogin" @click="goToCommunities">My Community</a>
-						<a href="#" v-if="showLogin" @click="goToMyProfile">My Profile</a>
+						<a href="#" v-if="userData" @click="goToCommunities">My Community</a>
+						<a href="#" v-if="userData" @click="goToMyProfile">My Profile</a>
 
 
 					</div>
@@ -205,13 +205,19 @@ export default {
       titleDialog: "",
       componentDialog: null,
       query:"",
+	  userData:null,
     };
   },
-  comuted:{
-  	showLogin() {
+  created(){
 
-      return store.getters.getUser == null;
-    },
+
+  		setTimeout( () =>{
+             this.userData=store.getters.getFUser
+
+        },2000)
+
+
+
   },
   methods: {
     goToMyProfile(){
