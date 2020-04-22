@@ -181,6 +181,7 @@ import About from "./About";
 import FAQs from "./FAQs";
 
 import LicenseAgreement from "./LicenseAgreement";
+import store from "../store";
 
 export default {
   name: "FooterComponent",
@@ -195,7 +196,19 @@ export default {
       componentDialog: null
     };
   },
+  comuted:{
+  	showLogin() {
+
+      return store.getters.getUser == null;
+    },
+  },
   methods: {
+    goToMyProfile(){
+      this.$router.push("/my-profile");
+    },
+	  goToCommunities() {
+      this.$router.push({ name: "Communities" });
+    },
      openCookiePolicy: function() {
       window.open("https://excluzeev.com/cookie-policy", "_blank");
     },

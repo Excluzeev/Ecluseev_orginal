@@ -20,8 +20,8 @@
                         <div v-show="!playerOptions.sources[0].src.isEmpty">
 
                             <video id="example_video_1" class="video-js"
-                              controls preload="auto" width="640" height="264"
-                              data-setup='{"example_option":true}'>
+                              controls preload="auto" width="640" height="264">
+
                             </video>
 
                         </div>
@@ -274,13 +274,13 @@ export default
     //this.$route.params.videoId="0MO1VqbYgzVutXHZD1dX"
 
 
-     // To detach the attached video play
-    var oldPlayer = document.getElementById('example_video_1');
-    
-    if(oldPlayer != null){
-      console.log("Old player",oldPlayer);
-      videojs(oldPlayer).dispose();
-    }
+    //  // To detach the attached video play
+    // var oldPlayer = document.getElementById('example_video_1');
+    //
+    // if(oldPlayer != null){
+    //   console.log("Old player",oldPlayer);
+    //   videojs(oldPlayer).dispose();
+    // }
 
     this.registerStoreModule("videos", videoModule);
     this.$store
@@ -308,12 +308,13 @@ export default
             let _vm=this
 
              if(_vm.playerObj == null){
-                 _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
-                // Player (this) is initialized and ready.
-                // console.log("Videjs ininitialized",_vm.playerOptions.sources[0].src)
 
+             	  let player = document.getElementById('example_video_1');
+			   		_vm.playerObj=videojs(player,_vm.playerOptions, function(){
+					// Player (this) is initialized and ready.
+					// console.log("Videjs ininitialized",_vm.playerOptions.sources[0].src)
+				  });
 
-                });
 
              }
 

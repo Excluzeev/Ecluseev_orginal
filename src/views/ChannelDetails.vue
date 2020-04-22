@@ -177,6 +177,9 @@ export default {
     }
   },
   methods: {
+    onTrailerDeleted() {
+        this.loadTrailersData();
+      },
     onVideoDeleted() {
       this.loadVideosData();
     },

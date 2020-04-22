@@ -15,8 +15,8 @@
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>ACCOUNT</h4>
-						<a href="#" @click="goToCommunities">My Community</a>
-						<a href="#">My Profile</a>
+						<a href="#" v-if="showLogin" @click="goToCommunities">My Community</a>
+						<a href="#" v-if="showLogin" @click="goToMyProfile">My Profile</a>
 
 
 					</div>
@@ -191,6 +191,7 @@ import About from "./About";
 import FAQs from "./FAQs";
 
 import LicenseAgreement from "./LicenseAgreement";
+import store from "../store";
 
 export default {
   name: "FooterComponent",
@@ -206,8 +207,19 @@ export default {
       query:"",
     };
   },
-  methods: {
+  comuted:{
+  	showLogin() {
 
+      return store.getters.getUser == null;
+    },
+  },
+  methods: {
+    goToMyProfile(){
+      this.$router.push("/my-profile");
+    },
+	  goToCommunities() {
+      this.$router.push({ name: "Communities" });
+    },
        searchPreviews() {
       this.sideNav = false;
       this.$router.push({
