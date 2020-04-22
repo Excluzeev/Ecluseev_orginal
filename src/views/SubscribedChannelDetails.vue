@@ -313,10 +313,11 @@ export default {
 
       this.subscription = subDoc.data();
 
+
       this.loadTrailersData();
 
       this.loadVideosData();
-      console.log("Load channel done");
+
     },
     showDonatePop() {
       this.donateDialog = true;

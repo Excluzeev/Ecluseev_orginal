@@ -385,7 +385,8 @@
         return new Promise(resolve => setTimeout(resolve, ms));
       },
       async checkout(donate, tierName) {
-        this.donateAmount = donate;
+           // console.log('checkout triggered');
+          this.donateAmount = donate;
         this.tierName = tierName;
         await this.sleep(1000);
       // token - is the token object

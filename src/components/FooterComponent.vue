@@ -15,8 +15,8 @@
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>ACCOUNT</h4>
-						<a href="#" v-if="userData" @click="goToCommunities">My Community</a>
-						<a href="#" v-if="userData" @click="goToMyProfile">My Profile</a>
+						<a href="javascript://" v-if="userData" @click="goToCommunities">My Community</a>
+						<a href="javascript://" v-if="userData" @click="goToMyProfile">My Profile</a>
 
 
 					</div>
@@ -24,7 +24,7 @@
 						<h4>SUPPORT</h4>
 						<a href="#">Contact Support</a>
 						<a href="#">Help Guide</a>
-						<a href="#" @click="showFAQs">FAQ</a>
+						<a href="javascript://" @click="showFAQs">FAQ</a>
 
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
@@ -32,10 +32,10 @@
 						<a href="#">Privacy Policy</a>
           
 						<a href="javascript://" @click="openCookiePolicy">Cookie Policy</a>
-						<a href="#" @click="showLicenseAgreement">Community Member Agreement</a>
+						<a href="javascript://" @click="showLicenseAgreement">Community Member Agreement</a>
 						<a href="#">Content Creator Terms</a>
 						<a href="#">Call to Action Terms</a>
-						<a href="#" @click="showLicenseAgreement">Content Creator Licence Agreement</a>
+						<a href="javascript://" @click="showLicenseAgreement">Content Creator Licence Agreement</a>
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>PARTNERSHIP</h4>
