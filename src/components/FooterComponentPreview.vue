@@ -68,13 +68,21 @@
 				<div class="text-center row-auto footer-searchbar">
 					<div class="form-group has-search">
 						<span class="fa fa-search form-control-feedback color_fffffff"></span>
-						<input class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+
+                          <form @submit.prevent="searchPreviews" style="margin:0;">
+
+
+						<input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+
+                        </form>
+
+
 					</div>
 					<!-- <a class="" href="#"><i class="fa fa-users" aria-hidden="true"></i></a> -->
 				</div>
-				<div class="pull-right">
-					<a class="" href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
-				</div>
+<!--				<div class="pull-right">-->
+<!--					<a class="" href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>-->
+<!--				</div>-->
 			</nav>
 		</div>
   </div>
@@ -187,6 +195,7 @@ export default {
   name: "FooterComponent",
   data: () => {
     return {
+      query:"",
       dialog: false,
       privacyPolicy: false,
       termsCreator: false,
@@ -239,7 +248,15 @@ export default {
       this.titleDialog = "License Agreement";
       this.componentDialog = LicenseAgreement;
       this.dialog = true;
-    }
+    },
+	  searchPreviews() {
+      this.sideNav = false;
+      this.$router.push({
+        name: "SearchPreviews",
+        params: { query: this.query }
+      });
+    },
+
   }
 };
 </script>

@@ -7,6 +7,12 @@
             <img src="../assets/Images/menu_logo.png">
             <a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
           </div>
+          <template v-if="showLogin">
+            <h5>Account</h5>
+            <a href="javascript://" @click="sideNav = false" data-toggle="modal" data-target="#signUpModal">Create an Account</a>
+            <a href="javascript://" @click="sideNav = false" data-toggle="modal" data-target="#signInModal">Login</a>
+          </template>
+
           <template v-if="!showLogin">
             <h5>Account</h5>
             <a href="javascript://" v-if="!hideSignUpContentCreator&!showLogin" @click="goLoginContentCreator">Become Content creator</a>

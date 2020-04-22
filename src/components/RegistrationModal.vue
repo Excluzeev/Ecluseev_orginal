@@ -265,7 +265,7 @@ export default {
       //this.$router.replace({ name: "Login" });
       $("#signUpModal").modal("hide"); // Hide the signup modal box
       setTimeout(() => {
-          this.$router.push({ name: "Home" });
+          // this.$router.push({ name: "Home" });
           $("#signInModal").modal("show"); // Show the signin modal box
       }, 1000);
 

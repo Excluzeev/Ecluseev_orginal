@@ -61,7 +61,7 @@
 								</div>
 							</div>
 						<div class="clearfix"></div>
-						<a href="#" class="forgor_psw_link" data-toggle="modal" data-target="#forgotPasswordModal" >Forgot password?</a><br><br>
+						<a href="javascript://" @click="openForgotPassword" class="forgor_psw_link" >Forgot password?</a><br><br>
 
 						<!-- <a href="#" class="forgor_psw_link" @click="goForgotPassword()">Forgot password?</a><br><br> -->
 
@@ -172,10 +172,19 @@ export default {
 
 
     },
+    openForgotPassword(){
+          $("#signInModal").modal("hide"); // Hide the signin modal box
+      setTimeout(() => {
+
+          $("#forgotPasswordModal").modal("show"); // show the signup modal box
+
+      }, 1000);
+
+    },
     goSignup(){
           $("#signInModal").modal("hide"); // Hide the signin modal box      
       setTimeout(() => {
-          this.$router.push({ name: "Home" });
+          // this.$router.push({ name: "Home" });
         $("#signUpModal").modal("show"); // show the signup modal box
 
       }, 1000);

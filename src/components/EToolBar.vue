@@ -235,7 +235,7 @@ export default {
   methods: {
     
     logout() {
-        this.sideNav=false;
+
         try{
 
             this.$store.dispatch("signOut").then(() => {
@@ -258,6 +258,7 @@ export default {
           }
 
 
+      this.sideNav=false;
 
     },
     goToMyCrowdFunding(){

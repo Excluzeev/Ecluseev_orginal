@@ -386,6 +386,7 @@
       trailerId: this.$route.params.trailerId
     })
     .then(data => {
+      console.log("Data",data);
       this.trailer = data;
 
       this.title = this.trailer.title;
