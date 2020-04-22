@@ -11,7 +11,7 @@
     </div>
     <form @submit.prevent="doUploadVideo">
       <div class="row">
-        <div class="col-sm-6 col-12">
+        <div class="col-sm-6 ">
           <div class="file_upload " style="padding: 0">
             <div class="file_upload_top_section">
               <div class="form-group fileUpload-input vedioUpload-input">
@@ -39,16 +39,14 @@
             </div>
           </div>
           <div class="create_form_section">
-            <div class="form-row">
-              <div class="form-group">
+            
+              <div class="form-group" style="width: 100%">
                 <label for="name">Title</label>
-                <input v-model="title"  type="name" class="form-control" id="videoTitle" aria-describedby="name" placeholder="Please enter a title for the video">
+                <input v-model="title"  type="name" class="form-control" id="videoTitle" aria-describedby="name" placeholder="Please enter a title for the video" style="width: 100%">
                 <span  class="error-message" v-if="this.errors['title']">{{this.errors['title']}}</span>
               </div>
-            </div>
           </div>
           <div class="create_form_section">
-            <div class="form-row">
               <div class="custom-thumbnail-holder">
                 <v-checkbox
                   v-bind:key="index"
@@ -58,7 +56,6 @@
                   :value="checked"
                   >
                 </v-checkbox>
-              </div>
               <div class="image-holder" v-if="hasCustomThumbnail" style="width:100%">
                 <!-- Custom Thumbnail Image viewing -->
                 <upload-btn
@@ -85,7 +82,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-12">
+        <div class="col-sm-6">
           <!-- Video preview -->
             <!-- <div class=" form-group " v-if="videoFile != null">
               <video controls>

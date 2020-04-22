@@ -632,6 +632,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 #create_community_page label{color: #294D5D;}
 #upload_videos_previews_page i.fa.fa-info,
 #create_community_page i.fa.fa-info{
+	display: none;
 	color: #29ABE2;
 	border: 2px solid #29ABE2;
 	padding: 1px 6px;
@@ -1246,6 +1247,7 @@ header .search .search-input:focus {
 .signup-btn-section{text-align: right!important}
 /*------------------Media Queries-------*/
 @media only screen and (max-width: 767px){
+	input, select,text-area{font-size: 16px!important;}
 	.btn-send-me-a-revive-link{font-size: 16px;}
 	.curious_section{text-align: center!important;}
 	.title_btn_inline{display: inline-block!important;}
@@ -1276,7 +1278,7 @@ header .search .search-input:focus {
 
 	}
 	.modal-content.forgot-password-after h2{line-height: 45px;font-size: 45px;margin-bottom: 10px}
-	#create_community_page h2{font-size: 28px; margin-bottom: 10px;text-align: center;}
+	#create_community_page h2{font-size: 28px; margin-bottom: 10px;}
 	#create_community_page p{font-size: 18px;}
 	.file_upload_top_section{position: unset;text-align: center;}
 	#create_community_page .file_upload_btm_section{position: unset;text-align: left;}
@@ -1314,7 +1316,7 @@ header .search .search-input:focus {
 }
 @media only screen and (max-width: 991px){ 
 
-	#create_community_page h2{text-align: center;}
+	/*#create_community_page h2{text-align: center;}*/
 	#signInModal a{font-size: 16px;}
 	.modal-content h2{margin-bottom: 0;line-height: 1.4!important}
 	#signin-cont {padding: 0 25px;}
@@ -1420,7 +1422,7 @@ header .search .search-input:focus {
 
 }
 @media only screen and (max-width: 991px){
-
+	.upload-btn{padding: 0!important}
 	.grecaptcha-badge{bottom: 65px!important}
 	.modal-body{width: 90%;}
 	.modal{padding-right: 0!important}
@@ -1432,7 +1434,7 @@ header .search .search-input:focus {
 	#upload_videos_previews_page .file_upload_btm_section{margin-bottom: 20% }
 		.communities h2{font-size: 50px;}
 		.communities{padding-left: 3%;padding-right: 3%}
-		.communities .container-fluid{padding: 0}
+		.container-fluid{padding: 0}
 		.communities_mb .home_brand h2{font-size: 40px;}
 		.communities_mb button.btn.btn-borderless.plus_btn{
 		    font-size: 45px;
@@ -1616,7 +1618,7 @@ header .search .search-input:focus {
 }
 .community_circle_image img{width: 100%;height: 100%}
 @media (min-width: 1281px) and (max-width: 1919px){
-	
+
 	.btn-manage, .btn-manage:hover, .btn-manage:focus, .btn-remove, .btn-remove:hover, .btn-remove:focus {
  	 margin: 0 10px;
 		 padding: 10px 20px;
@@ -1671,6 +1673,7 @@ header .search .search-input:focus {
     float: left;
 }
 .btn-manage, .btn-manage:hover, .btn-manage:focus, .btn-remove, .btn-remove:hover, .btn-remove:focus{
-	padding: 10px!important; 
+	padding: 10px 15px!important; 
 }
 }
+.community_circle_image a{padding: 0}

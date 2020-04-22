@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row">
 
-        <div class="col-xl-6">
+        <div class="col-lg-6">
           <div class="watch_vedio_section">
             <div v-show="!playerOptions.sources[0].src.isEmpty">
               <video id="example_video_1" class="video-js" controls preload="auto" width="640" height="264"> </video>
@@ -21,7 +21,7 @@
                 <div class="btn-group" role="group"  v-if="showSubscribeButton">
                   <button type="button" class="btn-join-community d-block d-xl-none d-lg-none d-sm-block" data-toggle="modal" data-target="#joinCommunityModal">Join</button>
 
-                  <button  type="button" class="btn btn-per-month d-none d-xl-block d-lg-block" ata-toggle="modal" data-target="#joinCommunityModal"><span v-if="channel">${{ channel.price }} </span> per month</button>
+                  <button  type="button" class="btn btn-per-month d-none d-xl-block d-lg-block" ata-toggle="modal" data-target="#joinCommunityModal" style="border-top-left-radius:22px;border-bottom-left-radius:22px"><span v-if="channel">${{ channel.price }} </span> per month</button>
                   <button type="button" class="btn btn-join-community d-none d-xl-block d-lg-block" data-toggle="modal" data-target="#joinCommunityModal">Join community</button>
                 </div>
 
@@ -45,44 +45,11 @@
             <div v-if="showComments" class="chat_section d-none d-xl-block d-lg-block">
 
               <h3><span>Comments</span></h3>
-              <div>
-                <v-textarea
-                solo
-                label="Add a comment"
-                rows="1"
-                auto-grow
-                v-model="commentText"
-                ></v-textarea>
-                <v-layout>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                  class="white--text quick-sand-font-b"
-                  color="blue lighten-1"
-                  :disabled="disabelComment"
-                  @click="doComment"
-                  >Comment</v-btn
-                  >
-                </v-layout>
-              </div>
-              <div v-if="!showComments">
-                <div class="logincomment text-xs-center">
-                  <p>
-                    Please
-
-                    <a href="javascript://" class="quick-sand-font-b" @click="showLoginForm">sign in</a>
-
-                    to comment
-                  </p>
-                </div>
-              </div>
-
-
-
 
               <template v-if="commentsList.length > 0">
                 <div class="user_comment_section d-flex"  v-for="comment in commentsList"  v-bind:key="comment.commentId">
                   <div class="user_name_comment">
-                    <ul class="list-unstyled">
+                    <ul class="list-unstyled" style="margin-left:0">
                       <li class="list-inline">
                         <h3 class="pull-left">{{ comment.userName }}</h3>
                         <div class="posted_time pull-right"><p>{{ comment.timeAgo }}</p></div>
@@ -99,20 +66,49 @@
                   <p>No comments yet, be the first</p>
                 </div>
               </v-flex>
+              <div>
+              <div class="chat_messege_section">
+              <div class="input-group mb-3">
+                <v-textarea
+                solo
+                label="Add a comment"
+                rows="1"
+                auto-grow
+                v-model="commentText"
+                ></v-textarea>
+                <div class="input-group-append">
+                <v-layout>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                  class="white--text quick-sand-font-b"
+                  color="blue lighten-1"
+                  :disabled="disabelComment"
+                  @click="doComment"
+                  >Comment</v-btn
+                  >
+                </v-layout>
+                </div>
+              </div>
+              </div>
+              </div>
+              
+              <div v-if="!showComments">
+                <div class="logincomment text-xs-center">
+                  <p>
+                    Please
 
+                    <a href="javascript://" class="quick-sand-font-b" @click="showLoginForm">sign in</a>
 
+                    to comment
+                  </p>
+                </div>
+              </div>
             </div>
-
-
           </div>
-
-
-
-
 
         </div>     
 
-        <div class="col-xl-6">
+        <div class="col-lg-6">
           <div class="row ">
             <div class="col-xl-5 col-lg-5 ">
               <div class="start_excluzeev_btn_section d-none d-xl-block d-lg-block">
@@ -132,7 +128,7 @@
           <div class="clearfix"></div>
 
           <div class="related_video_section">
-            <ul class="list-unstyled">
+            <ul class="list-unstyled" style="margin-left:0">
               <TrailerDetailVideoItem
               v-for="trailer in catTrailersList"
               v-bind:key="trailer.trailerId"
@@ -788,4 +784,36 @@
   }
 
 #watch_preview_page{margin-bottom:50px;}
+@media only screen and (max-width:660px){
+  .container-fluid{padding:0!important}
+}
+.v-input__slot,
+.chat_messege_section input {
+    font: 18px rubik-regular;
+    color: #29ABE2;
+    border-top: 1px solid #29ABE2;
+    border-bottom: 1px solid #29ABE2;
+    padding: 25px;
+    border-right: 0;
+    border-left: 1px solid #29ABE2;
+    border-radius:22px 0 0 22px;
+}
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot,
+.quick-sand-font-b,
+.chat_messege_section .btn, 
+.chat_messege_section .btn:hover,  
+.chat_messege_section .btn:focus, 
+.chat_messege_section .btn,
+ .chat_messege_section .btn:hover,
+  .chat_messege_section .btn:focus {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+    font: 16px rubik-regular;
+    border-left: 0;
+    background-color: #FFFFFF;
+    order-radius:0 22px 22px 0;
+    margin:0 0 0 10px;
+    box-shadow:0;
+}
+
 </style>

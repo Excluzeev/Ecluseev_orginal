@@ -1,6 +1,6 @@
 <template>
 
-
+  
   <router-link class="" :to="'/' + getLinkTag + '/' + video.videoId">
     <li>
     <div class="row">
