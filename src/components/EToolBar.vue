@@ -1,12 +1,12 @@
 <template>
-	<div class="nav_section homepage-nav">
-		<nav class="nav-home navbar-expand-lg navbar " id="nav">
-			<div class="pull-left d-md-block d-xl-none d-lg-none">
-				<div id="mySidenav" class="sidenav" v-show="sideNav">
-					<div class="inline-list ">
-						<img src="../assets/Images/menu_logo.png">
-						<a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
-					</div>
+  <div class="nav_section homepage-nav">
+    <nav class="nav-home navbar-expand-lg navbar " id="nav">
+      <div class="pull-left d-md-block d-xl-none d-lg-none">
+        <div id="mySidenav" class="sidenav" v-show="sideNav">
+          <div class="inline-list ">
+            <img src="../assets/Images/menu_logo.png">
+            <a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
+          </div>
 
           <template v-if="showLogin">
             <h5>Account</h5>
@@ -25,19 +25,19 @@
               <router-link  :to="{ name: 'MyEarnings' }"> My earnings </router-link>
             </template>
           </template>
-					<h5>COMPANY</h5>
-					<a href="#" @click="showAboutUs">About</a>
-					<a href="#">Careers</a>
-					<a href="#">News</a>
-					<h5>SUPPORT</h5>
-					<a href="#">Contact Support</a>
-					<a href="#" @click="showHowTo">Help Guide</a>
-					<a href="#" @click="showFAQs">FAQ</a>
-					<h5>LEAGAL</h5>
-					<hr>
-					<a v-if="!showLogin" href="javascript://" @click="logout">Logout</a>
-					<hr class="logout_link">
-					<ul class="list-unstyled inline-list social_links">
+          <h5>COMPANY</h5>
+          <a href="#" @click="showAboutUs">About</a>
+          <a href="#">Careers</a>
+          <a href="#">News</a>
+          <h5>SUPPORT</h5>
+          <a href="#">Contact Support</a>
+          <a href="#" @click="showHowTo">Help Guide</a>
+          <a href="#" @click="showFAQs">FAQ</a>
+          <h5>LEAGAL</h5>
+          <hr>
+          <a v-if="!showLogin" href="javascript://" @click="logout">Logout</a>
+          <hr class="logout_link">
+          <ul class="list-unstyled inline-list social_links">
             <li>
               <a href="https://www.instagram.com/excluzeev/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i>
               </a>
@@ -51,72 +51,61 @@
               </a>
             </li>
           </ul>
-				</div>
+        </div>
 
-				<div class="pull-left  home_brand ">
-					<a class="navbar-brand" href="/">
-						<img src="../assets/Images/logo.svg" draggable="false">
-					</a>
-				</div>
+        <!-- <div class="pull-left  home_brand ">
+          <a class="navbar-brand" href="/">
+            <img src="../assets/Images/logo.svg" draggable="false">
+          </a>
+        </div>
 
-
-
-				<div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
-					<ul class="navbar-nav row-auto">
-	
-						<li class="nav-item color_fffffff search_group">
-							<div class="form-group has-search">
-								<span class="fa fa-search form-control-feedback color_fffffff"></span>
-                        <form @submit.prevent="searchPreviews" style="margin:0;">
-                          
-                          	<input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
-
-                        </form>
-
-							</div>
-						</li>
-						
+        <div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
+          <ul class="navbar-nav row-auto">
+  
+            <li class="nav-item color_fffffff search_group">
+              <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback color_fffffff"></span>
+                  <form @submit.prevent="searchPreviews" style="margin:0;">
+                    <input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
+                  </form>
+              </div>
+            </li>
+            
           </ul>
                         
-				</div>
-				<div class="menu_sticks" @click="sideNav = !sideNav">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-			</div>
+        </div> -->
+        <div class="menu_sticks" @click="sideNav = !sideNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
 
-			<div class="pull-left  home_brand ">
-				<a class="navbar-brand" href="/">
-					<img src="../assets/Images/logo.svg" draggable="false">
-				</a>
-			</div>
+      <div class="pull-left  home_brand ">
+        <a class="navbar-brand" href="/">
+          <img src="../assets/Images/logo.svg" draggable="false">
+        </a>
+      </div>
 
-			<div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto "> 
+      <div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto "> 
         <ul class="navbar-nav row-auto">
-				
-					<li class="nav-item color_fffffff search_group">
-						<div class="form-group has-search">
-							<span class="fa fa-search form-control-feedback color_fffffff"></span>
+        
+          <li class="nav-item color_fffffff search_group">
+            <div class="form-group has-search">
+              <span class="fa fa-search form-control-feedback color_fffffff"></span>
               <form @submit.prevent="searchPreviews" style="margin:0;">
                 <input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
               </form>
-						</div>
-					</li>
+            </div>
+          </li>
         </ul>
-			</div>
-			<div class="pull-right  ">
+      </div>
+      <div class="pull-right  ">
 <!-- menus -->
     <ul class="navbar-nav list-unstyled">
-				<li class="d-md-block d-xl-none d-lg-block search_icon">
+        <li class="d-md-block d-xl-none d-lg-block search_icon">
         <button class="btn btn-borderless search_btn "><i class="fa fa-search" aria-hidden="true"></i></button>
-			</li>
-
-
-      
-      
-        
-
+      </li>
           <li  v-if="!hideSignUpContentCreator&!showLogin" class="nav-item d-none d-lg-block d-lg-block">
 
             <button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#becomeCCModal">
@@ -165,7 +154,7 @@
                         <router-link  :to="{ name: 'Settings' }"> Settings </router-link>
                 </li> -->
                 <li class="dropdown-item" type="button">
-		 <a href="javascript://"  @click="logout" >Signout</a>
+                  <a href="javascript://"  @click="logout" >Signout</a>
                 </li>
             </ul>
           </li>
@@ -174,13 +163,13 @@
 
 
       <!-- menus -->
-			<div class="pull-right d-none d-lg-block d-lg-block">
-				<form class=" inline my-2 my-lg-0" v-if="showLogin">
-					<button class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signUpModal">Create an Account</button>
-        	<button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signInModal">Sign In</button>
-				</form>
-			</div>
-		</nav>
+      <div class="pull-right d-none d-lg-block d-lg-block">
+        <form class=" inline my-2 my-lg-0" v-if="showLogin">
+          <button class="btn create-account-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signUpModal">Create an Account</button>
+          <button  class="btn signIn-btn my-2 my-sm-0 btn_radius color_fffffff" type="button" data-toggle="modal" data-target="#signInModal">Sign In</button>
+        </form>
+      </div>
+    </nav>
     <v-layout row justify-center>
       <v-dialog v-model="dialogt" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
@@ -194,7 +183,7 @@
         </v-card>
       </v-dialog>
     </v-layout>
-	</div>
+  </div>
 </template>
 
 <script>
