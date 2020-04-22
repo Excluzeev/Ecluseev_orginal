@@ -51,6 +51,7 @@
 }
 
 .video-js {
+    width: 100%;
     font-size: 14px;
     overflow: hidden
 }

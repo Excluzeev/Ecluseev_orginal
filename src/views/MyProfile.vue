@@ -1,11 +1,11 @@
 <template>
 
-   <div class="container">
+   <div class="container" >
         
         <div class="form-row text-center m-1">
             <div class="col-lg-2"></div>
             <div class="col-lg-8 profile-bg">
-                 <img src="../assets/Images/default_user_profile.png" class="rounded-circle" alt="Cinque Terre">  
+                 <img src="../assets/Images/default_user_profile.png" class="rounded-circle profile-img" alt="Cinque Terre">
             </div>
 
             <div class="col-lg-2"></div>
@@ -73,6 +73,22 @@
         </div>
 
 
+       <div class="form-row mt-4">
+           <div class="col-lg-2">
+           </div>
+           <div class="col-lg-6 profile-actions">
+
+           </div>
+           <div class="col-lg-2 profile-actions text-right">
+
+
+           </div>
+
+           <div class="col-lg-2"></div>
+        </div>
+
+
+
     </div> 
   
 </template>
@@ -106,6 +122,11 @@
      mixins: [RegisterStoreModule],
       props: {},
       created() {
+        setTimeout( () =>{
+             this.userData=store.getters.getFUser,
+             console.log("User dta",this.userData)
+        },2000)
+
         this.registerStoreModule("auth", authModule);
       },
 
@@ -145,6 +166,10 @@
 
 <style scoped>
 
+    .profile-img{
+        width: 100px;
+        height: 100px;
+    }
     .data-label{
         font-size: 25px;
         font-weight: bold;
