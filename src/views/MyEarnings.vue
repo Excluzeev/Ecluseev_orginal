@@ -10,7 +10,7 @@
             <div class="pull-left">
               <h2>My earnings</h2>
               <p style="margin:0;">Earnings from all the communities</p>
-              <h3 class="s-balance d-xl-block d-md-none d-lg-block d-sm-none d-none d-xs-none" style="padding: 5px 0">
+              <h3 class="s-balance " style="padding: 5px 0">
                 Stripe Account Balance : <span style="color:green"> {{stripeAccountBalance}} {{stripeAccountBalanceCurrency}}</span>
               </h3>
             </div>
@@ -25,7 +25,7 @@
             </div>
             <div class="clearfix"></div>
           </div> 
-          <div class="form-group offset-xs-0 col-xs-12 offset-sm-2 col-sm-8  d-block d-xl-none d-lg-none text-center">
+          <div class="form-group offset-xs-0 col-xs-12 offset-sm-2 col-sm-8   text-center">
             <select class="form-control" v-model="selChannelId">
               <option value="">Select a Community</option>
               <option v-for="channel in channelsList" v-bind:value="channel.channelId">{{channel.title}}</option>
@@ -34,7 +34,7 @@
         </div>
 
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tab_content_panel d-xl-none d-md-block d-lg-none d-sm-block d-xs-block">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tab_content_panel ">
           <div class="tab-content " id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
               
@@ -68,7 +68,7 @@
 
 
      
-      <div class="row d-md-none d-lg-block d-sm-none d-none d-xs-none">
+      <div class="row  ">
         <div class="tabs_section">
           <div class="col-xs-12 col-sm-12 col-md-12 " style="padding: 0">
             <!-- Nav tabs -->
@@ -81,14 +81,14 @@
               </li>
             </ul> 
           </div> 
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tab_content_panel" style="padding: 25px 0">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tab_content_panel" style="padding: 25px 15px">
             <div class="tab-content " id="v-pills-tabContent" >
               <div class="pull-right table_price ">
 
                   <h3><span>Total ${{totalEarnings[selChannelId]}}</span></h3>        
 
                 </div>
-              <div class="tab-pane fade show active" id="payouts" role="tabpanel" aria-labelledby="v-pills-home-tab" style="padding: 0 15px">
+              <div class="tab-pane fade show active" id="payouts" role="tabpanel" aria-labelledby="v-pills-home-tab" style="padding: 15px">
                 
                 <table class="table table-borderless" id="dataTable">
                   <thead>
@@ -116,7 +116,7 @@
               </div>
               <div class="tab-pane fade" id="charges" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 
-                <div class="pull-right table_price d-xl-none d-none d-lg-block d-xl-block">
+                <div class="pull-right table_price ">
                 </div>
                 <table class="table table-borderless" id="dataTable">
                   <thead>

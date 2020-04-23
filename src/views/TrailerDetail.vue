@@ -9,32 +9,41 @@
             <div v-show="!playerOptions.sources[0].src.isEmpty">
               <video id="example_video_1" class="video-js" controls preload="auto" width="640" height="264"> </video>
             </div>
-            <h2 class="d-none d-md-none d-sm-none d-lg-block d-xl-block" v-if="trailer">{{ trailer.title }}</h2>
+            <!-- <h2 class="d-none d-md-none d-sm-none d-lg-block d-xl-block" v-if="trailer">{{ trailer.title }}</h2> -->
             <div class="list-inline video_content">
               <div class="list-inline d-flex pull-left">
                 <img :src="trailer != null ? trailer.channelImage : ''" class="rounded-circle"  style="width: 46px;height: 46px;">
                 <span style="width:10px;">&nbsp; &nbsp; &nbsp;</span>
-                <h5><span v-if="trailer">{{ trailer.channelName }}</span><br><span class="sub_title d-block  d-sm-block d-xl-none d-lg-none">Artist/Band/Vlog</span></h5>
+                
+                <h5>
+                <span v-if="trailer">{{ trailer.channelName }}</span>
+                <br>
+                <!-- <span class="sub_title d-block  d-sm-block d-xl-none d-lg-none">Artist/Band/Vlog</span> -->
+                <span class="sub_title">Artist/Band/Vlog</span></h5>
               </div>
 
               <div class="pull-right">
                 <div class="btn-group" role="group"  v-if="showSubscribeButton">
-                  <button type="button" class="btn-join-community d-block d-xl-none d-lg-none d-sm-block" data-toggle="modal" data-target="#joinCommunityModal">Join</button>
+                  
 
-                  <button  type="button" class="btn btn-per-month d-none d-xl-block d-lg-block" ata-toggle="modal" data-target="#joinCommunityModal" style="border-top-left-radius:22px;border-bottom-left-radius:22px"><span v-if="channel">${{ channel.price }} </span> per month</button>
-                  <button type="button" class="btn btn-join-community d-none d-xl-block d-lg-block" data-toggle="modal" data-target="#joinCommunityModal">Join community</button>
+                  <button  type="button" class="btn btn-per-month d-none d-xl-block d-lg-none" ata-toggle="modal" data-target="#joinCommunityModal" style="border-top-left-radius:22px;border-bottom-left-radius:22px"><span v-if="channel">${{ channel.price }} </span> per month</button>
+                  
+                  <button type="button" class="btn-join-community d-block d-xl-none d-lg-block d-sm-block" data-toggle="modal" data-target="#joinCommunityModal">Join</button>
+                  
+                  <button type="button" class="btn btn-join-community d-none d-xl-block d-lg-none" data-toggle="modal" data-target="#joinCommunityModal">Join community</button>
                 </div>
 
                 <div class="btn-group" v-if="!showSubscribeButton">
-
-                  <span v-if="channel">${{ channel.price }} </span>/Month
+                <button type="button" class="btn-join-community " style="border-radius:15px;font-size:14px"><span v-if="channel" >${{ channel.price }} </span>/Month</button>
+                  
                 </div>
 
 
               </div>
               <div class="clearfix"></div>
-              <p > <span v-if="trailer">{{ trailer.description }}</span>
-<!--                <a href="#collapse" class="nav-toggle ">Read Less</a>-->
+              <p > 
+                <span v-if="trailer">{{ trailer.description }}</span>
+                <!-- <a href="#collapse" class="nav-toggle ">Read Less</a>-->
               </p>
               <div id="collapse" class="content_text">
               </div>
@@ -46,186 +55,187 @@
 
               <div v-if="showComments">
 
+                <h3><span>Comments</span></h3>
 
-              <h3><span>Comments</span></h3>
+                <template v-if="commentsList.length > 0">
+                  <div class="user_comment_section d-flex"  v-for="comment in commentsList"  v-bind:key="comment.commentId">
+                    <div class="user_name_comment">
+                      <ul class="list-unstyled" style="margin-left:0">
+                        <li class="list-inline">
+                          <h3 class="pull-left">{{ comment.userName }}</h3>
+                          <div class="posted_time pull-right"><p>{{ comment.timeAgo }}</p></div>
+                          <div class="clearfix"></div>
+                        </li>
+                        <li><p>{{ comment.comment }}</p></li>
+                      </ul>
+                    </div>
+                  </div>
+                </template>
 
-              <template v-if="commentsList.length > 0">
-                <div class="user_comment_section d-flex"  v-for="comment in commentsList"  v-bind:key="comment.commentId">
-                  <div class="user_name_comment">
-                    <ul class="list-unstyled" style="margin-left:0">
-                      <li class="list-inline">
-                        <h3 class="pull-left">{{ comment.userName }}</h3>
-                        <div class="posted_time pull-right"><p>{{ comment.timeAgo }}</p></div>
-                        <div class="clearfix"></div>
-                      </li>
-                      <li><p>{{ comment.comment }}</p></li>
-                    </ul>
+                <v-flex v-else text-xs-center>
+                  <div class="nocomment">
+                    <p>No comments yet, be the first</p>
+                  </div>
+                </v-flex>
+                <div>
+                  <div class="chat_messege_section">
+                    <div class="input-group mb-3">
+                      <v-textarea
+                        solo
+                        label="Add a comment"
+                        rows="1"
+                        auto-grow
+                        v-model="commentText"
+                        >
+                      </v-textarea>
+                      <div class="input-group-append">
+                        <v-layout>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            class="white--text quick-sand-font-b"
+                            color="blue lighten-1"
+                            :disabled="disabelComment"
+                            @click="doComment"
+                            >Comment</v-btn
+                            >
+                        </v-layout>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </template>
 
-              <v-flex v-else text-xs-center>
-                <div class="nocomment">
-                  <p>No comments yet, be the first</p>
-                </div>
-              </v-flex>
-              <div>
-              <div class="chat_messege_section">
-              <div class="input-group mb-3">
-                <v-textarea
-                solo
-                label="Add a comment"
-                rows="1"
-                auto-grow
-                v-model="commentText"
-                ></v-textarea>
-                <div class="input-group-append">
-                <v-layout>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                  class="white--text quick-sand-font-b"
-                  color="blue lighten-1"
-                  :disabled="disabelComment"
-                  @click="doComment"
-                  >Comment</v-btn
-                  >
-                </v-layout>
+                <div v-if="!showComments">
+                  <div class="logincomment text-xs-center">
+                    <p>
+                      Please
+
+                      <a href="javascript://" class="quick-sand-font-b" @click="showLoginForm">sign in</a>
+
+                      to comment
+                    </p>
+                  </div>
                 </div>
               </div>
-              </div>
-              </div>
-              
-              <div v-if="!showComments">
-                <div class="logincomment text-xs-center">
-                  <p>
-                    Please
+            </div>
 
-                    <a href="javascript://" class="quick-sand-font-b" @click="showLoginForm">sign in</a>
-
-                    to comment
-                  </p>
-                </div>
+          </div>     
+        </div>
+      <div class="col-lg-6">
+        <div class="row ">
+          <div class="col-xl-5 col-lg-5 ">
+            <div class="start_excluzeev_btn_section d-none d-xl-block d-lg-block">
+              <div class=" start_excluzeev_btn_description">
+                <p>Start excluzeev live now and interact with the fans. </p>
+                <br>
+                <p>Just a click away.</p>
               </div>
             </div>
           </div>
-
-        </div>     
-
-        <div class="col-lg-6">
-          <div class="row ">
-            <div class="col-xl-5 col-lg-5 ">
-              <div class="start_excluzeev_btn_section d-none d-xl-block d-lg-block">
-                <div class=" start_excluzeev_btn_description">
-                  <p>Start excluzeev live now and interact with the fans. </p>
-                  <br>
-                  <p>Just a click away.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-7 col-lg-7">
-              <div class="d-none d-xl-block d-lg-block">
-                <button class="btn btn-start-excluzeev-live" @click="goLive"><img src="../assets/Images/live-blue.png" style="width: 36px">&nbsp;&nbsp;Start Excluzeev Live</button>
-              </div>
+          <div class="col-xl-7 col-lg-7">
+            <div class="d-none d-xl-block d-lg-block"> 
+              <button class="btn btn-start-excluzeev-live" @click="goLive">
+                <img  src="../assets/Images/live-blue.png" style="width: 36px" >&nbsp;&nbsp;Start Excluzeev Live</button>
             </div>
           </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="related_video_section">
+        <h3><span>Related Videos</span></h3>
+          <ul class="list-unstyled" style="margin-left:0">
+            <TrailerDetailVideoItem
+            v-for="trailer in catTrailersList"
+            v-bind:key="trailer.trailerId"
+            :trailer="trailer"
+            />
+          </ul>
+        </div>
+      </div>
+  </div>
+
+  <!-- Model for Join Community  -->
+  <div class="modal fade bd-example-modal-md" id="joinCommunityModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">Close</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <br>
+          <br>
+          <h2>Join Community</h2>
           <div class="clearfix"></div>
+          <p>Join Community and explore the exluzeev videos and intaract with the amazing people behind the community</p>
+          <div class="clearfix"></div>
+          <br>
 
-          <div class="related_video_section">
-            <ul class="list-unstyled" style="margin-left:0">
-              <TrailerDetailVideoItem
-              v-for="trailer in catTrailersList"
-              v-bind:key="trailer.trailerId"
-              :trailer="trailer"
-              />
-            </ul>
+          <div v-if="showError" class="row text-center error-message">
+            <div class="col-lg-12">
+              {{ errorMsg }}
+            </div>
+
           </div>
+
+
+
+          <div class="community_section" style="padding:0 !important;">
+            <div class="text-center img_title">
+              <div class="list-inline d-flex pull-left">
+                <img :src="trailer != null ? trailer.channelImage : ''" class="rounded-circle"  style="width: 46px;height: 46px;">
+
+                <h3 style="text-align-left:font-size:16px;"><span v-if="trailer">{{ trailer.channelName }}</span></h3>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <div class="clearfix"></div>
+                  <br>
+                  <h2 class="m-0 p-0">${{ channel.price }}</h2>
+                  <br>
+
+                </div>
+              </div>
+            </form>
+            <div class="clearfix"></div>
+          </div>
+          <v-progress-circular v-if="subscribeProcessing" indeterminate color="primary"></v-progress-circular>
+          <button :disabled="subscribeProcessing" :loading="subscribeProcessing" v-if="showSubscribeButton" @click="checkout" class="btn btn-join-via-stripe" >Let's join via Stripe</button>
+          <br><br>
+          <div class="note_section">
+            <p>NOTE: Price are in CAD(Canadian Dollars)</p>
+          </div>
+          <br><br><br><br><br>
         </div>
       </div>
     </div>
-
-    <!-- Model for Join Community  -->
-    <div class="modal fade bd-example-modal-md" id="joinCommunityModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header text-center">
-            <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">Close</span>
-            </button>
-          </div>
-          <div class="modal-body text-center">
-            <br>
-            <br>
-            <h2>Join Community</h2>
-            <div class="clearfix"></div>
-            <p>Join Community and explore the exluzeev videos and intaract with the amazing people behind the community</p>
-            <div class="clearfix"></div>
-            <br>
-
-            <div v-if="showError" class="row text-center error-message">
-              <div class="col-lg-12">
-                {{ errorMsg }}
-              </div>
-
-            </div>
+  </div>
+</div>
+<!-- End -->
 
 
+<vue-stripe-checkout
+:publishable-key="spublickey"
+ref="checkoutRef"
+name="Payment Details"
+description
+currency="CAD"
+:amount="channel.price * 100"
+:allow-remember-me="false"
 
-            <div class="community_section" style="padding:0 !important;">
-              <div class="text-center img_title">
-                <div class="list-inline d-flex pull-left">
-                  <img :src="trailer != null ? trailer.channelImage : ''" class="rounded-circle"  style="width: 46px;height: 46px;">
-
-                  <h3><span v-if="trailer">{{ trailer.channelName }}</span></h3>
-                </div>
-              </div>
-
-              <div class="clearfix"></div>
-              <form>
-                <div class="form-row">
-                  <div class="form-group col-md-12">
-                    <div class="clearfix"></div>
-                    <br>
-                    <h2 class="m-0 p-0">${{ channel.price }}</h2>
-                    <br>
-
-                  </div>
-                </div>
-              </form>
-              <div class="clearfix"></div>
-            </div>
-            <v-progress-circular v-if="subscribeProcessing" indeterminate color="primary"></v-progress-circular>
-            <button :disabled="subscribeProcessing" :loading="subscribeProcessing" v-if="showSubscribeButton" @click="checkout" class="btn btn-join-via-stripe" >Let's join via Stripe</button>
-            <br><br>
-            <div class="note_section">
-              <p>NOTE: Price are in CAD(Canadian Dollars)</p>
-            </div>
-            <br><br><br><br><br>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-    <!-- End -->
+@done="done"
+@opened="opened"
+@closed="closed"
+@canceled="canceled"
+></vue-stripe-checkout>
 
 
-    <vue-stripe-checkout
-    :publishable-key="spublickey"
-    ref="checkoutRef"
-    name="Payment Details"
-    description
-    currency="CAD"
-    :amount="channel.price * 100"
-    :allow-remember-me="false"
-
-    @done="done"
-    @opened="opened"
-    @closed="closed"
-    @canceled="canceled"
-    ></vue-stripe-checkout>
-
-
-  </div> 
+</div> 
 
 </template>
 
@@ -414,18 +424,18 @@
         // console.log("player options",this.playerOptions.sources[0].src)
         let _vm=this
         $(document).ready(function(){
-			//
-        	// // To detach the attached video play
-			// var oldPlayer = document.getElementById('example_video_1');
-			// console.log("oldPlayer",oldPlayer,_vm.playerObj)
-			// if(oldPlayer){
-			// 	console.log("destroyed the old plyer")
-			// 	videojs(oldPlayer).dispose();
-			// }
+      //
+          // // To detach the attached video play
+      // var oldPlayer = document.getElementById('example_video_1');
+      // console.log("oldPlayer",oldPlayer,_vm.playerObj)
+      // if(oldPlayer){
+      //  console.log("destroyed the old plyer")
+      //  videojs(oldPlayer).dispose();
+      // }
 
-         if(_vm.playerObj == null) {
+      if(_vm.playerObj == null) {
 
-           let player = document.getElementById('example_video_1');
+       let player = document.getElementById('example_video_1');
            // console.log("Plyer element", player)
 
            _vm.playerObj = videojs(player, _vm.playerOptions, function () {
@@ -465,27 +475,27 @@
         this.getLikes();
         this.getComments();
       });
+},
+methods: {
+
+  showLoginForm(){
+
+    this.$root.$emit('openLoginForm');
+
   },
-  methods: {
+  goLive(){
 
-    showLoginForm(){
-
+    if (this.showLogin) {
       this.$root.$emit('openLoginForm');
 
-    },
-    goLive(){
-
-      if (this.showLogin) {
-        this.$root.$emit('openLoginForm');
-
-      } else {
-        this.$router.push({ name: "AddExcluzeev" });
-      }
+    } else {
+      this.$router.push({ name: "AddExcluzeev" });
+    }
 
 
-    },
+  },
 
-    playerIsReady(player) {
+  playerIsReady(player) {
       // TODO(Karthik): Modify the adTagUrl
       
       let options = {
@@ -502,7 +512,7 @@
       player.ima.setAdBreakReadyListener(() => {
         // console.log("AdBreak");
       });
-      */
+*/
       // console.log("Player is ready");
     },
     async getLikes() {
@@ -798,12 +808,12 @@
 
   }
 
-#watch_preview_page{margin-bottom:50px;}
-@media only screen and (max-width:660px){
-  .container-fluid{padding:0!important}
-}
-.v-input__slot,
-.chat_messege_section input {
+  #watch_preview_page{margin-bottom:50px;}
+  @media only screen and (max-width:660px){
+    .container-fluid{padding:0!important}
+  }
+  .v-input__slot,
+  .chat_messege_section input {
     font: 18px rubik-regular;
     color: #29ABE2;
     border-top: 1px solid #29ABE2;
@@ -812,14 +822,14 @@
     border-right: 0;
     border-left: 1px solid #29ABE2;
     border-radius:22px 0 0 22px;
-}
-.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot,
-.quick-sand-font-b,
-.chat_messege_section .btn, 
-.chat_messege_section .btn:hover,  
-.chat_messege_section .btn:focus, 
-.chat_messege_section .btn,
- .chat_messege_section .btn:hover,
+  }
+  .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot,
+  .quick-sand-font-b,
+  .chat_messege_section .btn, 
+  .chat_messege_section .btn:hover,  
+  .chat_messege_section .btn:focus, 
+  .chat_messege_section .btn,
+  .chat_messege_section .btn:hover,
   .chat_messege_section .btn:focus {
     border: 1px solid #29ABE2;
     color: #29ABE2;
@@ -829,6 +839,24 @@
     order-radius:0 22px 22px 0;
     margin:0 0 0 10px;
     box-shadow:0;
-}
+  }
+  @media (min-width:992px) and (max-width:1199px){
+    .btn-join-community, .btn-join-community:hover, .btn-join-community:focus{
+      border-radius: 15px;font-size:18px;
+    }
+    .btn-start-excluzeev-live img{display:none}
+  }
+  @media (min-width:1200px) and (max-width:1366px){
+    .btn-per-month, .btn-per-month:hover, .btn-per-month:focus,
+    .btn-join-community, .btn-join-community:hover, .btn-join-community:focus{font-size:18px;}
+  }
+  @media only screen and (max-width:440px){
+    h5{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 150px;
+    }
+  }
 
 </style>

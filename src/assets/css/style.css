@@ -551,6 +551,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 /*---Communities Page css Start----*/
 .community_circle_image{}
 .communities p{font:1.5625rem rubik-light;color: #294D5D}
+.my_channel_page h5,
 .subscriber h5,
 .communities h5{font:1.5625rem rubik-medium;color: #294D5D;text-transform: uppercase;margin-bottom: 1rem}
 .my_community_section{padding-top: 6%;padding-bottom: 3%}
@@ -833,7 +834,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 #excluzeev_live_page .chat_section h3{padding: 0 }
 #watch_preview_page .user_name_comment,
 #croud_funding_page .user_name_comment,
-#excluzeev_live_page .user_name_comment{margin-left: 15px;}
+#excluzeev_live_page .user_name_comment{/*margin-left: 15px;*/}
 .user_name_comment ul{margin-bottom: 0}
 #croud_funding_page p,
 #watch_preview_page p,
@@ -961,6 +962,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 #my_ernings_page .my_ernings_title_section p{font:25px rubik-light; color: #294D5D;}
 #my_ernings_page .footer_brand_section{padding-top: 40px;}
 .tabs_section{
+	width: 100%;
 	background-color: #FFFFFF;
 	box-shadow: -3px 20px 22px #00000029;
 	-webkit-box-shadow: -3px 20px 22px #00000029;
@@ -1320,6 +1322,7 @@ header .search .search-input:focus {
 @media only screen and (min-width: 1920px){
 	.nav_section{padding: 2% 7% 0 7%}
 }
+.video_content{padding-top: 15px;}
 @media only screen and (max-width: 991px){ 
 
 	/*#create_community_page h2{text-align: center;}*/
@@ -1330,7 +1333,7 @@ header .search .search-input:focus {
 	.nav-home{display: flex!important;}
 	.video_content{padding-top: 15px;}
 	#watch_preview_page h3 span,
-	#watch_preview_page h3{padding-bottom: 10px;padding-top: 3px!important;color: #fff!important;line-height: 25px ;font:16px rubik-light}
+	#watch_preview_page h3{padding-bottom: 10px;padding-top: 3px!important;line-height: 25px ;font:20px rubik-light}
 	.btn-join-community,.btn-join-community:hover,.btn-join-community:focus{
 		padding: 10px 25px;
 		border-radius: 22px!important;

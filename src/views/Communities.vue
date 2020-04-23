@@ -278,7 +278,7 @@
 </script>
 
 <style scoped>
-  .communities{margin-bottom:50px;}
+  .communities{margin-bottom:70px;}
 
   @media only screen and (max-width:767px){
     .btn-manage,.btn-remove{font-size:12px;padding:10px 15px}

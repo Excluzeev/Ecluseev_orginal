@@ -1,4 +1,5 @@
 <template>
+  <div class="my_channel_page">
   <v-container v-if="channel != null">
     <img
       :src="
@@ -28,7 +29,7 @@
       <v-spacer></v-spacer>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
-      <h1 class="quick-sand-font-b">Previews</h1>
+      <h5 class="quick-sand-font-b">Previews</h5>
       <br>
       <v-layout xs12 row wrap>
         <v-flex
@@ -40,7 +41,7 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
+          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/></TrailerVideoItem>
         </v-flex>
       </v-layout>
     </div>
@@ -58,7 +59,7 @@
           v-for="video in videosList"
           v-bind:key="video.videoId"
         >
-          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted"/>
+          <VideosVideoItem :video="video" v-on:videoDelete="onVideoDeleted"/></VideosVideoItem>
         </v-flex>
       </v-layout>
     </div>
@@ -82,34 +83,7 @@
               type="submit"
               @click="checkout(priceDonate)"
             >Doante</v-btn>
-            <!-- <v-expansion-panel
-              class="margin"
-              popout
-              xs12
-              v-for="(tier,index) in channel.tiers"
-              v-bind:key="index"
-            >
-              <v-expansion-panel-content>
-                <template v-slot:header class="card-shadow">
-                  <div class="headline">Join {{tier.tier}}</div>
-                </template>
-                <v-card color class>
-                  <v-card-title primary-title>
-                    <div>
-                      <span>{{tier.description}}</span>
-                    </div>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-btn
-                      block
-                      class="quick-sand-font-b white--text"
-                      color="teal"
-                      @click="checkout(tier.price)"
-                    >{{tier.tier}} - {{tier.price}}$</v-btn>
-                  </v-card-text>
-                </v-card>
-              </v-expansion-panel-content>
-            </v-expansion-panel>-->
+            
           </div>
         </v-card>
       </v-dialog>
@@ -128,6 +102,7 @@
       @canceled="canceled"
     ></vue-stripe-checkout>
   </v-container>
+  </div>
 </template>
 
 <script>

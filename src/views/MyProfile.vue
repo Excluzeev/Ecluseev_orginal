@@ -197,6 +197,7 @@
 
     }
     @media only screen and (max-width:767px){
+    .data-label{font-size:21px;padding:5px }
       .data-value{font-size:21px!important;padding:10px}
     }
 </style>

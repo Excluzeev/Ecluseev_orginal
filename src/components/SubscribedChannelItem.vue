@@ -47,4 +47,8 @@ export default {
     .padding {
         padding: 10px;
     }
+    a{display:contents!important}
+.trailer-item a,
+.subscriber a{display:contents!important}
+h6{color:#294D5D}
 </style>
