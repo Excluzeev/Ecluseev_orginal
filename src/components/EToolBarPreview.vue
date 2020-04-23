@@ -231,7 +231,7 @@ export default {
         return;
       }
       if (!this.hideSignUpContentCreator) {
-        this.$router.push({ name: "SignUpCC" });
+        this.$root.$emit('openSignupCCForm');
         return;
       }
     },

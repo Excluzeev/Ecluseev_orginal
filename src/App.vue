@@ -28,7 +28,7 @@
 
      <vue-programmatic-invisible-google-recaptcha
                   ref="invisibleRecaptcha1"
-                  sitekey="6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC"
+                  :sitekey="recaptchaSitekey"
                   elementId="'invisibleRecaptcha1'"
                   badgePosition="'left'"
                   :showBadgeMobile="false"
@@ -62,6 +62,9 @@ export default {
   data: () => {
     return{
         fromComp:'',
+        recaptchaSitekey: '6LcwXpkUAAAAAMRYzY4mULgEmyBwpDnKRt1leWtC',
+
+
     };
   },
   title: "Excluzeev - Stream. Crowdfunding. Social Network",

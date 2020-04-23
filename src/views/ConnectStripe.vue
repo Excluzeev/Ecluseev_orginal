@@ -39,9 +39,9 @@ export default {
           axios
             .post("https://us-central1-trenstop-2033f.cloudfunctions.net/connectStripe", data)       
             .then(async response => {
-              // console.log(response);
+              console.log(response);
               if (response.data.error) {
-                this.showToast("data error",response.data.message);
+                this.showToast("data error: "+response.data.message);
                 this.$router.push({ name: "Home", params: { done: true } });
               } else {
                 this.showToast(response.data.message);
@@ -73,7 +73,7 @@ export default {
       this.$toasted.show(msg, {
         theme: "outline",
         position: "top-right",
-        duration: 2000
+        duration: 5000
       });
     }
   }
