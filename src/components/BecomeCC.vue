@@ -131,10 +131,15 @@ export default {
         .then(querySnapshot =>{
           querySnapshot.forEach(snapShot => {
             let settings=snapShot.data()
-            if(settings.is_stripe_live){
-                this.clientId=settings.stripe_live_client_id
+              console.log('Settings',settings);
+
+             if(settings.is_stripe_live == "true" || settings.is_stripe_live==true){
+                 this.clientId=settings.stripe_live_client_id
+             }
+            else if(settings.is_stripe_live == "false" || settings.is_stripe_live==false){
+                 this.clientId=settings.stripe_test_client_id
             }else{
-                this.clientId=settings.stripe_test_client_id
+                 this.clientId=settings.stripe_live_client_id
             }
           });
 
