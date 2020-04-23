@@ -10,8 +10,8 @@
 
           <template v-if="showLogin">
             <h5>Account</h5>
-            <a href="javascript://" data-toggle="modal" data-target="#signUpModal">Create an Account</a>
-            <a href="javascript://" data-toggle="modal" data-target="#signInModal">Login</a>
+            <a href="javascript://" @click="sideNav = false" data-toggle="modal" data-target="#signUpModal">Create an Account</a>
+            <a href="javascript://" @click="sideNav = false" data-toggle="modal" data-target="#signInModal">Login</a>
           </template>
           <template v-if="!showLogin">
             <h5>Account</h5>
@@ -20,9 +20,10 @@
             <template v-if="hideSignUpContentCreator">
               <a href="javascript://"  @click="goLoginCreate">Create Community</a>
               <a href="javascript://" @click="goLoginLive">Excluzeev Live</a>
-              <router-link  :to="{ name: 'MyProfile' }"> My profile </router-link>
-              <router-link  :to="{ name: 'MyCrowdFundings' }"> My crowd funding </router-link>
-              <router-link  :to="{ name: 'MyEarnings' }"> My earnings </router-link>
+              <a href="javascript://" @click="goToMyProfile">My Profile</a>
+              <a href="javascript://" @click="goToMyCrowdFunding">My Crowd Funding</a>
+              <a href="javascript://" @click="goToMyEarnings">My Earnings</a>
+
             </template>
           </template>
           <h5>COMPANY</h5>
@@ -257,21 +258,26 @@ export default {
           }
 
 
+      this.sideNav=false;
 
     },
-    goToCrowd(){
-      this.$router.push("/crowd");
+    goToMyCrowdFunding(){
+      this.sideNav=false;
+      this.$router.push("/my-crowd-fundings");
     },
     goToMyEarnings(){
+      this.sideNav=false;
       this.$router.push("/my-earnings");
     },
     goToMyProfile(){
+      this.sideNav=false;
       this.$router.push("/my-profile");
     },
     goToSettings(){
       this.$router.push("/settingsss");
     },
     goLoginContentCreator() {
+       this.sideNav = false;
       if (this.showLogin) {
 
         this.$root.$emit('openLoginForm');
@@ -289,6 +295,7 @@ export default {
       });
     },
     goLoginLive() {
+            this.sideNav = false;
       if (this.showLogin) {
         this.$root.$emit('openLoginForm');
 
@@ -297,6 +304,9 @@ export default {
       }
     },
     goLoginCreate() {
+
+      this.sideNav = false;
+
       if (this.showLogin) {
         this.$root.$emit('openLoginForm');
 
@@ -305,6 +315,7 @@ export default {
       }
     },
     goToCommunities() {
+            this.sideNav = false;
       this.$router.push({ name: "Communities" });
     },
     goToSubscriptions() {
@@ -376,6 +387,7 @@ export default {
     },
 
     showHowTo() {
+            this.sideNav = false;
       this.$router.push({ name: "HowTo" });
     }
   }

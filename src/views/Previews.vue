@@ -189,11 +189,11 @@ export default {
        let data=await this.$store.dispatch("channels/getActivePromotedBanners").then(data => {
 
                 this.promotedBanners=data
-                console.log("Proanners: ",data)
+                // console.log("Proanners: ",data)
 
                 this.$nextTick( () => {
 
-                console.log("CC carousel loaded")
+                // console.log("CC carousel loaded")
                  $("#cc-owl-carousel").owlCarousel({
                       loop: true,
                       navigation : true, // Show next and prev buttons

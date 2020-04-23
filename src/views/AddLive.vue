@@ -680,4 +680,5 @@ video {
   .startLiveBtn{text-align:center!important;}
 }
 .createCommunityPage{margin-bottom:60px;}
+.v-input .v-label{display:none}
 </style>

@@ -169,9 +169,14 @@ a:hover{
 ul.navbar-nav.row-auto{
 	margin-top: 
 }
-.create-account-btn,.create-account-btn:hover{color: #fff;padding: 8px 15px; font:18px/22px rubik-regular;} 
-.signIn-btn,.signIn-btn:hover,.watch_preview-btn,
-.join_the_community-btn,.watch_preview-btn:hover,
+.create-account-btn,
+.create-account-btn:hover,.create-account-btn:focus{color: #fff;padding: 8px 15px; font:18px/22px rubik-regular;} 
+.signIn-btn,.signIn-btn:hover,
+.watch_preview-btn,
+.watch_preview-btn:focus,
+.join_the_community-btn,
+.join_the_community-btn:focus,
+.watch_preview-btn:hover,
 .join_the_community-btn:hover{
 	color:#29ABE2;
 	padding: 8px 15px;
@@ -546,6 +551,7 @@ a.forgor_psw_link{margin-bottom: 20px;}
 /*---Communities Page css Start----*/
 .community_circle_image{}
 .communities p{font:1.5625rem rubik-light;color: #294D5D}
+.subscriber h5,
 .communities h5{font:1.5625rem rubik-medium;color: #294D5D;text-transform: uppercase;margin-bottom: 1rem}
 .my_community_section{padding-top: 6%;padding-bottom: 3%}
 .my_community_section p{font:1.125rem rubik-regular;color: #393939;margin-bottom: 10px;}
@@ -1078,7 +1084,7 @@ ul.dropdown-menu.list-unstyled:before {
 	width: 10px;
 	margin: 0 auto;
 	left: 0;
-	right: -156px;
+	right: -60px;
 	z-index: 3;
 	border: 20px solid transparent;
 	top: -40px;
@@ -1673,7 +1679,9 @@ header .search .search-input:focus {
     float: left;
 }
 .btn-manage, .btn-manage:hover, .btn-manage:focus, .btn-remove, .btn-remove:hover, .btn-remove:focus{
-	padding: 10px 15px!important; 
+	padding: 10px 12px!important; 
 }
 }
 .community_circle_image a{padding: 0}
+.v-picker__title.primary{display: none;}
+.v-input .v-label{height: auto!important;}

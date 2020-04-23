@@ -4,10 +4,8 @@
       <div class="row ">
         <div class="col-xl-12">
           <br>
-          <br>
           <h2>Communities</h2>
           <p>Here you’ll find all the communities you created and joined to.</p>
-          <br>
           <br>
         </div>
       </div>
@@ -38,7 +36,7 @@
                   <h5>{{ channel.title }}</h5>
                   <p>{{ channel.description }}</p>
                   <p>{{ channel.categoryName }}</p>
-                  <p class="subscribers-count">{{ channel.subscriberCount }} Subscribers</p>
+<!--                  <p class="subscribers-count">{{ channel.subscriberCount }} Subscribers</p>-->
 
                   <div class="">
                     <router-link
@@ -85,7 +83,7 @@
                 </div>
 
                 <div class="community_info">
-                  <h5>{{ subscription.title }}</h5>
+                  <h5>{{ subscription.channelName }}</h5>
                   <p>{{ subscription.description }}</p>
                   <p>{{ subscription.categoryName }}</p>
                   <div class="inline-list">

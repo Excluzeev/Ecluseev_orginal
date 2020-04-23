@@ -289,7 +289,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/:channelId/:subscriptionId",
+      path: "/subscribed/:channelId/:subscriptionId",
       name: "SubscribedChannelDetails",
       component: SubscribedChannelDetails,
       meta: {

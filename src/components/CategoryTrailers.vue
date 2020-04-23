@@ -71,7 +71,7 @@ export default {
 
             this.$nextTick(function(){
 
-                	console.log("Loaded previews js",$('.trailer-slider').length)
+                	//console.log("Loaded previews js",$('.trailer-slider').length)
 					$('.trailer-slider').owlCarousel({
 						loop: false, // Do not make it as loop, if there is only one video then it will create muliple carousel items for same video
 						margin: 10,

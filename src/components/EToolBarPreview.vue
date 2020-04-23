@@ -7,16 +7,22 @@
             <img src="../assets/Images/menu_logo.png">
             <a href="javascript:void(0)" class="closebtn" @click="sideNav = false">&times;</a>
           </div>
+          <template v-if="showLogin">
+            <h5>Account</h5>
+            <a href="javascript://" @click="sideNav = false" data-toggle="modal" data-target="#signUpModal">Create an Account</a>
+            <a href="javascript://" @click="sideNav = false" data-toggle="modal" data-target="#signInModal">Login</a>
+          </template>
+
           <template v-if="!showLogin">
             <h5>Account</h5>
             <a href="javascript://" v-if="!hideSignUpContentCreator&!showLogin" @click="goLoginContentCreator">Become Content creator</a>
             <a href="javascript://" v-if="!showLogin" @click="goToCommunities">Communities</a>
               <template v-if="hideSignUpContentCreator">
-                <a href="javascript://"  @click="goLoginCreate">Create Community</a>
-                <a href="javascript://" @click="goLoginLive">Excluzeev Live</a>
-                <router-link  :to="{ name: 'MyProfile' }"> My profile </router-link>
-                <router-link  :to="{ name: 'MyCrowdFundings' }"> My crowd funding </router-link>
-                <router-link  :to="{ name: 'MyEarnings' }"> My earnings </router-link>
+              <a href="javascript://"  @click="goLoginCreate">Create Community</a>
+              <a href="javascript://" @click="goLoginLive">Excluzeev Live</a>
+              <a href="javascript://" @click="goToMyProfile">My Profile</a>
+              <a href="javascript://" @click="goToMyCrowdFunding">My Crowd Funding</a>
+              <a href="javascript://" @click="goToMyEarnings">My Earnings</a>
               </template>
             </template>
             <h5>COMPANY</h5>
@@ -37,7 +43,7 @@
               <li><a href="https://www.facebook.com/excluzeev" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
             </ul>
           </div>
-          <div class="menu_sticks" @click="sideNav = !sideNav">
+          <div class="menu_sticks" @click="toggleSideMenu">
             <span></span>
             <span></span>
             <span></span>
@@ -190,7 +196,12 @@ export default {
     };
   },
   methods: {
+    toggleSideMenu(){
+      console.log("Toggle side menu",this.sideNav)
+      this.sideNav = !this.sideNav
+    },
     logout() {
+      this.sideNav=false;
     try{
 
             this.$store.dispatch("signOut").then(() => {
@@ -213,6 +224,7 @@ export default {
           }
     },
     goLoginContentCreator() {
+       this.sideNav = false;
       if (this.showLogin) {
 
         this.$root.$emit('openLoginForm');
@@ -230,6 +242,7 @@ export default {
       });
     },
     goLoginLive() {
+       this.sideNav = false;
       if (this.showLogin) {
         this.$root.$emit('openLoginForm');
 
@@ -238,6 +251,7 @@ export default {
       }
     },
     goLoginCreate() {
+       this.sideNav = false;
       if (this.showLogin) {
         this.$root.$emit('openLoginForm');
 
@@ -250,6 +264,18 @@ export default {
     },
     goToSubscriptions() {
       this.$router.push({ name: "MySubscriptions" });
+    },
+       goToMyCrowdFunding(){
+      this.sideNav=false;
+      this.$router.push("/my-crowd-fundings");
+    },
+    goToMyEarnings(){
+      this.sideNav=false;
+      this.$router.push("/my-earnings");
+    },
+    goToMyProfile(){
+      this.sideNav=false;
+      this.$router.push("/my-profile");
     },
     goToMyChannels() {
       this.$router.push({ name: "MyChannels" });
@@ -355,7 +381,7 @@ a:hover{color: #FFFFFF}
 .signIn-btn:hover,{color:#FFFFFF;padding: 8px 15px;font:18px/22px rubik-regular;}
 
 
-.sidenav {height: 100%; width: 0; position: fixed; z-index: 2; padding-bottom: 15%;top: 0; left: 0; background-color: #FFFFFF; overflow-x: hidden; transition: 0.5s; padding-top: 20px; }
+.sidenav {height: 100%;  position: fixed; z-index: 2; padding-bottom: 15%;top: 0; left: 0; background-color: #FFFFFF; overflow-x: hidden; transition: 0.5s; padding-top: 20px; }
 .sidenav img{width: 150px;margin-left: 53px;margin-bottom: 20px;} 
 .sidenav a {padding: 0; margin: 12px 8px 12px 32px; text-decoration: none; font: 15px/19px rubik-regular; color: #000; display: block; transition: 0.3s; }
 .sidenav a:hover {color: #000; } 

@@ -9,33 +9,33 @@
 				<div class="row">
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>COMPANY</h4>
-						<a href="#">About</a>
+						<a href="#" @click="showAbout">About</a>
 						<a href="#">Careers</a>
 						<a href="#">News</a>
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>ACCOUNT</h4>
-						<a href="#">My Community</a>
-						<a href="#">My Profile</a>
-						<a href="#">Settings</a>
+						<a href="javascript://" v-if="userData" @click="goToCommunities">My Community</a>
+						<a href="javascript://" v-if="userData" @click="goToMyProfile">My Profile</a>
+
 
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>SUPPORT</h4>
 						<a href="#">Contact Support</a>
 						<a href="#">Help Guide</a>
-						<a href="#">FAQ</a>
+						<a href="javascript://" @click="showFAQs">FAQ</a>
 
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>LEGAL</h4>
 						<a href="#">Privacy Policy</a>
           
-						<a href="jvascript:\\" @click="openCookiePolicy">Cookie Policy</a>
-						<a href="#">Community Member Agreement</a>
+						<a href="javascript://" @click="openCookiePolicy">Cookie Policy</a>
+						<a href="javascript://" @click="showLicenseAgreement">Community Member Agreement</a>
 						<a href="#">Content Creator Terms</a>
 						<a href="#">Call to Action Terms</a>
-						<a href="#">Content Creator Licence Agreement</a>
+						<a href="javascript://" @click="showLicenseAgreement">Content Creator Licence Agreement</a>
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>PARTNERSHIP</h4>
@@ -191,6 +191,7 @@ import About from "./About";
 import FAQs from "./FAQs";
 
 import LicenseAgreement from "./LicenseAgreement";
+import store from "../store";
 
 export default {
   name: "FooterComponent",
@@ -204,10 +205,27 @@ export default {
       titleDialog: "",
       componentDialog: null,
       query:"",
+	  userData:null,
     };
   },
-  methods: {
+  created(){
 
+
+  		setTimeout( () =>{
+             this.userData=store.getters.getFUser
+
+        },2000)
+
+
+
+  },
+  methods: {
+    goToMyProfile(){
+      this.$router.push("/my-profile");
+    },
+	  goToCommunities() {
+      this.$router.push({ name: "Communities" });
+    },
        searchPreviews() {
       this.sideNav = false;
       this.$router.push({

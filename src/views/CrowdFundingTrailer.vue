@@ -18,8 +18,8 @@
           <div class="watch_vedio_section">
             <div v-show="!playerOptions.sources[0].src.isEmpty">
               <video id="example_video_1" class="video-js"
-              controls preload="auto" width="640" height="264"
-              data-setup='{"example_option":true}'>
+              controls preload="auto" width="640" height="264">
+
             </video>
           </div>
           <h2 v-if="trailer"> {{ trailer.title }} </h2>
@@ -272,13 +272,13 @@
        let body_msg="I have contributed to this event. url: "+window.location.href
        this.shareEmail="mailto:?subject=Crowd Funding&amp;amp;body="+body_msg
 
-         // To detach the attached video play
-         var oldPlayer = document.getElementById('example_video_1');
-
-         if(oldPlayer != null){
-          console.log("Old player",oldPlayer);
-          videojs(oldPlayer).dispose();
-        }
+        //  // To detach the attached video play
+        //  var oldPlayer = document.getElementById('example_video_1');
+        //
+        //  if(oldPlayer != null){
+        //   console.log("Old player",oldPlayer);
+        //   videojs(oldPlayer).dispose();
+        // }
 
 
 
@@ -316,7 +316,8 @@
           let _vm=this
 
           if(_vm.playerObj == null){
-           _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
+               let player = document.getElementById('example_video_1');
+           _vm.playerObj=videojs(player,_vm.playerOptions, function(){
                 // Player (this) is initialized and ready.
                 // console.log("Videjs ininitialized",_vm.playerOptions.sources[0].src)
 
@@ -384,7 +385,8 @@
         return new Promise(resolve => setTimeout(resolve, ms));
       },
       async checkout(donate, tierName) {
-        this.donateAmount = donate;
+           // console.log('checkout triggered');
+          this.donateAmount = donate;
         this.tierName = tierName;
         await this.sleep(1000);
       // token - is the token object

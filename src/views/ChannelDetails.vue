@@ -13,7 +13,7 @@
         <img
           :src="
             'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
-              channelId +
+              channel.channelId +
               '%2Fthumbnail.jpg?alt=media'
           "
           alt="avatar"
@@ -177,6 +177,9 @@ export default {
     }
   },
   methods: {
+    onTrailerDeleted() {
+        this.loadTrailersData();
+      },
     onVideoDeleted() {
       this.loadVideosData();
     },
@@ -228,6 +231,7 @@ export default {
       await this.sleep(1000);
       const { token, args } = await this.$refs.checkoutRef.open();
     },
+
     done({ token, args }) {
       this.prepareSubscribe(this.donateAmount, token);
     },

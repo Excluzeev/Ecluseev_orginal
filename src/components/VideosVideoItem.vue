@@ -23,10 +23,10 @@
               </v-list-tile>
             </v-list>
           </v-menu>
-          <v-img
-            :src="video.hasCustomThumbnail ? video.customThumbnail : video.image"
-            height="118px"
-          ></v-img>
+          <div class="item_img">
+          <img height="118px" v-bind:src="video.hasCustomThumbnail ? video.customThumbnail : video.image" class="img-fluid" >
+        </div>
+
         </v-flex>
         <div class="padding">
           <div class="title--text max-2-lines quick-sand-font-b">{{ video.title }}</div>
@@ -200,5 +200,19 @@ a {
   color: #0a0a0a;
   font-size: 0.9rem;
   font-weight: 600;
+
+}
+
+  .item_img{
+
+    padding: 1px;
+    background: white;
+    border-radius: 24px;
+
+}
+.item_img img{
+
+
+    border-radius: 24px;
 }
 </style>

@@ -34,7 +34,7 @@
               </div>
               <div class="clearfix"></div>
               <p > <span v-if="trailer">{{ trailer.description }}</span>
-                <a href="#collapse" class="nav-toggle ">Read Less</a>
+<!--                <a href="#collapse" class="nav-toggle ">Read Less</a>-->
               </p>
               <div id="collapse" class="content_text">
               </div>
@@ -42,7 +42,10 @@
 
 
 
-            <div v-if="showComments" class="chat_section d-none d-xl-block d-lg-block">
+            <div  class="chat_section d-none d-xl-block d-lg-block">
+
+              <div v-if="showComments">
+
 
               <h3><span>Comments</span></h3>
 
@@ -201,6 +204,7 @@
           </div>
         </div>
       </div>
+      </div>
     </div>
     <!-- End -->
 
@@ -319,10 +323,12 @@
     },
     showComments() {
       auth.onAuthStateChanged(user => {});
-      return auth.currentUser != null;
+      // return auth.currentUser != null;
+      return store.getters.getUser != null;
     }
   },
   mounted() {
+
     // console.log(
     //   "this is current player instance object " + this.$refs.videoPlayer.player
     // );
@@ -369,11 +375,8 @@
   },
   created() {
 
-    // To detach the attached video play
-    var oldPlayer = document.getElementById('example_video_1');
-    console.log("oldPlayer",oldPlayer)
-    if(oldPlayer)
-      videojs(oldPlayer).dispose();
+
+
 
     this.registerStoreModule("trailers", trailerModule);
     this.$store
@@ -381,6 +384,7 @@
       trailerId: this.$route.params.trailerId
     })
     .then(data => {
+      console.log("Data",data);
       this.trailer = data;
 
       this.title = this.trailer.title;
@@ -410,16 +414,26 @@
         // console.log("player options",this.playerOptions.sources[0].src)
         let _vm=this
         $(document).ready(function(){
+			//
+        	// // To detach the attached video play
+			// var oldPlayer = document.getElementById('example_video_1');
+			// console.log("oldPlayer",oldPlayer,_vm.playerObj)
+			// if(oldPlayer){
+			// 	console.log("destroyed the old plyer")
+			// 	videojs(oldPlayer).dispose();
+			// }
 
-         if(_vm.playerObj == null){
-          _vm.playerObj=videojs("example_video_1",_vm.playerOptions, function(){
+         if(_vm.playerObj == null) {
 
-          });
-        }
+           let player = document.getElementById('example_video_1');
+           // console.log("Plyer element", player)
+
+           _vm.playerObj = videojs(player, _vm.playerOptions, function () {
 
 
-         _vm.playerIsReady(this) // Onready 
-
+           });
+           _vm.playerIsReady(this) // Onready
+         }
        });
 
 
@@ -482,12 +496,14 @@
         adTagUrl:
         "http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&cust_params=sample_ar%3Dpremidpostpod%26deployment%3Dgmf-js&cmsid=496&vid=short_onecue&correlator="
       };
+      /*
       player.ima(options);
 
       player.ima.setAdBreakReadyListener(() => {
         // console.log("AdBreak");
       });
-      console.log("Player is ready");
+      */
+      // console.log("Player is ready");
     },
     async getLikes() {
       if (auth.currentUser == null) {
@@ -591,7 +607,7 @@
         )
       .then(response => {
 
-       console.log("response data",response.data)
+       // console.log("response data",response.data)
 
 
        if (response.data.error) {
@@ -746,7 +762,6 @@
     },
     opened() {
       // do stuff
-      console.log("scheck opened")
     },
     closed() {
       // do stuff

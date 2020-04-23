@@ -9,7 +9,7 @@
         </div>
         <h6>{{ trailer.title }}</h6>
         <p>{{ trailer.channelName }}</p>
-        <p><i class="fa fa-tripadvisor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ trailer.timeAgo }}</p>
+<!--        <p><i class="fa fa-tripadvisor" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ trailer.timeAgo }}</p>-->
 
          <div class="red--text" v-show="getIsExpired(trailer.expiry)">
             <p danger>Expired</p>
@@ -19,11 +19,11 @@
 
       <div class="bottom-controls">
        
-        <button v-if="showDelete" class="cbtn"  @click="deleteTrailerDialog = true">
+        <button v-if="showDelete" class="cbtn ml-0"  @click="deleteTrailerDialog = true">
           <i style="color:white;" class="fa fa-trash" aria-hidden="true"></i>
         </button>
 
-        <button class="cbtn"  @click="openReportDialog(trailer.trailerId)">
+        <button class="cbtn ml-1"  @click="openReportDialog(trailer.trailerId)">
           <i style="color:white;" class="fa fa-flag" aria-hidden="true"></i>
         </button>
 

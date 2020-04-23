@@ -1,5 +1,6 @@
 <template>
-  <v-container v-if="channel != null">
+div class="subscriber">
+  <v-container v-if="channel">
     <img
       :src="
         'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
@@ -8,8 +9,8 @@
       "
       style="width: 100%; height: 150px; object-fit: cover;"
     >
-    <v-layout row wrap xs12 text-xs-center class="padding">
-      <v-avatar :tile="tile" size="100px" color="grey lighten-4">
+    <v-layout row wrap xs12 text-xs-center class="padding" >
+      <v-avatar :tile="tile" size="100px" color="grey lighten-4" v-if="subscription != null">
         <img
           :src="
             'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
@@ -50,7 +51,7 @@
       </v-btn>
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
-      <h1 class="quick-sand-font-b">Previews</h1>
+      <h5 class="quick-sand-font-b">Previews</h5>
       <br>
       <v-layout xs12 row wrap>
         <v-flex
@@ -62,13 +63,13 @@
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
-          <TrailerVideoItem :trailer="trailer" v-on:trailerDelete="onTrailerDeleted"/>
+          <TrailerVideoItem :trailer="trailer" />
         </v-flex>
       </v-layout>
     </div>
     <div class="padding"></div>
     <div v-if="!(videosList.length == 0)">
-      <h1 class="quick-sand-font-b">Videos</h1>
+      <h5 class="quick-sand-font-b">Videos</h5>
       <br>
       <v-layout xs12 row wrap>
         <v-flex
@@ -104,7 +105,7 @@
     <v-layout row justify-center>
       <v-dialog v-model="donateDialog" max-width="500">
         <v-card class="donate-dialog">
-          <h2 class="quick-sand-font-n" style="padding-top: 5px;">Donate</h2>
+          <h5 class="quick-sand-font-n" style="padding-top: 5px;">Donate</h5>
 
           <div xs12 row wrap v-if="channel != null">
             <v-text-field
@@ -167,6 +168,7 @@
       @canceled="canceled"
     ></vue-stripe-checkout>
   </v-container>
+</div>
 </template>
 
 <script>
@@ -211,10 +213,17 @@ export default {
   },
   computed: {
     getExpiryToNow() {
-      return (
+      console.log("Expiry date",this.subscription);
+
+      try{
+        return (
         moment(this.subscription.expiryDate.toDate()).diff(new Date(), "days") +
         " Days Left"
-      );
+          );
+      }catch(err){
+        return "No expiry";
+      }
+
     }
   },
   methods: {
@@ -291,6 +300,7 @@ export default {
       this.processing = false;
     },
     async loadChannel() {
+      console.log("Loading channel data",this.$route.params)
       this.subscriptionId = this.$route.params.subscriptionId;
       let channelDoc = await fireStore
         .collection(utils.channelsCollection)
@@ -305,9 +315,11 @@ export default {
 
       this.subscription = subDoc.data();
 
+
       this.loadTrailersData();
 
       this.loadVideosData();
+
     },
     showDonatePop() {
       this.donateDialog = true;
@@ -379,8 +391,12 @@ export default {
         });
     }
   },
+  beforeMount() {
+       console.log("Before anything");
+       this.loadChannel();
+  },
   mounted() {
-    this.loadChannel();
+
 
     
       // Fetch site base url
