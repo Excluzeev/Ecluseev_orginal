@@ -30,14 +30,13 @@
     </v-layout>
     <div v-if="!(trailersList.length == 0)">
       <h5 class="quick-sand-font-b">Previews</h5>
-      <br>
       <v-layout xs12 row wrap>
         <v-flex
           class="trailer-item"
           xs12
           sm4
           md3
-          lg2
+          lg4
           v-for="trailer in trailersList"
           v-bind:key="trailer.trailerId"
         >
@@ -48,14 +47,13 @@
     <div class="padding"></div>
     <div v-if="!(videosList.length == 0)">
       <h1 class="quick-sand-font-b">Videos</h1>
-      <br>
       <v-layout xs12 row wrap>
         <v-flex
           class="video-item"
           xs12
           sm4
           md3
-          lg2
+          lg4
           v-for="video in videosList"
           v-bind:key="video.videoId"
         >
@@ -307,14 +305,6 @@ export default {
 
         });
 
-
-
-
-
-
-
-
-
   },
   props: []
 };
@@ -334,4 +324,6 @@ export default {
 .donate-dialog {
   padding: 16px;
 }
+a{display:contents!important}
+h6{color:#294D5D!important;}
 </style>

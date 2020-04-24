@@ -328,7 +328,7 @@ button.owl-prev span, button.owl-next span{font-size: 100px; opacity: 1; }
 #curious_section{margin-top: 11%}
 .footer_section h4{color: #000000}
 .footer_section{padding: 0 3% 42px 3%}
-.footer_brand_section{padding: 168px 3% 80px 3% }
+.footer_brand_section{padding: 2% 3% }
 .footer_section a{color: #294D5D; font: 18px/22px rubik-regular; width: auto; display: flex; padding-bottom: 11px; text-align: left; padding-left: 0; padding-right: 0; }
 .footer_section a>img{padding-bottom: 23px}
 .footer_section ul>li>a>i{font-size: 36px;}
@@ -1324,7 +1324,12 @@ header .search .search-input:focus {
 }
 .video_content{padding-top: 15px;}
 @media only screen and (max-width: 991px){ 
-
+	input::placeholder{font-size: 16px}
+	input::-ms-input-placeholder{font-size: 16px}
+	select::placeholder{font-size: 16px}
+	select::-ms-input-placeholder{font-size: 16px}
+	textarea::placeholder{font-size: 16px}
+	textarea::-ms-input-placeholder{font-size: 16px}
 	/*#create_community_page h2{text-align: center;}*/
 	#signInModal a{font-size: 16px;}
 	.modal-content h2{margin-bottom: 0;line-height: 1.4!important}
@@ -1363,7 +1368,7 @@ header .search .search-input:focus {
 	#watch_preview_page p{color: #fff;font-size: 14px;margin-bottom:  0}
 	#watch_preview_page .related_video_section h3,
 	#watch_preview_page .related_video_section h3 span
-	{color: black !important; font:16px rubik-light;line-height: 20px;padding-top: 0!important}
+	{color: black !important; font-size:18px;line-height: 20px;padding-top: 0!important}
 	#watch_preview_page .related_video_section h4{font:13px rubik-light;padding: 5px 0;color: black;}
 	#home{
 		background-image: url(../mobile-bg-images/home-landing-Page_mobile_bg.png);

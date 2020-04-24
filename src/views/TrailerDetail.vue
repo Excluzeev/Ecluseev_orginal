@@ -139,7 +139,6 @@
           </div>
         </div>
         <div class="clearfix"></div>
-
         <div class="related_video_section">
         <h3><span>Related Videos</span></h3>
           <ul class="list-unstyled" style="margin-left:0">
