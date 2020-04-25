@@ -9,9 +9,9 @@
 				<div class="row">
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4 class="h4">COMPANY</h4>
-						<a href="#" @click="showAbout">About</a>
-						<a href="#">Careers</a>
-						<a href="#">News</a>
+						<a href="javascript://" @click="showAbout">About</a>
+						<a href="javascript://">Careers</a>
+						<a href="javascript://">News</a>
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4 class="h4">ACCOUNT</h4>
@@ -22,26 +22,27 @@
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4 class="h4">SUPPORT</h4>
-						<a href="#" >Contact Support</a>
-						<a href="#">Help Guide</a>
+						<a href="javascript://" >Contact Support</a>
+						<a href="/howto">Help Guide</a>
 						<a href="javascript://" @click="showFAQs">FAQ</a>
 
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4 class="h4">LEGAL</h4>
-						<a href="javascript://" @click="showPrivacyPolicy">Privacy Policy</a>
-          
-						<a href="javascript://" @click="openCookiePolicy">Cookie Policy</a>
-						<a href="javascript://" @click="showLicenseAgreement">Community Member Agreement</a>
-						<a href="#" >Content Creator Terms</a>
-						<a href="#">Call to Action Terms</a>
-						<a href="javascript://" @click="showLicenseAgreement">Content Creator Licence Agreement</a>
-					</div>
+ <a href="javascript://" @click="showPrivacyPolicy">Privacy Policy</a>
+
+                                                <a href="javascript://" @click="showCookiePolicy">Cookie Policy</a>
+                                                <a href="javascript://" @click="showCommunityAgreement">Community Member Agreement</a>
+                                                <a href="javascript://" @click="showContentCreatorTerms">Content Creator Terms</a>
+                                                <a href="javascript://" @click="showCallToActionTerms">Call to Action Terms</a>
+                                                <a href="javascript://" @click="showLicenseAgreement">Content Creator Licence Agreement</a>
+
+				</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4 class="h4">PARTNERSHIP</h4>
-						<a href="#">Advertise With Us</a>
-						<a href="#">Partnerships</a>
-						<a href="#">Content Research</a>
+						<a href="javascript://">Advertise With Us</a>
+						<a href="javascript://">Partnerships</a>
+						<a href="javascript://">Content Research</a>
 					</div>
 					<div class="col-md-4 text-center col-sm-4 col-lg-4 col-xl-2">
 						<ul class="list-unstyled inline-list bootom_social_links">
@@ -85,86 +86,7 @@
 <!--				</div>-->
 			</nav>
 		</div>
-  </div>
 
-  <!--
-  <v-footer class="white" height="auto">
-    <v-layout wrap align-center class="text-xs-center">
-      <v-flex xs12 sm3 md3>
-        <div align="center">
-          <img
-            style="width: 50%;"
-            alt="Excluzeev
-            logo"
-            src="../assets/excluzeev_bottom_text.png"
-          >
-          <div class="light-blue--text quick-sand-font-b">
-          &copy; 2019 Excluzeev
-          </div>
-        </div>
-      </v-flex>
-      <v-flex xs12 sm3 md3>
-        <div align="center">
-          <div align="center">
-            <h3 class="nav-c quick-sand-font-b">EXPLORE</h3>
-
-            <h3 @click="showAbout" class="light-blue--text quick-sand-font">About</h3>
-            <a href="https://excluzeev.typeform.com/to/s3gTOy" target="_blank">
-              <h3 class="light-blue--text quick-sand-font">Support</h3>
-            </a>
-            <a href="https://excluzeev.typeform.com/to/A3Mu8b" target="_blank">
-              <h3 class="light-blue--text quick-sand-font">Contact Us</h3>
-            </a>
-            <h3 @click="showFAQs" class="light-blue--text quick-sand-font">FAQs</h3>
-          </div>
-        </div>
-      </v-flex>
-      <v-flex xs12 sm3 md3>
-        <div align="top center">
-          <div align="center">
-            <h3 class="nav-c quick-sand-font-b">LEGAL</h3>
-            <h3 class="light-blue--text quick-sand-font" @click="showPrivacyPolicy">Privacy Policy</h3>
-            <h3 class="light-blue--text quick-sand-font" @click="showCookiePolicy">Cookie Policy</h3>
-            <h3
-              class="light-blue--text quick-sand-font"
-              @click="showLicenseAgreement"
-            >License Agreement</h3>
-          </div>
-        </div>
-      </v-flex>
-      <v-flex xs12 md3>
-        <v-layout wrap align-center class="text-xs-center">
-          <v-spacer></v-spacer>
-          <a style="padding-right:5px;" href="https://www.facebook.com/excluzeev">
-            <h3 class="black--text quick-sand-font">
-              <font-awesome-icon :icon="['fab', 'facebook']" size="2x"/>
-            </h3>
-          </a>
-          <a style="padding-left:5px;" href="https://www.instagram.com/excluzeev/">
-            <h3 class="black--text quick-sand-font">
-              <font-awesome-icon :icon="['fab', 'instagram']" size="2x"/>
-            </h3>
-          </a>
-
-          <v-spacer></v-spacer>
-        </v-layout>
-        <a href="https://itunes.apple.com/bt/app/excluzeev/id1457995935?mt=8" target="_blank">
-          <img
-            style="width: 120px;height: 40px;"
-            alt="Download_on_the_App_Store"
-            src="../assets/Download_on_the_App_Store.svg"
-          >
-        </a>
-        <br>
-        <a href="https://play.google.com/store/apps/details?id=com.trenstop.mobile" target="_blank">
-          <img
-            style="width: 120px;height: 40px;"
-            alt="google-play-badge"
-            src="../assets/google-play-badge.png"
-          >
-        </a>
-      </v-flex>
-    </v-layout>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
@@ -178,8 +100,11 @@
         </v-card>
       </v-dialog>
     </v-layout>
-  </v-footer>
-  -->
+
+
+  </div>
+
+
 </template>
 
 <script>
@@ -187,8 +112,11 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import CookiePolicy from "./CookiePolicy";
 import About from "./About";
 import FAQs from "./FAQs";
-
+import ContentCreator from "./ContentCreator";
+import CommunityAgreement from "./CommunityAgreement";
+import CallToActionTerms from "../components/CallToActionTerms";
 import LicenseAgreement from "./LicenseAgreement";
+
 import store from "../store";
 
 export default {
@@ -243,7 +171,22 @@ export default {
       this.componentDialog = CookiePolicy;
       this.dialog = true;
     },
+     showContentCreatorTerms() {
+      this.titleDialog = "Terms Of Service For Creators";
+      this.componentDialog = ContentCreator;
+      this.dialog = true;
+    },
 
+    showCommunityAgreement() {
+      this.titleDialog = "Community Agreement";
+      this.componentDialog = CommunityAgreement;
+      this.dialog = true;
+    },
+	     showCallToActionTerms() {
+      this.titleDialog = "Excluzeev Call To Action Terms";
+      this.componentDialog = CallToActionTerms;
+      this.dialog = true;
+    },
     showLicenseAgreement() {
       this.titleDialog = "License Agreement";
       this.componentDialog = LicenseAgreement;

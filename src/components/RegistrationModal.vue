@@ -77,9 +77,10 @@
     									<p>By clicking on “Sign Up” button, I agree to</p>
 
                 </div>
-								<div class="form-group col-md-6 col-sm-6 col-xs-12 text-left terms-items">
+								<div class="form-group col-md-6 col-sm-6 col-xs-12 text-left terms-items d-flex">
+
+                      <input class="" v-model="checkAll" type="checkbox" name="" id="" value="true">
                   <label>
-                      <input v-model="checkAll" type="checkbox" name="" id="" value="true">
                       <a @click="showExcluzeevTerms">Terms</a>
                       <a @click="showPrivacyPolicy">Privacy Policy</a>
                       <a @click="showCallToActionTerms">Call to Action Terms</a>    
@@ -276,6 +277,7 @@ export default {
       this.termsDialog = true;
     },
     showExcluzeevTerms() {
+      console.log("Called show excluzeev terms");
       this.titleDialog = "Excluzeev Terms";
       this.componentDialog = LicenseAgreement;
       this.termsDialog = true;
