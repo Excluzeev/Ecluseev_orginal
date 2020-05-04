@@ -56,53 +56,53 @@ import VueProgrammaticInvisibleGoogleRecaptcha from "vue-programmatic-invisible-
 Vue.component(
   "vue-programmatic-invisible-google-recaptcha",
   VueProgrammaticInvisibleGoogleRecaptcha
-);
+  );
 
 
 
 
 
 
-  Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
-  .then(() => {
+Vue.loadScript("https://www.google.com/recaptcha/api.js?render=explicit")
+.then(() => {
     // console.log("recaptcha loaded");
   })
-  .catch(() => {
+.catch(() => {
     // console.log("recaptcha load failed");
   });
 
 
-  Vue.loadScript("https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")
-  .then(() => {
+Vue.loadScript("https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")
+.then(() => {
     // console.log("popper loaded");
   })
-  .catch(() => {
+.catch(() => {
     // console.log("popper load failed");
   });
 
- 
-  Vue.loadScript("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js")
-  .then(() => {
+
+Vue.loadScript("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js")
+.then(() => {
     // console.log("bootstrapjs loaded");
   })
-  .catch(() => {
+.catch(() => {
     // console.log("bootstrapjs load failed");
   });
 
-  Vue.loadScript("https://vjs.zencdn.net/7.6.6/video.js")
-  .then(() => {
+Vue.loadScript("https://vjs.zencdn.net/7.6.6/video.js")
+.then(() => {
     // console.log("videojs loaded");
   })
-  .catch(() => {
+.catch(() => {
     // console.log("videojs failed");
   });
 
-  Vue.loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js")
-  .then(() => {
+Vue.loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js")
+.then(() => {
     // Script is loaded, do something
     // console.log("ima3 loaded");
   })
-  .catch(() => {
+.catch(() => {
     // Failed to fetch script
     // console.log("ima3 load failed");
   });
@@ -153,4 +153,10 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
+// SideMenu toggling
+$(document).on("click", function(event){
+  event.stopPropagation();
+  $("#mySidenav").toggle();      
 
+
+});

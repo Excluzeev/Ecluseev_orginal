@@ -33,7 +33,7 @@
             <a href="#">Contact Support</a>
             <a href="#" @click="showHowTo">Help Guide</a>
             <a href="#" @click="showFAQs">FAQ</a>
-            <h5>LEAGAL</h5>
+            <h5>LEGAL</h5>
             <hr>
             <a v-if="!showLogin" href="javascript://" @click="logout">Logout</a>
             <hr class="logout_link">
@@ -347,6 +347,8 @@ export default {
     }
   }
 };
+
+  
 </script>
 
 <style scoped>

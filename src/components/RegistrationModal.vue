@@ -6,7 +6,8 @@
 					<div class="modal-header">
 						<!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">Close</span>
+							<span aria-hidden="true" class="d-none d-md-block">Close</span>
+              <v-icon class="d-sm-block d-md-none">close</v-icon>
 						</button>
 					</div>
 					<div class="modal-body text-center">
@@ -83,7 +84,8 @@
                   <label>
                       <a @click="showExcluzeevTerms">Terms</a>
                       <a @click="showPrivacyPolicy">Privacy Policy</a>
-                      <a @click="showCallToActionTerms">Call to Action Terms</a>    
+                      <a @click="showCallToActionTerms">Call to Action Terms</a>
+                      <a @click="showCommunityAgreement">Community Member Agreement</a>    
                   </label>
 								</div>
                 
@@ -106,7 +108,8 @@
         <v-card>
           <v-toolbar dark color="primary">
             <v-btn icon dark @click="termsDialog = false">
-							<span aria-hidden="true">Close</span>
+            <v-icon>close</v-icon>
+							<!--<span aria-hidden="true">Close</span>-->
             </v-btn>
             <v-toolbar-title>{{ titleDialog }}</v-toolbar-title>
           </v-toolbar>
@@ -127,6 +130,7 @@ import authModule from "../store/auth/auth";
 
 import LicenseAgreement from "../components/LicenseAgreement";
 import CallToActionTerms from "../components/CallToActionTerms";
+import CommunityAgreement from "../components/CommunityAgreement";
 import PrivacyPolicy from "../components/PrivacyPolicy";
 import axios from "axios";
 
@@ -285,6 +289,11 @@ export default {
     showCallToActionTerms() {
       this.titleDialog = "Excluzeev Call To Action Terms";
       this.componentDialog = CallToActionTerms;
+      this.termsDialog = true;
+    },
+    showCommunityAgreement() {
+      this.titleDialog = "Excluzeev Community Member Agreement";
+      this.componentDialog = CommunityAgreement;
       this.termsDialog = true;
     },
     recaptchaCallback(token) {
