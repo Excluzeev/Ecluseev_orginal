@@ -154,9 +154,9 @@ new Vue({
 }).$mount("#app");
 
 // SideMenu toggling
-$(document).on("click", function(event){
-  event.stopPropagation();
-  $("#mySidenav").toggle();      
+// $(document).on("click", function(event){
+//   event.stopPropagation();
+//   $("#mySidenav").toggle();      
 
 
-});
+// });
