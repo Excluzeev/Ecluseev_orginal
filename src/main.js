@@ -3,7 +3,7 @@ import "./plugins/vuetify";
 
 
 
-
+Vue.config.productionTip = false
 
 
 import  jQuery from "jquery";

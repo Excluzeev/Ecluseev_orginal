@@ -14,7 +14,7 @@
 							<router-link :to="{ name: 'Previews' }" class="">
 							    <button class="btn btn-explore-previews btn_radius color_fffffff">Explore Previews</button>							
 							</router-link>
-							<button class="mt-1 btn btn-learn-more">Learn More</button>
+							<!--<button class="mt-1 btn btn-learn-more">Learn More</button>-->
 						</div>
 					</div>
 				</div>

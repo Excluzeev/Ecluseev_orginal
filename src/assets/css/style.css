@@ -154,17 +154,17 @@ a:hover{
 .form-control::-webkit-input-placeholder {
 	font:14px/17px rubik-regular;
 	color: #29ABE2;
-
+	padding:.375rem .75rem;
 }
 .form-control:-ms-input-placeholder {
-	/* Internet Explorer */ font:14px/17px rubik-regular;
+	 font:14px/17px rubik-regular;
 	color: #29ABE2;
-
+	padding:.375rem .75rem;
 }
 .form-control::placeholder {
 	font:14px/17px rubik-regular;
 	color: #29ABE2;
-
+	padding:.375rem .75rem;
 }
 ul.navbar-nav.row-auto{
 	margin-top: 
