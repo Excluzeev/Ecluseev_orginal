@@ -37,7 +37,6 @@
           <h5>PARTNERSHIP</h5>
           <a href="/advertise">Advertise With Us</a>
           <a href="/partnership">Partnerships</a>
-          <h5>LEGAL</h5>
 
           <h5>LEGAL</h5>
           <hr>

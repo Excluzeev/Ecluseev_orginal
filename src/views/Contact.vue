@@ -16,24 +16,24 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>First Name <span style="color:red ">*</span></label>
-								<input type="name" class="form-control" id="firstName" placeholder="Please enter first name">
+								<input type="name" class="form-control" id="firstName" placeholder="Please enter first name" v-model="first_name">
 							</div>
 							<div class="form-group col-md-6">
 								<label>Last Name <span style="color:red">*</span></label>
-								<input type="name" class="form-control" id="lastName" placeholder="Please enter last name">
+								<input type="name" class="form-control" id="lastName" placeholder="Please enter last name" v-model="last_name">
 							</div>
 
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-12">
 								<label>Email <span style="color:red">*</span></label>
-								<input type="email" class="form-control" id="email" placeholder="Please enter email address">
+								<input type="email" class="form-control" id="email" placeholder="Please enter email address" v-model="email">
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-12">
 								<label>Message <span style="color:red"></span></label>
-								<textarea class="form-control" id="description" placeholder="Message" rows="5"></textarea>
+								<textarea v-model="message" class="form-control" id="description" placeholder="Message" rows="5"></textarea>
 
 							</div>
 
@@ -42,9 +42,8 @@
 						<div class="form-row">
 
 							<div class="form-group col-md-12 text-right">
-								<button type="" class="btn btn-windowSignUp btn-cancel">Cancel</button>
 								&nbsp;&nbsp;
-								<button type="submit" class="btn btn-windowSignUp btn-create">Send</button>
+								<button type="button" class="btn btn-windowSignUp btn-create" @click="sendSupportMail">Submit</button>
 							</div>
 						</div>
 					</form>
@@ -61,9 +60,12 @@
 export default {
   data: () => {
     return {
-      title: "Contact support",
-
-      errors:{},
+      	title: "Contact support",
+      	errors:{},
+	  	first_name:"",
+	  	last_name:"",
+	  	email:"",
+		message:""
     };
   },
   created() {
@@ -77,6 +79,42 @@ export default {
   },
   methods: {
 
+  	reset_form(){
+  		this.first_name=""
+		this.last_name=""
+		this.email=""
+		this.message=""
+
+	},
+	sendSupportMail() {
+
+
+
+        try{
+			var queryParams="dest="+this.email
+				queryParams+="&subject=Support"
+				queryParams+="&username="+this.first_name+" "+this.last_name
+				queryParams+="&message="+this.message
+
+
+
+            this.$store.dispatch("sendEmail",queryParams).then((resp) => {
+
+                console.log("Signout successful",resp)
+
+            }).catch((error,data)=>{
+            	 console.log("Error: ",error)
+			})
+
+
+          }catch(err){
+            console.log("Error: ",err)
+          }
+
+
+
+
+    },
   }
 };
 </script>

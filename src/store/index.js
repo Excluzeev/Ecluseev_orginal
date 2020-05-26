@@ -12,6 +12,7 @@ import {
 } from "../firebase/init";
 import collections from "../firebase/utils";
 import utils from "../utility/utils";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -159,7 +160,25 @@ export default new Vuex.Store({
       });
     },
     
-    fetchSettings: async ({ state }, { key }) => {
+    sendEmail: async ({ state }, queryParams) => {
+
+      var url="https://us-central1-trenstop-2033f.cloudfunctions.net/sendEmails"
+
+      //queryParams="dest=test@gmail.com&subject=Test&username=kannan&message=body message"
+      return new Promise(async resolve => {
+
+         axios({
+              url: url+"?"+queryParams,
+              method: 'GET',
+          }).then(resp => {
+            resolve(resp)
+          }).catch(err => {
+            reject(err)
+          })
+
+      });
+    },
+fetchSettings: async ({ state }, { key }) => {
       return new Promise(async resolve => {
         let settings =null;
         let settingsRef = fireStore.collection(
@@ -168,9 +187,9 @@ export default new Vuex.Store({
         try {
           let settingsQuerySnapshot = await settingsRef.get();
           settingsQuerySnapshot.forEach(snapShot => {
-            
+
             settings=snapShot.data();
-            
+
 
           });
 
@@ -180,7 +199,6 @@ export default new Vuex.Store({
         }
       });
     },
-
 
 
     deleteVideo: async ({
