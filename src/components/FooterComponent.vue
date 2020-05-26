@@ -10,8 +10,8 @@
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>COMPANY</h4>
 						<a href="javascript://" @click="showAbout">About</a>
-						<a href="javascript://">Careers</a>
-						<a href="javascript://">News</a>
+						<a href="/careers">Careers</a>
+<!--						<a href="javascript://">News</a>-->
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>ACCOUNT</h4>
@@ -22,7 +22,7 @@
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>SUPPORT</h4>
-						<a href="javascript://">Contact Support</a>
+						<a href="/contact">Contact Support</a>
 						<a href="/howto">Help Guide</a>
 						<a href="javascript://" @click="showFAQs">FAQ</a>
 
@@ -39,9 +39,9 @@
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-2">
 						<h4>PARTNERSHIP</h4>
-						<a href="javascript://">Advertise With Us</a>
-						<a href="javasript://">Partnerships</a>
-						<a href="javascript://">Content Research</a>
+						<a href="/advertise">Advertise With Us</a>
+						<a href="/partnership">Partnerships</a>
+<!--						<a href="javascript://">Content Research</a>-->
 					</div>
 					<div class="col-md-4 text-center col-sm-4 col-lg-4 col-xl-2">
 						<ul class="list-unstyled inline-list bootom_social_links">

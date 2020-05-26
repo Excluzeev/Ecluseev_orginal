@@ -27,12 +27,17 @@
             </template>
             <h5>COMPANY</h5>
             <a href="#" @click="showAboutUs">About</a>
-            <a href="#">Careers</a>
-            <a href="#">News</a>
+            <a href="/careers">Careers</a>
+<!--            <a href="#">News</a>-->
             <h5>SUPPORT</h5>
-            <a href="#">Contact Support</a>
+             <a href="/contact">Contact Support</a>
             <a href="#" @click="showHowTo">Help Guide</a>
             <a href="#" @click="showFAQs">FAQ</a>
+
+           <h5>PARTNERSHIP</h5>
+          <a href="/advertise">Advertise With Us</a>
+          <a href="/partnership">Partnerships</a>
+
             <h5>LEGAL</h5>
             <hr>
             <a v-if="!showLogin" href="javascript://" @click="logout">Logout</a>

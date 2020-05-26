@@ -28,12 +28,17 @@
           </template>
           <h5>COMPANY</h5>
           <a href="#" @click="showAboutUs">About</a>
-          <a href="#">Careers</a>
-          <a href="#">News</a>
+          <a href="/careers">Careers</a>
+<!--          <a href="#">News</a>-->
           <h5>SUPPORT</h5>
-          <a href="#">Contact Support</a>
+          <a href="/contact">Contact Support</a>
           <a href="#" @click="showHowTo">Help Guide</a>
           <a href="#" @click="showFAQs">FAQ</a>
+          <h5>PARTNERSHIP</h5>
+          <a href="/advertise">Advertise With Us</a>
+          <a href="/partnership">Partnerships</a>
+          <h5>LEGAL</h5>
+
           <h5>LEGAL</h5>
           <hr>
           <a v-if="!showLogin" href="javascript://" @click="logout">Logout</a>
@@ -54,27 +59,6 @@
           </ul>
         </div>
 
-        <!-- <div class="pull-left  home_brand ">
-          <a class="navbar-brand" href="/">
-            <img src="../assets/Images/logo.svg" draggable="false">
-          </a>
-        </div>
-
-        <div class="text-center row-auto d-none d-lg-block d-lg-block" id="navbarSupportedContent row-auto ">
-          <ul class="navbar-nav row-auto">
-  
-            <li class="nav-item color_fffffff search_group">
-              <div class="form-group has-search">
-                <span class="fa fa-search form-control-feedback color_fffffff"></span>
-                  <form @submit.prevent="searchPreviews" style="margin:0;">
-                    <input @click:append="searchPreviews" v-model="query" class="form-control mr-sm-2 btn_radius color_fffffff search" type="search" placeholder="Find the Content Creators, Communities or Videos" aria-label="Search">
-                  </form>
-              </div>
-            </li>
-            
-          </ul>
-                        
-        </div> -->
         <div class="menu_sticks" @click="sideNav = !sideNav">
           <span></span>
           <span></span>

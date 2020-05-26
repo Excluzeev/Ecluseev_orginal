@@ -6,6 +6,11 @@ import CreateChannel from "../views/CreateChannel.vue";
 import Communities from "../views/Communities.vue";
 import MyChannels from "../views/Communities.vue";
 
+import Contact from "../views/Contact";
+import Careers from "../views/Careers";
+import Partnership from "../views/Partnership";
+import Advertise from "../views/Advertise";
+
 import MyChannelDetails from "../views/MyChannelDetails.vue";
 import AddTrailer from "../views/AddTrailer.vue";
 import TrailerDetail from "../views/TrailerDetail";
@@ -390,6 +395,46 @@ const router = new VueRouter({
       meta: {
         noEntry: false,
         showNav: false,
+        title: ""
+      }
+    },
+          {
+      path: "/contact",
+      name: "Contact",
+      component: Contact,
+      meta: {
+        noEntry: false,
+        showNav: true,
+        title: ""
+      }
+    },
+    {
+      path: "/careers",
+      name: "Careers",
+      component: Careers,
+      meta: {
+        noEntry: false,
+        showNav: true,
+        title: ""
+      }
+    },
+          {
+      path: "/advertise",
+      name: "Advertise",
+      component: Advertise,
+      meta: {
+        noEntry: false,
+        showNav: true,
+        title: ""
+      }
+    },
+          {
+      path: "/partnership",
+      name: "Partnership",
+      component: Partnership,
+      meta: {
+        noEntry: false,
+        showNav: true,
         title: ""
       }
     },
