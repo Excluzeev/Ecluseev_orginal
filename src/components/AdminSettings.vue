@@ -134,6 +134,28 @@
                   </div>
 
 
+
+                <div class="form-title">Email settings</div>
+
+                  <div class="form-group">
+                    <label>Username</label>
+
+                    <input type="text" class="form-control" placeholder="Email username" name="email_user" v-model="settings.email_user">
+
+		    <span  class="error-message" v-if="this.errors['email_user']">{{this.errors['email_user']}}</span>
+
+                  </div>
+
+                    <div class="form-group">
+                    <label>Password</label>
+
+                    <input type="password" class="form-control" placeholder="Email password" name="email_password" v-model="settings.email_password">
+
+		    <span  class="error-message" v-if="this.errors['email_password']">{{this.errors['email_password']}}</span>
+
+                  </div>
+
+
             </div>
 
 
@@ -166,6 +188,8 @@ export default {
        processing: false,
 
         settings: {
+           email_user:"",
+            email_password:"",
 		auto_slider_interval: 300,
 		is_stripe_live: false,
 		site_base_url: "",

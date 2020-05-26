@@ -2,31 +2,66 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const cors = require('cors')({origin: true});
-admin.initializeApp();
 
-/**
-* Here we're using Gmail to send 
-*/
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'ananthakannan14@gmail.com',
-        pass: 'fybwepqghtmacmmm'
-    }
+
+const serviceAccount = require("./service/cred.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
 });
 
+const firestore = admin.firestore();
+
+
 exports.sendMail = functions.https.onRequest((req, res) => {
-    cors(req, res, () => {
+    cors(req, res, async () => {
       
+
+
+            let querySnapshot= await firestore
+      .collection("siteSettings")
+      .limit(1)
+      .get();
+
+    let transporter=null
+
+      querySnapshot.forEach(snapShot => {
+        let settings=snapShot.data();
+       
+     
+            user=settings.email_user;
+            password=settings.email_password
+
+            /**
+            * Here we're using Gmail to send 
+            */
+            transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: user,
+                    pass: password
+                }
+            });
+
+       });
+        console.log("Email credentials: ",user,password);
+
+        if(transporter == null){
+            return res.send('Failed to sent !!');
+        }
+
         // getting dest email by query string
         const dest = req.query.dest;
         const subject = req.query.subject;
-        const username = req.query.username;
+            const username = req.query.username;
         const message = req.query.message;
 
 
+
+
+
         const mailOptions = {
-            from: 'Excluzeev <excluzeevsupport@gmail.com>',
+            from: 'Excluzeev <excluzeevsupport@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
             to: dest,
             subject: subject, // email subject
             html: 
@@ -55,3 +90,4 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         });
     });    
 });
+
