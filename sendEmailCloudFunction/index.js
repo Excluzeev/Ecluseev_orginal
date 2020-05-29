@@ -24,12 +24,15 @@ exports.sendMail = functions.https.onRequest((req, res) => {
       .get();
 
     let transporter=null
+    let support_email="chard@excluzeev.com" // Falback support email
 
       querySnapshot.forEach(snapShot => {
         let settings=snapShot.data();
        
      
+
             user=settings.email_user;
+            support_email=user; // Get from configuration
             password=settings.email_password
 
             /**
@@ -51,9 +54,9 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         }
 
         // getting dest email by query string
-        const dest = req.query.dest;
+        const user_email = req.query.email;
         const subject = req.query.subject;
-            const username = req.query.username;
+        const username = req.query.username;
         const message = req.query.message;
 
 
@@ -61,14 +64,14 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 
 
         const mailOptions = {
-            from: 'Excluzeev <excluzeevsupport@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
-            to: dest,
+            from: 'Excluzeev <support@excluzeev.com>', // Something like: Jane Doe <janedoe@gmail.com>
+            to: support_email,
             subject: subject, // email subject
             html: 
             `
                 <b>Dear support,</b>
                 <br />
-                <p style="padding-left:30px;"> <b>${username}</b> (${dest}) has the following query. Kindly check it.</p>
+                <p style="padding-left:30px;"> <b>${username}</b> (${user_email}) has the following query. Kindly check it.</p>
 
                 <p style="padding-left:30px;">
                 ${message}
@@ -90,4 +93,5 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         });
     });    
 });
+
 

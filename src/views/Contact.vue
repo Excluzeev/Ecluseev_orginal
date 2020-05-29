@@ -154,7 +154,7 @@ export default {
 
 
         try{
-			var queryParams="dest="+this.email
+			var queryParams="email="+this.email
 				queryParams+="&subject=Support"
 				queryParams+="&username="+this.first_name+" "+this.last_name
 				queryParams+="&message="+this.message
