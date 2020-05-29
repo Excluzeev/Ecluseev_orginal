@@ -39,6 +39,15 @@
           <a href="/partnership">Partnerships</a>
 
           <h5>LEGAL</h5>
+
+          <a href="javascript://" @click="showPrivacyPolicy">Privacy Policy</a>
+          <a href="javascript://" @click="showCookiePolicy">Cookie Policy</a>
+          <a href="javascript://" @click="showCommunityAgreement">Community Member Agreement</a>
+          <a href="javascript://" @click="showContentCreatorTerms">Content Creator Terms</a>
+          <a href="javascript://" @click="showCallToActionTerms">Call to Action Terms</a>
+          <a href="javascript://" @click="showLicenseAgreement">Content Creator Licence Agreement</a>
+
+
           <hr>
           <a v-if="!showLogin" href="javascript://" @click="logout">Logout</a>
           <hr class="logout_link">
@@ -59,9 +68,9 @@
         </div>
 
         <div class="menu_sticks" @click="sideNav = !sideNav">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span class="menu_sticks_item"></span>
+          <span class="menu_sticks_item"></span>
+          <span class="menu_sticks_item"></span>
         </div>
       </div>
 
@@ -215,6 +224,27 @@ export default {
       userName:"",
     };
   },
+  mounted() {
+
+    //SideMenu toggling
+    $('body,html').on("click", (event) =>{
+
+      //console.log("Clicked outside",event.target,this.sideNav)
+
+      event.stopPropagation();
+
+      var sidebar = $('#mySidenav');
+      var a=event.target
+      var a_class=$(a).attr('class')
+
+      if(a !== sidebar  && a_class != 'menu_sticks_item'){
+        this.sideNav=false
+      }
+
+
+    });
+
+  },
   methods: {
     
     logout() {
@@ -313,6 +343,12 @@ export default {
         name: "SearchPreviews",
         params: { query: this.query }
       });
+    },
+    showCommunityAgreement() {
+      this.titleDialog = "Community Agreement";
+      this.componentDialog = CommunityAgreement;
+      this.sideNav = false;
+      this.dialogt = true;
     },
     showPrivacyPolicy() {
       this.sideNav = false;

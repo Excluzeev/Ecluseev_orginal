@@ -153,10 +153,3 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
-// SideMenu toggling
-// $(document).on("click", function(event){
-//   event.stopPropagation();
-//   $("#mySidenav").toggle();      
-
-
-// });

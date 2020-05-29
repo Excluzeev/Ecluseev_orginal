@@ -114,7 +114,16 @@
             <div class="row">
               <div class="col-12" style="display: flex;">
                 <div class="community_circle_image text-center">
-                  <img :src="channel.image" alt="avatar" class="rounded-circle img-fluid" v-if="!channel.isDeleted">
+                  <img
+                  :src="
+                    'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
+                      channel.channelId +
+                      '%2Fthumbnail.jpg?alt=media'
+                  "
+                  alt="avatar"
+                  class="rounded-circle img-fluid" v-if="!channel.isDeleted"
+                  >
+
                   <div v-if="channel.isDeleted" class="red">
                     <div
                     v-if="channel.isDeleted"
