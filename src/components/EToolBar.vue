@@ -231,7 +231,7 @@ export default {
 
       //console.log("Clicked outside",event.target,this.sideNav)
 
-      event.stopPropagation();
+      //event.stopPropagation();
 
       var sidebar = $('#mySidenav');
       var a=event.target
