@@ -56,6 +56,7 @@ import ExcluzeevCharges from "../views/ExcluzeevCharges";
 import ConnectStripe from "../views/ConnectStripe";
 // import SingleCategory from '.../views/SingleCategory';
 import SingleCategory from "../views/SingleCategory";
+import ChannelLinks from "../views/ChannelLinks";
 
 
 
@@ -205,6 +206,19 @@ const router = new VueRouter({
         noEntry: true,
         showNav: true,
         title: "Add a preview"
+      },
+      props: route => ({
+        ...route.params
+      })
+    },
+    {
+      path: "/update-channel-links",
+      name: "UpdateLinks",
+      component: ChannelLinks,
+      meta: {
+        noEntry: true,
+        showNav: true,
+        title: "Update channel links"
       },
       props: route => ({
         ...route.params

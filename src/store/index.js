@@ -148,6 +148,7 @@ export default new Vuex.Store({
         let categoriesRef = fireStore.collection(
           collections.categoriesCollection
         );
+
         try {
           let categoriesQuerySnapshot = await categoriesRef.get();
           categoriesQuerySnapshot.forEach(snapShot => {
@@ -178,7 +179,30 @@ export default new Vuex.Store({
 
       });
     },
-fetchSettings: async ({ state }, { key }) => {
+    fetchLinks: async ({ state }, { channelId }) => {
+      return new Promise(async resolve => {
+        let links =null;
+
+          let channelsRef = fireStore
+                    .collection(collections.channelsCollection)
+                    .where("channelId", "==", channelId);
+
+
+        try {
+
+          let querySnapshot = await channelsRef.get();
+          querySnapshot.forEach(snapShot => {
+            links=snapShot.data();
+          });
+          resolve(links['links']);
+
+        } catch (error) {
+          resolve(links);
+        }
+      });
+    },
+
+    fetchSettings: async ({ state }, { key }) => {
       return new Promise(async resolve => {
         let settings =null;
         let settingsRef = fireStore.collection(

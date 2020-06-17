@@ -142,23 +142,29 @@
       @canceled="canceled"
     ></vue-stripe-checkout>
   </v-container>
+
+  <!-- Channel promote links -->
+  <ChannelPromoteLinks />
 </div>
 </template>
 
 <script>
-import TrailerVideoItem from "../components/TrailerVideoItem";
-import VideosVideoItem from "../components/VideosVideoItem";
-import RegisterStoreModule from "../mixins/RegisterStoreModule";
-import channelsModule from "../store/channels/channels";
-import { fireStore, firebaseTimestamp, auth } from "../firebase/init";
-import utils from "../firebase/utils";
-import moment from "moment";
+import
+  TrailerVideoItem from "../components/TrailerVideoItem";
+  import VideosVideoItem from "../components/VideosVideoItem";
+  import RegisterStoreModule from "../mixins/RegisterStoreModule";
+  import channelsModule from "../store/channels/channels";
 
+  import { fireStore, firebaseTimestamp, auth } from "../firebase/init";
+  import utils from "../firebase/utils";
+  import moment from "moment";
+  import ChannelPromoteLinks from "../components/ChannelPromoteLinks";
 export default {
   name: "SubscribedChannelDetails",
   components: {
     TrailerVideoItem,
-    VideosVideoItem
+    VideosVideoItem,
+    ChannelPromoteLinks
   },
   data: () => {
     return {
@@ -290,9 +296,13 @@ export default {
       this.subscription = subDoc.data();
 
 
+
       this.loadTrailersData();
 
       this.loadVideosData();
+
+
+      this.$root.$emit("fetch_promote_links",this.channel.channelId);
 
     },
     showDonatePop() {
@@ -373,7 +383,7 @@ export default {
 
 
     
-      // Fetch site base url
+    // Fetch site base url
     this.$store.dispatch("fetchSettings",{key: 'site_base_url'}).then(url => {
 
         this.siteUrl=url

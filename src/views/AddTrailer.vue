@@ -3,7 +3,25 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <p><a href="#">My account</a>&nbsp;<i class="fa fa-angle-right"></i><a href="#">{{channelData.title}}</a>&nbsp;<i class="fa fa-angle-right"></i><a href="#">Upload a video</a>
+          <p>
+            <router-link
+              :to="{
+                      name: 'MyChannels'
+                    }"
+            >
+               My Communities
+            </router-link>
+
+            &nbsp;<i class="fa fa-angle-right"></i>
+
+                <router-link
+                      :to="{
+                      name: 'MyChannelDetails',
+                        params: { channelId: channelData.channelId }
+                      }"
+                      >
+                      {{channelData.title}}
+                    </router-link>&nbsp;<i class="fa fa-angle-right"></i><a href="#">Upload a video</a>
           </p>
        </div>
       </div>
