@@ -138,7 +138,7 @@
     },
     data: () => {
       return {
-        		successMessage:"tesda d asd a sda sd asd ",
+        		successMessage:"",
 		errorMessage:null,
 
         data_obj:{

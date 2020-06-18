@@ -22,6 +22,13 @@
             <div class="row">
               <div class=" col-12" style="display:flex">
                 <div class="community_circle_image text-center">
+
+                    <router-link
+                      :to="{
+                      name: 'MyChannelDetails',
+                        params: { channelId: channel.channelId }
+                      }"
+                      >
                   <img :src="channel.image" alt="avatar" class="rounded-circle img-fluid" v-if="!channel.isDeleted">
                   <div v-if="channel.isDeleted" class="red">
                     <div
@@ -29,6 +36,8 @@
                     class="white--text"
                     >Deletes in {{ getExpiry(channel.deleteOn) }} days</div>
                   </div>
+
+                    </router-link>
 
                 </div>
 
@@ -39,16 +48,7 @@
 <!--                  <p class="subscribers-count">{{ channel.subscriberCount }} Subscribers</p>-->
 
                   <div class="">
-                    <router-link
-                      class="btn btn-manage pull-left"
-                      :to="{
-                      name: 'MyChannelDetails',
-                        params: { channelId: channel.channelId }
-                      }"
-                      >
-                      Manage
-                    </router-link>&nbsp;&nbsp;
-                    <button v-if="!channel.isDeleted" class="btn btn-remove pull-right" @click="confirmDelete(channel.channelId)">Remove</button>
+                    <button v-if="!channel.isDeleted" class="btn btn-remove" @click="confirmDelete(channel.channelId)">Remove</button>
                   </div>
                 </div>
               </div>
@@ -114,6 +114,13 @@
             <div class="row">
               <div class="col-12" style="display: flex;">
                 <div class="community_circle_image text-center">
+
+                    <router-link
+                        :to="{
+                        name: 'ChannelDetails',
+                          params: { channelId: channel.channelId }
+                        }"
+                      >
                   <img
                   :src="
                     'https://firebasestorage.googleapis.com/v0/b/trenstop-public/o/channels%2F' +
@@ -123,6 +130,9 @@
                   alt="avatar"
                   class="rounded-circle img-fluid" v-if="!channel.isDeleted"
                   >
+
+			
+                    </router-link>
 
                   <div v-if="channel.isDeleted" class="red">
                     <div
@@ -139,17 +149,6 @@
                   <p>{{ channel.categoryName }}</p>
                   <p class="subscribers-count">{{ channel.views }} views</p>
 
-                  <div class="">
-                    <router-link
-                      class="btn btn-manage pull-left"
-                        :to="{
-                        name: 'ChannelDetails',
-                          params: { channelId: channel.channelId }
-                        }"
-                      >
-                      View
-                    </router-link>
-                  </div>
                 </div>
               </div>
             </div>
