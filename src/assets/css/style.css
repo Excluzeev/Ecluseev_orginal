@@ -1692,3 +1692,135 @@ header .search .search-input:focus {
 .community_circle_image a{padding: 0}
 .v-picker__title.primary{display: none;}
 .v-input .v-label{height: auto!important;}
+
+
+
+/*----------Theme CSS---------------*/
+.theme-section{display: none;}
+.btn-theme-save{
+	background-color: inherit;
+	border-radius:15px;
+	background-color:#FFF;
+	color:#29ABE2;
+	border:1px solid #fff;
+	box-shadow:6px 6px 20px #00000029;
+	-webkit-box-shadow:6px 6px 20px #00000029;
+	-moz-box-shadow:6px 6px 20px #00000029;
+    width: 100%;
+}
+
+/*--Default Theme Css start---*/
+body.defaul{background-color:#FFF}
+.defaul .nav_section{background:#FFF}
+.defaul .has-search .form-control{border:1px solid #29ABE2;color:#29ABE2;border-radius:23px;background:#FFF}
+.create-account-btn{color:#29ABE2}
+.create-account-btn:hover{color:#29ABE2}
+.create-account-btn:focus{color:#29ABE2}
+
+.defaul .has-search .form-control:.focus{border:1px solid #29ABE2;background:#FFF }
+
+.defaul .btn_radius{border-radius:23px;background:#fff linear-gradient(180deg, white, #fff) repeat-x;-webkit-box-shadow:none;box-shadow:none;-webkit-transition: all 0.4s;transition:all 0.4s}
+.defaul .channel-details h2{color:#294D5D}
+.defaul .channel-details p{color:#294D5D}
+.defaul .theme-selection label{color:#294D5D}
+.defaul .theme-section label{color:#294D5D}
+.defaul .theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat){border-radius:15px;background-color:#FFF;color:#29ABE2;border:1px solid #fff;box-shadow:6px 6px 20px #00000029;-webkit-box-shadow:6px 6px 20px #00000029;-moz-box-shadow:6px 6px 20px #00000029}
+
+.defaul .bg-prim{border-radius:15px;background-color:#FFF;color:#29ABE2;border:1px solid #fff;box-shadow:6px 6px 20px #00000029;-webkit-box-shadow:6px 6px 20px #00000029;-moz-box-shadow:6px 6px 20px #00000029}
+
+.default .bg-prim:hover{
+  border-radius:15px;background-color:#FFF;color:#29ABE2;border:1px solid #29abe28a}
+  
+
+.defaul .theme--light.red{border-radius:15px;background-color:transparent;color:#f44336;border:1px solid #f44336}
+
+.defaul .theme--light.red:hover {border-radius:5px;background-color:#f44336;color:#FFF;border:1px solid #f44336}
+  
+.defaul .promote-links a{border-radius:13px;background-color:#FFF;color:#007bff;border:1px solid #007bff;box-shadow:0px 3px 6px #00000029;-webkit-box-shadow:0px 3px 6px #00000029;-moz-box-shadow: 0px 3px 6px #00000029;-o-box-shadow: 0px 3px 6px #00000029}
+
+.defaul .promote-links a:hover{
+ border-radius:13px;background-color:#FFF;color:#007bff;border:1px solid #007bff;box-shadow:0px 3px 6px #00000029;-webkit-box-shadow:0px 3px 6px #00000029;-moz-box-shadow: 0px 3px 6px #00000029;-o-box-shadow: 0px 3px 6px #00000029}
+  
+.defaul .footer{background:#f7f7f7}
+.defaul .footer_section h4{color:#000}
+.defaul .footer_section a{color:#294D5D}
+.defaul .copyright_section p{color:#294D5D}
+.defaul .copyright_section hr{border-top:1px solid #294D5D}
+
+/*--Default Theme Css END---*/
+
+/*---Meteria Theme css Start---*/
+body.materia{background-color:#FFF}
+.materia .nav_section{background:#2196F3}
+
+.materia .nav_section .search{border:0;border-bottom:1px solid #b0dcef;color:#FFF;border-radius:0;background:transparent;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none}
+
+.materia .has-search .form-control{border:0;border-bottom:1px solid #FFF;color:#FFF;border-radius:0;background:transparent;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none}
+
+.materia .has-search .form-control:focus{
+  border:0;border-bottom:1px solid #FFF;color:#FFF;border-radius:0;background:transparent;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none}
+
+
+.materia .btn_radius{border-radius:4px;background:#fff linear-gradient(180deg, white, #fff) repeat-x;-webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px;box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px;-moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 4px;-webkit-transition: all 0.4s;transition: all 0.4s}
+
+.materia .channel-details h2{color:#2196F3}
+.materia .channel-details p{color:#2196F3}
+.materia .theme-selection label{color:#2196F3}
+.materia .theme-section label{color:#2196F3}
+.materia .bg-prim{border-radius:5px;background-color:#FFF;color:#29ABE2;border:1px solid #FFF;box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-webkit-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-moz-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px}
+
+.materia .bg-prim:hover{
+ border-radius:5px;background-color:rgb(33, 150, 243);background:rgb(33, 150, 243);color:#29ABE2;border:1px solid #FFF;box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-webkit-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-moz-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px}
+  
+
+.materia .theme--light.red{border-radius:5px;background-color:#f44336;color:#f44336;border:1px solid #f44336;box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-webkit-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-moz-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px}
+
+.materia .theme--light.red:hover{
+  border-radius:5px;background-color:#f44336;color:#FFF;border:1px solid #f44336;box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-webkit-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-moz-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px}
+  
+
+
+.materia .promote-links a{border-radius:5px;background-color:#FFF;color:rgb(33, 150, 243);border:1px solid #FFF;box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-webkit-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-moz-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px}
+
+.materia .promote-links a:hover{
+  border-radius:5px;background-color:rgb(33, 150, 243);color:#FFF;border:1px solid #FFF;box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-webkit-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px;-moz-box-shadow:rgba(0, 0, 0, 0.4) 0px 1px 4px}
+  
+.materia .footer{background:#1b3149}
+.materia .footer_section h4{color:#FFF}
+.materia .footer_section a{color:#FFF}
+.materia .copyright_section p{color:#FFF}
+.materia .copyright_section hr{border-top:1px solid #FFF}
+
+/*---Meteria Theme css END---*/
+
+/*---Dark Theme css Start---*/
+
+body.darkly{background-color:#222}
+.darkly .nav_section{background:#1b3149}
+.darkly .btn_radius{border-radius:4px}
+.darkly .channel-details h2{color:#FFF}
+.darkly .channel-details p{color:#FFF}
+.darkly .theme-selection label{color:#FFF}
+.darkly .theme-section label{color:#FFF}
+.darkly .bg-prim{border-radius:5px;background-color:transparent;color:#29ABE2;border:1px solid #29ABE2}
+
+.darkly .bg-prim:hover{
+  border-radius:5px;background-color:#1b3149;color:#FFF;border:1px solid #1b3149}
+
+.darkly .theme--light.red{border-radius:5px;background-color:transparent;color:#f44336;border:1px solid #f44336}
+
+.darkly .theme--light.red:hover{
+  border-radius:5px;background-color:#f44336;color:#FFF;border:1px solid #f44336}
+
+.darkly .promote-links a{border-radius:5px;background-color:transparent;color:#29ABE2;border:1px solid #29ABE2}
+
+.darkly .promote-links a:hover{
+  border-radius:5px;background-color:#1b3149;color:#FFF;border:1px solid #1b3149}
+
+.darkly .footer{background:#1b3149}
+.darkly .footer_section h4{color:#FFF}
+.darkly .footer_section a{color:#FFF}
+.darkly .copyright_section p{color:#FFF}
+.darkly .copyright_section hr{border-top:1px solid #FFF}
+
+/*---Dark Theme css End---*/
