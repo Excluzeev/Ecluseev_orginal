@@ -47,9 +47,11 @@ class Mailer:
         """
         messages = []
         message_template = get_template(template)
+        print("Template",message_template)
         print("context", context)
         for recipient in to_emails:
             message_content = message_template.render(context)
+
             # message = EmailMessage(subject, message_content, to=[recipient], from_email=self.from_email)
             # message.content_subtype = 'html'
             #

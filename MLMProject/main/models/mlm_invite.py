@@ -7,6 +7,8 @@ class Invite(BaseModel):
     class Status(models.TextChoices):
         INVITED = 'invited', _('Invited'),
         ACCEPTED = 'accepted', _('Accepted'),
+        REJECTEd = 'rejected', _('Rejected'),
+
 
     user=models.ForeignKey(User,on_delete=models.CASCADE,db_column="user_id")
     status=models.CharField(max_length=20,choices=Status.choices,default=Status.INVITED)

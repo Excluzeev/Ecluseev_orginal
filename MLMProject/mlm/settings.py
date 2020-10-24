@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+SITE_URL="http://192.168.43.47:8001" # Should not end with slash
 
 ROOT_URLCONF = 'mlm.urls'
 
@@ -130,15 +131,18 @@ STATICFILES_DIRS = [
 ]
 
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
-EMAIL_HOST = 'SMTP_HOST'
-EMAIL_PORT = 'SMTP_PORT'
-EMAIL_HOST_USER = 'SMTP_USER'
-EMAIL_HOST_PASSWORD = 'SMTP_PASSWORD'
-EMAIL_USE_TLS = True # TLS settings
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ams.gnapi@Gmail.com'
+EMAIL_HOST_PASSWORD = 'Passw0rd!5'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 
 AUTHENTICATION_BACKENDS = ['main.custom_auth.EmailBackend']
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
