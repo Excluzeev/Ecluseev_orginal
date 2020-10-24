@@ -25,7 +25,7 @@ SECRET_KEY = '-$wnp=tfa25668dhssl5!5@s6!m*_*p2^+_2lbf#$bmh=jtg)d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.43.47"]
+ALLOWED_HOSTS = ["192.168.43.47","3.96.43.113"]
 
 
 # Application definition
