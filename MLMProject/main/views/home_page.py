@@ -16,8 +16,8 @@ from django.conf import settings #this imports also your specific settings.py
 from django.contrib import messages
 from main.models.mlm_user_hierarchy import UserHierarchy
 
-def get_user_hierarchy(user_id,level,ha_list):
-    print("User_id", user_id)
+def get_user_hierarchy(user_id,level=0,ha_list=[]):
+    level=0
     p_auth_user_obj = User.objects.get(id=user_id)
     p_user_profile_obj = UserProfile.objects.get(auth_user_id=user_id)
     image="/static/img/nobody.jpg"
@@ -35,15 +35,29 @@ def get_user_hierarchy(user_id,level,ha_list):
     ha_list.append(data)
     user_h_ds=UserHierarchy.objects.filter(parent_id=user_id)
     for uh in user_h_ds:
-        print("User id",uh.user_id)
-        user_h_ds=get_user_hierarchy(uh.user_id,level,data['children'])
 
+        level=get_user_hierarchy(uh.user_id,level,data['children'])
+
+    level+=1
+    # level = 0 => student
+    # level = 1 => prefect
+    # level = 2 => bursar
+    # level = 3 => Scholar
+    print("User_id", user_id,level)
 
     if len(user_h_ds) == 0:
-        return ha_list
+        return level
 
 
-    return ha_list
+    if level == 1:
+        data["text"]["title"] = "Student"
+    elif level == 2:
+        data["text"]["title"] = "Prefect"
+    elif level == 3:
+        data["text"]["title"] = "Bursar"
+    elif level == 4:
+        data["text"]["title"] = "Scholar"
+    return level
 class HomePage(View):
 
     def dashboard(request):
@@ -65,6 +79,11 @@ class HomePage(View):
 
             return HttpResponse(template.render(context, request))
 
+    def get_tree(request,user_id):
+        user_ha_list=[]
+        get_user_hierarchy(user_id, level=0, ha_list=user_ha_list)
+
+        return JsonResponse(data=user_ha_list,safe=False)
 
     def index(request):
         if not request.user.is_authenticated:
@@ -81,7 +100,7 @@ class HomePage(View):
             if user_profile_obj_ds:
                 user_profile_obj=user_profile_obj_ds.get()
             user_ha_list=[]
-            user_hierarchy_data=get_user_hierarchy(request.user.id,level=0,ha_list=user_ha_list)
+            get_user_hierarchy(request.user.id,level=1,ha_list=user_ha_list)
             print("Ha data",user_ha_list[0])
             context = {
                 "invites": invite_ds,

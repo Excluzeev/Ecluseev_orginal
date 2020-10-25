@@ -40,6 +40,7 @@
                         <th>Email</th>
                         <th>Payment Status</th>
                         <th>Joined On</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,6 +59,16 @@
                         </td>
                         <td>{{ user_obj.date_joined }}</td>
 
+                        <td>
+                            <button onClick="updatePaymentStatus({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="Update Payment status">
+                                <i class="fa fa-dollar"></i>
+                            </button>
+                            &nbsp;
+                            &nbsp;
+                            <button onClick="viewTree({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="View Tree" >
+                                 <i class="fa fa-eye"></i>
+                            </button>
+                        </td>
                     </tr>
                 {% endfor %}
 
@@ -114,71 +125,19 @@
 
 
         <!-- The Modal -->
-        <div class="modal" id="profile_modal">
-          <div class="modal-dialog modal-lg">
+        <div class="modal" id="tree_view">
+          <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <form action="/update_my_profile" method="post" enctype="multipart/form-data">
-
-              <!-- Modal Header -->
+                <!-- Modal Header -->
               <div class="modal-header">
-                <h4 class="modal-title">My Profile</h4>
+                <h4 class="modal-title">User Hierarchy Tree</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
+                <div class="modal-body">
+                    <div id="user_treeview" >
 
-              <!-- Modal body -->
-              <div class="modal-body">
-
-                      {% csrf_token %}
-                        <div class="form-group row">
-                          <div class="col-lg-4"> Name Prefix </div>
-                          <div class="col-lg-8">
-                              <select name="prefix" id="" class="form-control">
-                                  <option value="Mr." >Mr.</option>
-                                  <option value="Ms.">Ms.</option>
-                                  <option value="Mrs.">Mrs.</option>
-
-                              </select>
-                          </div>
-                      </div>
-
-                      <div class="form-group row">
-                          <div class="col-lg-4">Mobile </div>
-                          <div class="col-lg-8">
-                              <input  type="text" class="form-control" name="mobile" placeholder="Mobile number" value="{{ user_profile_obj.mobile }}">
-                          </div>
-                      </div>
-
-
-
-                       <div class="form-group row">
-                          <div class="col-lg-4">Picture </div>
-                          <div class="col-lg-8">
-                              <input id="user_picture" type="file" placeholder="Profile picture" name="picture">
-                          </div>
-                      </div>
-
-                  <div class="form-group row">
-                          <div class="col-lg-4"> </div>
-                          <div class="col-lg-8">
-                              {% if user_profile_obj.picture %}
-                                  <img id="preview_picture" width="100px" src="{{  user_profile_obj.picture.url }}" alt="">
-                              {%  else %}
-                                  <img id="preview_picture" width="100px" src="{%  static 'img/nobody.jpg' %}" alt="default user avator">
-                              {% endif %}
-                          </div>
-                      </div>
-
-
-              </div>
-
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                  <button type="button" class="btn mlm-btn mlm-bg-color" data-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn mlm-btn mlm-bg-color" >Update</button>
-              </div>
-                                  </form>
-
-
+                    </div>
+                </div>
             </div>
 
           </div>
@@ -187,6 +146,46 @@
     </div>
 
     <script>
+
+        function updatePaymentStatus(id){
+
+            $("#user_ids").val(JSON.stringify([id]))
+            $("#payment_modal").modal("show")
+
+        }
+
+        function viewTree(id){
+
+            $("#user_treeview").html('')
+
+            $.ajax({url: "/get_tree/"+id, success: function(result){
+
+                data_ha=result
+                    console.debug("Tree data",data_ha)
+                var chart_config = {
+                            chart: {
+                            container: "#user_treeview",
+                            connectors: {
+                                type: 'step'
+                            },
+                            node: {
+                                HTMLclass: 'nodeExample1'
+                            }
+                        },
+                        nodeStructure: data_ha[0]
+                }
+                    $("#tree_view").modal("show");
+
+
+                    setTimeout( () => {
+                        var my_chart = new Treant(chart_config);
+                    },500)
+
+                }});
+
+        }
+
+
         $(document).ready( function () {
 
             $('#table_id').DataTable(
@@ -211,6 +210,7 @@
                                     }else{
                                         $("#user_ids").val(JSON.stringify(user_ids))
                                         $("#payment_modal").modal("show")
+
                                     }
 
 

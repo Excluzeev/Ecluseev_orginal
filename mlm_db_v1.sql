@@ -720,9 +720,9 @@ CREATE TABLE public.mlm_user_hierarchy (
     last_updated_on timestamp with time zone,
     created_by character varying(60),
     last_updated_by character varying(60),
-    level character varying(5) NOT NULL,
     parent_user_id integer NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    role character varying(30)
 );
 
 
@@ -1025,10 +1025,22 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$216000$FqpEWvROlGXI$8kcfYeZ7xOYHIDNXJJ2ISm/hFYHqIpt9yPWsLoNu4Eg=	2020-10-24 11:30:18.875668+05:30	t	support			support@gnapitech.com	t	t	2020-10-21 13:52:07.140023+05:30
+8	pbkdf2_sha256$216000$5KQ4Xkb6Xj7Z$vXZ9ym+oQPBH0rldiEVM3ICDgDRuIm/s5AowOmNfA4Y=	2020-10-25 16:53:25.809797+05:30	f	demouser2@gmail.com	demo	user2	demouser2@gmail.com	f	t	2020-10-25 16:53:23.871343+05:30
+9	pbkdf2_sha256$216000$z5KGUZXhIdwq$eLf+Pi1bfx1UzAd3PR3ZFVHA3VGtLtOkMInkfcyzXn8=	2020-10-25 16:53:59.493412+05:30	f	demouser3@mlm.com	Demo	user3	demouser3@mlm.com	f	t	2020-10-25 16:53:57.359261+05:30
+10	pbkdf2_sha256$216000$SdHoVUnuPo75$PDzyQDKVL5sv5ttqE+kQql0eDhH6Y5rwHioJPc773qQ=	2020-10-25 16:54:29.284023+05:30	f	demouser4@mlm.com	demo	user4	demouser4@mlm.com	f	t	2020-10-25 16:54:26.865986+05:30
+11	pbkdf2_sha256$216000$iMCJFDgMe6Ln$cEJmQ90AApTECBAtf+vwEVZ6l1MfODOHrCdSyYW0Rco=	2020-10-25 17:03:55.920892+05:30	f	demouser5@mlm.com	demo	user5	demouser5@mlm.com	f	t	2020-10-25 17:03:53.65799+05:30
+12	pbkdf2_sha256$216000$WVwMAsUZLT7R$ofEyqgoXqU8332AeDNJJJ4wRIjm2yTpl3Z90P64W/eU=	2020-10-25 17:04:25.056727+05:30	f	demouser6@mlm.com	demo	user6	demouser6@mlm.com	f	t	2020-10-25 17:04:22.837717+05:30
+13	pbkdf2_sha256$216000$0fWx8u7abtv8$CgLIg8hD7etFyGDbVB/eJF7O9hll4TG5pOdaXalQqFE=	2020-10-25 17:04:52.090442+05:30	f	demouser7@mlm.com	demo	user7	demouser7@mlm.com	f	t	2020-10-25 17:04:50.021751+05:30
+14	pbkdf2_sha256$216000$h1oOXZRsnR6D$I8rC0QbQ/TG2I39r6+YDgcPAcQbertnyIEvFYGIqjk0=	2020-10-25 17:05:38.367025+05:30	f	demouser8@mlm.com	demo	user8	demouser8@mlm.com	f	t	2020-10-25 17:05:36.35588+05:30
 5	pbkdf2_sha256$216000$lKx6IXLXmYJP$O8bydIeU+j7cppZObtpASqJFPB+Abr2EJxTSCY+joyg=	2020-10-24 15:18:41.401022+05:30	f	ananthakannan14@gmail.com	anantha	kumar	ananthakannan14@gmail.com	f	t	2020-10-24 15:18:37.860579+05:30
+15	pbkdf2_sha256$216000$iJ5u3rFTAfgL$GHP5w/uuxFfFVUDdOnfEHoHp3F/U8Swl3VxvVD5up7M=	2020-10-25 17:06:14.112824+05:30	f	demouser9@mlm.com	demo	user9	demouser9@mlm.com	f	t	2020-10-25 17:06:11.897219+05:30
 6	pbkdf2_sha256$216000$mclKt9o15y14$S/5BR3La1BeoNPwXr5FQ1uzHKj6kns4Z7NCoxHzZts4=	2020-10-24 15:21:42.584756+05:30	f	kannanp240696@gmail.com	kk	akrish	kannanp240696@gmail.com	f	t	2020-10-24 15:21:40.649098+05:30
-4	pbkdf2_sha256$216000$SXhm80i3wksx$+urN8648XFUq82kkp6Jf8VXDpTzUn0k7shMSqX2HoiA=	2020-10-24 15:22:13.579079+05:30	f	kannan.p@gnapitech.com	kannan	p	kannan.p@gnapitech.com	f	t	2020-10-24 09:52:39.019389+05:30
+16	pbkdf2_sha256$216000$ezeEbv2Zz14O$YLA74O5B2KVEQVOV2YcSeeZ0q2+q1huIJsdUqBaPv64=	2020-10-25 17:06:47.65881+05:30	f	demouser10@mlm.com	demo	user10	demouser10@mlm.com	f	t	2020-10-25 17:06:45.55824+05:30
+7	pbkdf2_sha256$216000$H56IXNA3djtH$qZGiUdy9K+1x1evife+GDz3T0LQWOBlAV34CbRMWPMk=	2020-10-25 16:52:43.037187+05:30	f	demouser1@gmail.com	demo	user1	demouser1@gmail.com	f	t	2020-10-25 16:52:40.299131+05:30
+17	pbkdf2_sha256$216000$Oehb7bmqrVPR$C8GFR2BYJ44t/igf2AZUasdIPByC69Vhe6m6WjXNTfI=	2020-10-25 17:07:22.854966+05:30	f	demouser11@mlm.com	demo	user11	demouser11@mlm.com	f	t	2020-10-25 17:07:20.166314+05:30
+18	pbkdf2_sha256$216000$FRGNkkos7Mou$B9WQ+Ra1eSdp3wkjA3qQYNLM6wtblDIc0Whf/6SCGXA=	2020-10-25 17:08:02.267031+05:30	f	demouser12@mlm.com	demo	user12	demouser12@mlm.com	f	t	2020-10-25 17:07:59.728929+05:30
+4	pbkdf2_sha256$216000$SXhm80i3wksx$+urN8648XFUq82kkp6Jf8VXDpTzUn0k7shMSqX2HoiA=	2020-10-25 17:09:50.203867+05:30	f	kannan.p@gnapitech.com	kannan	p	kannan.p@gnapitech.com	f	t	2020-10-24 09:52:39.019389+05:30
+1	pbkdf2_sha256$216000$FqpEWvROlGXI$8kcfYeZ7xOYHIDNXJJ2ISm/hFYHqIpt9yPWsLoNu4Eg=	2020-10-25 17:32:52.486373+05:30	t	support			support@gnapitech.com	t	t	2020-10-21 13:52:07.140023+05:30
 \.
 
 
@@ -1126,6 +1138,8 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 20	djcelery	0001_initial	2020-10-22 16:53:47.278062+05:30
 21	main	0002_auto_20201022_1123	2020-10-22 16:53:47.523232+05:30
 22	main	0003_auto_20201024_0522	2020-10-24 10:53:11.806657+05:30
+23	main	0004_auto_20201025_1026	2020-10-25 15:58:54.725789+05:30
+24	main	0005_remove_userhierarchy_level	2020-10-25 15:58:54.862018+05:30
 \.
 
 
@@ -1135,7 +1149,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 5snfj9q77t0bn4baq8cxumoj08bzwsst	e30:1kVCij:C0vo_M8lVQoy55WiDE617JHTie8J5eVfOUCnGI3TxSg	2020-11-04 17:25:57.953332+05:30
-rgt4qq591k4v3piux3aw343axrcydxzi	.eJxVi8sKwjAQAP8lZyltnhuPgt8RNrsrKdoKpjmJ_24qHnSOM8xTJWxbSa3KI82sjsqqw6_LSFdZ97DgvA7U6nZfPn04d3M7ffvfVLCWfoABcRiNZ_KdCQJBEM1WW9ABc3SEYiDbyB4iCPoLaBShKDy5kdTrDQIDM54:1kWGDd:lVVW9GBLIWyGYKAVOOjROVv3mJBFvyWvlCw6webskWY	2020-11-07 15:22:13.588658+05:30
+0knxby1w9wdbyknhrumtphclnltdaep5	.eJxVy0sKwjAUQNG9ZCwl__gcCl1HeJ-UFG0F04zEvVvFgU7v4T5Uxr7V3Fu551nUSRl1-G2EfCnrGxac14F7227Lx4dxL9fz1_-miq3uB4ohFJAQJtDOkYuWCCBQOIJxlkFbm7Rmm1ISJE5avNeRCUoEbyb1fAEK7zMI:1kWejc:tc1ZCyTGKaRSPZzoHsDPuK1NQZFqpY3BFxGNxavmD3E	2020-11-08 17:32:52.496708+05:30
 \.
 
 
@@ -1201,9 +1215,21 @@ COPY public.mlm_invite (id, created_on, last_updated_on, created_by, last_update
 -- Data for Name: mlm_user_hierarchy; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.mlm_user_hierarchy (id, created_on, last_updated_on, created_by, last_updated_by, level, parent_user_id, user_id) FROM stdin;
-1	\N	\N	\N	\N		4	5
-2	\N	\N	\N	\N		4	6
+COPY public.mlm_user_hierarchy (id, created_on, last_updated_on, created_by, last_updated_by, parent_user_id, user_id, role) FROM stdin;
+1	\N	\N	\N	\N	4	5	\N
+2	\N	\N	\N	\N	4	6	\N
+3	\N	\N	\N	\N	5	7	\N
+4	\N	\N	\N	\N	5	8	\N
+5	\N	\N	\N	\N	6	9	\N
+6	\N	\N	\N	\N	6	10	\N
+7	\N	\N	\N	\N	7	11	\N
+8	\N	\N	\N	\N	7	12	\N
+9	\N	\N	\N	\N	8	13	\N
+10	\N	\N	\N	\N	8	14	\N
+11	\N	\N	\N	\N	9	15	\N
+12	\N	\N	\N	\N	9	16	\N
+13	\N	\N	\N	\N	10	17	\N
+14	\N	\N	\N	\N	10	18	\N
 \.
 
 
@@ -1213,8 +1239,20 @@ COPY public.mlm_user_hierarchy (id, created_on, last_updated_on, created_by, las
 
 COPY public.mlm_user_profile (id, created_on, last_updated_on, created_by, last_updated_by, mobile, picture, designation, prefix, payment_status, user_id, course, "group") FROM stdin;
 1	\N	\N	\N	\N	+12332323232	user_profile/1_Penguins.jpg	student	Mr.	paid	4	0	0
-2	\N	\N	\N	\N	\N		student	\N	notpaid	5	0	0
 3	\N	\N	\N	\N	\N		student	\N	notpaid	6	0	0
+2	\N	\N	\N	\N	\N		student	\N	paid	5	0	0
+4	\N	\N	\N	\N	\N		student	\N	notpaid	7	0	0
+5	\N	\N	\N	\N	\N		student	\N	notpaid	8	0	0
+6	\N	\N	\N	\N	\N		student	\N	notpaid	9	0	0
+7	\N	\N	\N	\N	\N		student	\N	notpaid	10	0	0
+8	\N	\N	\N	\N	\N		student	\N	notpaid	11	0	0
+9	\N	\N	\N	\N	\N		student	\N	notpaid	12	0	0
+10	\N	\N	\N	\N	\N		student	\N	notpaid	13	0	0
+11	\N	\N	\N	\N	\N		student	\N	notpaid	14	0	0
+12	\N	\N	\N	\N	\N		student	\N	notpaid	15	0	0
+13	\N	\N	\N	\N	\N		student	\N	notpaid	16	0	0
+14	\N	\N	\N	\N	\N		student	\N	notpaid	17	0	0
+15	\N	\N	\N	\N	\N		student	\N	notpaid	18	0	0
 \.
 
 
@@ -1258,7 +1296,7 @@ SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_user_id_seq', 6, true);
+SELECT pg_catalog.setval('public.auth_user_id_seq', 18, true);
 
 
 --
@@ -1300,7 +1338,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 17, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 22, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 24, true);
 
 
 --
@@ -1349,14 +1387,14 @@ SELECT pg_catalog.setval('public.mlm_invite_id_seq', 13, true);
 -- Name: mlm_user_hierarchy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.mlm_user_hierarchy_id_seq', 2, true);
+SELECT pg_catalog.setval('public.mlm_user_hierarchy_id_seq', 14, true);
 
 
 --
 -- Name: mlm_user_profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.mlm_user_profile_id_seq', 3, true);
+SELECT pg_catalog.setval('public.mlm_user_profile_id_seq', 15, true);
 
 
 --

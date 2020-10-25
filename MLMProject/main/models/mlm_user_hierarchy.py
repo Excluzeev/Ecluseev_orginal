@@ -7,7 +7,7 @@ class UserHierarchy(BaseModel):
 
     user=models.ForeignKey(User,on_delete=models.CASCADE,db_column="user_id",related_name="user_hierarchy_user")
     parent=models.ForeignKey(User,on_delete=models.CASCADE,db_column="parent_user_id",related_name="user_hierarchy_parent_user")
-    level=models.CharField(max_length=5)
+    role=models.CharField(max_length=30,null=True) # User's designation, it will vary based on structure
 
     class Meta:
         managed = True

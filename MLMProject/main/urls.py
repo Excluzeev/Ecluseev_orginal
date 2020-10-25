@@ -12,6 +12,7 @@ urlpatterns = [
     path('update_payment_status', HomePage.update_payment_status),
     path('invite', HomePage.invite),
     path('dashboard', HomePage.dashboard),
+    path('get_tree/<int:user_id>', HomePage.get_tree),
 
     path('invite_ack/<int:invite_id>', HomePage.update_invite_status),
 ]

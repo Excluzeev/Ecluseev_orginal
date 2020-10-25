@@ -1,7 +1,4 @@
-body {
-    background: #fff;
-    width: 95vw;
-}
+
 * {
     font: 18px lato-regular;
 }
@@ -10,7 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 90vh;
+    height: calc(100vh - 10vh);
     justify-content: center;
 
 }
@@ -145,7 +142,6 @@ ul.messages {
     overflow: auto;
 }
 
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { margin:0; padding:0; }
 table { border-collapse:collapse; border-spacing:0; }
 fieldset,img { border:0; }
 address,caption,cite,code,dfn,em,strong,th,var { font-style:normal; font-weight:normal; }
@@ -183,6 +179,10 @@ body { background: #fff; }
         text-align: center;
     }
 
+    .container{
+        width: 100% !important;
+        max-width:100%;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -191,6 +191,11 @@ body { background: #fff; }
         width:auto !important;
         text-align: center;
         margin-bottom: 0.5em;
+    }
+
+        .container{
+            width: 100% !important;
+            max-width:100%;
     }
 }
 
