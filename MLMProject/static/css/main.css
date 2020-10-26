@@ -65,6 +65,9 @@
 .login-page-container .form-control, .login-page-container .form-control:hover, .login-page-container .form-control:focus {
      padding: 20px 50px;
 }
+.node p {
+    margin: 2px;
+}
 
 .form-control, .form-control:hover, .form-control:focus{
     border: 1px solid #fff;
@@ -238,5 +241,14 @@ table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting:after, 
 }
 .node img{
     width: 100px;
-    height: 100px;
+    height: 80px;
+}
+.node .node-name{
+        font-size: 12px;
+    text-transform: capitalize;
+}
+.node .node-desc{
+    color: #a3b4b9;
+    font-size: 13px;
+    text-transform: uppercase;
 }

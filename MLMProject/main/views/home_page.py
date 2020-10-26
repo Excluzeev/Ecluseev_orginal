@@ -23,10 +23,14 @@ def get_user_hierarchy(user_id,level=0,ha_list=[]):
     image="/static/img/nobody.jpg"
     if p_user_profile_obj.picture:
         image=p_user_profile_obj.picture.url
+    payment_status="Not Paid"
+    if p_user_profile_obj.payment_status =='paid':
+        payment_status="Paid"
     data={
         "text": {
             "name": p_auth_user_obj.first_name+" "+p_auth_user_obj.last_name,
             "title": p_user_profile_obj.designation,
+            "desc": payment_status
         },
         "image": image,
         "children":[]
