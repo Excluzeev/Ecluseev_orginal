@@ -1,6 +1,6 @@
 
 * {
-    font: 18px lato-regular;
+   font: normal normal medium 18px/22px Rubik;
 }
 
 .login-page-container, .signup-page-container{
@@ -24,10 +24,20 @@
     padding-left: 40px;
     padding-right:40px;
 }
-.mlm-btn{
+.btn:hover{
+    background: #29ABE2 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    color:white;
+}
+.mlm-btn, .btn{
     min-width: 120px;
     font:18px lato-regular;
     padding: 10px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #29ABE2;
+    border-radius:5px;
+    opacity: 1;
 }
 .mlm-bg-color{
     background: white;
@@ -99,8 +109,9 @@ ul.messages {
 .navbar-block .navbar-nav{
     margin-left: auto;
 }
-.page-content{
+.page-content-home{
     padding-top: 20px;
+    background: #fff;
 }
 .invite-status{
     padding: 5px;
@@ -124,7 +135,7 @@ ul.messages {
 
 }
 .statistics-block .stat-item{
-    height:50px;
+    min-height:50px;
     width: 25%;
     background: white;
     padding:10px;
@@ -137,9 +148,12 @@ ul.messages {
 }
 #table_id_wrapper{
     overflow: auto;
+    background:#fff;
+    padding: 10px;
 }
 #treeview{
     overflow: auto;
+    background: #fff;
 }
 
 table { border-collapse:collapse; border-spacing:0; }
@@ -150,7 +164,11 @@ h1,h2,h3,h4,h5,h6 { font-size:100%; font-weight:normal; }
 q:before,q:after { content:''; }
 abbr,acronym { border:0; }
 
-body { background: #fff; }
+body {
+    background: #fff;
+background: transparent linear-gradient(180deg, #29ABE2 0%, #C5E8F7 48%, #FAFDFE 77%, #FFFFFF 100%) 0% 0% no-repeat padding-box;
+
+}
 /* optional Container STYLES */
 .chart { height: 600px; margin: 5px; width: 900px; }
 .Treant > .node {  }

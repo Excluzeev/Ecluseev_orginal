@@ -43,7 +43,7 @@ def get_user_hierarchy(user_id,level=0,ha_list=[]):
     # level = 1 => prefect
     # level = 2 => bursar
     # level = 3 => Scholar
-    print("User_id", user_id,level)
+    # print("User_id", user_id,level)
 
     if len(user_h_ds) == 0:
         return level
@@ -58,6 +58,7 @@ def get_user_hierarchy(user_id,level=0,ha_list=[]):
     elif level == 4:
         data["text"]["title"] = "Scholar"
     return level
+
 class HomePage(View):
 
     def dashboard(request):
@@ -97,11 +98,23 @@ class HomePage(View):
             user_id=request.user.id
             user_profile_obj_ds=UserProfile.objects.filter(auth_user_id=user_id)
             user_profile_obj={}
+
+            user_ha_list=[]
+            user_level=get_user_hierarchy(request.user.id,level=0,ha_list=user_ha_list)
+            print("Ha data",user_level)
             if user_profile_obj_ds:
                 user_profile_obj=user_profile_obj_ds.get()
-            user_ha_list=[]
-            get_user_hierarchy(request.user.id,level=1,ha_list=user_ha_list)
-            print("Ha data",user_ha_list[0])
+                if user_level == 1:
+                    user_profile_obj.designation='student'
+                elif user_level == 2:
+                    user_profile_obj.designation='prefect'
+                elif user_level == 3:
+                    user_profile_obj.designation='bursar'
+                elif user_level == 4:
+                    user_profile_obj.designation='scholar'
+
+                user_profile_obj.save()
+
             context = {
                 "invites": invite_ds,
                 "user_profile_obj": user_profile_obj,
