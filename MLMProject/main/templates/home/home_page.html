@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
     <nav class="navbar navbar-expand-md navbar-block">
           <!-- Brand -->
           <a class="navbar-brand mlm-text-color" href="#">Formula 50</a>
@@ -45,7 +45,7 @@
             {% endif %}
             <div class="statistics-block">
                 <div class="stat-item">Course <span>{{ user_profile_obj.course }}</span></div>
-                <div class="stat-item">Group <span>{{ user_profile_obj.group }}</span></div>
+                <div class="stat-item">Group <span>{{ user_profile_obj.id }}</span></div>
                 <div class="stat-item">Role <span>{{ user_profile_obj.designation }}</span></div>
                 <div class="stat-item">Payment Status
                     {% if user_profile_obj.payment_status == "paid" %}
@@ -89,9 +89,14 @@
             </table>
         </div>
 
-        <div id="treeview" >
+        <div class="treeview-container">
+
+            <div id="treeview" >
+
+            </div>
 
         </div>
+
 
         <!-- The Modal -->
         <div class="modal" id="invite_modal">
@@ -219,6 +224,10 @@
         </div>
 
         <input id="ha_data" type="hidden" value="{{ user_hierarchy }}">
+
+        <div class="footer">
+
+        </div>
 
     </div>
 

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from main.models.mlm_base_model import BaseModel
 from django.utils.translation import gettext_lazy as _
 import os
+from django.db.models import JSONField
 def update_file_name(instance, filename):
     path = "user_profile/"
 
@@ -34,7 +35,7 @@ class UserProfile(BaseModel):
     course=models.IntegerField(default=0)
     group=models.IntegerField(default=0)
     payment_status=models.CharField(max_length=20,choices=PaymentStatus.choices,default=PaymentStatus.NOTPAID)
-
+    hr_tree=JSONField(null=True)
     class Meta:
         managed = True
         db_table = 'mlm_user_profile'

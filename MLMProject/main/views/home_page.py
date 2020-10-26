@@ -15,53 +15,7 @@ from django.contrib.auth.models import User
 from django.conf import settings #this imports also your specific settings.py
 from django.contrib import messages
 from main.models.mlm_user_hierarchy import UserHierarchy
-
-def get_user_hierarchy(user_id,level=0,ha_list=[]):
-    level=0
-    p_auth_user_obj = User.objects.get(id=user_id)
-    p_user_profile_obj = UserProfile.objects.get(auth_user_id=user_id)
-    image="/static/img/nobody.jpg"
-    if p_user_profile_obj.picture:
-        image=p_user_profile_obj.picture.url
-    payment_status="Not Paid"
-    if p_user_profile_obj.payment_status =='paid':
-        payment_status="Paid"
-    data={
-        "text": {
-            "name": p_auth_user_obj.first_name+" "+p_auth_user_obj.last_name,
-            "title": p_user_profile_obj.designation,
-            "desc": payment_status
-        },
-        "image": image,
-        "children":[]
-    }
-
-    ha_list.append(data)
-    user_h_ds=UserHierarchy.objects.filter(parent_id=user_id)
-    for uh in user_h_ds:
-
-        level=get_user_hierarchy(uh.user_id,level,data['children'])
-
-    level+=1
-    # level = 0 => student
-    # level = 1 => prefect
-    # level = 2 => bursar
-    # level = 3 => Scholar
-    # print("User_id", user_id,level)
-
-    if len(user_h_ds) == 0:
-        return level
-
-
-    if level == 1:
-        data["text"]["title"] = "Student"
-    elif level == 2:
-        data["text"]["title"] = "Prefect"
-    elif level == 3:
-        data["text"]["title"] = "Bursar"
-    elif level == 4:
-        data["text"]["title"] = "Scholar"
-    return level
+from helper import get_user_hierarchy,get_paid_child,get_root_node,get_depth,get_all_child
 
 class HomePage(View):
 
@@ -76,7 +30,7 @@ class HomePage(View):
             for user_obj in user_profile_obj_ds:
                 user_profile_obj=UserProfile.objects.get(auth_user_id=user_obj.id)
 
-                user_data.append({"id": user_obj.id,"email": user_obj.email, "first_name": user_obj.first_name, "last_name": user_obj.last_name, "payment_status": user_profile_obj.payment_status, "date_joined": user_obj.date_joined})
+                user_data.append({"id": user_obj.id,"email": user_obj.email, "first_name": user_obj.first_name, "last_name": user_obj.last_name, "payment_status": user_profile_obj.payment_status, "date_joined": user_obj.date_joined,"course": user_profile_obj.course})
 
             context = {
                 "all_users": user_data,
@@ -86,7 +40,12 @@ class HomePage(View):
 
     def get_tree(request,user_id):
         user_ha_list=[]
-        get_user_hierarchy(user_id, level=0, ha_list=user_ha_list)
+
+        user_profile_obj_ds = UserProfile.objects.filter(auth_user_id=user_id)
+        user_profile_obj = user_profile_obj_ds.get()
+        depth=get_depth(user_id,user_profile_obj.course,0)
+        print("Got depth",depth,user_id,user_profile_obj.course)
+        get_user_hierarchy(user_id, 0, user_ha_list,user_profile_obj.course,depth)
 
         return JsonResponse(data=user_ha_list,safe=False)
 
@@ -101,23 +60,14 @@ class HomePage(View):
             invite_ds=Invite.objects.filter(user_id=request.user.id).all()
             user_id=request.user.id
             user_profile_obj_ds=UserProfile.objects.filter(auth_user_id=user_id)
-            user_profile_obj={}
-
+            user_profile_obj = user_profile_obj_ds.get()
             user_ha_list=[]
-            user_level=get_user_hierarchy(request.user.id,level=0,ha_list=user_ha_list)
-            print("Ha data",user_level)
-            if user_profile_obj_ds:
-                user_profile_obj=user_profile_obj_ds.get()
-                if user_level == 1:
-                    user_profile_obj.designation='student'
-                elif user_level == 2:
-                    user_profile_obj.designation='prefect'
-                elif user_level == 3:
-                    user_profile_obj.designation='bursar'
-                elif user_level == 4:
-                    user_profile_obj.designation='scholar'
+            depth = get_depth(user_id, user_profile_obj.course, 0)
+            user_role=get_user_hierarchy(request.user.id,0,user_ha_list,user_profile_obj.course,depth)
+            print("Ha data",user_role)
 
-                user_profile_obj.save()
+            user_profile_obj.designation=user_role
+            user_profile_obj.save()
 
             context = {
                 "invites": invite_ds,
@@ -131,7 +81,28 @@ class HomePage(View):
         user_ids_json=request.POST.get("user_ids")
         user_ids=json.loads(user_ids_json)
 
-        UserProfile.objects.filter(auth_user_id__in=user_ids).update(payment_status=status)
+        for user_id in user_ids:
+
+            user_profile_obj_ds = UserProfile.objects.filter(auth_user_id=user_id)
+            user_profile_obj = user_profile_obj_ds.get()
+
+            if user_profile_obj.payment_status == "paid":
+                continue
+
+            user_profile_obj.payment_status=status
+            user_profile_obj.save()
+
+            if status == 'paid':
+
+                root_node = get_root_node(user_id, 0)
+                no_of_paid_users=get_paid_child(root_node.id,0,user_profile_obj.course)
+                print("USer_id", user_id, no_of_paid_users)
+                if no_of_paid_users == 15:  # if all the child users paid, then move to course 1
+                    print("Going to update",user_id)
+                    root_profile_obj=UserProfile.objects.get(auth_user_id=root_node.id)
+                    root_profile_obj.course=root_profile_obj.course+1
+                    root_profile_obj.save()
+
 
         return redirect('/dashboard')
 
