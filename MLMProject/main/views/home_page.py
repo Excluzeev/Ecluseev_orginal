@@ -43,9 +43,10 @@ class HomePage(View):
 
         user_profile_obj_ds = UserProfile.objects.filter(auth_user_id=user_id)
         user_profile_obj = user_profile_obj_ds.get()
-        depth=get_depth(user_id,user_profile_obj.course,0)
-        print("Got depth",depth,user_id,user_profile_obj.course)
-        get_user_hierarchy(user_id, 0, user_ha_list,user_profile_obj.course,depth)
+        course=user_profile_obj.course
+        course=0
+        depth=get_depth(user_id,course,0)
+        get_user_hierarchy(user_id, 0, user_ha_list,course,depth)
 
         return JsonResponse(data=user_ha_list,safe=False)
 

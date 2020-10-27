@@ -182,8 +182,8 @@ q:before,q:after { content:''; }
 abbr,acronym { border:0; }
 
 body {
-    background: #fff;
-background: transparent linear-gradient(180deg, #29ABE2 0%, #C5E8F7 48%, #FAFDFE 77%, #FFFFFF 100%) 0% 0% no-repeat padding-box;
+    background: #efefef;
+/*background: transparent linear-gradient(180deg, #29ABE2 0%, #C5E8F7 48%, #FAFDFE 77%, #FFFFFF 100%) 0% 0% no-repeat padding-box;*/
 
 }
 /* optional Container STYLES */
@@ -255,11 +255,26 @@ table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting:after, 
 }
 .node img{
     width: 100px;
-    height: 80px;
+    height: 50px;
+}
+.nodeExample1 img{
+    margin:0px;
 }
 .node .node-name{
         font-size: 12px;
     text-transform: capitalize;
+}
+.Treant .collapse-switch {
+    width: 10px;
+    height: 10px;
+    display: block;
+    border: 1px solid black;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    cursor: pointer;
+    background: #c5bbbb;
+    border-radius: 10px;
 }
 .node .node-desc{
     color: #a3b4b9;
@@ -272,4 +287,11 @@ table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting:after, 
 }
 .treeview-container{
     position: relative;
+}
+
+.node.nodeExample1 {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 0;
 }
