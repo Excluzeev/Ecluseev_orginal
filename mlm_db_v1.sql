@@ -671,6 +671,44 @@ ALTER SEQUENCE public.djcelery_workerstate_id_seq OWNED BY public.djcelery_worke
 
 
 --
+-- Name: mlm_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mlm_group (
+    id integer NOT NULL,
+    created_on timestamp with time zone,
+    last_updated_on timestamp with time zone,
+    created_by character varying(60),
+    last_updated_by character varying(60),
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.mlm_group OWNER TO postgres;
+
+--
+-- Name: mlm_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.mlm_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.mlm_group_id_seq OWNER TO postgres;
+
+--
+-- Name: mlm_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.mlm_group_id_seq OWNED BY public.mlm_group.id;
+
+
+--
 -- Name: mlm_invite; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -909,6 +947,13 @@ ALTER TABLE ONLY public.djcelery_workerstate ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: mlm_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mlm_group ALTER COLUMN id SET DEFAULT nextval('public.mlm_group_id_seq'::regclass);
+
+
+--
 -- Name: mlm_invite id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1018,6 +1063,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 66	Can change worker	17	change_workerstate
 67	Can delete worker	17	delete_workerstate
 68	Can view worker	17	view_workerstate
+69	Can add group	18	add_group
+70	Can change group	18	change_group
+71	Can delete group	18	delete_group
+72	Can view group	18	view_group
 \.
 
 
@@ -1031,15 +1080,12 @@ COPY public.auth_user (id, password, last_login, is_superuser, username, first_n
 9	pbkdf2_sha256$216000$z5KGUZXhIdwq$eLf+Pi1bfx1UzAd3PR3ZFVHA3VGtLtOkMInkfcyzXn8=	2020-10-25 16:53:59.493412+05:30	f	demouser3@mlm.com	Demo	user3	demouser3@mlm.com	f	t	2020-10-25 16:53:57.359261+05:30
 23	pbkdf2_sha256$216000$n2gVyBuCmYUl$CYnnuwLEgmo0Jwmc7+FRGT5/2r+mcJ0WUxNVGTxP6n8=	2020-10-26 16:00:48.423881+05:30	f	demouser17@mlm.com	Demo	user17	demouser17@mlm.com	f	t	2020-10-26 16:00:46.126706+05:30
 10	pbkdf2_sha256$216000$SdHoVUnuPo75$PDzyQDKVL5sv5ttqE+kQql0eDhH6Y5rwHioJPc773qQ=	2020-10-25 16:54:29.284023+05:30	f	demouser4@mlm.com	demo	user4	demouser4@mlm.com	f	t	2020-10-25 16:54:26.865986+05:30
-27	pbkdf2_sha256$216000$IRMgZdV5I5la$zu7HiEMK/Tnk9JEe2xqF85XJqpyL7Aip626aVmGuYmc=	2020-10-26 16:17:19.97651+05:30	t	admin			admin@mlm.com	t	t	2020-10-26 16:13:08.722708+05:30
 11	pbkdf2_sha256$216000$iMCJFDgMe6Ln$cEJmQ90AApTECBAtf+vwEVZ6l1MfODOHrCdSyYW0Rco=	2020-10-25 17:03:55.920892+05:30	f	demouser5@mlm.com	demo	user5	demouser5@mlm.com	f	t	2020-10-25 17:03:53.65799+05:30
 24	pbkdf2_sha256$216000$0072qyqSo2kR$pVyChwPv63i/9Z9hBGzOqdHb8SfcWGE3+sAAgyWuRCQ=	2020-10-26 16:01:20.292299+05:30	f	demouser18@mlm.com	Demo	user18	demouser18@mlm.com	f	t	2020-10-26 16:01:17.452065+05:30
 12	pbkdf2_sha256$216000$WVwMAsUZLT7R$ofEyqgoXqU8332AeDNJJJ4wRIjm2yTpl3Z90P64W/eU=	2020-10-25 17:04:25.056727+05:30	f	demouser6@mlm.com	demo	user6	demouser6@mlm.com	f	t	2020-10-25 17:04:22.837717+05:30
 13	pbkdf2_sha256$216000$0fWx8u7abtv8$CgLIg8hD7etFyGDbVB/eJF7O9hll4TG5pOdaXalQqFE=	2020-10-25 17:04:52.090442+05:30	f	demouser7@mlm.com	demo	user7	demouser7@mlm.com	f	t	2020-10-25 17:04:50.021751+05:30
 14	pbkdf2_sha256$216000$h1oOXZRsnR6D$I8rC0QbQ/TG2I39r6+YDgcPAcQbertnyIEvFYGIqjk0=	2020-10-25 17:05:38.367025+05:30	f	demouser8@mlm.com	demo	user8	demouser8@mlm.com	f	t	2020-10-25 17:05:36.35588+05:30
-5	pbkdf2_sha256$216000$lKx6IXLXmYJP$O8bydIeU+j7cppZObtpASqJFPB+Abr2EJxTSCY+joyg=	2020-10-24 15:18:41+05:30	f	user1	User	1	user1@mlm.com	f	t	2020-10-24 15:18:37+05:30
 6	pbkdf2_sha256$216000$mclKt9o15y14$S/5BR3La1BeoNPwXr5FQ1uzHKj6kns4Z7NCoxHzZts4=	2020-10-24 15:21:42+05:30	f	user2	user	2	user2@mlm.com	f	t	2020-10-24 15:21:40+05:30
-15	pbkdf2_sha256$216000$iJ5u3rFTAfgL$GHP5w/uuxFfFVUDdOnfEHoHp3F/U8Swl3VxvVD5up7M=	2020-10-25 17:06:14.112824+05:30	f	demouser9@mlm.com	demo	user9	demouser9@mlm.com	f	t	2020-10-25 17:06:11.897219+05:30
 19	pbkdf2_sha256$216000$ydSlJbp2Helm$D/9Wy4YrYGjja2pQSvAhrLUvXqtVUjqzPo560rt4YjY=	2020-10-26 11:04:46.962052+05:30	f	demouser13@mlm.com	Demo	user13	demouser13@mlm.com	f	t	2020-10-26 11:04:45.216962+05:30
 25	pbkdf2_sha256$216000$VHPLrBXa5s5z$UuUl9Cvken9FX/RpluYwZCMppEKfe5+3dymN9HPSF7M=	2020-10-26 16:02:09.124055+05:30	f	demouser19@mlm.com	demo	user19	demouser19@mlm.com	f	t	2020-10-26 16:02:07.276922+05:30
 16	pbkdf2_sha256$216000$ezeEbv2Zz14O$YLA74O5B2KVEQVOV2YcSeeZ0q2+q1huIJsdUqBaPv64=	2020-10-25 17:06:47.65881+05:30	f	demouser10@mlm.com	demo	user10	demouser10@mlm.com	f	t	2020-10-25 17:06:45.55824+05:30
@@ -1048,10 +1094,15 @@ COPY public.auth_user (id, password, last_login, is_superuser, username, first_n
 17	pbkdf2_sha256$216000$Oehb7bmqrVPR$C8GFR2BYJ44t/igf2AZUasdIPByC69Vhe6m6WjXNTfI=	2020-10-25 17:07:22.854966+05:30	f	demouser11@mlm.com	demo	user11	demouser11@mlm.com	f	t	2020-10-25 17:07:20.166314+05:30
 18	pbkdf2_sha256$216000$FRGNkkos7Mou$B9WQ+Ra1eSdp3wkjA3qQYNLM6wtblDIc0Whf/6SCGXA=	2020-10-25 17:08:02.267031+05:30	f	demouser12@mlm.com	demo	user12	demouser12@mlm.com	f	t	2020-10-25 17:07:59.728929+05:30
 26	pbkdf2_sha256$216000$VbANkQbMrUlW$C4gkCC10oSWSpZMa/9OhK9LzwOd7qJxYOVsWNUn0+FY=	2020-10-26 16:02:40.767105+05:30	f	demouser20@mlm.com	demo	user20	demouser20@mlm.com	f	t	2020-10-26 16:02:38.937028+05:30
-4	pbkdf2_sha256$216000$SXhm80i3wksx$+urN8648XFUq82kkp6Jf8VXDpTzUn0k7shMSqX2HoiA=	2020-10-26 16:21:38.391823+05:30	f	firstuser1	First	User	firstuser1@mlm.com	f	t	2020-10-24 09:52:39+05:30
-21	pbkdf2_sha256$216000$N65ZF2frVD9H$Q2jeIlwf4SGJMQLILQq6OskeTpfMQ63ken5Z6KJbrlY=	2020-10-26 15:59:42.394791+05:30	f	demouser15@mlm.com	Demo	user15	demouser15@mlm.com	f	t	2020-10-26 15:59:39.560553+05:30
+30	pbkdf2_sha256$216000$sPy6BICy4PXa$E52Bd8aGgW0MmxIDPSs0hikzbF72k2Gd63vL8Mp9mz4=	2020-10-28 15:04:44.194744+05:30	f	demouser21@mlm.com	Demo	user21	demouser21@mlm.com	f	t	2020-10-28 15:04:42.197264+05:30
 22	pbkdf2_sha256$216000$T3InUCFcqxzX$nkh6cFR+sAwL8Ka/js1s1sOdovjdfQ53MojkjDvgXQc=	2020-10-26 16:00:23.873798+05:30	f	demouser16@mlm.com	Demo	User16	demouser16@mlm.com	f	t	2020-10-26 16:00:21.488117+05:30
 1	pbkdf2_sha256$216000$FqpEWvROlGXI$8kcfYeZ7xOYHIDNXJJ2ISm/hFYHqIpt9yPWsLoNu4Eg=	2020-10-26 16:10:23.131288+05:30	t	vinoth			vinoth@gnapitech.com	t	t	2020-10-21 13:52:07+05:30
+31	pbkdf2_sha256$216000$hzH1RMpL14Ff$4rPCfYdeMV5sTFA1FAEpw7yZByw71n75Xw2kLj8GM4o=	\N	f	demouser22@mlm.com	demo	user22	demouser22@mlm.com	f	t	2020-10-28 15:07:32.13631+05:30
+21	pbkdf2_sha256$216000$N65ZF2frVD9H$Q2jeIlwf4SGJMQLILQq6OskeTpfMQ63ken5Z6KJbrlY=	2020-10-28 15:54:10.420137+05:30	f	demouser15@mlm.com	Demo	user15	demouser15@mlm.com	f	t	2020-10-26 15:59:39.560553+05:30
+29	pbkdf2_sha256$216000$Ont4eL7Mkh1Y$hucxpEoOWIKJxhnuxG6VGSYLgHdpYShIxDumxWPaMf0=	2020-10-28 14:53:32.069343+05:30	f	demouser9@mlm.com	demo	user9	demouser9@mlm.com	f	t	2020-10-28 14:53:30.164069+05:30
+4	pbkdf2_sha256$216000$SXhm80i3wksx$+urN8648XFUq82kkp6Jf8VXDpTzUn0k7shMSqX2HoiA=	2020-10-28 16:09:05.974119+05:30	f	firstuser1	First	User	firstuser1@mlm.com	f	t	2020-10-24 09:52:39+05:30
+27	pbkdf2_sha256$216000$IRMgZdV5I5la$zu7HiEMK/Tnk9JEe2xqF85XJqpyL7Aip626aVmGuYmc=	2020-10-28 16:11:41.723214+05:30	t	admin			admin@mlm.com	t	t	2020-10-26 16:13:08.722708+05:30
+5	pbkdf2_sha256$216000$lKx6IXLXmYJP$O8bydIeU+j7cppZObtpASqJFPB+Abr2EJxTSCY+joyg=	2020-10-28 16:12:33.995357+05:30	f	user1	User	1	user1@mlm.com	f	t	2020-10-24 15:18:37+05:30
 \.
 
 
@@ -1127,6 +1178,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 15	djcelery	tasksetmeta
 16	djcelery	taskstate
 17	djcelery	workerstate
+18	main	group
 \.
 
 
@@ -1162,6 +1214,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 25	main	0006_userprofile_hr_tree	2020-10-26 10:27:12.438288+05:30
 26	main	0007_auto_20201026_0457	2020-10-26 10:27:12.600398+05:30
 27	main	0008_auto_20201026_0832	2020-10-26 14:02:11.037197+05:30
+28	main	0009_group	2020-10-28 14:50:05.301236+05:30
 \.
 
 
@@ -1171,7 +1224,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 5snfj9q77t0bn4baq8cxumoj08bzwsst	e30:1kVCij:C0vo_M8lVQoy55WiDE617JHTie8J5eVfOUCnGI3TxSg	2020-11-04 17:25:57.953332+05:30
-wij0jmcv3dzmvm9kcepz9hitg4t0eyp6	.eJxVi8sKwjAQAP8lZyltnhuPgt8RNrsrKdoKpjmJ_24qHnSOM8xTJWxbSa3KI82sjsqqw6_LSFdZ97DgvA7U6nZfPn04d3M7ffvfVLCWfoABcRiNZ_KdCQJBEM1WW9ABc3SEYiDbyB4iCPoLaBShKDy5kdTrDQIDM54:1kX06E:byCJLPYkeeqrrylsx9ZKZ6lmD8830kSpGjgWdgrCQBQ	2020-11-09 16:21:38.402095+05:30
+2x0wq1li45ox7m4d9cz95udqm94j33f6	.eJxVy8EKwjAMgOF36VlGYoxdPAp7jpKmHR26CXY9ie_uFA96_T_-hwva1hJazfcwJXdy7Ha_Lapd8vKGWaels1bX2_zxbtjK9fz1v6loLdtxjLQHT2QjmiB7QGZUBTVTzgfukaznJBrHxAKUvaSIKSuwsXhyzxcCAzNf:1kXiuY:rXmv1WrjrLnFaMgGJJuX07840sf7_3QoCkbmdyTzBjQ	2020-11-11 16:12:34.00251+05:30
 \.
 
 
@@ -1224,6 +1277,15 @@ COPY public.djcelery_workerstate (id, hostname, last_heartbeat) FROM stdin;
 
 
 --
+-- Data for Name: mlm_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mlm_group (id, created_on, last_updated_on, created_by, last_updated_by, user_id) FROM stdin;
+1	2020-10-28 15:34:21.254018+05:30	\N	 	\N	4
+\.
+
+
+--
 -- Data for Name: mlm_invite; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1248,7 +1310,6 @@ COPY public.mlm_user_hierarchy (id, created_on, last_updated_on, created_by, las
 8	\N	\N	\N	\N	7	12	0
 9	\N	\N	\N	\N	8	13	0
 10	\N	\N	\N	\N	8	14	0
-11	\N	\N	\N	\N	9	15	0
 12	\N	\N	\N	\N	9	16	0
 13	\N	\N	\N	\N	10	17	0
 14	\N	\N	\N	\N	10	18	0
@@ -1260,6 +1321,9 @@ COPY public.mlm_user_hierarchy (id, created_on, last_updated_on, created_by, las
 21	\N	\N	\N	\N	13	24	0
 22	\N	\N	\N	\N	14	25	0
 23	\N	\N	\N	\N	14	26	0
+24	\N	\N	\N	\N	9	29	0
+25	\N	\N	\N	\N	23	30	0
+26	\N	\N	\N	\N	23	31	0
 \.
 
 
@@ -1268,29 +1332,31 @@ COPY public.mlm_user_hierarchy (id, created_on, last_updated_on, created_by, las
 --
 
 COPY public.mlm_user_profile (id, created_on, last_updated_on, created_by, last_updated_by, mobile, picture, designation, prefix, payment_status, user_id, course, "group", hr_tree) FROM stdin;
-18	\N	\N	\N	\N	\N		student	\N	paid	21	0	0	\N
-19	\N	\N	\N	\N	\N		student	\N	paid	22	0	0	\N
-20	\N	\N	\N	\N	\N		student	\N	paid	23	0	0	\N
-21	\N	\N	\N	\N	\N		student	\N	paid	24	0	0	\N
-22	\N	\N	\N	\N	\N		student	\N	paid	25	0	0	\N
-23	\N	\N	\N	\N	\N		student	\N	paid	26	0	0	\N
-2	\N	\N	\N	\N	\N		student	\N	paid	5	1	0	\N
-1	\N	\N	\N	\N	+12332323232	user_profile/1_Penguins.jpg	student	Mr.	paid	4	1	0	\N
+3	\N	\N	\N	\N	\N		student	\N	paid	6	0	0	\N
+4	\N	\N	\N	\N	\N		student	\N	paid	7	0	0	\N
 11	\N	\N	\N	\N	\N		student	\N	paid	14	0	0	\N
-12	\N	\N	\N	\N	\N		student	\N	paid	15	0	0	\N
 13	\N	\N	\N	\N	\N		student	\N	paid	16	0	0	\N
 14	\N	\N	\N	\N	\N		student	\N	paid	17	0	0	\N
 15	\N	\N	\N	\N	\N		student	\N	paid	18	0	0	\N
-3	\N	\N	\N	\N	\N		student	\N	paid	6	0	0	\N
-4	\N	\N	\N	\N	\N		student	\N	paid	7	0	0	\N
+18	\N	\N	\N	\N	\N		student	\N	notpaid	21	0	0	\N
+1	\N	\N	\N	\N	+12332323232	user_profile/1_Penguins.jpg	scholar	Mr.	paid	4	1	0	\N
+2	\N	\N	\N	\N	\N		scholar	\N	paid	5	0	0	\N
+19	\N	\N	\N	\N	\N		student	\N	notpaid	22	0	0	\N
+20	\N	\N	\N	\N	\N		student	\N	notpaid	23	0	0	\N
+21	\N	\N	\N	\N	\N		student	\N	notpaid	24	0	0	\N
+22	\N	\N	\N	\N	\N		student	\N	notpaid	25	0	0	\N
+23	\N	\N	\N	\N	\N		student	\N	notpaid	26	0	0	\N
+16	\N	\N	\N	\N	\N		student	\N	notpaid	19	0	0	\N
+17	\N	\N	\N	\N	\N		student	\N	notpaid	20	0	0	\N
+25	\N	\N	\N	\N	\N		student	\N	notpaid	30	0	0	\N
+26	\N	\N	\N	\N	\N		student	\N	notpaid	31	0	0	\N
 5	\N	\N	\N	\N	\N		student	\N	paid	8	0	0	\N
 6	\N	\N	\N	\N	\N		student	\N	paid	9	0	0	\N
 7	\N	\N	\N	\N	\N		student	\N	paid	10	0	0	\N
 8	\N	\N	\N	\N	\N		student	\N	paid	11	0	0	\N
 9	\N	\N	\N	\N	\N		student	\N	paid	12	0	0	\N
 10	\N	\N	\N	\N	\N		student	\N	paid	13	0	0	\N
-16	\N	\N	\N	\N	\N		student	\N	paid	19	0	0	\N
-17	\N	\N	\N	\N	\N		student	\N	paid	20	0	0	\N
+24	\N	\N	\N	\N	\N		student	\N	paid	29	0	0	\N
 \.
 
 
@@ -1320,7 +1386,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 68, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 72, true);
 
 
 --
@@ -1334,7 +1400,7 @@ SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_user_id_seq', 28, true);
+SELECT pg_catalog.setval('public.auth_user_id_seq', 31, true);
 
 
 --
@@ -1369,14 +1435,14 @@ SELECT pg_catalog.setval('public.django_admin_log_id_seq', 10, true);
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 17, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 18, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 27, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 28, true);
 
 
 --
@@ -1415,6 +1481,13 @@ SELECT pg_catalog.setval('public.djcelery_workerstate_id_seq', 1, false);
 
 
 --
+-- Name: mlm_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.mlm_group_id_seq', 1, true);
+
+
+--
 -- Name: mlm_invite_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1425,14 +1498,14 @@ SELECT pg_catalog.setval('public.mlm_invite_id_seq', 13, true);
 -- Name: mlm_user_hierarchy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.mlm_user_hierarchy_id_seq', 23, true);
+SELECT pg_catalog.setval('public.mlm_user_hierarchy_id_seq', 26, true);
 
 
 --
 -- Name: mlm_user_profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.mlm_user_profile_id_seq', 23, true);
+SELECT pg_catalog.setval('public.mlm_user_profile_id_seq', 26, true);
 
 
 --
@@ -1673,6 +1746,14 @@ ALTER TABLE ONLY public.djcelery_workerstate
 
 ALTER TABLE ONLY public.djcelery_workerstate
     ADD CONSTRAINT djcelery_workerstate_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mlm_group mlm_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mlm_group
+    ADD CONSTRAINT mlm_group_pkey PRIMARY KEY (id);
 
 
 --
@@ -1918,6 +1999,13 @@ CREATE INDEX djcelery_workerstate_last_heartbeat_4539b544 ON public.djcelery_wor
 
 
 --
+-- Name: mlm_group_user_id_51f5c762; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX mlm_group_user_id_51f5c762 ON public.mlm_group USING btree (user_id);
+
+
+--
 -- Name: mlm_invite_user_id_f6ade5fc; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -2032,6 +2120,14 @@ ALTER TABLE ONLY public.djcelery_periodictask
 
 ALTER TABLE ONLY public.djcelery_taskstate
     ADD CONSTRAINT djcelery_taskstate_worker_id_f7f57a05_fk_djcelery_ FOREIGN KEY (worker_id) REFERENCES public.djcelery_workerstate(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: mlm_group mlm_group_user_id_51f5c762_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mlm_group
+    ADD CONSTRAINT mlm_group_user_id_51f5c762_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
