@@ -31,6 +31,17 @@
 
         <div class="page-content">
 
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <div class="alert alert-danger alert-dismissible fade show">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      <strong>Error!</strong>{{ message }}
+                    </div>
+                    {%  endif %}
+                {% endfor %}
+
+            {% endif %}
 
             <table id="table_id" class="display">
                 <thead>
@@ -65,17 +76,62 @@
                             <button onClick="updatePaymentStatus({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="Update Payment status">
                                 <i class="fa fa-dollar"></i>
                             </button>
-                            &nbsp;
-                            &nbsp;
                             <button onClick="viewTree({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="View Tree" >
                                  <i class="fa fa-eye"></i>
                             </button>
+                            {% if user_obj.is_deletable %}
+                            <button  onClick="deleteUser({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="Delete User" >
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            {%  endif %}
                         </td>
                     </tr>
                 {% endfor %}
 
                 </tbody>
             </table>
+        </div>
+
+
+
+                <!-- The Modal -->
+        <div class="modal" id="delete_confirm_modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                  <form action="/remove_user" method="post">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Delete User</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+
+                      {% csrf_token %}
+                    <p>
+                        Are you sure? The selected user will be removed permanently from the system.
+                    </p>
+
+                  <input name="deletable_user_id" type="hidden" id="deletable_user_id">
+
+
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn mlm-btn mlm-bg-color" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn mlm-btn mlm-bg-color" >Delete</button>
+
+              </div>
+
+                  </form>
+
+
+            </div>
+
+          </div>
         </div>
 
         <!-- The Modal -->
@@ -113,8 +169,10 @@
               <div class="modal-footer">
                   <button type="button" class="btn mlm-btn mlm-bg-color" data-dismiss="modal">Cancel</button>
                   <button type="submit" class="btn mlm-btn mlm-bg-color" >Update</button>
+
               </div>
-                                  </form>
+
+                  </form>
 
 
             </div>
@@ -122,7 +180,81 @@
           </div>
         </div>
 
+        <input id="available_users_list" type="hidden" value="{{ available_users }}">
 
+                <!-- The Modal -->
+        <div class="modal" id="new_user_modal">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="/add_user" method="post">
+
+                <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">New user</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+                <div class="modal-body">
+
+                      {% csrf_token %}
+
+                     <div class="form-group row">
+
+                        <div class="col-lg-6">
+                                <input type="hidden" name="is_from_admin" value="1">
+                                <input type="email" class="form-control" placeholder="Email Address" name="email"  required >
+                        </div>
+
+                         <div class="col-lg-6">
+                             <select style="width: 100%" id="referer-select" class="form-control" name="referer_id">
+
+
+                            </select>
+
+
+                         </div>
+               </div>
+
+
+
+
+                    <div class="form-group row">
+                    <div class="col-lg-6">
+
+                    <input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+                </div>
+
+               <div class="col-lg-6">
+
+                    <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+                </div>
+
+            </div>
+
+             <div class="form-group row">
+                <div class="col-lg-6">
+                    <input type="password" class="form-control" placeholder="Password" name="password1" required>
+                </div>
+                 <div class="col-lg-6">
+                    <input type="password" class="form-control" placeholder="Confirm Password" name="password2" required>
+                </div>
+            </div>
+
+
+                </div>
+
+                              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn mlm-btn mlm-bg-color" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn mlm-btn mlm-bg-color" >Submit</button>
+
+              </div>
+
+                  </form>
+
+            </div>
+
+          </div>
+        </div>
 
 
 
@@ -159,6 +291,10 @@
             $("#payment_modal").modal("show")
 
         }
+        function deleteUser(id){
+            $("#deletable_user_id").val(JSON.stringify(id))
+            $("#delete_confirm_modal").modal("show")
+        }
 
         function viewTree(id){
 
@@ -185,7 +321,22 @@
 
 
                     setTimeout( () => {
-                        var my_chart = new Treant(chart_config);
+
+                                    var my_chart = new Treant(chart_config,function() {
+                    var list=$(".node-desc")
+                        for (var i=0;i<list.length; i++){
+                            let content=list[i].textContent
+                            if (content == "Not Paid"){
+                                list[i].style.color="white"
+                                list[i].style.backgroundColor="red"
+                            }else{
+                                list[i].style.color="white"
+                                list[i].style.backgroundColor="green"
+
+                            }
+                        }
+                    });
+
                     },500)
 
                 }});
@@ -195,11 +346,18 @@
 
         $(document).ready( function () {
 
+            var available_udata=$("#available_users_list").val()
+            $("#referer-select").select2({
+                    placeholder: "Select a parent user",
+                    allowClear: true,
+                    data: JSON.parse(available_udata)
+            });
+
             $('#table_id').DataTable(
                 {
                         dom: "Bfrtip",
                          "aoColumnDefs": [
-                            { "bSortable": false, "aTargets": [ 0, 1, 2, 3 ] },
+                            { "bSortable": false, "aTargets": [ 6 ] },
                         ],
                         buttons: [
                             {
@@ -223,6 +381,12 @@
 
                                 }
                             },
+                             {
+                                text: 'Add user',
+                                action: function ( e, dt, node, config ) {
+                                     $("#new_user_modal").modal("show")
+                                }
+                             }
 
                         ]
                     }

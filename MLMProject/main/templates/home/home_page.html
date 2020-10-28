@@ -45,7 +45,7 @@
             {% endif %}
             <div class="statistics-block">
                 <div class="stat-item">Course <span>{{ user_profile_obj.course }}</span></div>
-                <div class="stat-item">Group <span>{{ user_profile_obj.id }}</span></div>
+                <div class="stat-item">Group <span>{{ user_group_id }}</span></div>
                 <div class="stat-item">Role <span>{{ user_profile_obj.designation }}</span></div>
                 <div class="stat-item">Payment Status
                     {% if user_profile_obj.payment_status == "paid" %}
@@ -268,7 +268,21 @@
                 nodeStructure: data_ha[0]
         }
 
-            var my_chart = new Treant(chart_config);
+            var my_chart = new Treant(chart_config,function() {
+                    var list=$(".node-desc")
+                        for (var i=0;i<list.length; i++){
+                            let content=list[i].textContent
+                            if (content == "Not Paid"){
+                                list[i].style.color="white"
+                                list[i].style.backgroundColor="red"
+                            }else{
+                                list[i].style.color="white"
+                                list[i].style.backgroundColor="green"
+
+                            }
+                        }
+                    }
+            );
 
 
             function readURL(input) {

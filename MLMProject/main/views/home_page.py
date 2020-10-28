@@ -16,7 +16,8 @@ from django.conf import settings #this imports also your specific settings.py
 from django.contrib import messages
 from main.models.mlm_user_hierarchy import UserHierarchy
 from helper import get_user_hierarchy,get_paid_child,get_root_node,get_depth,get_all_child
-
+from main.models.mlm_groups import Group
+from main.models.mlm_user_hierarchy import UserHierarchy
 class HomePage(View):
 
     def dashboard(request):
@@ -27,17 +28,81 @@ class HomePage(View):
 
             user_profile_obj_ds=User.objects.filter(is_superuser=False).all()
             user_data=[]
+            available_user_data=[]
             for user_obj in user_profile_obj_ds:
                 user_profile_obj=UserProfile.objects.get(auth_user_id=user_obj.id)
+                user_hr_ds=UserHierarchy.objects.filter(parent_id=user_obj.id)
+                is_deletable = False
+                if user_hr_ds.count() == 0 and user_profile_obj.payment_status == 'notpaid':
+                    is_deletable=True
 
-                user_data.append({"id": user_obj.id,"email": user_obj.email, "first_name": user_obj.first_name, "last_name": user_obj.last_name, "payment_status": user_profile_obj.payment_status, "date_joined": user_obj.date_joined,"course": user_profile_obj.course})
+                if user_hr_ds.count() != 2:
+                    is_deletable
+                    available_user_data.append({"id": user_obj.id, "text": user_obj.first_name+" "+ user_obj.last_name})
+                user_data.append({"id": user_obj.id,"email": user_obj.email, "first_name": user_obj.first_name, "last_name": user_obj.last_name, "payment_status": user_profile_obj.payment_status, "date_joined": user_obj.date_joined,"course": user_profile_obj.course,"is_deletable": is_deletable})
 
             context = {
                 "all_users": user_data,
+                "available_users": json.dumps(available_user_data)
             }
 
             return HttpResponse(template.render(context, request))
 
+    def add_user(request):
+        if request.method == 'POST':
+            username = request.POST.get("email")
+            referer_id = request.POST.get("referer_id")
+
+            password1 = request.POST.get("password1")
+            password2 = request.POST.get("password2")
+            first_name = request.POST.get("first_name")
+            last_name = request.POST.get("last_name")
+            is_from_admin = request.POST.get("is_from_admin")
+
+            email = username
+
+            if password1 != password2:
+                print("Password didn't match")
+                messages.error(request, "Passwords didn't match")
+
+                return redirect('/dashboard')
+
+            user_obj_ds = User.objects.filter(email=email)
+            if user_obj_ds:
+                messages.error(request, "Email already exists!")
+                return redirect("/dashboard")
+
+            new_user = User.objects.create_user(username, email, password1)
+            new_user.is_active = True
+            new_user.first_name = first_name
+            new_user.last_name = last_name
+            new_user.save()
+
+            UserProfile.objects.create(auth_user_id=new_user.id)
+
+            # if a signup for has referer id, then need to link the user with his appropriate referer
+            if referer_id:
+                UserHierarchy.objects.create(user_id=new_user.id, parent_id=referer_id)
+
+        return redirect("/dashboard")
+
+    def remove_user(request):
+        user_id=request.POST.get('deletable_user_id')
+        user_obj_ds = User.objects.filter(id=user_id,is_superuser=False)
+        if user_obj_ds:
+            user_obj = user_obj_ds.get()
+            user_profile_obj = UserProfile.objects.get(auth_user_id=user_obj.id)
+            user_hr_ds = UserHierarchy.objects.filter(parent_id=user_obj.id)
+            is_deletable = False
+            if user_hr_ds.count() == 0 and user_profile_obj.payment_status == 'notpaid':
+                is_deletable = True
+
+            print("Is user deletable ",is_deletable)
+            if is_deletable:
+                user_obj.delete()
+                user_profile_obj.delete()
+
+        return redirect("/dashboard")
     def get_tree(request,user_id):
         user_ha_list=[]
 
@@ -63,20 +128,30 @@ class HomePage(View):
             user_profile_obj_ds=UserProfile.objects.filter(auth_user_id=user_id)
             user_profile_obj = user_profile_obj_ds.get()
             user_ha_list=[]
-            depth = get_depth(user_id, user_profile_obj.course, 0)
-            user_role=get_user_hierarchy(request.user.id,0,user_ha_list,user_profile_obj.course,depth)
-            print("Ha data",user_role)
+
+            course=user_profile_obj.course
+            course=0
+            depth = get_depth(user_id,course, 0)
+            user_role=get_user_hierarchy(request.user.id,0,user_ha_list,course,depth)
 
             user_profile_obj.designation=user_role
             user_profile_obj.save()
 
+            user_group_obj_ds=Group.objects.filter(user_id=request.user.id)
+            user_group_id=0
+            if user_group_obj_ds:
+                group_obj=user_group_obj_ds.get()
+                user_group_id=group_obj.id
+
             context = {
                 "invites": invite_ds,
                 "user_profile_obj": user_profile_obj,
-                "user_hierarchy": json.dumps(user_ha_list)
+                "user_hierarchy": json.dumps(user_ha_list),
+                "user_group_id":user_group_id
             }
 
             return HttpResponse(template.render(context, request))
+
     def update_payment_status(request):
         status=request.POST.get("status")
         user_ids_json=request.POST.get("user_ids")
@@ -103,7 +178,12 @@ class HomePage(View):
                     root_profile_obj=UserProfile.objects.get(auth_user_id=root_node.id)
                     root_profile_obj.course=root_profile_obj.course+1
                     root_profile_obj.save()
-
+                    user_name=request.user.first_name+" "+request.user.last_name
+                    # Need create group if the struture is completed
+                    # check if group is already exists for the user
+                    group_ds=Group.objects.filter(user_id=root_node.id)
+                    if not group_ds:
+                        Group.objects.create(user_id=root_node.id,created_on=timezone.now(),created_by=user_name)
 
         return redirect('/dashboard')
 

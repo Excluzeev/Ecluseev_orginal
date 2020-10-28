@@ -81,6 +81,8 @@
 }
 .node p {
     margin: 2px;
+    padding-left: 5px;
+    background: #f7f7f7;
 }
 
 .form-control, .form-control:hover, .form-control:focus{
@@ -256,6 +258,7 @@ table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting:after, 
 .node img{
     width: 100px;
     height: 50px;
+    border-radius: 50%;
 }
 .nodeExample1 img{
     margin:0px;
@@ -265,16 +268,10 @@ table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting:after, 
     text-transform: capitalize;
 }
 .Treant .collapse-switch {
-    width: 10px;
-    height: 10px;
-    display: block;
-    border: 1px solid black;
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    cursor: pointer;
+    width: 10px !important;
+    height: 10px !important;
     background: #c5bbbb;
-    border-radius: 10px;
+    border-radius: 10px !important;
 }
 .node .node-desc{
     color: #a3b4b9;
@@ -293,5 +290,39 @@ table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting:after, 
     display: flex;
     flex-direction: column;
     width: auto;
-    padding: 0;
+    border: none;
+    background: #f0f0f7;
+    padding: 5px;
+}
+
+#referer-select{
+    width: 100% !important;
+}
+
+.select2-container{
+    border: 1px solid #fff;
+    font: 18px lato-regular;
+    color: #294d5d;
+    min-height: 40px;
+    background: #fff 0 0 no-repeat padding-box;
+    box-shadow: 3px 3px 15px rgba(0,0,0,.16);
+    border-radius: 5px;
+    outline: none;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.select2-container--default .select2-selection--single{
+    border: none !important;;
 }

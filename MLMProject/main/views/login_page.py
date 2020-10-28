@@ -50,6 +50,7 @@ class LoginPage(View):
             password2=request.POST.get("password2")
             first_name=request.POST.get("first_name")
             last_name=request.POST.get("last_name")
+
             email=username
 
             if password1 != password2:

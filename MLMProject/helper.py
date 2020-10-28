@@ -3,6 +3,7 @@ from main.models.mlm_user_profile import UserProfile
 from django.contrib.auth.models import User
 
 def get_all_child(user_id,level,no_of_node=0,course=0):
+    #
     level+=1
     if level > 4 : # Don't go byond the 4th level
         level=0
