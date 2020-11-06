@@ -91,6 +91,8 @@ class HomePage(View):
         user_obj_ds = User.objects.filter(id=user_id,is_superuser=False)
         if user_obj_ds:
             user_obj = user_obj_ds.get()
+            invite_ds=Invite.objects.filter(user_id=user_obj.id)
+            accepted_invite_ds=Invite.objects.filter(email=user_obj.email)
             user_profile_obj = UserProfile.objects.get(auth_user_id=user_obj.id)
             user_hr_ds = UserHierarchy.objects.filter(parent_id=user_obj.id)
             is_deletable = False
@@ -101,8 +103,13 @@ class HomePage(View):
             if is_deletable:
                 user_obj.delete()
                 user_profile_obj.delete()
+                if accepted_invite_ds:
+                    accepted_invite_ds.delete()
+                if invite_ds:
+                    invite_ds.delete()
 
         return redirect("/dashboard")
+
     def get_tree(request,user_id):
         user_ha_list=[]
 
