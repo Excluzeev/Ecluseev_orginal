@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-SITE_URL="http://192.168.43.47:8001" # Should not end with slash
+SITE_URL="http://3.96.43.113:8081" # Should not end with slash
 
 ROOT_URLCONF = 'mlm.urls'
 

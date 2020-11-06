@@ -105,6 +105,7 @@ def get_user_hierarchy(user_id,level=0,ha_list=[],course=0,depth=0):
         user_role=get_user_hierarchy(uh.user_id,level,data['children'],course,depth)
 
     print("level",user_id,level,depth)
+    user_role="student"
     if level == depth:
         user_role = "student"
     elif level == depth-1:
