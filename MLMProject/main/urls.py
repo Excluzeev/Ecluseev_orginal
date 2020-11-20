@@ -7,6 +7,7 @@ urlpatterns = [
     path('home', HomePage.index),
     path('login',LoginPage.login),
     path('signup', LoginPage.signup),
+    path('signupq', LoginPage.signup_queue),
     path('logout', LoginPage.logout),
     path('update_my_profile',HomePage.update_my_profile),
     path('update_payment_status', HomePage.update_payment_status),

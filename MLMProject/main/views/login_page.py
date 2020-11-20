@@ -39,6 +39,47 @@ class LoginPage(View):
                 }
                 return HttpResponse(template.render(context, request))
 
+    def signup_queue(request):
+        template = loader.get_template('login/signup_queue_page.html')
+
+        if request.method == 'POST':
+            username=request.POST.get("email")
+            password1=request.POST.get("password1")
+            password2=request.POST.get("password2")
+            first_name=request.POST.get("first_name")
+            last_name=request.POST.get("last_name")
+
+            email=username
+
+            if password1 != password2:
+                print("Password didn't match")
+                context = {
+                    'error': {"message": "Passwords didn't match"}
+                }
+                return HttpResponse(template.render(context, request))
+
+            user_obj_ds=User.objects.filter(email=email)
+            if user_obj_ds:
+                context = {
+                    'error': {"message": "Email already exists!"}
+                }
+                return HttpResponse(template.render(context, request))
+
+            new_user = User.objects.create_user(username, email, password1)
+            new_user.is_active = True
+            new_user.first_name = first_name
+            new_user.last_name = last_name
+            new_user.save()
+
+            UserProfile.objects.create(auth_user_id=new_user.id)
+
+            user = authenticate(username=username, password=password1)
+            login(request, user)
+            return redirect('/home')
+
+        return render(request, 'login/signup_queue_page.html', {'error': None})
+
+
     def signup(request):
         template = loader.get_template('login/signup_page.html')
 
