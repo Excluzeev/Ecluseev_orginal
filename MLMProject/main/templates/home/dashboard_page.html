@@ -43,6 +43,21 @@
 
             {% endif %}
 
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">Users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">Pending users</a>
+              </li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane  active " id="home">
+
             <table id="table_id" class="display">
                 <thead>
                     <tr>
@@ -90,6 +105,50 @@
 
                 </tbody>
             </table>
+
+              </div>
+                 <div class="tab-pane  fade" id="menu1">
+
+            <table id="table_pending_users" class="display">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Joined On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%  for user_obj in pending_users %}
+                    <tr>
+
+                        <td><input type="checkbox" name="user_ids[]" class="user_id_checkbox" value="{{ user_obj.id }}"> {{ user_obj.id }}</td>
+                        <td>{{ user_obj.first_name }} {{ user_obj.last_name }}</td>
+                        <td>{{ user_obj.email }}</td>
+
+                        <td>{{ user_obj.date_joined }}</td>
+
+                        <td>
+                            <button onClick="mapUser({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="Update Payment status">
+                                <i class="fa fa-link"></i>
+                            </button>
+
+                            {% if user_obj.is_deletable %}
+                            <button  onClick="deleteUser({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="Delete User" >
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            {%  endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+                 </div>
+            </div>
+
         </div>
 
 
@@ -182,7 +241,7 @@
 
         <input id="available_users_list" type="hidden" value="{{ available_users }}">
 
-                <!-- The Modal -->
+        <!-- The Modal -->
         <div class="modal" id="new_user_modal">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -257,6 +316,47 @@
         </div>
 
 
+           <div class="modal" id="map_user_modal">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form action="/map_user" method="post">
+
+                <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Link user</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+                <div class="modal-body">
+
+                      {% csrf_token %}
+
+                     <div class="form-group row">
+                         <div class="col-lg-12">
+                             <select style="width: 100%" id="referer-select2" class="form-control" name="referer_id">
+
+                            </select>
+                         </div>
+                     </div>
+
+                </div>
+
+                              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <input id="map_user_id" type="hidden" name="user_id" value="1">
+
+                  <button type="button" class="btn mlm-btn mlm-bg-color" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn mlm-btn mlm-bg-color" >Submit</button>
+
+              </div>
+
+                  </form>
+
+            </div>
+
+          </div>
+        </div>
+
+
 
         <!-- The Modal -->
         <div class="modal" id="tree_view">
@@ -284,6 +384,13 @@
     </div>
 
     <script>
+
+        function mapUser(id){
+
+            $("#map_user_id").val(id);
+            $("#map_user_modal").modal("show");
+
+        }
 
         function updatePaymentStatus(id){
 
@@ -352,6 +459,16 @@
                     allowClear: true,
                     data: JSON.parse(available_udata)
             });
+
+             $("#referer-select2").select2({
+                    placeholder: "Select a parent user",
+                    allowClear: true,
+                    data: JSON.parse(available_udata)
+            });
+            $('#table_pending_users').DataTable(
+
+            );
+
 
             $('#table_id').DataTable(
                 {

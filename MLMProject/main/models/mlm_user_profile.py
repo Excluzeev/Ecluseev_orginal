@@ -36,6 +36,7 @@ class UserProfile(BaseModel):
     group=models.IntegerField(default=0)
     payment_status=models.CharField(max_length=20,choices=PaymentStatus.choices,default=PaymentStatus.NOTPAID)
     hr_tree=JSONField(null=True)
+    is_manual_signup = models.BooleanField(default=False)
     class Meta:
         managed = True
         db_table = 'mlm_user_profile'

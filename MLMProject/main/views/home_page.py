@@ -29,20 +29,31 @@ class HomePage(View):
 
                 user_profile_obj_ds=User.objects.filter(is_superuser=False).all()
                 user_data=[]
+                pending_users=[]
                 available_user_data=[]
                 for user_obj in user_profile_obj_ds:
                     user_profile_obj=UserProfile.objects.get(auth_user_id=user_obj.id)
                     user_hr_ds=UserHierarchy.objects.filter(parent_id=user_obj.id)
+                    user_linked_ds=UserHierarchy.objects.filter(user_id=user_obj.id)
+                    # if a node has no parent and child, listout in pending users section
+                    if not user_linked_ds and user_hr_ds.count() == 0:
+                        pending_users.append({"id": user_obj.id, "email": user_obj.email, "first_name": user_obj.first_name,
+                                          "last_name": user_obj.last_name,
+                                          "date_joined": user_obj.date_joined,
+                                          "is_deletable": is_deletable})
+
                     is_deletable = False
                     if user_hr_ds.count() == 0 and user_profile_obj.payment_status == 'notpaid':
                         is_deletable=True
 
                     if user_hr_ds.count() != 2:
-                        is_deletable
                         available_user_data.append({"id": user_obj.id, "text": user_obj.first_name+" "+ user_obj.last_name})
-                    user_data.append({"id": user_obj.id,"email": user_obj.email, "first_name": user_obj.first_name, "last_name": user_obj.last_name, "payment_status": user_profile_obj.payment_status, "date_joined": user_obj.date_joined,"course": user_profile_obj.course,"is_deletable": is_deletable})
+
+                    if user_linked_ds or user_hr_ds.count() != 0: # Do not show the userunder users tab if the user is not yet linked
+                        user_data.append({"id": user_obj.id,"email": user_obj.email, "first_name": user_obj.first_name, "last_name": user_obj.last_name, "payment_status": user_profile_obj.payment_status, "date_joined": user_obj.date_joined,"course": user_profile_obj.course,"is_deletable": is_deletable})
 
                 context = {
+                    "pending_users" : pending_users,
                     "all_users": user_data,
                     "available_users": json.dumps(available_user_data)
                 }
@@ -50,6 +61,22 @@ class HomePage(View):
                 return HttpResponse(template.render(context, request))
             else:
                 return HttpResponse("Not authorized")
+    def map_user(request):
+        if request.method == 'POST':
+            referer_id = request.POST.get("referer_id")
+            user_id = request.POST.get("user_id")
+            print("user_id, referer_id",user_id,referer_id)
+            user_hr_ds = UserHierarchy.objects.filter(parent_id=referer_id)
+            if user_hr_ds.count() == 2:
+                messages.error(request, "Referer already has two users !")
+                return redirect("/dashboard")
+
+            # if a signup for has referer id, then need to link the user with his appropriate referer
+            if referer_id:
+                UserHierarchy.objects.create(user_id=user_id, parent_id=referer_id)
+
+        return redirect("/dashboard")
+
     def add_user(request):
         if request.method == 'POST':
             username = request.POST.get("email")

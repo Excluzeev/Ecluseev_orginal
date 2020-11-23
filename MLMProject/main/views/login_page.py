@@ -8,7 +8,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from main.models.mlm_user_profile import UserProfile
 from main.models.mlm_user_hierarchy import UserHierarchy
-
 class LoginPage(View):
 
     def login(request):
@@ -71,7 +70,7 @@ class LoginPage(View):
             new_user.last_name = last_name
             new_user.save()
 
-            UserProfile.objects.create(auth_user_id=new_user.id)
+            UserProfile.objects.create(auth_user_id=new_user.id,is_manual_signup=True)
 
             user = authenticate(username=username, password=password1)
             login(request, user)
