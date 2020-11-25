@@ -52,6 +52,10 @@
                 <a class="nav-link" data-toggle="tab" href="#menu1">Pending users</a>
               </li>
 
+                 <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu2">Notifications</a>
+              </li>
+
             </ul>
 
             <!-- Tab panes -->
@@ -123,14 +127,14 @@
                     {%  for user_obj in pending_users %}
                     <tr>
 
-                        <td><input type="checkbox" name="user_ids[]" class="user_id_checkbox" value="{{ user_obj.id }}"> {{ user_obj.id }}</td>
+                        <td> {{ user_obj.id }}</td>
                         <td>{{ user_obj.first_name }} {{ user_obj.last_name }}</td>
                         <td>{{ user_obj.email }}</td>
 
                         <td>{{ user_obj.date_joined }}</td>
 
                         <td>
-                            <button onClick="mapUser({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="Update Payment status">
+                            <button onClick="mapUser({{ user_obj.id }})" style="min-width:50px;" class="btn mlm-btn mlm-bg-color" title="Add user into a group">
                                 <i class="fa fa-link"></i>
                             </button>
 
@@ -147,6 +151,51 @@
             </table>
 
                  </div>
+
+
+                 <div class="tab-pane  fade" id="menu2">
+
+                    <table id="table_notifications" class="display">
+                        <thead>
+                            <tr>
+                                <th>Tag</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Date & Time</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%  for notify_obj in notifications %}
+                            <tr>
+                                <td>
+                                    {% if notify_obj.tag == 'important' %}
+                                     <div style="text-transform: uppercase;" class="bg-danger text-center text-white">
+                                        {{ notify_obj.tag }}
+                                    </div>
+                                    {%  else %}
+                                    <div style="text-transform: uppercase;" class="bg-info text-center text-white">
+                                        {{ notify_obj.tag }}
+                                    </div>
+
+                                    {%  endif %}
+
+                                </td>
+                                <td>{{ notify_obj.subject }}</td>
+                                <td>{{ notify_obj.message }}</td>
+
+                                <td>{{ notify_obj.created_on }}</td>
+
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                 </div>
+
+
             </div>
 
         </div>
@@ -466,6 +515,10 @@
                     data: JSON.parse(available_udata)
             });
             $('#table_pending_users').DataTable(
+
+            );
+
+             $('#table_notifications').DataTable(
 
             );
 

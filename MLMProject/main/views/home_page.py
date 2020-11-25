@@ -18,6 +18,7 @@ from main.models.mlm_user_hierarchy import UserHierarchy
 from helper import get_user_hierarchy,get_paid_child,get_root_node,get_depth,get_all_child
 from main.models.mlm_groups import Group
 from main.models.mlm_user_hierarchy import UserHierarchy
+from main.models.mlm_notification import Notification
 class HomePage(View):
 
     def dashboard(request):
@@ -27,7 +28,7 @@ class HomePage(View):
             if request.user.is_superuser:
                 template = loader.get_template('home/dashboard_page.html')
 
-                user_profile_obj_ds=User.objects.filter(is_superuser=False).all()
+                user_profile_obj_ds=User.objects.filter(is_superuser=False).order_by('date_joined').all()
                 user_data=[]
                 pending_users=[]
                 available_user_data=[]
@@ -35,27 +36,31 @@ class HomePage(View):
                     user_profile_obj=UserProfile.objects.get(auth_user_id=user_obj.id)
                     user_hr_ds=UserHierarchy.objects.filter(parent_id=user_obj.id)
                     user_linked_ds=UserHierarchy.objects.filter(user_id=user_obj.id)
-                    # if a node has no parent and child, listout in pending users section
-                    if not user_linked_ds and user_hr_ds.count() == 0:
-                        pending_users.append({"id": user_obj.id, "email": user_obj.email, "first_name": user_obj.first_name,
-                                          "last_name": user_obj.last_name,
-                                          "date_joined": user_obj.date_joined,
-                                          "is_deletable": is_deletable})
 
                     is_deletable = False
                     if user_hr_ds.count() == 0 and user_profile_obj.payment_status == 'notpaid':
                         is_deletable=True
 
-                    if user_hr_ds.count() != 2:
-                        available_user_data.append({"id": user_obj.id, "text": user_obj.first_name+" "+ user_obj.last_name})
+                    if user_hr_ds.count() != 2 and user_linked_ds: # USer should be part of structure already
+                        available_user_data.append({"id": user_obj.id, "text": user_obj.first_name+" "+ user_obj.last_name+" ( "+user_obj.date_joined.strftime("%d %B %Y")+" )"})
 
                     if user_linked_ds or user_hr_ds.count() != 0: # Do not show the userunder users tab if the user is not yet linked
                         user_data.append({"id": user_obj.id,"email": user_obj.email, "first_name": user_obj.first_name, "last_name": user_obj.last_name, "payment_status": user_profile_obj.payment_status, "date_joined": user_obj.date_joined,"course": user_profile_obj.course,"is_deletable": is_deletable})
 
+                    # if a node has no parent and child, listout in pending users section
+                    if not user_linked_ds and user_hr_ds.count() == 0:
+                        pending_users.append(
+                            {"id": user_obj.id, "email": user_obj.email, "first_name": user_obj.first_name,
+                             "last_name": user_obj.last_name,
+                             "date_joined": user_obj.date_joined,
+                             "is_deletable": is_deletable})
+
+                notifications = Notification.objects.filter(is_to_admin=True).order_by('-created_on')
                 context = {
                     "pending_users" : pending_users,
                     "all_users": user_data,
-                    "available_users": json.dumps(available_user_data)
+                    "available_users": json.dumps(available_user_data),
+                    "notifications": notifications
                 }
 
                 return HttpResponse(template.render(context, request))
@@ -220,6 +225,8 @@ class HomePage(View):
                     group_ds=Group.objects.filter(user_id=root_node.id)
                     if not group_ds:
                         Group.objects.create(user_id=root_node.id,created_on=timezone.now(),created_by=user_name)
+                        msg=" %s (%s) successfully completed the structure. All the users in the structure paid the fee."%(root_node.first_name+" "+root_node.last_name,root_node.email)
+                        Notification.objects.create(subject="Structure completed!",message=msg,is_to_admin=True)
 
         return redirect('/dashboard')
 

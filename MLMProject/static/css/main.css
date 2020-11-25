@@ -165,7 +165,7 @@ ul.messages {
 .stat-item span{
     font-weight: bold;
 }
-#table_pending_users_wrapper {
+#table_pending_users_wrapper, #table_notifications_wrapper {
     overflow: auto;
     background: #fff;
     padding: 10px;
